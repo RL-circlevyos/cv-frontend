@@ -42,7 +42,7 @@ function Navbar() {
                   </div>
                 </div>
               </div>
-              <div className="hidden items-start md:flex w-1/3">
+              <div className="hidden items-baseline justify-end md:flex w-1/3">
                 <div className=" flex items-center justify-center">
                   <div
                     className="flex items-center gap-1 mt-1 hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"

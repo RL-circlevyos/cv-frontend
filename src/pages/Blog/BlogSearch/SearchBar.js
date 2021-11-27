@@ -49,7 +49,7 @@ function SearchBar({ placeholder, data }) {
         ) : (
           <button
             onClick={showSearchBar}
-            className="mx-5 my-3 px-6 py-1 rounded-2xl text-primary border border-primary hover:bg-teal-800 hover:text-gray-100"
+            className="mx-12 my-3 px-6 py-1 rounded-2xl text-primary border border-primary hover:bg-teal-800 hover:text-gray-100"
           >
             Search
           </button>
@@ -108,7 +108,7 @@ function SearchBar({ placeholder, data }) {
             </Transition>
           </div>
         ) : (
-          <div className="flex items-center space-x-2 mt-2">
+          <div className="flex items-center space-x-2 mt-4 pr-5">
             <Tag tagname="tag 1" />
             <Tag tagname="tag 1" />
             <Tag tagname="tag 1" />
