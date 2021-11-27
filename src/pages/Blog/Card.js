@@ -18,7 +18,7 @@ const Card = ({ num }) => {
   return (
     <>
       <div
-        class="relative h-60 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-md"
+        class="relative h-48 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-md"
         style={{ backgroundImage: `url(${src})` }}
       >
         <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-900"></div>
