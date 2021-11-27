@@ -84,7 +84,7 @@ const Sidebar = () => {
                   <NavLink
                     onClick={handleClose}
                     to="/"
-                    className="flex items-center py-2.5 px-4 mt-10  gap-2  ml-6 mr-6 rounded-3xl transition duration-200 bg-primary text-gray-100
+                    className="flex items-center py-2.5 px-4 mt-10  gap-2  ml-3 mr-6 rounded-3xl transition duration-200 bg-primary text-gray-100
                      focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
                   >
                     <ClipboardListIcon className="h-6 w-6" /> Create Blog
@@ -92,7 +92,7 @@ const Sidebar = () => {
                   <NavLink
                     onClick={handleClose}
                     to="/"
-                    className="flex items-center py-2.5 gap-2 px-4 mt-1 ml-6 mr-6 rounded-3xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                    className="flex items-center py-2.5 gap-2 px-4 mt-1 ml-3 mr-6 rounded-3xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
                   >
                     <LightningBoltIcon className="h-6 w-6" /> Create Imagine
                   </NavLink>
