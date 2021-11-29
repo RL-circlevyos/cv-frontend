@@ -2,13 +2,13 @@ import React from "react";
 
 const User = ({ src, fullname, bgColor }) => {
   return (
-    <div className="flex flex-col items-center w-14 h-14">
+    <div className="flex flex-col items-center w-16 h-16">
       <img
         src={src}
         alt="pics"
-        className=" w-10 h-10 rounded-full object-cover"
+        className=" w-12 h-12 rounded-full object-cover"
       />
-      <span className="text-xxs italic font-bold text-gray-900">
+      <span className="text-xs italic font-medium text-gray-900">
         {fullname}
       </span>
     </div>

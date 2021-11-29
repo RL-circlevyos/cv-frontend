@@ -1,6 +1,6 @@
 
 .slider {
-  padding: 10px 5px;
+  padding: 7px 5px;
 }
 
 .slick-list {
@@ -16,8 +16,7 @@
 }
 
 .slide-content {
-  height: 470px;
-  background-color: rgba(233, 230, 230, 0.856);
+  height: 500px;
   border-radius: 5px;
   transform: scale(0.9);
   transition: transform ease .3s;

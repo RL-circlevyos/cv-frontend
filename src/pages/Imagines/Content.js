@@ -2,8 +2,8 @@ import React from "react";
 
 const Content = () => {
   return (
-    <div className="mt-2 space-y-2 block text-sm">
-      <div className="text-xl font-Libre px-5">Here is the title</div>
+    <div className="mt-2 space-y-2 block text-sm font-Mulish">
+      <div className="text-xl font-bold px-5">Here is the title</div>
       <div className="flex items-start justify-center gap-2 px-4">
         <img
           src="https://images.unsplash.com/photo-1613203713329-b2e39e14c266?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
@@ -13,7 +13,7 @@ const Content = () => {
         <span>
           It is a long established fact that a reader will be distracted by the
           readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a
+          using Lorem Ipsum is that it has.
         </span>
       </div>
       <div className=" px-4">
@@ -26,7 +26,7 @@ const Content = () => {
           frg
         </span>
       </div>
-      <div className="flex items-start justify-center gap-4 px-4">
+      <div className="flex items-start justify-center gap-4 px-4 pb-3">
         <span>
           It is a long established fact that a reader will be distracted by the
           readable content of a page when looking at its layout. The point of

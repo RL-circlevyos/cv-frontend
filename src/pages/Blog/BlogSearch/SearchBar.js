@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
-import { SearchIcon, XIcon } from "@heroicons/react/solid";
+import { SearchIcon, XCircleIcon, XIcon } from "@heroicons/react/solid";
 import { Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
-import Tag from "./../../../components/Tag";
 
 function SearchBar({ placeholder, data }) {
   const [filteredData, setFilteredData] = useState([]);
@@ -40,22 +38,20 @@ function SearchBar({ placeholder, data }) {
     <>
       <div className="search flex justify-between items-start md:flex-nowrap flex-wrap">
         {showSearch ? (
-          <button
+          <XCircleIcon
+            className="h-7 w-7 text-red-900 cursor-pointer"
             onClick={closeSearchBar}
-            className="mx-5 my-3 px-10 py-1 rounded-2xl text-red-600 border border-red-700 hover:bg-red-800 hover:text-gray-100"
-          >
-            Close
-          </button>
+          />
         ) : (
           <button
             onClick={showSearchBar}
-            className="mx-12 my-3 px-6 py-1 rounded-2xl text-primary border border-primary hover:bg-teal-800 hover:text-gray-100"
+            className="mx-12 my-3 px-6 w-40 rounded-2xl text-primary border border-primary hover:bg-teal-800 hover:text-gray-100"
           >
             Search
           </button>
         )}
-        {showSearch ? (
-          <div className=" md:w-5/12 w-full flex flex-col bg-greyish-50 rounded-b-2xl">
+        {showSearch && (
+          <div className=" w-full flex flex-col bg-greyish-50 rounded-b-2xl relative">
             <div className="w-full flex items-center">
               {" "}
               <input
@@ -87,18 +83,18 @@ function SearchBar({ placeholder, data }) {
               leaveTo="opacity-0 scale-95"
             >
               {(ref) => (
-                <div>
+                <div className="absolute z-50">
                   {filteredData.length !== 0 && (
-                    <div ref={ref} className="dataResult w-full">
+                    <div ref={ref} className="dataResult w-9/12 ">
                       {filteredData.slice(0, 15).map((value, key) => {
                         return (
-                          <Link
-                            className="dataItem"
-                            to={value.link}
+                          <a
+                            className="dataItem hover:bg-greyish-300 bg-grey-100"
+                            href={value.link}
                             target="_blank"
                           >
                             <p>{value.title} </p>
-                          </Link>
+                          </a>
                         );
                       })}
                     </div>
@@ -106,17 +102,6 @@ function SearchBar({ placeholder, data }) {
                 </div>
               )}
             </Transition>
-          </div>
-        ) : (
-          <div className="flex items-center space-x-2 mt-4 pr-5">
-            <Tag tagname="tag 1" />
-            <Tag tagname="tag 1" />
-            <Tag tagname="tag 1" />
-            <Tag tagname="tag 1" />
-            <Tag tagname="tag 1" />
-            <Tag tagname="tag 1" />
-            <Tag tagname="tag 1" />
-            <Tag tagname="tag 1" />
           </div>
         )}
         <div></div>

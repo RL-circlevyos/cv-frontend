@@ -5,7 +5,10 @@ import useDarkMode from "./../hooks/useDarkMode";
 import { Power } from "react-feather";
 import {
   BellIcon,
+  BriefcaseIcon,
+  CogIcon,
   CurrencyRupeeIcon,
+  HomeIcon,
   MoonIcon,
   PencilAltIcon,
   PresentationChartLineIcon,
@@ -16,50 +19,36 @@ import {
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [colorTheme, setTheme] = useDarkMode();
+
   return (
     <div>
-      <nav className="bg-gray-100 text-teal-600">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="bg-gray-100 text-teal-600 ">
+        <div className="w-full mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center justify-between w-full">
               <div className="flex-shrink-0">
                 <img className="h-14 w-14" src={logo} alt="logo" />
               </div>
-              <div className="hidden  md:block w-1/2">
+              <div className="hidden  md:block ">
                 <div className="flex items-center gap-2 justify-center">
+                  <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
+                    <HomeIcon className="h-6 w-6" />
+                    <b className="sm:block hidden text-sm">clubs</b>
+                  </div>
+
                   <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
                     <PencilAltIcon className="h-6 w-6" />
                     <b className="sm:block hidden text-sm">blogs</b>
                   </div>
 
                   <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
-                    <CurrencyRupeeIcon className="h-6 w-6" />
-                    <b className="sm:block hidden text-sm">solve & earn</b>
-                  </div>
-                  <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
-                    <PresentationChartLineIcon className="h-6 w-6" />
+                    <BriefcaseIcon className="h-6 w-6" />
                     <b className="sm:block hidden text-sm">marketplace</b>
                   </div>
                 </div>
               </div>
-              <div className="hidden items-baseline justify-end md:flex w-1/3">
+              <div className="hidden items-baseline justify-end md:flex">
                 <div className=" flex items-center justify-center">
-                  <div
-                    className="flex items-center gap-1 mt-1 hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
-                    onClick={() => setTheme(colorTheme)}
-                  >
-                    {colorTheme === "light" ? (
-                      <span className="flex items-center gap-1">
-                        <MoonIcon className="h-6 w-6" />
-                        <b className="sm:block hidden text-sm ">dark</b>
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-1">
-                        <SunIcon className="h-6 w-6" />
-                        <b className="sm:block hidden text-sm ">light</b>
-                      </span>
-                    )}
-                  </div>
                   <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
                     <BellIcon className="h-6 w-6" />
                     <b className="sm:block hidden text-sm">notifications</b>
@@ -69,9 +58,42 @@ function Navbar() {
                     <UserCircleIcon className="h-6 w-6" />
                     <b className="sm:block hidden text-sm">user</b>
                   </div>
-                  <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
-                    <Power />
-                    <b className="sm:block hidden text-sm">logout</b>
+
+                  <div class="dropdown inline-block relative hover:bg-greyish-200">
+                    <button class=" text-primary py-2 px-4 rounded inline-flex items-center">
+                      <CogIcon className="h-6 w-6" />
+                      <b className="sm:block hidden text-sm">settings</b>
+                    </button>
+                    <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+                      <li class="">
+                        <div
+                          className="flex items-center gap-1 mt-1 rounded-b bg-gray-100 hover:bg-gray-300 text-primary py-2 px-4 
+                           whitespace-no-wrap cursor-pointer transition duration-500 linear rounded-md text-sm font-medium"
+                          onClick={() => setTheme(colorTheme)}
+                        >
+                          {colorTheme === "light" ? (
+                            <span className="flex items-center gap-1">
+                              <MoonIcon className="h-6 w-6" />
+                              <b className="sm:block hidden text-sm ">dark</b>
+                            </span>
+                          ) : (
+                            <span className="flex items-center gap-1">
+                              <SunIcon className="h-6 w-6" />
+                              <b className="sm:block hidden text-sm ">light</b>
+                            </span>
+                          )}
+                        </div>
+                      </li>
+                      <li class="">
+                        <div
+                          className="flex items-center gap-1 rounded-b bg-gray-100 hover:bg-gray-300 text-primary py-2 px-4 
+                           whitespace-no-wrap cursor-pointer transition duration-500 linear text-sm font-medium"
+                        >
+                          <Power />
+                          <b className="sm:block hidden text-sm">logout</b>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>

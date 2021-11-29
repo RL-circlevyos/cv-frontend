@@ -12,11 +12,12 @@ const Blog = () => {
   return (
     <div>
       {" "}
-      <div>
-        <SearchBar placeholder="Enter a Blog Name..." data={BookData} />
-      </div>
+      {/* <div>
+       
+      </div> */}
       <div className="max-w-large gap-x-10 mx-auto grid md:grid-cols-3 px-4 ">
-        <div>
+        <div className="">
+          <SearchBar placeholder="Search blogs...." data={BookData} />
           <Sidebar />
         </div>
         <div className="pt-1 px-1 py-4">
@@ -43,9 +44,13 @@ const Blog = () => {
           </div>
 
           <div className="space-y-3">
-            <span className="text-3xl flex items-center text-yellow-900 px-2 justify-center font-Libre">
-              <LightningBoltIcon className="h-7 w-7 mr-2" /> Imagines
+            <span className="w-2/3">
+              <span className="text-3xl flex items-center text-yellow-900 px-2 justify-center font-Libre">
+                <LightningBoltIcon className="h-7 w-7 mr-2" /> Imagines
+              </span>
+              <span className="float-right">All</span>
             </span>
+
             <List />
           </div>
         </div>

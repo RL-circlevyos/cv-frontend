@@ -12,6 +12,7 @@ import "slick-carousel/slick/slick-theme.css";
 // import MyView from "./pages/MyView/MyView";
 import Blog from "./pages/Blog/Blog";
 import Imagine from "./pages/Imagines/Imagine";
+import SingleBlog from "./pages/Blog/SingleBlog/SingleBlog";
 
 const userId = true;
 
@@ -38,6 +39,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Blog />} />
               <Route path="/imagines" element={<Imagine />} />
+              <Route path="/singleblog" element={<SingleBlog />} />
             </Routes>
           </div>
         </div>

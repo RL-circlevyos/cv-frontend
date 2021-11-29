@@ -37,11 +37,12 @@
   }
   
   .dataResult .dataItem {
-    width: 100%;
+    width: 500px;
     height: 50px;
     display: flex;
     align-items: center;
     color: black;
+    
   }
   
   .dataItem p {
