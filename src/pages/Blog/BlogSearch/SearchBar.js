@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
 import { SearchIcon, XCircleIcon, XIcon } from "@heroicons/react/solid";
-import { Transition } from "@headlessui/react";
 
 function SearchBar({ placeholder, data }) {
   const [filteredData, setFilteredData] = useState([]);
@@ -73,35 +72,23 @@ function SearchBar({ placeholder, data }) {
                 )}
               </div>
             </div>
-            <Transition
-              show={true}
-              enter="transition ease-out duration-500 transform"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="transition ease-in duration-500 transform"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              {(ref) => (
-                <div className="absolute z-50">
-                  {filteredData.length !== 0 && (
-                    <div ref={ref} className="dataResult w-9/12 ">
-                      {filteredData.slice(0, 15).map((value, key) => {
-                        return (
-                          <a
-                            className="dataItem hover:bg-greyish-300 bg-grey-100"
-                            href={value.link}
-                            target="_blank"
-                          >
-                            <p>{value.title} </p>
-                          </a>
-                        );
-                      })}
-                    </div>
-                  )}
+
+            <div className="absolute z-50 mt-16">
+              {filteredData.length !== 0 && (
+                <div className="dataResult w-9/12 ">
+                  {filteredData.slice(0, 15).map((value, key) => {
+                    return (
+                      <div
+                        className="dataItem hover:bg-greyish-300 bg-grey-100"
+                        onClick={() => window.open(value.link, "_blank")}
+                      >
+                        <p>{value.title} </p>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
-            </Transition>
+            </div>
           </div>
         )}
         <div></div>

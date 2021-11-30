@@ -11,11 +11,7 @@ const Card = () => {
   return (
     <div className="w-full space-x-2 flex items-start justify-center shadow-sm">
       <div className="w-2/5 h-32 bg-gray-50">
-        <img
-          src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-          alt="pic"
-          className="h-full w-full object-contain "
-        />
+        <img src={src} alt="pic" className="h-full w-full object-contain " />
       </div>
       <div className="flex flex-col w-3/5 ">
         <div className="flex items-center pt-3 space-x-2">

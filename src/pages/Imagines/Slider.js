@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 import Card from "./Card";
-import "./Imagine.css";
+import "./Slider.css";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;

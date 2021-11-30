@@ -1,6 +1,5 @@
 import { SearchIcon } from "@heroicons/react/solid";
 import React from "react";
-import { Search } from "react-feather";
 
 const SearchField = ({ placeholder }) => {
   return (
