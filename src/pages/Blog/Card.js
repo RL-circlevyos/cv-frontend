@@ -18,22 +18,22 @@ const Card = ({ num }) => {
   return (
     <>
       <div
-        class="relative h-48 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-md"
+        class="relative h-48 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-lg"
         style={{ backgroundImage: `url(${src})` }}
       >
-        <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-900"></div>
-        <div class="absolute top-0 right-0 left-0 flex justify-between items-center bg-greyish-100  rounded-lg mx-3">
+        <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-900 rounded-lg"></div>
+        <div class="absolute top-0 right-0 left-0 flex justify-between items-center bg-glass  rounded-lg mx-3">
           <div className="flex items-center space-x-2 px-3 py-3">
             <img src={src} alt="dp" className="w-9 h-9 rounded-full" />
             <span className="flex flex-col font-medium items-start  space-y-1">
               <span className="text-sm text-gray-900">
                 Aindrila Bhattacharjee
               </span>
-              <span className="text-xs text-gray-500">- nov 25, 2021</span>
+              <span className="text-xs text-gray-700">- nov 25, 2021</span>
             </span>
           </div>
-          <div className="flex items-center space-x-5 pr-3">
-            <span className="block text-xs">
+          <div className="flex items-start space-x-5 pr-3">
+            <span className="block space-y-1 text-xs">
               <span className="cursor-pointer" onClick={clickLikeHandler}>
                 {like ? (
                   <LightBulbIcon className="h-7 w-7 text-yellow-500" />
@@ -63,7 +63,7 @@ const Card = ({ num }) => {
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 text-blue-800"
+                    className="h-6 w-6 text-blue-800"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

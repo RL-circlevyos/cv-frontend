@@ -43,10 +43,14 @@ module.exports = {
       purple: colors.purple,
       indigo: colors.indigo,
       primary: "#009E82",
+      glass: "rgb(230, 228, 231, 0.8)",
+      blackish: "rgb(0, 0, 0, 0.7)",
+      white: "#ffffff",
     },
     extend: {
       fontFamily: {
         Libre: ["Libre Baskerville", "serif"],
+        Mulish: ["Mulish", "sans-serif"],
       },
     },
   },

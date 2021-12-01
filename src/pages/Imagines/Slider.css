@@ -1,0 +1,23 @@
+
+.slider {
+  padding: 7px 5px;
+}
+
+.slick-list {
+  overflow: visible;
+}
+
+.slick-current .slide-content {
+  transform: scale(1.05);
+}
+
+.slick-slide {
+  padding: 0 5px;
+}
+
+.slide-content {
+  height: 500px;
+  border-radius: 5px;
+  transform: scale(0.9);
+  transition: transform ease .3s;
+}
