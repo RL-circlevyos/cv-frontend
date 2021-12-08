@@ -21,7 +21,7 @@ const PrevArrow = ({ onClick }) => {
   );
 };
 
-const ImagineSlider = ({ slidesToShow = 3 }) => {
+const ImagineSlider = ({ slidesToShow = 3, openCommentBox }) => {
   const [imagineIndex, setImagineIndex] = useState(0);
 
   const settings = {
@@ -61,7 +61,11 @@ const ImagineSlider = ({ slidesToShow = 3 }) => {
         key={imagine.id}
       >
         <div className="slideWrapper">
-          <Card post={imagine} styles=" lg:h-full max-w-base px-4  mt-2" />
+          <Card
+            openCommentBox={openCommentBox}
+            post={imagine}
+            styles=" lg:h-full max-w-base px-4  mt-2"
+          />
         </div>
       </div>
     );

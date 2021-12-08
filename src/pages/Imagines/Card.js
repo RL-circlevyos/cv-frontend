@@ -3,7 +3,7 @@ import Content from "./Content";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Card = ({ post, styles }) => {
+const Card = ({ post, styles, openCommentBox }) => {
   return (
     <section className={`${styles}`}>
       <div class="slider h-full w-full">
@@ -16,7 +16,7 @@ const Card = ({ post, styles }) => {
           </div>
         </div>
         <div className="pt-4 bottom-0">
-          <Footer />
+          <Footer openCommentBox={openCommentBox} />
         </div>
       </div>
     </section>

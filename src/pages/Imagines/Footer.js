@@ -5,7 +5,7 @@ import {
 } from "@heroicons/react/solid";
 import React, { useState } from "react";
 
-const Footer = () => {
+const Footer = ({ openCommentBox }) => {
   const [like, setLike] = useState(false);
   const clickLikeHandler = () => {
     setLike(!like);
@@ -38,7 +38,10 @@ const Footer = () => {
       </span>
       <span className="flex items-center space-x-1 text-xs">
         <span className="cursor-pointer">
-          <BookOpenIcon className="h-7 w-7 text-gray-600" />
+          <BookOpenIcon
+            className="h-7 w-7 text-gray-600"
+            onClick={openCommentBox}
+          />
         </span>
         <span className="flex">
           {" "}
