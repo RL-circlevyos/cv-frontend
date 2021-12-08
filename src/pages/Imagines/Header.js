@@ -35,7 +35,7 @@ const Header = () => {
         </span>
         <span className="cursor-pointer" onClick={clickBookmarkHandler}>
           {bookmark ? (
-            <BookmarkIcon className="h-6 w-6 text-blue-800" />
+            <BookmarkIcon className="h-6 w-6 text-primary" />
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
