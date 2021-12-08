@@ -44,17 +44,17 @@ function SearchBar({ placeholder, data }) {
         ) : (
           <button
             onClick={showSearchBar}
-            className="mx-12 my-3 px-6 w-40 rounded-2xl text-primary border border-primary hover:bg-teal-800 hover:text-gray-100"
+            className="mx-12 my-3 px-6 w-40 rounded-2xl text-primary border border-primary shadow hover:shadow-md"
           >
             Search
           </button>
         )}
         {showSearch && (
-          <div className=" w-full flex flex-col bg-greyish-50 rounded-b-2xl relative">
+          <div className=" w-full flex flex-col bg-greyish-50 rounded-b-2xl relative shadow-md">
             <div className="w-full flex items-center">
               {" "}
               <input
-                className="w-full bg-greyish-50 px-5"
+                className="w-full bg-greyish-50 px-5 "
                 type="text"
                 placeholder={placeholder}
                 value={wordEntered}
@@ -62,6 +62,7 @@ function SearchBar({ placeholder, data }) {
               />
               <div className="searchIcon">
                 {filteredData.length === 0 ? (
+                  // TODO: add button backgroud
                   <SearchIcon className="h-7 w-7" />
                 ) : (
                   <XIcon

@@ -6,16 +6,24 @@ const Leaders = () => {
   return (
     <div class="pt-1 h-auto w-2/3 float-right rounded-md">
       <span className="flex justify-between items-center px-1 py-1 text-base">
-        <span className="font-bold text-gray-800 underline">
-          BLOG LEADERS 2021
+        <span className=" text-gray-800 ">
+          Content Leaders{" "}
+          <span className="font-semibold ml-2 shadow-md bg-transparent p-1 rounded-md">
+            2021
+          </span>
         </span>
+
         <span>
-          <button className="px-2 py-1 text-xs bg-yellow-900 text-gray-50 rounded-2xl">
+          <button className="px-3 py-2 text-xs bg-yellow-900 text-gray-50 rounded-2xl">
             Leaderboard
           </button>
         </span>
       </span>
-      <span className="flex items-start justify-center space-x-1 gap-y-3 max flex-wrap pt-2 pb-2">
+      <hr />
+      <span className="flex items-start justify-center space-x-1 gap-y-3 max flex-wrap pt-1.5 pb-1.5">
+        <User src={src} fullname="Aindrila " />
+        <User src={src} fullname="Aindrila " />
+        <User src={src} fullname="Aindrila " />
         <User src={src} fullname="Aindrila " />
         <User src={src} fullname="Aindrila " />
         <User src={src} fullname="Aindrila " />
@@ -24,6 +32,7 @@ const Leaders = () => {
         <User src={src} fullname="Aindrila " />
         <User src={src} fullname="Aindrila " />
       </span>
+      <hr />
     </div>
   );
 };

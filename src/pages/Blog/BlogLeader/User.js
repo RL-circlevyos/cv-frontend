@@ -8,9 +8,7 @@ const User = ({ src, fullname, bgColor }) => {
         alt="pics"
         className=" w-12 h-12 rounded-full object-cover"
       />
-      <span className="text-xs italic font-medium text-gray-900">
-        {fullname}
-      </span>
+      <span className="text-xs mt-1 font-medium text-gray-900">{fullname}</span>
     </div>
   );
 };
