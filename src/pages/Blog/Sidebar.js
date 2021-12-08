@@ -84,17 +84,18 @@ const Sidebar = () => {
                   <NavLink
                     onClick={handleClose}
                     to="/"
-                    className="flex items-center py-2.5 px-4 mt-10  gap-2  ml-3 mr-6 rounded-3xl transition duration-200 bg-primary text-gray-100
+                    className="flex items-center py-1.5 px-2 pl-4 mt-10  gap-1  ml-5 mr-8 rounded-3xl transition duration-200 bg-primary text-gray-100
                      focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
                   >
-                    <ClipboardListIcon className="h-6 w-6" /> Create Blog
+                    <ClipboardListIcon className="h-6 w-6 ml-3" /> Create Blog
                   </NavLink>
                   <NavLink
                     onClick={handleClose}
                     to="/"
-                    className="flex items-center py-2.5 gap-2 px-4 mt-1 ml-3 mr-6 rounded-3xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                    className="flex items-center py-1.5 px-2 pl-1 mt-10  gap-1  ml-5 mr-8 rounded-3xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
                   >
-                    <LightningBoltIcon className="h-6 w-6" /> Create Imagine
+                    <LightningBoltIcon className="h-6 w-6 ml-3" /> Create
+                    Imagine
                   </NavLink>
                 </div>
                 <div>

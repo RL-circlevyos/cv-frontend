@@ -6,7 +6,7 @@ const Leaders = () => {
   return (
     <div class="pt-1 h-auto w-2/3 float-right rounded-md">
       <span className="flex justify-between items-center px-1 py-1 text-base">
-        <span className="font-bold text-blue-800 underline">
+        <span className="font-bold text-gray-800 underline">
           BLOG LEADERS 2021
         </span>
         <span>

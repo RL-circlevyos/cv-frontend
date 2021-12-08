@@ -7,33 +7,39 @@ const Header = () => {
     setBookmark(!bookmark);
   };
   return (
-    <div className=" flex justify-evenly items-start">
-      <div className="flex flex-col items-start">
-        <div className="flex items-center space-x-2">
-          <img
-            src="https://images.unsplash.com/photo-1637867165026-5725fe9fb052?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
-            alt="dp"
-            className="w-5 h-5 rounded-full object-cover"
-          />
-          <span className="text-tiny text-gray-900">User Name</span>
-          <span className="text-sky-500 text-tiny cursor-pointer">Follow</span>
+    <div className=" flex justify-between items-start px-3">
+      <div className="flex items-center space-x-2">
+        <img
+          src="https://images.unsplash.com/photo-1637867165026-5725fe9fb052?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
+          alt="dp"
+          className="w-6 h-6 rounded-full object-cover"
+        />
+        <div className="flex flex-col items-start">
+          <div className="flex items-center space-x-2">
+            <span className="text-tiny font-semibold text-gray-900">
+              User Name
+            </span>
+            <span className="text-sky-500 text-tiny cursor-pointer">
+              Follow
+            </span>
+          </div>
+          <div className="text-xxs text-gray-500">Published 23 Nov, 2021.</div>
         </div>
-        <div className="text-tiny text-gray-500">Published 23 Nov, 2021.</div>
       </div>
       <div className="text-sky-500 text-tiny">Story</div>
-      <div className="flex items-center space-x-5 text-gray-400">
+      <div className="flex items-start space-x-5 text-gray-400">
         <ShareIcon className="h-5 w-5 cursor-pointer" />
         <span className="block">
           <EyeIcon className="h-5 w-5" />
-          <span className="text-tiny italic">12k</span>
+          <span className="text-xs italic">12k</span>
         </span>
         <span className="cursor-pointer" onClick={clickBookmarkHandler}>
           {bookmark ? (
-            <BookmarkIcon className="h-7 w-7 text-blue-800" />
+            <BookmarkIcon className="h-6 w-6 text-primary" />
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-7 w-7 text-gray-400"
+              className="h-5 w-5 text-gray-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

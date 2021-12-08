@@ -1,55 +1,73 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
+import posts from "./Demo.json";
+import "./Slider.css";
+import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/solid";
 import Card from "./Card";
-import "./Imagine.css";
 
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
+const NextArrow = ({ onClick }) => {
   return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "red" }}
-      onClick={onClick}
-    />
+    <div className="nextArrow" onClick={onClick}>
+      <ChevronRightIcon className="h-8 w-8" />
+    </div>
   );
-}
+};
 
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
+const PrevArrow = ({ onClick }) => {
   return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "green" }}
-      onClick={onClick}
-    />
+    <div className="prevArrow" onClick={onClick}>
+      <ChevronLeftIcon className="h-8 w-8" />
+    </div>
   );
-}
-export default class ImagineSlider extends Component {
-  render() {
-    const settings = {
-      dots: true,
-      slidesToScroll: 1,
-      className: "center",
-      centerMode: true,
-      infinite: true,
-      centerPadding: "60px",
-      slidesToShow: 3,
-      speed: 500,
-      nextArrow: <SampleNextArrow />,
-      prevArrow: <SamplePrevArrow />,
-    };
+};
+
+const ImagineSlider = ({ slidesToShow = 3 }) => {
+  const [imagineIndex, setImagineIndex] = useState(0);
+
+  const settings = {
+    centerMode: true,
+    infinite: true,
+    dots: false,
+    speed: 300,
+    slidesToShow: slidesToShow,
+    centerPadding: "0",
+    swipeToSlide: true,
+    focusOnSelect: true,
+    nextArrow: <NextArrow onClick />,
+    prevArrow: <PrevArrow onClick />,
+    beforeChange: (current, next) => setImagineIndex(next),
+    responsive: [
+      {
+        breakpoint: 1490,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 820,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  const templateImagines = posts.map((imagine, idx) => {
     return (
-      <div>
-        <Slider {...settings}>
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => {
-            return (
-              <div className="slider" key={index}>
-                <Card num={item} />
-              </div>
-            );
-          })}
-        </Slider>
+      <div
+        className={idx === imagineIndex ? "activeSlide" : "slide"}
+        key={imagine.id}
+      >
+        <div className="slideWrapper">
+          <Card post={imagine} styles=" lg:h-full max-w-base px-4  mt-2" />
+        </div>
       </div>
     );
-  }
-}
+  });
+
+  return <Slider {...settings}>{templateImagines}</Slider>;
+};
+
+export default React.memo(ImagineSlider);

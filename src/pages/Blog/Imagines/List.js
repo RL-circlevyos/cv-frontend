@@ -8,7 +8,7 @@ const List = () => {
       <Scrollbars
         thumbSize={1}
         autoHide
-        style={{ width: "100%", height: "49vh" }}
+        style={{ width: "100%", height: "55vh" }}
       >
         <div className="space-y-3 w-4/6 float-right">
           <Card />
