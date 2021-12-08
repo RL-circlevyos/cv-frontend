@@ -57,14 +57,14 @@ const Sidebar = () => {
           </div>
           <hr className="text-gray-700 md:hidden" />
 
-          <nav className="text-base font-semibold mt-2 space-y-2">
+          <nav className="text-base font-semibold mt-2 space-y-2 px-4">
             {isJoined && (
               <>
                 <NavLink
                   onClick={handleClose}
                   exact
                   to="/frequents"
-                  className="block py-2.5 px-4 mt-1 rounded transition duration-200  focus:text-white focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                  className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
                 >
                   <span className="flex items-center space-x-2">
                     <PaperClipIcon className="w-6 h-6 mr-2" /> General
@@ -73,29 +73,28 @@ const Sidebar = () => {
                 <NavLink
                   onClick={handleClose}
                   to={`/myview`}
-                  className="block py-2.5 px-4 mt-1 rounded transition duration-200  focus:text-white focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                  className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
                 >
                   <span className="flex items-center space-x-2">
-                    <BookmarkAltIcon className="w-6 h-6 mr-2" /> Pinned
+                    <BookmarkAltIcon className="w-6 h-6 mr-2" /> Saved
                   </span>
                 </NavLink>
-                <div className="space-y-5">
+                <div className="space-y-5 ">
                   {" "}
                   <NavLink
                     onClick={handleClose}
                     to="/"
-                    className="flex items-center py-1.5 px-2 pl-4 mt-10  gap-1  ml-5 mr-8 rounded-3xl transition duration-200 bg-primary text-gray-100
-                     focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                    className="block py-2 px-10  rounded-2xl  mt-12   text-center transition duration-200 bg-primary text-gray-100
+                     focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100 "
                   >
-                    <ClipboardListIcon className="h-6 w-6 ml-3" /> Create Blog
+                    Create Blog
                   </NavLink>
                   <NavLink
                     onClick={handleClose}
                     to="/"
-                    className="flex items-center py-1.5 px-2 pl-1 mt-10  gap-1  ml-5 mr-8 rounded-3xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                    className="block py-2 px-10 mt-1  rounded-2xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
                   >
-                    <LightningBoltIcon className="h-6 w-6 ml-3" /> Create
-                    Imagine
+                    <div className=" text-center">Create Imagine</div>
                   </NavLink>
                 </div>
                 <div>
@@ -103,7 +102,7 @@ const Sidebar = () => {
                   <NavLink
                     onClick={handleClose}
                     to="/"
-                    className="flex items-center py-2.5 gap-2 px-4  ml-6 mr-8 mt-16 rounded transition duration-200 text-gray-100  bg-blue-800 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                    className="flex items-center py-2 gap-2 px-4  ml-6 mr-8 mt-32 rounded-2xl transition duration-200 text-gray-100  bg-yellow-600 focus:bg-yellow-500 dark:hover:bg-yello-900 hover:bg-yellow-800 hover:text-gray-100"
                   >
                     <FireIcon className="h-6 w-6" /> Premium
                   </NavLink>

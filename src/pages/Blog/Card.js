@@ -18,18 +18,18 @@ const Card = ({ num }) => {
   return (
     <>
       <div
-        class="relative h-48 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-lg"
+        class="relative h-52 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-lg"
         style={{ backgroundImage: `url(${src})` }}
       >
-        <div class="absolute top-0 mt-20 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-900 rounded-lg"></div>
-        <div class="absolute top-0 right-0 left-0 flex justify-between items-center bg-glass  rounded-lg mx-3">
+        <div class="absolute top-0 mt-16 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-900 rounded-lg"></div>
+        {/* <div class="absolute top-0 right-0 left-0 flex justify-between items-center bg-glass  rounded-lg mx-2">
           <div className="flex items-center space-x-2 px-3 py-3">
-            <img src={src} alt="dp" className="w-9 h-9 rounded-full" />
-            <span className="flex flex-col font-medium items-start  space-y-1">
-              <span className="text-sm text-gray-900">
+            <img src={src} alt="dp" className="w-11 h-11 rounded-full" />
+            <span className="flex flex-col font-medium items-start  space-y-1 px-2">
+              <span className="text-md text-black font-semibold">
                 Aindrila Bhattacharjee
               </span>
-              <span className="text-xs text-gray-700">- nov 25, 2021</span>
+              <span className="text-sm text-gray-700"> nov 25, 2021</span>
             </span>
           </div>
           <div className="flex items-start space-x-5 pr-3">
@@ -79,7 +79,7 @@ const Card = ({ num }) => {
               </span>
             </span>
           </div>
-        </div>
+        </div> */}
         <main class="p-5 z-10 text-gray-50">
           <Link
             to="#"

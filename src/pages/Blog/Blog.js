@@ -48,12 +48,14 @@ const Blog = () => {
 
             <div className="space-y-3">
               <span className="w-2/3">
-                <span className="text-3xl flex items-center text-yellow-900 px-2 justify-center font-Libre">
-                  <LightningBoltIcon className="h-7 w-7 mr-2" /> Imagines
+                <span className=" flex  items-center  px-2 justify-between font-Libre">
+                  <span className="text-3xl ml-48 text-yellow-900">
+                    Imagines
+                  </span>
+                  <span className="float-right">All</span>
                 </span>
-                <span className="float-right">All</span>
               </span>
-
+              <div className="shadow-md"></div>
               <List />
             </div>
           </div>
