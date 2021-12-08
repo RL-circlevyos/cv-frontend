@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BookmarkIcon, EyeIcon, LightBulbIcon } from "@heroicons/react/solid";
 
 const src =
-  "https://images.unsplash.com/photo-1637580981035-ddfe9a4ace7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=900&q=60";
+  "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
 const Card = () => {
   const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = () => {

@@ -12,7 +12,7 @@ const Footer = () => {
   };
 
   return (
-    <div className="flex items-start justify-evenly text-gray-900">
+    <div className="flex items-start justify-evenly space-x-3 text-gray-900 font-bold">
       <span className="flex items-center space-x-1 text-xs">
         <span className="cursor-pointer" onClick={clickLikeHandler}>
           {like ? (
@@ -20,7 +20,7 @@ const Footer = () => {
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-7 w-7 "
+              className="h-7 w-7 text-gray-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -36,11 +36,15 @@ const Footer = () => {
         </span>
         <i>12k</i>
       </span>
-      <span className="block text-xs">
+      <span className="flex items-center space-x-1 text-xs">
         <span className="cursor-pointer">
-          <BookOpenIcon className="h-7 w-7 " />
+          <BookOpenIcon className="h-7 w-7 text-gray-600" />
         </span>
-        <i>part 12</i>
+        <span className="flex">
+          {" "}
+          <i>(p-</i>
+          <i>12)</i>
+        </span>
       </span>
       <div
         className="w-4/6 rounded-3xl font-bold text-gray-900 dark:bg-gray-800 dark:text-gray-200 border 
@@ -57,4 +61,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);
