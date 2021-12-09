@@ -24,13 +24,17 @@ const Blog = () => {
             <Sidebar />
           </div>
           <div className="pt-1 px-1 py-4">
-            <div className="mt-3 ">
+            <div className="mt-1 ">
+              <div className="font-sans font-semibold mb-1 text-xl text-gray-500">
+                {" "}
+                All Blogs <hr />
+              </div>
               <Scrollbars
                 thumbSize={1}
                 autoHide
                 style={{ width: "100%", height: "90vh" }}
               >
-                <div className="space-y-4 pb-20">
+                <div className="space-y-2 pb-20">
                   <Card />
                   <Card />
                   <Card />
