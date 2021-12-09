@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import SkeletonContentLeader from "../../../components/SkeletonLoader/SkeletonContentLeader";
 import User from "./User";
 const src =
   "https://images.unsplash.com/photo-1637580981035-ddfe9a4ace7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=900&q=60";
 const Leaders = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [loading]);
+
   return (
     <div class="pt-1 h-auto w-2/3 float-right rounded-md">
       <span className="flex justify-between items-center px-1 py-1 text-base">
@@ -21,16 +33,56 @@ const Leaders = () => {
       </span>
       <hr />
       <span className="flex items-start justify-center space-x-1 gap-y-3 max flex-wrap pt-1.5 pb-1.5">
-        <User src={src} fullname="Aindrila " />
-        <User src={src} fullname="Aindrila " />
-        <User src={src} fullname="Aindrila " />
-        <User src={src} fullname="Aindrila " />
-        <User src={src} fullname="Aindrila " />
-        <User src={src} fullname="Aindrila " />
-        <User src={src} fullname="Aindrila " />
-        <User src={src} fullname="Aindrila " />
-        <User src={src} fullname="Aindrila " />
-        <User src={src} fullname="Aindrila " />
+        {loading ? (
+          <SkeletonContentLeader />
+        ) : (
+          <User src={src} fullname="Aindrila " />
+        )}
+        {loading ? (
+          <SkeletonContentLeader />
+        ) : (
+          <User src={src} fullname="Aindrila " />
+        )}
+        {loading ? (
+          <SkeletonContentLeader />
+        ) : (
+          <User src={src} fullname="Aindrila " />
+        )}
+        {loading ? (
+          <SkeletonContentLeader />
+        ) : (
+          <User src={src} fullname="Aindrila " />
+        )}
+        {loading ? (
+          <SkeletonContentLeader />
+        ) : (
+          <User src={src} fullname="Aindrila " />
+        )}
+        {loading ? (
+          <SkeletonContentLeader />
+        ) : (
+          <User src={src} fullname="Aindrila " />
+        )}
+        {loading ? (
+          <SkeletonContentLeader />
+        ) : (
+          <User src={src} fullname="Aindrila " />
+        )}
+        {loading ? (
+          <SkeletonContentLeader />
+        ) : (
+          <User src={src} fullname="Aindrila " />
+        )}
+        {loading ? (
+          <SkeletonContentLeader />
+        ) : (
+          <User src={src} fullname="Aindrila " />
+        )}
+        {loading ? (
+          <SkeletonContentLeader />
+        ) : (
+          <User src={src} fullname="Aindrila " />
+        )}
       </span>
       <hr />
     </div>

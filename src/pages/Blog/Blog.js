@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Card from "./Card";
 import Scrollbars from "react-custom-scrollbars-2";
@@ -8,8 +8,20 @@ import { LightningBoltIcon } from "@heroicons/react/solid";
 import SearchBar from "./BlogSearch/SearchBar";
 import BookData from "./BlogSearch/Data.json";
 import Navbar from "../../components/Navbar";
+import SkeletonLoader from "../../components/SkeletonLoader/SkeletonLoader";
 
 const Blog = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [loading]);
+
   return (
     <div className="fixed h-screen w-full">
       <div className="">
@@ -32,12 +44,12 @@ const Blog = () => {
                   style={{ width: "100%", height: "90vh" }}
                 >
                   <div className="space-y-5 pb-4">
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+                    {loading ? <SkeletonLoader /> : <Card />}
+                    {loading ? <SkeletonLoader /> : <Card />}
+                    {loading ? <SkeletonLoader /> : <Card />}
+                    {loading ? <SkeletonLoader /> : <Card />}
+                    {loading ? <SkeletonLoader /> : <Card />}
+                    {loading ? <SkeletonLoader /> : <Card />}
                   </div>
                 </Scrollbars>
               </div>
