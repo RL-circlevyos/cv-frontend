@@ -1,11 +1,12 @@
 import {
+  AnnotationIcon,
   BookOpenIcon,
   LightBulbIcon,
   PaperAirplaneIcon,
 } from "@heroicons/react/solid";
 import React, { useState } from "react";
 
-const Footer = () => {
+const Footer = ({ openCommentBox }) => {
   const [like, setLike] = useState(false);
   const clickLikeHandler = () => {
     setLike(!like);
@@ -44,6 +45,18 @@ const Footer = () => {
           {" "}
           <i>(p-</i>
           <i>12)</i>
+        </span>
+      </span>
+      <span className="flex items-center space-x-1 text-xs">
+        <span className="cursor-pointer">
+          <AnnotationIcon
+            className="h-6 w-6 text-primary"
+            onClick={openCommentBox}
+          />
+        </span>
+        <span className="flex">
+          {" "}
+          <i>1k</i>
         </span>
       </span>
       <div

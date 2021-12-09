@@ -1,9 +1,10 @@
 import { BookmarkIcon, LightBulbIcon } from "@heroicons/react/solid";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Sound from "./Sound";
 
 const src =
-  "https://images.unsplash.com/photo-1637580981035-ddfe9a4ace7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=900&q=60";
+  "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
 
 const Card = ({ num }) => {
   const [like, setLike] = useState(false);
@@ -17,26 +18,40 @@ const Card = ({ num }) => {
   };
   return (
     <>
-      <div
-        class="relative h-52 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-lg"
-        style={{ backgroundImage: `url(${src})` }}
-      >
-        <div class="absolute top-0 mt-16 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-gray-900 rounded-lg"></div>
-        {/* <div class="absolute top-0 right-0 left-0 flex justify-between items-center bg-glass  rounded-lg mx-2">
-          <div className="flex items-center space-x-2 px-3 py-3">
-            <img src={src} alt="dp" className="w-11 h-11 rounded-full" />
-            <span className="flex flex-col font-medium items-start  space-y-1 px-2">
-              <span className="text-md text-black font-semibold">
+      <div>
+        <div
+          class="relative h-52 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-t-lg font-Mulish"
+          style={{ backgroundImage: `url(${src})` }}
+        >
+          <div class="absolute top-0 mt-16 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent via-gray-900 to-gray-900 rounded-lg"></div>
+          <main class="p-5 z-10 text-gray-50">
+            <Link
+              to="#"
+              class="text-base font-medium font-regular text-white hover:underline"
+            >
+              Dr. Abdullah Abdullah's Presidential Election
+              <p className="text-xs mt-1">
+                In publishing and graphic design, Lorem ipsum is a placeholder
+                text commonly used to demonstrate the visual form of a document
+              </p>
+            </Link>
+          </main>
+        </div>
+        <div className="flex justify-between items-center bg-gray-100 shadow-md rounded-b-lg">
+          <div className="flex items-center space-x-1 px-3 py-2">
+            <img src={src} alt="dp" className="w-8 h-8 rounded-full" />
+            <span className="flex flex-col font-medium items-start px-2">
+              <span className="text-sm text-black font-semibold">
                 Aindrila Bhattacharjee
               </span>
-              <span className="text-sm text-gray-700"> nov 25, 2021</span>
+              <span className="text-xs text-gray-400"> nov 25, 2021</span>
             </span>
           </div>
           <div className="flex items-start space-x-5 pr-3">
-            <span className="block space-y-1 text-xs">
+            <span className="flex items-center text-xs">
               <span className="cursor-pointer" onClick={clickLikeHandler}>
                 {like ? (
-                  <LightBulbIcon className="h-7 w-7 text-yellow-500" />
+                  <LightBulbIcon className="h-7 w-7 text-yellow-400" />
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -56,14 +71,17 @@ const Card = ({ num }) => {
               </span>
               <i>12k</i>
             </span>
+            <span>
+              <Sound />
+            </span>
             <span className="block text-xs">
               <span className="cursor-pointer" onClick={clickBookmarkHandler}>
                 {bookmark ? (
-                  <BookmarkIcon className="h-7 w-7 text-blue-800" />
+                  <BookmarkIcon className="h-7 w-7 text-green-900" />
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-blue-800"
+                    className="h-6 w-6 text-green-900"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -79,15 +97,7 @@ const Card = ({ num }) => {
               </span>
             </span>
           </div>
-        </div> */}
-        <main class="p-5 z-10 text-gray-50">
-          <Link
-            to="#"
-            class="text-md tracking-tight font-medium leading-7 font-regular text-white hover:underline"
-          >
-            Dr. Abdullah Abdullah's Presidential Election Campaign {num}
-          </Link>
-        </main>
+        </div>
       </div>
     </>
   );

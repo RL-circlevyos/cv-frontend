@@ -1,5 +1,6 @@
 .dropdown:hover .dropdown-menu {
   display: block;
+  width: 120px;
 }
 /* .quill-wrap {
   max-width:900px;
