@@ -6,7 +6,7 @@ import Footer from "./Footer";
 const Card = ({ post, styles, openCommentBox }) => {
   return (
     <section className={`${styles}`}>
-      <div class="slider h-full w-full">
+      <div class="min-h-84 w-full">
         <div className="shadow-sm rounded-xl border border-green-200">
           <div className="header pt-3">
             <Header />

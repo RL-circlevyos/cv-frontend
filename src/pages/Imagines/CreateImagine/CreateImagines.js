@@ -46,7 +46,7 @@ const CreateImagines = () => {
   );
   const setBodyContent = useCallback(
     (text) => {
-      setBody(text.slice(0, 360));
+      setBody(text.slice(0, 500));
     },
     [setBody]
   );
@@ -176,7 +176,7 @@ const CreateImagines = () => {
                 />
               </span>
               <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
-                {body.length}/360
+                {body.length}/500
               </p>
             </span>
           </div>

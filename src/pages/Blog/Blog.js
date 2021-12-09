@@ -31,7 +31,7 @@ const Blog = () => {
                   autoHide
                   style={{ width: "100%", height: "90vh" }}
                 >
-                  <div className="space-y-5 pb-4">
+                  <div className="space-y-5 pb-4 grid place-items-center">
                     <Card />
                     <Card />
                     <Card />
