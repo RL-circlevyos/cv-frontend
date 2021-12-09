@@ -64,7 +64,7 @@ const ImagineSlider = ({ slidesToShow = 3, openCommentBox }) => {
           <Card
             openCommentBox={openCommentBox}
             post={imagine}
-            styles=" lg:h-full max-w-base px-4  mt-2"
+            styles=" lg:h-3/4 max-w-base px-4  mt-2"
           />
         </div>
       </div>
