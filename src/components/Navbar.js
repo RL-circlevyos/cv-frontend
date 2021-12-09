@@ -47,53 +47,61 @@ function Navbar() {
                   </div>
                 </div>
               </div>
-              <div className="hidden items-baseline justify-end md:flex">
+              <div className="hidden space-x-2 items-baseline justify-end md:flex">
                 <div className=" flex items-center justify-center">
-                  <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
-                    <BellIcon className="h-6 w-6" />
-                    <b className="sm:block hidden text-sm">notifications</b>
-                  </div>
-
-                  <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
-                    <UserCircleIcon className="h-6 w-6" />
-                    <b className="sm:block hidden text-sm">user</b>
-                  </div>
-
-                  <div class="dropdown inline-block relative hover:bg-greyish-200">
+                  <div class="dropdown inline-block relative hover:bg-greyish-200 mt-1">
                     <button class=" text-primary py-2 px-4 rounded inline-flex items-center">
-                      <CogIcon className="h-6 w-6" />
-                      <b className="sm:block hidden text-sm">settings</b>
+                      <UserCircleIcon className="h-6 w-6" />
                     </button>
-                    <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
-                      <li class="">
+                    <ul class="dropdown-menu absolute hidden text-gray-700 pr-6 border bg-white border-gray-500">
+                      <li class="w-full bg-white hover:bg-gray-300 ">
                         <div
-                          className="flex items-center gap-1 mt-1 rounded-b bg-gray-100 hover:bg-gray-300 text-primary py-2 px-4 
+                          className="flex items-center gap-1 rounded-b text-primary py-2 px-4 
+                           whitespace-no-wrap cursor-pointer transition duration-500 linear text-sm font-medium"
+                        >
+                          <b className="sm:block hidden text-sm">profile</b>
+                        </div>
+                      </li>
+                      <li class="w-full bg-white hover:bg-gray-300 ">
+                        <div
+                          className="flex items-center gap-1 text-primary py-2 px-4 
+                           whitespace-no-wrap cursor-pointer transition duration-500 linear text-sm font-medium"
+                        >
+                          <CogIcon className="h-7 w-7 text-primary" />
+                          <b className="sm:block hidden text-sm">settings</b>
+                        </div>
+                      </li>
+                      <li class="w-full bg-white hover:bg-gray-300 ">
+                        <div
+                          className="flex items-center gap-1 text-primary py-2 px-4 
                            whitespace-no-wrap cursor-pointer transition duration-500 linear rounded-md text-sm font-medium"
                           onClick={() => setTheme(colorTheme)}
                         >
                           {colorTheme === "light" ? (
                             <span className="flex items-center gap-1">
-                              <MoonIcon className="h-6 w-6" />
+                              <MoonIcon className="h-5 w-5" />
                               <b className="sm:block hidden text-sm ">dark</b>
                             </span>
                           ) : (
                             <span className="flex items-center gap-1">
-                              <SunIcon className="h-6 w-6" />
+                              <SunIcon className="h-5 w-5" />
                               <b className="sm:block hidden text-sm ">light</b>
                             </span>
                           )}
                         </div>
                       </li>
-                      <li class="">
+                      <li class="w-full bg-white hover:bg-gray-300 ">
                         <div
-                          className="flex items-center gap-1 rounded-b bg-gray-100 hover:bg-gray-300 text-primary py-2 px-4 
+                          className="flex items-center gap-1 rounded-b text-primary py-2 px-4 
                            whitespace-no-wrap cursor-pointer transition duration-500 linear text-sm font-medium"
                         >
-                          <Power />
                           <b className="sm:block hidden text-sm">logout</b>
                         </div>
                       </li>
                     </ul>
+                  </div>
+                  <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
+                    <BellIcon className="h-6 w-6" />
                   </div>
                 </div>
               </div>

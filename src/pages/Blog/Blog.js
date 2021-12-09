@@ -11,7 +11,7 @@ import Navbar from "../../components/Navbar";
 
 const Blog = () => {
   return (
-    <div>
+    <div className="fixed h-screen">
       {" "}
       {/* <div>
        
@@ -30,7 +30,7 @@ const Blog = () => {
                 autoHide
                 style={{ width: "100%", height: "90vh" }}
               >
-                <div className="space-y-4 pb-20">
+                <div className="space-y-5 pb-4">
                   <Card />
                   <Card />
                   <Card />

@@ -1,4 +1,5 @@
 import {
+  AnnotationIcon,
   BookOpenIcon,
   LightBulbIcon,
   PaperAirplaneIcon,
@@ -38,15 +39,24 @@ const Footer = ({ openCommentBox }) => {
       </span>
       <span className="flex items-center space-x-1 text-xs">
         <span className="cursor-pointer">
-          <BookOpenIcon
-            className="h-7 w-7 text-gray-600"
-            onClick={openCommentBox}
-          />
+          <BookOpenIcon className="h-7 w-7 text-gray-600" />
         </span>
         <span className="flex">
           {" "}
           <i>(p-</i>
           <i>12)</i>
+        </span>
+      </span>
+      <span className="flex items-center space-x-1 text-xs">
+        <span className="cursor-pointer">
+          <AnnotationIcon
+            className="h-6 w-6 text-primary"
+            onClick={openCommentBox}
+          />
+        </span>
+        <span className="flex">
+          {" "}
+          <i>1k</i>
         </span>
       </span>
       <div
