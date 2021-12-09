@@ -25,7 +25,11 @@ const Blog = () => {
               <Sidebar />
             </div>
             <div className="pt-1 px-1 py-4">
-              <div className="mt-3 ">
+              <div className="mt-1 ">
+                <div className="font-sans font-semibold mb-1 text-xl text-gray-500">
+                  {" "}
+                  All Blogs <hr />
+                </div>
                 <Scrollbars
                   thumbSize={1}
                   autoHide
@@ -44,20 +48,44 @@ const Blog = () => {
             </div>
             <div className="md:flex md:flex-col hidden space-y-3 mb-5 mt-2">
               <div className="">
-                <Leaders />
+                <SearchBar placeholder="Search blogs...." data={BookData} />
+                <Sidebar />
               </div>
+              <div className="pt-1 px-1 py-4">
+                <div className="mt-3 ">
+                  <Scrollbars
+                    thumbSize={1}
+                    autoHide
+                    style={{ width: "100%", height: "90vh" }}
+                  >
+                    <div className="space-y-5 pb-4">
+                      <Card />
+                      <Card />
+                      <Card />
+                      <Card />
+                      <Card />
+                      <Card />
+                    </div>
+                  </Scrollbars>
+                </div>
+              </div>
+              <div className="md:flex md:flex-col hidden space-y-3 mb-5 mt-2">
+                <div className="">
+                  <Leaders />
+                </div>
 
-              <div className="space-y-3">
-                <span className="w-2/3">
-                  <span className=" flex  items-center  px-2 justify-between font-Libre">
-                    <span className="text-3xl ml-48 text-yellow-900">
-                      Imagines
+                <div className="space-y-3">
+                  <span className="w-2/3">
+                    <span className=" flex  items-center  px-2 justify-between font-Libre">
+                      <span className="text-3xl ml-48 text-yellow-900">
+                        Imagines
+                      </span>
+                      <span className="float-right">All</span>
                     </span>
-                    <span className="float-right">All</span>
                   </span>
-                </span>
-                <div className="shadow-md"></div>
-                <List />
+                  <div className="shadow-md"></div>
+                  <List />
+                </div>
               </div>
             </div>
           </div>
