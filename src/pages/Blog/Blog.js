@@ -12,7 +12,7 @@ import Navbar from "../../components/Navbar";
 const Blog = () => {
   return (
     <div className="fixed h-screen w-full">
-      <div className="grid place-items-center">
+      <div className="">
         {" "}
         {/* <div>
         
@@ -26,10 +26,6 @@ const Blog = () => {
             </div>
             <div className="pt-1 px-1 py-4">
               <div className="mt-1 ">
-                <div className="font-sans font-semibold mb-1 text-xl text-gray-500">
-                  {" "}
-                  All Blogs <hr />
-                </div>
                 <Scrollbars
                   thumbSize={1}
                   autoHide
@@ -47,28 +43,6 @@ const Blog = () => {
               </div>
             </div>
             <div className="md:flex md:flex-col hidden space-y-3 mb-5 mt-2">
-              <div className="">
-                <SearchBar placeholder="Search blogs...." data={BookData} />
-                <Sidebar />
-              </div>
-              <div className="pt-1 px-1 py-4">
-                <div className="mt-3 ">
-                  <Scrollbars
-                    thumbSize={1}
-                    autoHide
-                    style={{ width: "100%", height: "90vh" }}
-                  >
-                    <div className="space-y-5 pb-4">
-                      <Card />
-                      <Card />
-                      <Card />
-                      <Card />
-                      <Card />
-                      <Card />
-                    </div>
-                  </Scrollbars>
-                </div>
-              </div>
               <div className="md:flex md:flex-col hidden space-y-3 mb-5 mt-2">
                 <div className="">
                   <Leaders />
