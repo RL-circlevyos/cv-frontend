@@ -16,4 +16,4 @@ function SkeletonContentLeader() {
   );
 }
 
-export default SkeletonContentLeader;
+export default React.memo(SkeletonContentLeader);
