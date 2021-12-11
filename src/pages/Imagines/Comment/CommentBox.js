@@ -12,7 +12,10 @@ const CommentBox = ({ closeCommentBox, showBox }) => {
         <div className="CommentBox shadow-md font-Mulish">
           <div className="CommentBox_header">
             <span className="text-primary text-lg font-bold">All Comments</span>
-            <XIcon className="h-8 w-8" onClick={closeCommentBox} />
+            <XIcon
+              className="h-7 w-7 cursor-pointer"
+              onClick={closeCommentBox}
+            />
           </div>
           <Scrollbars
             autoHide
