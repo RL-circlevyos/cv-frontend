@@ -12,7 +12,8 @@ import Imagine from "./pages/Imagines/Imagine";
 import SingleBlog from "./pages/Blog/SingleBlog/SingleBlog";
 import PageNotFound from "./components/PageNotFound";
 import Create from "./pages/Blog/CreateBlog/Create";
-import CreateImagines from "./pages/Imagines/CreateImagine/CreateImagines";
+import CreateImagines from "./pages/Imagines/CreateImagine/General/CreateImagines";
+import CreateStoryImagines from "./pages/Imagines/CreateImagine/Story/CreateStoryImagines";
 
 const userId = true;
 
@@ -40,7 +41,11 @@ function App() {
           <Route path="/imagines" element={<Imagine />} />
           <Route path="/singleblog" element={<SingleBlog />} />
           <Route path="/createblog" element={<Create />} />
-          <Route path="/createimagine" element={<CreateImagines />} />
+          <Route path="/create-general-imagine" element={<CreateImagines />} />
+          <Route
+            path="/create-story-imagine"
+            element={<CreateStoryImagines />}
+          />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         {/* </div> */}

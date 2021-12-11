@@ -25,10 +25,7 @@ const Blog = () => {
   return (
     <div className="fixed h-screen w-full">
       <div className="">
-        {" "}
-        {/* <div>
-        
-      </div> */}
+    
         <Navbar />
         <div className="mb-8">
           <div className="max-w-large gap-x-10 mx-auto grid md:grid-cols-3 px-4 ">
@@ -43,6 +40,7 @@ const Blog = () => {
                   autoHide
                   style={{ width: "100%", height: "90vh" }}
                 >
+
                   <div className="space-y-5 pb-4">
                     {loading ? <SkeletonLoader /> : <Card />}
                     {loading ? <SkeletonLoader /> : <Card />}
@@ -50,6 +48,7 @@ const Blog = () => {
                     {loading ? <SkeletonLoader /> : <Card />}
                     {loading ? <SkeletonLoader /> : <Card />}
                     {loading ? <SkeletonLoader /> : <Card />}
+
                   </div>
                 </Scrollbars>
               </div>
