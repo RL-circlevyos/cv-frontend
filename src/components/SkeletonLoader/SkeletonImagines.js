@@ -24,4 +24,4 @@ function SkeletonImagines() {
   );
 }
 
-export default SkeletonImagines;
+export default React.memo(SkeletonImagines);
