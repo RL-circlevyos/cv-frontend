@@ -14,6 +14,7 @@ import PageNotFound from "./components/PageNotFound";
 import Create from "./pages/Blog/CreateBlog/Create";
 import CreateImagines from "./pages/Imagines/CreateImagine/General/CreateImagines";
 import CreateStoryImagines from "./pages/Imagines/CreateImagine/Story/CreateStoryImagines";
+import Revenue from "./pages/Revenue/Revenue";
 
 const userId = true;
 
@@ -46,6 +47,7 @@ function App() {
             path="/create-story-imagine"
             element={<CreateStoryImagines />}
           />
+          <Route path="/revenue" element={<Revenue />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         {/* </div> */}
