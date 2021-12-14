@@ -22,7 +22,6 @@ import ProfileBlog from "./pages/UserProfile/ProfileBlog";
 import ProfileSavedBlogs from "./pages/UserProfile/ProfileSavedBlogs";
 import ProfileSavedImagines from "./pages/UserProfile/ProfileSavedImagines";
 
-
 const userId = true;
 
 function App() {
@@ -46,8 +45,8 @@ function App() {
         {/* <div className="w-full fixed h-screen"> */}
         <Routes>
           <Route path="/" element={<Blog />} />
-          <Route path="/imagines" element={<Imagine />} />
-          <Route path="/singleblog" element={<SingleBlog />} />
+          <Route path="/imagines/:id" element={<Imagine />} />
+          <Route path="/blog/:id" element={<SingleBlog />} />
           <Route path="/createblog" element={<Create />} />
           <Route path="/create-general-imagine" element={<CreateImagines />} />
           <Route
