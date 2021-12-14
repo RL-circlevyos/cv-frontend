@@ -9,6 +9,7 @@ import SearchBar from "./BlogSearch/SearchBar";
 import BookData from "./BlogSearch/Data.json";
 import Navbar from "../../components/Navbar";
 import SkeletonLoader from "../../components/SkeletonLoader/SkeletonLoader";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,6 @@ const Blog = () => {
   return (
     <div className="fixed h-screen w-full">
       <div className="">
-    
         <Navbar />
         <div className="mb-8">
           <div className="max-w-large gap-x-10 mx-auto grid md:grid-cols-3 px-4 ">
@@ -40,15 +40,20 @@ const Blog = () => {
                   autoHide
                   style={{ width: "100%", height: "90vh" }}
                 >
-
                   <div className="space-y-5 pb-4">
-                    {loading ? <SkeletonLoader /> : <Card />}
-                    {loading ? <SkeletonLoader /> : <Card />}
-                    {loading ? <SkeletonLoader /> : <Card />}
-                    {loading ? <SkeletonLoader /> : <Card />}
-                    {loading ? <SkeletonLoader /> : <Card />}
-                    {loading ? <SkeletonLoader /> : <Card />}
-
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map((id) => {
+                      return (
+                        <>
+                          {loading ? (
+                            <SkeletonLoader />
+                          ) : (
+                            <Link to={`/blog/${id}`}>
+                              <Card />
+                            </Link>
+                          )}
+                        </>
+                      );
+                    })}
                   </div>
                 </Scrollbars>
               </div>

@@ -14,7 +14,6 @@ const Section = ({ highlightIC, highlightSI, highlightBC, highlightSB }) => {
           <Link to="/profile-blogs">
             <span className={`${highlightBC} font-bold text-lg`}>Blogs</span>
           </Link>
-
           <hr />
         </div>
       </div>
