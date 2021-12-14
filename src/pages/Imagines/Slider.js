@@ -6,6 +6,7 @@ import "./Slider.css";
 import Card from "./Card";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import { Link } from "react-router-dom";
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -61,10 +62,10 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
     ],
   };
 
-  const templateImagines = posts.map((imagine, idx) => {
+  const templateImagines = posts.map((imagine, id) => {
     return (
       <div
-        className={idx === imagineIndex ? "activeSlide" : "slide"}
+        className={id === imagineIndex ? "activeSlide" : "slide"}
         key={imagine.id}
       >
         <div className="slideWrapper ml-10 mb-10">
@@ -75,11 +76,13 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
             autoHeightMin={750}
             style={{ width: "100%" }}
           >
-            <Card
-              openCommentBox={openCommentBox}
-              post={imagine}
-              styles="max-w-base px-4 mt-2"
-            />
+            <Link to={`/imagines/${id}`}>
+              <Card
+                openCommentBox={openCommentBox}
+                post={imagine}
+                styles="max-w-base px-4 mt-2"
+              />
+            </Link>
           </Scrollbars>
         </div>
       </div>
