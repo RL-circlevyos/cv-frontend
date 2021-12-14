@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { ChevronLeft, ChevronsRight } from "react-feather";
 import {
@@ -21,20 +21,7 @@ const Sidebar = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const isJoined = true;
-  /**  let isJoinedtoEnv = useSelector((state) => state.env.isJoinToEnv);
-  const envid = useSelector((state) => state.env.envid);
-  const dispatch = useDispatch();
-  const history = useHistory();
 
-  const leaveEnvHandler = (event) => {
-    event.preventDefault();
-    dispatch(envSliceAction.leaveFromEnv());
-    history.push("/");
-    handleClose();
-  };
-
-  console.log("test side bar calling");*/
   return (
     <>
       <div className="md:flex">
@@ -58,57 +45,55 @@ const Sidebar = () => {
           <hr className="text-gray-700 md:hidden" />
 
           <nav className="text-base font-semibold mt-2 space-y-2 px-4">
-            {isJoined && (
-              <>
+            <>
+              <NavLink
+                onClick={handleClose}
+                exact
+                to="/frequents"
+                className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+              >
+                <span className="flex items-center space-x-2">
+                  <PaperClipIcon className="w-6 h-6 mr-2" /> General
+                </span>
+              </NavLink>
+              <NavLink
+                onClick={handleClose}
+                to={`/myview`}
+                className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+              >
+                <span className="flex items-center space-x-2">
+                  <BookmarkAltIcon className="w-6 h-6 mr-2" /> Saved
+                </span>
+              </NavLink>
+              <div className="space-y-5 ">
+                {" "}
                 <NavLink
                   onClick={handleClose}
-                  exact
-                  to="/frequents"
-                  className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
-                >
-                  <span className="flex items-center space-x-2">
-                    <PaperClipIcon className="w-6 h-6 mr-2" /> General
-                  </span>
-                </NavLink>
-                <NavLink
-                  onClick={handleClose}
-                  to={`/myview`}
-                  className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
-                >
-                  <span className="flex items-center space-x-2">
-                    <BookmarkAltIcon className="w-6 h-6 mr-2" /> Saved
-                  </span>
-                </NavLink>
-                <div className="space-y-5 ">
-                  {" "}
-                  <NavLink
-                    onClick={handleClose}
-                    to="/"
-                    className="block py-2 px-10  rounded-2xl  mt-12   text-center transition duration-200 bg-primary text-gray-100
+                  to="/createblog"
+                  className="block py-2 px-10  rounded-2xl  mt-12   text-center transition duration-200 bg-primary text-gray-100
                      focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100 "
-                  >
-                    Create Blog
-                  </NavLink>
-                  <NavLink
-                    onClick={handleClose}
-                    to="/"
-                    className="block py-2 px-10 mt-1  rounded-2xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
-                  >
-                    <div className=" text-center">Create Imagine</div>
-                  </NavLink>
-                </div>
-                <div>
-                  {" "}
-                  <NavLink
-                    onClick={handleClose}
-                    to="/"
-                    className="flex items-center py-2 gap-2 px-4  ml-6 mr-8 mt-32 rounded-2xl transition duration-200 text-gray-100  bg-yellow-600 focus:bg-yellow-500 dark:hover:bg-yello-900 hover:bg-yellow-800 hover:text-gray-100"
-                  >
-                    <FireIcon className="h-6 w-6" /> Premium
-                  </NavLink>
-                </div>
-              </>
-            )}
+                >
+                  Create Blog
+                </NavLink>
+                <Link
+                  onClick={handleClose}
+                  to="/create-general-imagine"
+                  className="block py-2 px-10 mt-1  rounded-2xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                >
+                  <div className=" text-center">Create Imagine</div>
+                </Link>
+              </div>
+              <div>
+                {" "}
+                <NavLink
+                  onClick={handleClose}
+                  to="/"
+                  className="flex items-center py-2 gap-2 px-4  ml-6 mr-8 mt-32 rounded-2xl transition duration-200 text-gray-100  bg-yellow-600 focus:bg-yellow-500 dark:hover:bg-yello-900 hover:bg-yellow-800 hover:text-gray-100"
+                >
+                  <FireIcon className="h-6 w-6" /> Premium
+                </NavLink>
+              </div>
+            </>
           </nav>
         </div>
 

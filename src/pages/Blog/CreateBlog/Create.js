@@ -4,6 +4,7 @@ import EditorJs from "react-editor-js";
 
 import { EDITOR_JS_TOOLS } from "./Editor";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
+import { Link } from "react-router-dom";
 
 const Create = () => {
   const instanceRef = React.useRef(null);
@@ -18,7 +19,9 @@ const Create = () => {
     <>
       <div className="pb-3 mt-2">
         <div className="text-lg font-medium uppercase text-primary flex justify-between items-start px-3 ">
-          <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
+          <Link to="/">
+            <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
+          </Link>
           <span className="lg:text-2xl text-base">Create BLOG</span>
           <span></span>
         </div>
