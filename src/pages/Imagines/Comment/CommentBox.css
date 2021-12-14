@@ -1,20 +1,24 @@
 .CommentBox{
     position: absolute;
-    bottom: 12px;
-    right: 50px;
-    width: 30%;
-    background-color: #ffffff;
-    max-width: 500px;
-    height: 60%;
+    bottom: 0px;
+    left: 10%;
+    width: 50%;
+    max-width: 700px;
+    float: right;
+    top:35%;
+    height: 65%;
+    background-color: #ffffff; 
+    max-height: 500px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     display: flex;
     flex-direction: column;
     border: 1px solid rgb(9, 255, 120);
    
+   
 }
 .CommentBox_header{
-    padding: 13px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;

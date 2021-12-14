@@ -14,7 +14,14 @@ import PageNotFound from "./components/PageNotFound";
 import Create from "./pages/Blog/CreateBlog/Create";
 import CreateImagines from "./pages/Imagines/CreateImagine/General/CreateImagines";
 import CreateStoryImagines from "./pages/Imagines/CreateImagine/Story/CreateStoryImagines";
+
 import Revenue from "./pages/Revenue/Revenue";
+
+import Profile from "./pages/UserProfile/Profile";
+import ProfileBlog from "./pages/UserProfile/ProfileBlog";
+import ProfileSavedBlogs from "./pages/UserProfile/ProfileSavedBlogs";
+import ProfileSavedImagines from "./pages/UserProfile/ProfileSavedImagines";
+
 
 const userId = true;
 
@@ -47,7 +54,17 @@ function App() {
             path="/create-story-imagine"
             element={<CreateStoryImagines />}
           />
+
           <Route path="/revenue" element={<Revenue />} />
+
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile-blogs" element={<ProfileBlog />} />
+          <Route path="/profile-saved-blogs" element={<ProfileSavedBlogs />} />
+          <Route
+            path="/profile-saved-imagines"
+            element={<ProfileSavedImagines />}
+          />
+
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         {/* </div> */}
