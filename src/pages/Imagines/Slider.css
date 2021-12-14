@@ -15,8 +15,8 @@
 
 .prevArrow {
   position: absolute;
-  top: 50%;
-  left: 400px;
+  top: 35%;
+  left: 20px;
   z-index: 100;
   cursor: pointer;
   font-size: 2rem;
@@ -24,8 +24,8 @@
 
 .nextArrow {
   position: absolute;
-  top: 50%;
-  right: 400px;
+  top: 35%;
+  right: 20px;
   z-index: 100;
   cursor: pointer;
   font-size: 2rem;

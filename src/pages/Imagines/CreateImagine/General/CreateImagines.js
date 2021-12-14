@@ -31,7 +31,7 @@ const CreateImagines = () => {
   const removeOutroImage = () => {
     setOutroImage();
   };
-  const limit = 150;
+  const limit = 400;
   const setTitleContent = useCallback(
     (text) => {
       setTitle(text.slice(0, 42));
@@ -46,7 +46,7 @@ const CreateImagines = () => {
   );
   const setBodyContent = useCallback(
     (text) => {
-      setBody(text.slice(0, 500));
+      setBody(text.slice(0, 700));
     },
     [setBody]
   );
@@ -196,7 +196,7 @@ const CreateImagines = () => {
                     />
                   </span>
                   <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
-                    {body.length}/500
+                    {body.length}/700
                   </p>
                 </span>
               </div>

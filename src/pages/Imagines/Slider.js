@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Slider from "react-slick";
 import posts from "./Demo.json";
 import "./Slider.css";
-import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/solid";
+
 import Card from "./Card";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
+import { Scrollbars } from "react-custom-scrollbars-2";
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -21,7 +23,8 @@ const PrevArrow = ({ onClick }) => {
   );
 };
 
-const ImagineSlider = ({ slidesToShow = 3, openCommentBox }) => {
+const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
+  const sliderRef = useRef(null);
   const [imagineIndex, setImagineIndex] = useState(0);
 
   const settings = {
@@ -30,18 +33,20 @@ const ImagineSlider = ({ slidesToShow = 3, openCommentBox }) => {
     dots: false,
     speed: 300,
     slidesToShow: slidesToShow,
-    centerPadding: "0",
-    swipeToSlide: true,
-    focusOnSelect: true,
     nextArrow: <NextArrow onClick />,
     prevArrow: <PrevArrow onClick />,
+    centerPadding: "0",
+    draggable: false,
+    focusOnSelect: true,
     beforeChange: (current, next) => setImagineIndex(next),
     responsive: [
       {
         breakpoint: 1490,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: false,
+          swipeToSlide: false,
         },
       },
       {
@@ -49,6 +54,8 @@ const ImagineSlider = ({ slidesToShow = 3, openCommentBox }) => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: false,
+          swipe: true,
         },
       },
     ],
@@ -60,18 +67,30 @@ const ImagineSlider = ({ slidesToShow = 3, openCommentBox }) => {
         className={idx === imagineIndex ? "activeSlide" : "slide"}
         key={imagine.id}
       >
-        <div className="slideWrapper">
-          <Card
-            openCommentBox={openCommentBox}
-            post={imagine}
-            styles=" min-h-96 max-w-base px-4  mt-2"
-          />
+        <div className="slideWrapper ml-10 mb-10">
+          <Scrollbars
+            autoHide
+            thumbSize={1}
+            autoHeight
+            autoHeightMin={750}
+            style={{ width: "100%" }}
+          >
+            <Card
+              openCommentBox={openCommentBox}
+              post={imagine}
+              styles="max-w-base px-4 mt-2"
+            />
+          </Scrollbars>
         </div>
       </div>
     );
   });
 
-  return <Slider {...settings}>{templateImagines}</Slider>;
+  return (
+    <Slider ref={sliderRef} {...settings}>
+      {templateImagines}
+    </Slider>
+  );
 };
 
 export default React.memo(ImagineSlider);
