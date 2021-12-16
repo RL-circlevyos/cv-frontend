@@ -21,12 +21,13 @@ import Profile from "./pages/UserProfile/Profile";
 import ProfileBlog from "./pages/UserProfile/ProfileBlog";
 import ProfileSavedBlogs from "./pages/UserProfile/ProfileSavedBlogs";
 import ProfileSavedImagines from "./pages/UserProfile/ProfileSavedImagines";
-
-const userId = true;
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function App() {
   let routes;
-  if (!!!userId) {
+  const auth = useSelector((state) => state.auth);
+  if (!!!auth.userid) {
     routes = (
       <>
         {/******* 🚀 auth ***** */}
