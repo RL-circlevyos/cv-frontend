@@ -21,6 +21,10 @@ import Profile from "./pages/UserProfile/Profile";
 import ProfileBlog from "./pages/UserProfile/ProfileBlog";
 import ProfileSavedBlogs from "./pages/UserProfile/ProfileSavedBlogs";
 import ProfileSavedImagines from "./pages/UserProfile/ProfileSavedImagines";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
 import Ad from "./pages/Revenue/Ad Category/Ad";
 import Advertise from "./pages/Revenue/Advertise/Advertise";
 import Audience from "./pages/Revenue/Audience/Audience";
@@ -30,9 +34,11 @@ import Uploads from "./pages/Revenue/Uploads/Uploads";
 
 const userId = true;
 
+
 function App() {
   let routes;
-  if (!!!userId) {
+  const auth = useSelector((state) => state.auth);
+  if (!!!auth.userid) {
     routes = (
       <>
         {/******* 🚀 auth ***** */}

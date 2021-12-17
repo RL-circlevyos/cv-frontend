@@ -10,18 +10,36 @@ import BookData from "./BlogSearch/Data.json";
 import Navbar from "../../components/Navbar";
 import SkeletonLoader from "../../components/SkeletonLoader/SkeletonLoader";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { blogFetchAction } from "../../store/apps/blogs/blog-action";
 
 const Blog = () => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
+  const blog = useSelector((state) => state.blog);
+  const ui = useSelector((state) => state.ui);
+  const auth = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+      dispatch(blogFetchAction(auth.token));
+    }, 500);
     return () => {
       clearTimeout(timer);
     };
-  }, [loading]);
+  }, [dispatch, auth.token]);
+
+  console.log(blog.blogPosts);
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2000);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [loading]);
 
   return (
     <div className="fixed h-screen w-full">
@@ -41,14 +59,23 @@ const Blog = () => {
                   style={{ width: "100%", height: "90vh" }}
                 >
                   <div className="space-y-5 pb-4">
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map((id) => {
+                    {blog.blogPosts.map((blog) => {
+                      console.log(blog);
                       return (
                         <>
-                          {loading ? (
+                          {ui.isLoading ? (
                             <SkeletonLoader />
                           ) : (
-                            <Link to={`/blog/${id}`}>
-                              <Card />
+                            <Link to={`/blog/${blog._id}`}>
+                              <Card
+                                title={blog.title}
+                                content={blog.content}
+                                coverImage={blog.coverImage}
+                                avatar={blog.avatar}
+                                userName={blog.name}
+                                likes={blog.likes}
+                                date={blog.date}
+                              />
                             </Link>
                           )}
                         </>
