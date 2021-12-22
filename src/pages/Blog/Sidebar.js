@@ -28,10 +28,10 @@ const Sidebar = () => {
         <div
           className={`${
             open
-              ? "translate-x-0 ease-in opacity-100"
+              ? "translate-x-0 ease-in opacity-100 z-50 bg-gray-900"
               : "-translate-x-full ease-out opacity-0"
           }
-      absolute inset-0 transform md:transform-none md:opacity-100 duration-200 md:relative z-10 w-64
+      absolute inset-0 transform md:transform-none opacity-0 md:opacity-100 duration-200 md:relative z-50 w-64
        dark:text-sky-400 bg-gray-100 md:bg-transparent transition dark:bg-gray-800  text-teal-600 h-screen p-3`}
         >
           <div class="flex justify-between">
@@ -63,6 +63,15 @@ const Sidebar = () => {
               >
                 <span className="flex items-center space-x-2">
                   <BookmarkAltIcon className="w-6 h-6 mr-2" /> Saved
+                </span>
+              </NavLink>
+              <NavLink
+                onClick={handleClose}
+                to={`/ad/dashboard`}
+                className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+              >
+                <span className="flex items-center space-x-2">
+                  <BookmarkAltIcon className="w-6 h-6 mr-2" /> Dashboard
                 </span>
               </NavLink>
               <div className="space-y-5 ">

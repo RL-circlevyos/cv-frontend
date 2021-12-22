@@ -12,8 +12,8 @@ const Card = ({
 }) => {
   return (
     <section className={`${styles}`}>
-      <div class="max-w-4xl">
-        <div className="shadow-sm rounded-xl px-1">
+      <div class="w-full">
+        <div className="shadow-sm rounded-xl px-5">
           <div className="header pt-3">
             <Header />
           </div>

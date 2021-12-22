@@ -15,8 +15,6 @@ import Create from "./pages/Blog/CreateBlog/Create";
 import CreateImagines from "./pages/Imagines/CreateImagine/General/CreateImagines";
 import CreateStoryImagines from "./pages/Imagines/CreateImagine/Story/CreateStoryImagines";
 
-import Revenue from "./pages/Revenue/Revenue";
-
 import Profile from "./pages/UserProfile/Profile";
 import ProfileBlog from "./pages/UserProfile/ProfileBlog";
 import ProfileSavedBlogs from "./pages/UserProfile/ProfileSavedBlogs";
@@ -25,15 +23,18 @@ import ProfileSavedImagines from "./pages/UserProfile/ProfileSavedImagines";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-import Ad from "./pages/Revenue/Ad Category/Ad";
-import Advertise from "./pages/Revenue/Advertise/Advertise";
-import Audience from "./pages/Revenue/Audience/Audience";
-import Payment from "./pages/Revenue/Payment/Payment";
-import Others from "./pages/Revenue/Others/Others";
-import Uploads from "./pages/Revenue/Uploads/Uploads";
+import Ad from "./pages/Ad/Ad Category/Ad";
+import Advertise from "./pages/Ad/Advertise/Advertise";
+import Audience from "./pages/Ad/Audience/Audience";
+import Payment from "./pages/Ad/Payment/Payment";
+import Others from "./pages/Ad/Others/Others";
+import Uploads from "./pages/Ad/Uploads/Uploads";
+import Revenue from "./pages/Ad/Revenue/Revenue";
+import Dashboard from "./pages/Ad/Dashboard/Dashboard";
+import Budget from "./pages/Ad/Budget/Budget";
+import BlogDetails from "./pages/Blog/CreateBlog/BlogDetails";
 
 const userId = true;
-
 
 function App() {
   let routes;
@@ -60,19 +61,22 @@ function App() {
           <Route path="/imagines/:id" element={<Imagine />} />
           <Route path="/blog/:id" element={<SingleBlog />} />
           <Route path="/createblog" element={<Create />} />
+          <Route path="/blog-details" element={<BlogDetails />} />
           <Route path="/create-general-imagine" element={<CreateImagines />} />
           <Route
             path="/create-story-imagine"
             element={<CreateStoryImagines />}
           />
 
-          <Route path="/revenue" element={<Revenue />} />
-          <Route path="/ad-category" element={<Ad />} />
-          <Route path="/advertise" element={<Advertise />} />
-          <Route path="/audience" element={<Audience />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/others" element={<Others />} />
-          <Route path="/uploads" element={<Uploads />} />
+          <Route path="/ad/revenue" element={<Revenue />} />
+          <Route path="/ad/ad-category" element={<Ad />} />
+          <Route path="/ad/dashboard" element={<Dashboard />} />
+          <Route path="/ad/advertise" element={<Advertise />} />
+          <Route path="/ad/audience" element={<Audience />} />
+          <Route path="/ad/budget" element={<Budget />} />
+          <Route path="/ad/payment" element={<Payment />} />
+          <Route path="/ad/others" element={<Others />} />
+          <Route path="/ad/uploads" element={<Uploads />} />
 
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile-blogs" element={<ProfileBlog />} />

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../../components/Navbar";
 import Scrollbars from "react-custom-scrollbars-2";
 
-import SkeletonLoader from "../../components/SkeletonLoader/SkeletonLoader";
+import SkeletonLoader from "../../../components/SkeletonLoader/SkeletonLoader";
 import RevenueContent from "./RevenueContent";
 
 const Revenue = () => {

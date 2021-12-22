@@ -65,28 +65,20 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
   const templateImagines = posts.map((imagine, id) => {
     return (
       <>
-        <Link to={`/imagines/${id}`}>
-          <div
-            className={id === imagineIndex ? "activeSlide" : "slide"}
-            key={imagine.id}
-          >
-            <div className="slideWrapper ml-10 mb-10">
-              <Scrollbars
-                autoHide
-                thumbSize={1}
-                autoHeight
-                autoHeightMin={750}
-                style={{ width: "100%" }}
-              >
-                <Card
-                  openCommentBox={openCommentBox}
-                  post={imagine}
-                  styles="max-w-base px-4 mt-2"
-                />
-              </Scrollbars>
-            </div>
-          </div>{" "}
-        </Link>
+        <div
+          className={id === imagineIndex ? "activeSlide" : "slide"}
+          key={imagine.id}
+        >
+          <div className="slideWrapper mb-10 w-full">
+            <Link to={`/imagines/${id}`}>
+              <Card
+                openCommentBox={openCommentBox}
+                post={imagine}
+                styles="max-w-base px-4 mt-2"
+              />
+            </Link>
+          </div>
+        </div>{" "}
       </>
     );
   });

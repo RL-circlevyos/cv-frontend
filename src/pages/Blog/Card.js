@@ -14,6 +14,7 @@ const Card = ({
   userName,
   likes,
   date,
+  link,
 }) => {
   const [like, setLike] = useState(false);
   const clickLikeHandler = () => {
@@ -26,7 +27,7 @@ const Card = ({
   };
   return (
     <>
-      <div>
+      <div className="mb-4">
         <div
           class="relative h-52 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-t-lg font-Mulish"
           style={
@@ -36,9 +37,9 @@ const Card = ({
           }
         >
           <div class="absolute top-0 mt-16 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent via-gray-900 to-gray-900 rounded-lg"></div>
-          <main class="p-5 z-10 text-gray-50">
+          <main class="p-5 z-50 text-gray-50 pr-10">
             <Link
-              to="#"
+              to={link}
               class="text-base font-medium font-regular text-white hover:underline"
             >
               {title}
@@ -48,7 +49,7 @@ const Card = ({
                   overflow: "hidden",
                   "text-overflow": "ellipsis",
                 }}
-                className="text-xs mt-1 text-ellipsis overflow-hidden ..."
+                className="text-xs mt-1 text-ellipsis flex justify-center overflow-hidden ..."
               >
                 {content}
               </p>

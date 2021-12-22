@@ -1,5 +1,8 @@
 import React from "react";
 import CheckBox from "../../../components/CheckBox";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
+import { Link } from "react-router-dom";
+
 const data = [
   {
     name: "Education",
@@ -80,6 +83,14 @@ const Ad = () => {
         <div className="w-full container px-4">
           {" "}
           <CheckBox data={data} />
+        </div>
+        <div className="flex justify-between items-center px-4 mt-4">
+          <Link to="/ad/dashboard">
+            <ArrowLeftIcon className="h-10 w-10 hover:bg-gray-200 px-1 py-1 rounded-full" />
+          </Link>
+          <Link to="/ad/uploads">
+            <ArrowRightIcon className="h-10 w-10 hover:bg-gray-200 px-1 py-1 rounded-full" />
+          </Link>
         </div>
       </div>
     </div>

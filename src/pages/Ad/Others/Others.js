@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 import languages from "./Languages.json";
 import regions from "../Audience/Country.json";
+import { Link } from "react-router-dom";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
 
 const ages = [
   { age: "0-10", id: 1 },
@@ -106,6 +108,14 @@ const Others = () => {
             Submit
           </button>
         </form>
+        <div className="flex justify-between items-center px-1 mt-6">
+          <Link to="/ad/budget">
+            <ArrowLeftIcon className="h-9 w-9 hover:bg-gray-200 px-1 py-1 rounded-full" />
+          </Link>
+          <Link to="/ad/payment">
+            <ArrowRightIcon className="h-9 w-9 hover:bg-gray-200 px-1 py-1 rounded-full" />
+          </Link>
+        </div>
       </div>
     </div>
   );

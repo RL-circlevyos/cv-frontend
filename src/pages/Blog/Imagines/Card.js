@@ -9,7 +9,7 @@ const Card = () => {
     setBookmark(!bookmark);
   };
   return (
-    <div className="w-full space-x-2 flex items-start justify-center shadow-sm">
+    <div className="w-full space-x-2 flex items-start justify-center shadow mb-3">
       <div className="w-2/5 h-32 bg-gray-50">
         <img
           src={src}

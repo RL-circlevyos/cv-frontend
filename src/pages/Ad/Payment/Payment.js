@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import RadioInput from "../../../components/RadioInput";
 
 const Payment = () => {
@@ -46,11 +47,16 @@ const Payment = () => {
               setter={setPay}
             />{" "}
           </div>
-          <div className="flex justify-between items-center mt-8 lg:mt-16 w-full px-4">
-            <div></div>{" "}
+          <div className="flex justify-between items-start mt-8 lg:mt-16 w-full px-4">
+            <Link
+              to="/ad/others"
+              className="bg-gray-200 text-lg font-bold text-gray-900 px-4 py-2 rounded-md "
+            >
+              Back
+            </Link>
             <button
               type="submit"
-              className="bg-cyan-600 text-lg font-bold text-white px-4 py-2 rounded-md "
+              className="bg-cyan-600 text-lg font-bold text-white px-4 py-2 rounded-md uppercase"
             >
               Proceed
             </button>

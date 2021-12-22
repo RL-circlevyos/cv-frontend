@@ -1,4 +1,6 @@
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
 import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 
 const data = [
   {
@@ -81,10 +83,10 @@ const Advertise = () => {
             <span className="text-pink-600 ml-2">$1200</span>
           </div>
         </div>
-        <div className="lg:text-3xl text-lg font-extrabold uppercase text-primary px-3 py-2 mb-5 mt-5 ml-5">
+        <div className="lg:text-2xl text-lg font-extrabold uppercase text-primary px-3 py-2 mb-5 mt-5 ml-5">
           <span classname="">Advertising Goal</span>
         </div>
-        <div className="w-full px-4">
+        <div className="w-full px-4 ">
           <div className="font-Mulish text-xl text-gray-800 font-medium">
             {!loading ? (
               <>
@@ -109,7 +111,7 @@ const Advertise = () => {
                   <label className="ml-1">More Awareness</label>
                 </div>
 
-                <div className="lg:text-3xl text-lg font-extrabold uppercase text-sky-700 px-3 py-2 flex mb-10 mt-10 w-3/4 ">
+                <div className="lg:text-2xl text-lg font-extrabold uppercase text-sky-700 px-3 py-2 flex mb-10 mt-10 w-3/4 ">
                   <span classname="">Social Media</span>
                 </div>
                 <div className="w-full contain px-4">
@@ -129,12 +131,20 @@ const Advertise = () => {
               </>
             ) : null}
             <button
-              className="bg-primary text-white px-4 py-2 w-40 rounded-lg cursor-pointer sm:mt-10"
+              className="bg-primary text-white px-4 py-2 w-24 rounded-lg cursor-pointer sm:mt-10"
               onClick={() => onSubmit()}
             >
               Submit
             </button>
           </div>
+        </div>
+        <div className="flex justify-between items-center px-4 pt-10">
+          <Link to="/ad/audience">
+            <ArrowLeftIcon className="h-10 w-10 hover:bg-gray-200 px-1 py-1 rounded-full" />
+          </Link>
+          <Link to="/ad/budget">
+            <ArrowRightIcon className="h-10 w-10 hover:bg-gray-200 px-1 py-1 rounded-full" />
+          </Link>
         </div>
       </div>
     </div>

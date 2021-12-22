@@ -1,20 +1,30 @@
 import React, { useCallback, useState } from "react";
-import { UploadIcon } from "@heroicons/react/solid";
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  UploadIcon,
+} from "@heroicons/react/solid";
 import RadioInput from "../../../components/RadioInput";
+import { Link } from "react-router-dom";
+import { ReactPlayer } from "react-player/lazy";
 
 const Uploads = () => {
   const [introImage, setIntroImage] = useState();
   const [gender, setGender] = useState();
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
-  const introImageChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setIntroImage(e.target.files[0]);
-    }
-  };
-  const removeIntroImage = () => {
+  const introImageChange = useCallback(
+    (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        setIntroImage(e.target.files[0]);
+      }
+    },
+    [setIntroImage]
+  );
+  const removeIntroImage = useCallback(() => {
     setIntroImage();
-  };
+  }, [setIntroImage]);
+
   const setTitleContent = useCallback(
     (text) => {
       setTitle(text.slice(0, 50));
@@ -62,15 +72,15 @@ const Uploads = () => {
                 } p-2`}
               >
                 {!introImage && (
-                  <>
-                    <span className="text-xs font-bold lg:text-base uppercase">
-                      upload
+                  <div className="flex flex-col justify-center items-center">
+                    <span className="text-xs font-bold lg:text-base uppercase opacity-0">
+                      upload this button
                     </span>
-                    <UploadIcon className="w-7 h-7" />
-                  </>
+                    <UploadIcon className="w-9 h-9" />
+                  </div>
                 )}
                 <input
-                  accept="image/*"
+                  accept="image/*, video/*"
                   type="file"
                   onChange={introImageChange}
                   className="invisible hidden"
@@ -78,31 +88,63 @@ const Uploads = () => {
               </label>
 
               {introImage && (
-                <div className="w-full h-64 pb-3">
-                  <img
-                    src={URL.createObjectURL(introImage)}
-                    alt="Thumb"
-                    className="w-full h-full object-cover border border-gray-400"
-                  />
-                  <button
-                    className="text-xs font-bold"
-                    onClick={removeIntroImage}
-                  >
-                    Remove This Image
-                  </button>
+                <div>
+                  {introImage.toString().endsWith("mp4") ? (
+                    <div className="w-full h-64 ">
+                      <ReactPlayer
+                        width="100%"
+                        height="100%"
+                        url={introImage}
+                        controls
+                      />
+                      <button
+                        className="text-xs font-bold"
+                        onClick={removeIntroImage}
+                      >
+                        Remove This Image
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="w-full h-64">
+                      <img
+                        src={URL.createObjectURL(introImage)}
+                        alt="ad"
+                        className="w-full h-full object-contain"
+                      />
+                      <button
+                        className="text-xs font-bold"
+                        onClick={removeIntroImage}
+                      >
+                        Remove This Image
+                      </button>
+                    </div>
+                  )}
                 </div>
+                // <div className="w-full h-64 pb-3">
+                //  { <img
+                //     src={URL.createObjectURL(introImage)}
+                //     alt="Thumb"
+                //     className="w-full h-full object-cover border border-gray-400"
+                //   /> || }
+                // <button
+                //   className="text-xs font-bold"
+                //   onClick={removeIntroImage}
+                // >
+                //   Remove This Image
+                // </button>
+                // </div>
               )}
             </div>
           </div>
           <div>
             {" "}
             <span className="w-full ">
-              <label className="ml-4 text-xs uppercase font-bold">title</label>
-              <span className=" w-full text-sm flex items-center border rounded-xl lg:px-4 py-2 hover:border-primary border-gray-300 bg-white ">
+              <label className="ml-4 text-xs uppercase font-bold ">title</label>
+              <span className=" w-full text-sm flex items-center mt-1 border rounded-xl px-1 py-1 hover:border-primary border-gray-300 bg-white ">
                 <input
                   type="text"
                   required
-                  placeholder="Title of your Upload"
+                  placeholder="content title"
                   className="font-medium w-full lg:px-4 px-1 ml-2 py-2 focus:outline-none form-control "
                   value={title}
                   onChange={(e) => setTitleContent(e.target.value)}
@@ -113,7 +155,7 @@ const Uploads = () => {
               </p>
             </span>
           </div>
-          <div className="space-y-4 mt-5 mb-5">
+          <div className="space-y-4 mt-5 text-sm mb-5">
             <RadioInput
               label="Single Post + Show when user go to new blog"
               value="Single Post + Show when user go to new blog"
@@ -155,9 +197,17 @@ const Uploads = () => {
             </button>
           </div>
         </form>
+        <div className="flex justify-between items-center px-4 mt-4">
+          <Link to="/ad/ad-category">
+            <ArrowLeftIcon className="h-10 w-10 hover:bg-gray-200 px-1 py-1 rounded-full" />
+          </Link>
+          <Link to="/ad/audience">
+            <ArrowRightIcon className="h-10 w-10 hover:bg-gray-200 px-1 py-1 rounded-full" />
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Uploads;
+export default React.memo(Uploads);

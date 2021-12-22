@@ -7,7 +7,8 @@ export const signUpWithNameEmailAndPassword = (data) => {
     const signupAction = async () => {
       console.log(data);
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/users`,
+        // `${process.env.REACT_APP_API_BASE_URL}/users`,
+        `http://localhost:5000/api/users`,
 
         {
           method: "POST",
@@ -49,8 +50,8 @@ export const LoginWithNameEmailAndPassword = (data) => {
     // 📈 send data to database
     const LoginAction = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/auth`,
-        // "http://localhost:5000/api/auth",
+        // `${process.env.REACT_APP_API_BASE_URL}/auth`,
+        "http://localhost:5000/api/auth",
         {
           method: "POST",
           // credentials: "include",

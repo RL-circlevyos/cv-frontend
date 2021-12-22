@@ -83,7 +83,7 @@ const CreateImagines = () => {
       <div className="w-full max-w-7xl">
         <Header />
       </div>
-      <div className="border max-w-5xl w-full flex justify-center items-center flex-col border-green-400 mx-3 my-2 lg:mx-0">
+      <div className=" max-w-5xl w-full flex justify-center items-center flex-col mx-3 my-2 lg:mx-0">
         <div className="w-full">
           <Scrollbars
             autoHide

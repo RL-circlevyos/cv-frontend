@@ -53,7 +53,8 @@ export const blogFetchAction = (token) => async (dispatch) => {
   // const auth = useSelector((state) => state.auth);
   const blogFetch = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/blogposts`,
+      // `${process.env.REACT_APP_API_BASE_URL}/blogposts`,
+      "http://localhost:5000/api/blogposts",
       {
         method: "GET",
         headers: {

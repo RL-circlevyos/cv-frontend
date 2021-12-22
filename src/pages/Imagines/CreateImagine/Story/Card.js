@@ -76,7 +76,7 @@ const StoryCard = () => {
   );
   return (
     <div className="flex justify-center items-center font-Mulish">
-      <div className="border max-w-xl w-full flex justify-center items-center flex-col border-green-400 mx-3 my-2 lg:mx-0">
+      <div className=" max-w-xl w-full flex justify-center items-center flex-col mx-3 my-2 lg:mx-0">
         <div className="w-full">
           <Scrollbars
             autoHide

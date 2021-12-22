@@ -6,7 +6,7 @@ import ImagineSlider from "./Slider";
 import StoryImagine from "./StoryImagines/StoryImagine";
 import Nav from "./Nav";
 
-const Imagine = () => {
+const Imagines = () => {
   const [showBox, setShowBox] = useState(false);
   const openCommentBox = () => {
     setShowBox(true);
@@ -73,4 +73,4 @@ const Imagine = () => {
   );
 };
 
-export default Imagine;
+export default Imagines;

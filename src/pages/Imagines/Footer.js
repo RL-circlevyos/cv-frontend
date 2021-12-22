@@ -39,7 +39,7 @@ const Footer = ({ openCommentBox }) => {
   return (
     <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
       <div className="flex w-full items-start justify-evenly space-x-3 text-gray-900 font-bold">
-        <span className="flex justify-center items-center flex-col text-tiny text-gray-300">
+        <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300">
           {" "}
           <span className="flex items-center space-x-1 text-xs">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
@@ -66,22 +66,22 @@ const Footer = ({ openCommentBox }) => {
           </span>
           APPRECIATE
         </span>
-        <span className="flex justify-center items-center flex-col text-tiny text-gray-300 mt-1">
-          <span className="pt-1">
+        <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
+          <span className="lg:pt-1">
             <ShareIcon className="h-6 w-6 cursor-pointer text-gray-600 pb-1 ml-2" />
             SHARE
           </span>
         </span>
-        <span className="flex justify-center items-center flex-col text-tiny text-gray-300 mt-1">
-          <span className="flex items-center">
-            <EyeIcon className="h-5 w-5 md:h-6 md:w-5 text-gray-500" />
+        <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
+          <span className="flex items-center pb-1 lg:pb-0">
+            <EyeIcon className="h-5 w-5 md:h-6 md:w-5 text-gray-500 " />
             <span className="text-xs lg:text-sm italic ml-1 text-primary">
               12k
             </span>
           </span>
           VIEWS
         </span>
-        <span className="flex justify-center items-center flex-col text-tiny text-gray-300 mt-1">
+        <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
           <span className="flex items-center space-x-1 text-xs ">
             <span className="cursor-pointer " onClick={openCommentBox}>
               <AnnotationIcon className="h-6 w-6 text-gray-500" />
