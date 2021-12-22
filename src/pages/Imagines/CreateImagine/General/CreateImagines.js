@@ -31,7 +31,7 @@ const CreateImagines = () => {
   const removeOutroImage = () => {
     setOutroImage();
   };
-  const limit = 150;
+  const limit = 400;
   const setTitleContent = useCallback(
     (text) => {
       setTitle(text.slice(0, 42));
@@ -46,7 +46,7 @@ const CreateImagines = () => {
   );
   const setBodyContent = useCallback(
     (text) => {
-      setBody(text.slice(0, 500));
+      setBody(text.slice(0, 700));
     },
     [setBody]
   );
@@ -83,7 +83,7 @@ const CreateImagines = () => {
       <div className="w-full max-w-7xl">
         <Header />
       </div>
-      <div className="border max-w-5xl w-full flex justify-center items-center flex-col border-green-400 mx-3 my-2 lg:mx-0">
+      <div className=" max-w-5xl w-full flex justify-center items-center flex-col mx-3 my-2 lg:mx-0">
         <div className="w-full">
           <Scrollbars
             autoHide
@@ -196,7 +196,7 @@ const CreateImagines = () => {
                     />
                   </span>
                   <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
-                    {body.length}/500
+                    {body.length}/700
                   </p>
                 </span>
               </div>

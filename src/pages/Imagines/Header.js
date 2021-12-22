@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BookmarkIcon, EyeIcon, ShareIcon } from "@heroicons/react/solid";
+import { BookmarkIcon, BookOpenIcon } from "@heroicons/react/solid";
 
 const Header = () => {
   const [bookmark, setBookmark] = useState(false);
@@ -12,27 +12,32 @@ const Header = () => {
         <img
           src="https://images.unsplash.com/photo-1637867165026-5725fe9fb052?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
           alt="dp"
-          className="w-6 h-6 rounded-full object-cover"
+          className="w-10 h-10 rounded-full object-cover"
         />
         <div className="flex flex-col items-start">
           <div className="flex items-center space-x-2">
-            <span className="text-tiny font-semibold text-gray-900">
-              User Name
-            </span>
+            <span className="text-sm font-bold text-gray-900">User Name</span>
             <span className="text-sky-500 text-tiny cursor-pointer">
               Follow
             </span>
           </div>
-          <div className="text-xxs text-gray-500">Published 23 Nov, 2021.</div>
+          <div className="text-xs text-gray-500">Published 23 Nov, 2021.</div>
         </div>
       </div>
-      <div className="text-sky-500 text-tiny">Story</div>
+
       <div className="flex items-start space-x-5 text-gray-400">
-        <ShareIcon className="h-5 w-5 cursor-pointer" />
-        <span className="block">
-          <EyeIcon className="h-5 w-5" />
-          <span className="text-xs italic">12k</span>
+        <span className="flex items-center space-x-1 text-xs">
+          <span className="cursor-pointer">
+            <BookOpenIcon className="h-7 w-7 text-primary" />
+          </span>
+          <span className="flex text-gray-800 text-sm font-bold">
+            {" "}
+            <i>p-</i>
+            <i>12</i>
+            <i>/12</i>
+          </span>
         </span>
+
         <span className="cursor-pointer" onClick={clickBookmarkHandler}>
           {bookmark ? (
             <BookmarkIcon className="h-6 w-6 text-primary" />

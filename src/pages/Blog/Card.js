@@ -6,7 +6,16 @@ import Sound from "./Sound";
 const src =
   "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
 
-const Card = ({ num }) => {
+const Card = ({
+  title,
+  content,
+  coverImage,
+  avatar,
+  userName,
+  likes,
+  date,
+  link,
+}) => {
   const [like, setLike] = useState(false);
   const clickLikeHandler = () => {
     setLike(!like);
@@ -18,33 +27,43 @@ const Card = ({ num }) => {
   };
   return (
     <>
-      <div>
+      <div className="mb-4">
         <div
           class="relative h-52 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-t-lg font-Mulish"
-          style={{ backgroundImage: `url(${src})` }}
+          style={
+            coverImage
+              ? { backgroundImage: `url(${coverImage})` }
+              : { backgroundImage: `url(${src})` }
+          }
         >
           <div class="absolute top-0 mt-16 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent via-gray-900 to-gray-900 rounded-lg"></div>
-          <main class="p-5 z-10 text-gray-50">
+          <main class="p-5 z-50 text-gray-50 pr-10">
             <Link
-              to="#"
+              to={link}
               class="text-base font-medium font-regular text-white hover:underline"
             >
-              Dr. Abdullah Abdullah's Presidential Election
-              <p className="text-xs mt-1">
-                In publishing and graphic design, Lorem ipsum is a placeholder
-                text commonly used to demonstrate the visual form of a document
+              {title}
+              <p
+                style={{
+                  "white-space": "nowrap",
+                  overflow: "hidden",
+                  "text-overflow": "ellipsis",
+                }}
+                className="text-xs mt-1 text-ellipsis flex justify-center overflow-hidden ..."
+              >
+                {content}
               </p>
             </Link>
           </main>
         </div>
         <div className="flex justify-between items-center bg-gray-100 shadow-md rounded-b-lg">
           <div className="flex items-center space-x-1 px-3 py-2">
-            <img src={src} alt="dp" className="w-8 h-8 rounded-full" />
+            <img src={avatar} alt="dp" className="w-8 h-8 rounded-full" />
             <span className="flex flex-col font-medium items-start px-2">
               <span className="text-sm text-black font-semibold">
-                Aindrila Bhattacharjee
+                {userName}
               </span>
-              <span className="text-xs text-gray-400"> nov 25, 2021</span>
+              <span className="text-xs text-gray-400"> {date}</span>
             </span>
           </div>
           <div className="flex items-start space-x-5 pr-3">
@@ -69,7 +88,7 @@ const Card = ({ num }) => {
                   </svg>
                 )}
               </span>
-              <i>12k</i>
+              <i>{likes.length}</i>
             </span>
             <span>
               <Sound />
@@ -103,4 +122,4 @@ const Card = ({ num }) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);
