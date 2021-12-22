@@ -23,11 +23,13 @@ import ProfileSavedBlogs from "./pages/UserProfile/ProfileSavedBlogs";
 import ProfileSavedImagines from "./pages/UserProfile/ProfileSavedImagines";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import Leaderboard from "./pages/Leaderboard/Leaderboard";
 
 function App() {
   let routes;
   const auth = useSelector((state) => state.auth);
-  if (!!!auth.userid) {
+  if (false) {
+    // if (!!!auth.userid) {
     routes = (
       <>
         {/******* 🚀 auth ***** */}
@@ -60,6 +62,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile-blogs" element={<ProfileBlog />} />
           <Route path="/profile-saved-blogs" element={<ProfileSavedBlogs />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
           <Route
             path="/profile-saved-imagines"
             element={<ProfileSavedImagines />}
