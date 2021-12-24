@@ -27,4 +27,4 @@ const CommentList = () => {
   );
 };
 
-export default CommentList;
+export default React.memo(CommentList);

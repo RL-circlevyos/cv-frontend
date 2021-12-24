@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
+import { Link } from "react-router-dom";
 import SkeletonImagines from "../../../components/SkeletonLoader/SkeletonImagines";
 import Card from "./Card";
 
@@ -22,19 +23,24 @@ const List = () => {
         autoHide
         style={{ width: "100%", height: "48vh" }}
       >
-
-        <div className="space-y-3 w-4/6 float-right">
-          {loading ? <SkeletonImagines /> : <Card />}
-          {loading ? <SkeletonImagines /> : <Card />}
-          {loading ? <SkeletonImagines /> : <Card />}
-          {loading ? <SkeletonImagines /> : <Card />}
-          {loading ? <SkeletonImagines /> : <Card />}
-          {loading ? <SkeletonImagines /> : <Card />}
-
+        <div className="gap-3 w-4/6 float-right">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((id) => {
+            return (
+              <>
+                {loading ? (
+                  <SkeletonImagines />
+                ) : (
+                  <Link to={`/general-imagines/${id}`}>
+                    <Card />
+                  </Link>
+                )}
+              </>
+            );
+          })}
         </div>
       </Scrollbars>
     </>
   );
 };
 
-export default List;
+export default React.memo(List);

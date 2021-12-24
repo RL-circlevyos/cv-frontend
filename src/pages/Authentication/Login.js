@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { LoginWithNameEmailAndPassword } from "../../store/apps/auth/auth-action";
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -23,6 +25,8 @@ const validationSchema = yup.object().shape({
 });
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -36,9 +40,10 @@ const Login = () => {
   const onSubmit = useCallback(
     (data) => {
       console.log(data);
+      dispatch(LoginWithNameEmailAndPassword(data));
       reset();
     },
-    [reset]
+    [reset, dispatch]
   );
   /**  console.log(errors);*/
 

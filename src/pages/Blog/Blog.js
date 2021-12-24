@@ -9,23 +9,41 @@ import SearchBar from "./BlogSearch/SearchBar";
 import BookData from "./BlogSearch/Data.json";
 import Navbar from "../../components/Navbar";
 import SkeletonLoader from "../../components/SkeletonLoader/SkeletonLoader";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { blogFetchAction } from "../../store/apps/blogs/blog-action";
 
 const Blog = () => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
+  const blog = useSelector((state) => state.blog);
+  const ui = useSelector((state) => state.ui);
+  const auth = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+      dispatch(blogFetchAction(auth.token));
+    }, 500);
     return () => {
       clearTimeout(timer);
     };
-  }, [loading]);
+  }, [dispatch, auth.token]);
+
+  console.log(blog.blogPosts);
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2000);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [loading]);
 
   return (
     <div className="fixed h-screen w-full">
       <div className="">
-    
         <Navbar />
         <div className="mb-8">
           <div className="max-w-large gap-x-10 mx-auto grid md:grid-cols-3 px-4 ">
@@ -40,15 +58,28 @@ const Blog = () => {
                   autoHide
                   style={{ width: "100%", height: "90vh" }}
                 >
-
                   <div className="space-y-5 pb-4">
-                    {loading ? <SkeletonLoader /> : <Card />}
-                    {loading ? <SkeletonLoader /> : <Card />}
-                    {loading ? <SkeletonLoader /> : <Card />}
-                    {loading ? <SkeletonLoader /> : <Card />}
-                    {loading ? <SkeletonLoader /> : <Card />}
-                    {loading ? <SkeletonLoader /> : <Card />}
-
+                    {blog.blogPosts.map((blog) => {
+                      console.log(blog);
+                      return (
+                        <>
+                          {ui.isLoading ? (
+                            <SkeletonLoader />
+                          ) : (
+                            <Card
+                              link={`/blog/${blog._id}`}
+                              title={blog.title}
+                              content={blog.content}
+                              coverImage={blog.coverImage}
+                              avatar={blog.avatar}
+                              userName={blog.name}
+                              likes={blog.likes}
+                              date={blog.date}
+                            />
+                          )}
+                        </>
+                      );
+                    })}
                   </div>
                 </Scrollbars>
               </div>
