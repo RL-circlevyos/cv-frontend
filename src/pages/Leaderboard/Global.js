@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import LeaderboardCard from "./LeaderboardCard";
 import Nav from "./Nav";
 
-function Leaderboard() {
+function Global() {
   return (
     <>
       <div className="sticky top-0 flex justify-center font-Mulish">
@@ -17,19 +17,19 @@ function Leaderboard() {
         <div className="w-full max-w-7xl">
           <div className="flex justify-center items-center w-full">
             <Link
-              className="w-full bg-cyan-700 py-2 rounded-2xl"
+              className="w-full bg-white border border-cyan-700 py-2 rounded-2xl"
               to="/leaderboard"
             >
               {" "}
-              <button className="w-full bg-cyan-700 text-lg uppercase text-white font-medium rounded-2xl">
+              <button className="w-full bg-white rounded-2xl text-lg font-medium uppercase text-cyan-700">
                 Country
               </button>
             </Link>
             <Link
-              className="w-full bg-white border border-cyan-700 py-2 rounded-2xl"
+              className="w-full bg-cyan-700 py-2 rounded-2xl"
               to="/leaderboard-global"
             >
-              <button className="w-full bg-white text-lg uppercase text-cyan-700 font-medium rounded-2xl">
+              <button className="w-full bg-cyan-700 text-lg font-medium uppercase text-white rounded-2xl">
                 Global
               </button>
             </Link>
@@ -61,4 +61,4 @@ function Leaderboard() {
   );
 }
 
-export default Leaderboard;
+export default Global;

@@ -9,7 +9,7 @@ import Badge from "./Badge";
 function LeaderboardCard() {
   return (
     <div>
-      <div className="max-w-full overflow-hidden rounded-lg shadow-lg p-3 m-5">
+      <div className="max-w-full overflow-hidden rounded-lg shadow p-2 m-5 font-Mulish">
         <div className="flex justify-between text-center">
           {/* profile */}
           <div className="flex">
