@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import Tab from "@mui/material/Tab";
 import { AppBar, Box, Paper, Tabs } from "@mui/material";
@@ -7,7 +7,7 @@ import Header from "./Header";
 
 let maxTabIndex = 0;
 let currentTablIndex = 0;
-export default function CreateStoryImagines(props) {
+function CreateStoryImagines(props) {
   // Handle Tab Button Click
   const [tabId, setTabId] = React.useState(0);
   const handleTabChange = (event, newTabId) => {
@@ -36,13 +36,13 @@ export default function CreateStoryImagines(props) {
       <Card />
     </TabPanel>,
   ]);
-  const handleTabsContent = () => {
+  const handleTabsContent = useCallback(() => {
     setTabsContent([
       <TabPanel tabId={tabId}>
         {tabId} <Card />
       </TabPanel>,
     ]);
-  };
+  }, [tabId]);
 
   return (
     <Paper style={{ width: "100%" }}>
@@ -77,6 +77,7 @@ export default function CreateStoryImagines(props) {
     </Paper>
   );
 }
+export default React.memo(CreateStoryImagines);
 
 function TabPanel(props) {
   const { children, tabId } = props;

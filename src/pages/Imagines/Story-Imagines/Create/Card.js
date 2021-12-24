@@ -10,27 +10,27 @@ const StoryCard = () => {
   const [outro, setOutro] = useState("");
   const [outroImage, setOutroImage] = useState();
 
-  const introImageChange = (e) => {
+  const introImageChange = useCallback((e) => {
     if (e.target.files && e.target.files.length > 0) {
       setIntroImage(e.target.files[0]);
     }
-  };
-  const removeIntroImage = () => {
+  }, []);
+  const removeIntroImage = useCallback(() => {
     setIntroImage();
-  };
+  }, []);
 
-  const outroImageChange = (e) => {
+  const outroImageChange = useCallback((e) => {
     if (e.target.files && e.target.files.length > 0) {
       setOutroImage(e.target.files[0]);
     }
-  };
-  const removeOutroImage = () => {
+  }, []);
+  const removeOutroImage = useCallback(() => {
     setOutroImage();
-  };
-  const limit = 150;
+  }, []);
+  const limit = 250;
   const setTitleContent = useCallback(
     (text) => {
-      setTitle(text.slice(0, 42));
+      setTitle(text.slice(0, 50));
     },
     [setTitle]
   );
@@ -107,7 +107,7 @@ const StoryCard = () => {
                     />
                   </span>
                   <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
-                    {title.length}/42
+                    {title.length}/50
                   </p>
                 </span>
               </div>
