@@ -37,14 +37,29 @@ import Uploads from "./pages/Ad/Uploads/Uploads";
 import Revenue from "./pages/Ad/Revenue/Revenue";
 import Dashboard from "./pages/Ad/Dashboard/Dashboard";
 import Budget from "./pages/Ad/Budget/Budget";
+import BlogDetails from "./pages/Blog/CreateBlog/BlogDetails";
+import Global from "./pages/Leaderboard/Global";
+import { AuthState } from "./store/apps/auth/auth-action";
 
-const userId = true;
+
+
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(AuthState());
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   let routes;
   const auth = useSelector((state) => state.auth);
-  if (false) {
-    // if (!!!auth.userid) {
+  // if (false) {
+  if (!!!auth.userid) {
     routes = (
       <>
         {/******* 🚀 auth ***** */}

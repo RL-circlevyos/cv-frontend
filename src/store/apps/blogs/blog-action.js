@@ -48,18 +48,19 @@ export const blogCreateAction = (blogBody, token) => async (dispatch) => {
   }
 };
 
-export const blogFetchAction = (token) => async (dispatch) => {
-  console.log(token);
+export const blogFetchAction = () => async (dispatch) => {
+  // console.log(token);
   // const auth = useSelector((state) => state.auth);
   const blogFetch = async () => {
     const response = await fetch(
       // `${process.env.REACT_APP_API_BASE_URL}/blogposts`,
-      "http://localhost:5000/api/blogposts",
+      "http://localhost:3699/api/blogs",
       {
+        credentials: "include",
         method: "GET",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json",
-          "x-auth-token": token,
         },
       }
     );

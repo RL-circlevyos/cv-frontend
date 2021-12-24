@@ -10,12 +10,10 @@ const Card = ({
   title,
   content,
   coverImage,
-  avatar,
-  userName,
-  likes,
-  date,
+
   link,
 }) => {
+  let coverImage1 = `https://storage.googleapis.com/niketan-dev-mode.appspot.com/${coverImage}`;
   const [like, setLike] = useState(false);
   const clickLikeHandler = () => {
     setLike(!like);
@@ -32,7 +30,7 @@ const Card = ({
           class="relative h-52 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-t-lg font-Mulish"
           style={
             coverImage
-              ? { backgroundImage: `url(${coverImage})` }
+              ? { backgroundImage: `url(${coverImage1})` }
               : { backgroundImage: `url(${src})` }
           }
         >
@@ -58,12 +56,15 @@ const Card = ({
         </div>
         <div className="flex justify-between items-center bg-gray-100 shadow-md rounded-b-lg">
           <div className="flex items-center space-x-1 px-3 py-2">
-            <img src={avatar} alt="dp" className="w-8 h-8 rounded-full" />
+            {/* <img src={avatar} alt="dp" className="w-8 h-8 rounded-full" /> */}
+            <img
+              src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
+              alt="dp"
+              className="w-8 h-8 rounded-full"
+            />
             <span className="flex flex-col font-medium items-start px-2">
-              <span className="text-sm text-black font-semibold">
-                {userName}
-              </span>
-              <span className="text-xs text-gray-400"> {date}</span>
+              <span className="text-sm text-black font-semibold">username</span>
+              <span className="text-xs text-gray-400"> 12-12-21</span>
             </span>
           </div>
           <div className="flex items-start space-x-5 pr-3">
@@ -88,7 +89,7 @@ const Card = ({
                   </svg>
                 )}
               </span>
-              <i>{likes.length}</i>
+              <i>{12}</i>
             </span>
             <span>
               <Sound />
