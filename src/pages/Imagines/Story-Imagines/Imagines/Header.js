@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { BookmarkIcon, BookOpenIcon } from "@heroicons/react/solid";
 
 const Header = () => {
   const [bookmark, setBookmark] = useState(false);
-  const clickBookmarkHandler = () => {
+  const clickBookmarkHandler = useCallback(() => {
     setBookmark(!bookmark);
-  };
+  }, [bookmark]);
   return (
     <div className=" flex justify-between items-start px-3">
       <div className="flex items-center space-x-2">
@@ -37,7 +37,6 @@ const Header = () => {
             <i>/12</i>
           </span>
         </span>
-
         <span className="cursor-pointer" onClick={clickBookmarkHandler}>
           {bookmark ? (
             <BookmarkIcon className="h-6 w-6 text-primary" />
@@ -63,4 +62,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

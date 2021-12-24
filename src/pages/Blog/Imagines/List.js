@@ -30,7 +30,7 @@ const List = () => {
                 {loading ? (
                   <SkeletonImagines />
                 ) : (
-                  <Link to={`/imagines/${id}`}>
+                  <Link to={`/general-imagines/${id}`}>
                     <Card />
                   </Link>
                 )}

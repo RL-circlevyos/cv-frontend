@@ -1,40 +1,16 @@
 import {
   AnnotationIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   EyeIcon,
   LightBulbIcon,
-  PaperAirplaneIcon,
   ShareIcon,
 } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 
 const Footer = ({ openCommentBox }) => {
   const [like, setLike] = useState(false);
-  const clickLikeHandler = () => {
+  const clickLikeHandler = useCallback(() => {
     setLike(!like);
-  };
-
-  const [title, setTitle] = useState("");
-  const limit = 250;
-  const setTitleContent = useCallback(
-    (text) => {
-      setTitle(text.slice(0, 250));
-    },
-    [setTitle]
-  );
-  const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      const post = {
-        title,
-      };
-
-      console.log(post);
-      setTitle("");
-    },
-    [title]
-  );
+  }, [like]);
 
   return (
     <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
@@ -93,29 +69,6 @@ const Footer = ({ openCommentBox }) => {
           COMMENTS
         </span>
       </div>
-      {/* <form onSubmit={onSubmit} className="w-full md:w-1/2 block">
-        <div>
-          <span className="w-full md:w-1/2">
-            <span
-              className="w-full   font-bold text-gray-900 dark:bg-gray-800 dark:text-gray-200 border-b-2
-        border-gray-300 dark:border-primary flex items-center px-3 py-1"
-            >
-              <input
-                type="text"
-                required
-                placeholder="Title of Imagine"
-                className="w-full text-sm px-3 focus:outline-none  dark:bg-gray-800"
-                value={title}
-                onChange={(e) => setTitleContent(e.target.value)}
-              />
-              <PaperAirplaneIcon className="h-5 w-5 transform rotate-45" />
-            </span>
-            <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
-              {title.length}/{limit}
-            </p>
-          </span>
-        </div>
-      </form> */}
     </div>
   );
 };

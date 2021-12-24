@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { useSelector } from "react-redux";
-import CommentBox from "./Comment/CommentBox";
+import CommentBox from "../../Comment/CommentBox";
 import ImagineSlider from "./Slider";
-import StoryImagine from "./StoryImagines/StoryImagine";
+import Recommendation from "../../Recommendation/Recommendation";
 import Nav from "./Nav";
+import posts from "../../Demo.json";
 
-const Imagines = () => {
+const GeneralImagines = () => {
   const [showBox, setShowBox] = useState(false);
-  const openCommentBox = () => {
+  const openCommentBox = useCallback(() => {
     setShowBox(true);
-  };
-  const closeCommentBox = () => {
+  }, []);
+  const closeCommentBox = useCallback(() => {
     setShowBox(false);
-  };
-  const posts = useSelector((state) => state.createImagine.posts);
+  }, []);
+  // const posts = useSelector((state) => state.createImagine.posts);
   return (
     <>
       <div className="w-full lg:flex flex-col justify-content items-start h-screen hidden lg:fixed">
@@ -44,11 +45,11 @@ const Imagines = () => {
                 autoHide
                 thumbSize={1}
                 autoHeight
-                autoHeightMin={660}
+                autoHeightMax={"90vh"}
                 style={{ width: "100%" }}
               >
-                <div className="block max-w-lg pb-4">
-                  <StoryImagine />
+                <div className="block max-w-lg pb-4 ">
+                  <Recommendation />
                 </div>
               </Scrollbars>
             </div>
@@ -73,4 +74,4 @@ const Imagines = () => {
   );
 };
 
-export default Imagines;
+export default React.memo(GeneralImagines);

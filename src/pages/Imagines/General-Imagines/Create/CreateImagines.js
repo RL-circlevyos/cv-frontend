@@ -14,27 +14,27 @@ const CreateImagines = () => {
   const [outroImage, setOutroImage] = useState();
   const dispatch = useDispatch();
 
-  const introImageChange = (e) => {
+  const introImageChange = useCallback((e) => {
     if (e.target.files && e.target.files.length > 0) {
       setIntroImage(e.target.files[0]);
     }
-  };
-  const removeIntroImage = () => {
+  }, []);
+  const removeIntroImage = useCallback(() => {
     setIntroImage();
-  };
+  }, []);
 
-  const outroImageChange = (e) => {
+  const outroImageChange = useCallback((e) => {
     if (e.target.files && e.target.files.length > 0) {
       setOutroImage(e.target.files[0]);
     }
-  };
-  const removeOutroImage = () => {
+  }, []);
+  const removeOutroImage = useCallback(() => {
     setOutroImage();
-  };
-  const limit = 400;
+  }, []);
+  const limit = 250;
   const setTitleContent = useCallback(
     (text) => {
-      setTitle(text.slice(0, 42));
+      setTitle(text.slice(0, 50));
     },
     [setTitle]
   );
@@ -46,7 +46,7 @@ const CreateImagines = () => {
   );
   const setBodyContent = useCallback(
     (text) => {
-      setBody(text.slice(0, 700));
+      setBody(text.slice(0, 500));
     },
     [setBody]
   );
@@ -114,7 +114,7 @@ const CreateImagines = () => {
                     />
                   </span>
                   <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
-                    {title.length}/42
+                    {title.length}/50
                   </p>
                 </span>
               </div>
@@ -196,7 +196,7 @@ const CreateImagines = () => {
                     />
                   </span>
                   <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
-                    {body.length}/700
+                    {body.length}/500
                   </p>
                 </span>
               </div>
