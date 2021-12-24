@@ -66,15 +66,21 @@ const Blog = () => {
                           {ui.isLoading ? (
                             <SkeletonLoader />
                           ) : (
+                            // <Card
+                            //   link={`/blog/${blog.id}`}
+                            //   title={blog.title}
+                            //   content={blog.content}
+                            //   // coverImage={blog.coverImage}
+                            // />
+
                             <Card
-                              link={`/blog/${blog._id}`}
-                              title={blog.title}
-                              content={blog.content}
-                              coverImage={blog.coverImage}
-                              avatar={blog.avatar}
-                              userName={blog.name}
-                              likes={blog.likes}
-                              date={blog.date}
+                              link={1}
+                              title="title"
+                              content="{blog.content}"
+                              // avatar={blog.avatar}
+                              userName="user_anme"
+                              // likes={blog.likes}
+                              date="45-45-5"
                             />
                           )}
                         </>
