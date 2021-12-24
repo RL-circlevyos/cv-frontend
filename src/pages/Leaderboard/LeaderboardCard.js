@@ -9,8 +9,8 @@ import Badge from "./Badge";
 function LeaderboardCard() {
   return (
     <div>
-      <div className="max-w-full overflow-hidden rounded-lg shadow p-2 m-5 font-Mulish">
-        <div className="flex justify-between text-center">
+      <div className="max-w-full overflow-hidden rounded-lg shadow p-2 m-5 font-Mulish ">
+        <div className="lg:flex hidden justify-between text-center">
           {/* profile */}
           <div className="flex">
             <img
@@ -50,6 +50,48 @@ function LeaderboardCard() {
           <div className="mr-5">
             <div className="text-primary font-semibold">Achievements</div>
             <div className="text-primary font-extrabold">800</div>
+          </div>
+        </div>
+        {/********************mobile view ***********************/}
+        <div className="flex lg:hidden justify-center flex-col items-center ">
+          <div className="max-w-xl w-full space-y-6 ">
+            <div className="flex">
+              <img
+                className="inline object-cover w-10 h-10 mr-2 rounded-full"
+                src="https://cdn.pixabay.com/photo/2021/11/19/15/21/christmas-6809681_960_720.png"
+                alt=""
+              />
+              <div className="flex flex-col items-start">
+                <div className="text-base font-semibold">User_Name</div>
+                <div className="text-tiny">
+                  Stage: <span className="font-medium"> Stage_name</span>{" "}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between px-5">
+              <div className="">
+                <div className="text-gray-800 font-medium">Blogs</div>
+                <div className="font-bold text-primary">800</div>
+              </div>
+
+              <div>
+                <div className="text-gray-800 font-medium">Imagines</div>
+                <div className="font-bold text-primary">800</div>
+              </div>
+              <div>
+                {" "}
+                <div className="text-cyan-700 font-semibold">Achievements</div>
+                <div className="text-cyan-700 font-extrabold">800</div>
+              </div>
+            </div>
+            <div className="flex w-full justify-evenly">
+              <Badge src={MostLiked} number={200} />
+              <Badge src={MostViewed} number={200} />
+              <Badge src={Trending} number={200} />
+              <Badge src={NewUser} number={200} />
+              <Badge src={Contribution} number={200} />
+            </div>
           </div>
         </div>
       </div>

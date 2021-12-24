@@ -43,7 +43,9 @@ const Header = () => {
       </div>
       <div className="block lg:hidden">
         <div className="text-lg font-medium uppercase text-primary flex justify-between items-start px-3">
-          <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
+          <Link to="/">
+            <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
+          </Link>
           <span>Create Imagines</span>
           <span></span>
         </div>

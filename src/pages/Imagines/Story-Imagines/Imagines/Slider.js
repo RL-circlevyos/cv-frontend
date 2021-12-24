@@ -1,30 +1,32 @@
 import React, { useRef, useState } from "react";
 import Slider from "react-slick";
-import posts from "./Demo.json";
 import "./Slider.css";
-
 import Card from "./Card";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
-import { Scrollbars } from "react-custom-scrollbars-2";
 import { Link } from "react-router-dom";
 
-const NextArrow = ({ onClick }) => {
+const NextArrow = ({ onClick, id }) => {
   return (
     <div className="nextArrow" onClick={onClick}>
-      <ChevronRightIcon className="h-8 w-8" />
+      <Link to={`/story-imagines/${id}`}>
+        {" "}
+        <ChevronRightIcon className="h-8 w-8" />
+      </Link>
     </div>
   );
 };
 
-const PrevArrow = ({ onClick }) => {
+const PrevArrow = ({ onClick, id }) => {
   return (
     <div className="prevArrow" onClick={onClick}>
-      <ChevronLeftIcon className="h-8 w-8" />
+      <Link to={`/story-imagines/${id}`}>
+        <ChevronLeftIcon className="h-8 w-8" />
+      </Link>
     </div>
   );
 };
 
-const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
+const ImagineSlider = ({ slidesToShow = 1, openCommentBox, posts }) => {
   const sliderRef = useRef(null);
   const [imagineIndex, setImagineIndex] = useState(0);
 
@@ -34,8 +36,8 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
     dots: false,
     speed: 300,
     slidesToShow: slidesToShow,
-    nextArrow: <NextArrow onClick />,
-    prevArrow: <PrevArrow onClick />,
+    nextArrow: <NextArrow onClick id={imagineIndex} />,
+    prevArrow: <PrevArrow onClick id={imagineIndex} />,
     centerPadding: "0",
     draggable: false,
     focusOnSelect: true,
@@ -70,7 +72,7 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
           key={imagine.id}
         >
           <div className="slideWrapper mb-10 w-full">
-            <Link to={`/imagines/${id}`}>
+            <Link to={`/story-imagines/${id}`}>
               <Card
                 openCommentBox={openCommentBox}
                 post={imagine}
