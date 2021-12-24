@@ -34,6 +34,7 @@ import Revenue from "./pages/Ad/Revenue/Revenue";
 import Dashboard from "./pages/Ad/Dashboard/Dashboard";
 import Budget from "./pages/Ad/Budget/Budget";
 import BlogDetails from "./pages/Blog/CreateBlog/BlogDetails";
+import Global from "./pages/Leaderboard/Global";
 
 const userId = true;
 
@@ -84,6 +85,7 @@ function App() {
           <Route path="/profile-blogs" element={<ProfileBlog />} />
           <Route path="/profile-saved-blogs" element={<ProfileSavedBlogs />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/leaderboard-global" element={<Global />} />
           <Route
             path="/profile-saved-imagines"
             element={<ProfileSavedImagines />}

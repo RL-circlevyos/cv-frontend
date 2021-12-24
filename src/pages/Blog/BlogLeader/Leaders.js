@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import SkeletonContentLeader from "../../../components/SkeletonLoader/SkeletonContentLeader";
 import User from "./User";
 const src =
@@ -26,9 +28,12 @@ const Leaders = () => {
         </span>
 
         <span>
-          <button className="px-3 py-2 text-xs bg-yellow-900 text-gray-50 rounded-2xl">
-            Leaderboard
-          </button>
+          <Link to="/leaderboard">
+            {" "}
+            <button className="px-3 py-2 text-xs bg-yellow-900 text-gray-50 rounded-2xl">
+              Leaderboard
+            </button>
+          </Link>
         </span>
       </span>
       <hr />
