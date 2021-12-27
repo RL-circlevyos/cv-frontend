@@ -2,26 +2,28 @@ import { useSelector } from "react-redux";
 import { UiSliceAction } from "../ui/uiSlice";
 import { blogSliceAction } from "./blog-slice";
 
-export const blogCreateAction = (blogBody, token) => async (dispatch) => {
+export const blogCreateAction = (blogBody) => async (dispatch) => {
   // const auth = useSelector((state) => state.auth);
+  console.log(blogBody);
   const blogCreate = async () => {
     const response = await fetch(
       // `${process.env.REACT_APP_API_BASE_URL}/blogs`,
-      "http://localhost:1337/api/blogs",
+      "http://localhost:3699/api/blogs",
       {
+        credentials: "include",
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(blogBody),
+        mode: "cors",
+        // headers: {
+        //   "Content-Type": "form-data",
+        // },
+        body: blogBody,
       }
     );
 
     console.log(response.json());
 
     if (!response.ok) {
-      throw Error("Error occured in question create");
+      throw Error("Error occured in blog create");
     }
   };
 
@@ -48,18 +50,19 @@ export const blogCreateAction = (blogBody, token) => async (dispatch) => {
   }
 };
 
-export const blogFetchAction = (token) => async (dispatch) => {
-  console.log(token);
+export const blogFetchAction = () => async (dispatch) => {
+  // console.log(token);
   // const auth = useSelector((state) => state.auth);
   const blogFetch = async () => {
     const response = await fetch(
       // `${process.env.REACT_APP_API_BASE_URL}/blogposts`,
-      "http://localhost:5000/api/blogposts",
+      "http://localhost:3699/api/blogs",
       {
+        credentials: "include",
         method: "GET",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json",
-          "x-auth-token": token,
         },
       }
     );
@@ -84,6 +87,60 @@ export const blogFetchAction = (token) => async (dispatch) => {
     dispatch(
       blogSliceAction.getBlogs({
         blogPosts,
+      })
+    );
+  } catch (err) {
+    console.log(err);
+    dispatch(
+      UiSliceAction.ErrorMessage({
+        errorMessage: err.message,
+      })
+    );
+  } finally {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: false,
+      })
+    );
+  }
+};
+
+export const blogSingleFetchAction = (blogid) => async (dispatch) => {
+  // console.log(token);
+  // const auth = useSelector((state) => state.auth);
+  const blogSingleFetch = async () => {
+    const response = await fetch(
+      // `${process.env.REACT_APP_API_BASE_URL}/blogposts`,
+      `http://localhost:3699/api/blogs/${blogid}`,
+      {
+        credentials: "include",
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw Error("Error occured in class create");
+    }
+
+    const data = await response.json();
+    return data;
+  };
+
+  try {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: true,
+      })
+    );
+    const blogPostItem = await blogSingleFetch();
+    console.log(blogPostItem);
+    dispatch(
+      blogSliceAction.getBlogItem({
+        blogPostItem,
       })
     );
   } catch (err) {

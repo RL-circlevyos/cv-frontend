@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import CommentList from "./Comment/List";
 import Header from "./Blog/Header";
@@ -8,8 +8,26 @@ import Audio from "./Audio/Audio";
 import Info from "./Info/Info";
 import Related from "./Related/Related";
 import Navbar from "../../../components/Navbar";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { blogSingleFetchAction } from ".././../../store/apps/blogs/blog-action";
 
 const SingleBlog = () => {
+  const blog = useSelector((state) => state.blog);
+  const dispatch = useDispatch();
+  const blogid = useParams();
+  console.log(blogid);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(blogSingleFetchAction());
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dispatch]);
+
   return (
     <>
       <Navbar />
@@ -27,19 +45,21 @@ const SingleBlog = () => {
             >
               {" "}
               <div className="pt-4">
+                {/* ad */}
                 <Header />
+                {/* ad */}
               </div>
               <div className="grid place-items-center pt-5">
-                <Image />
+                {/* cover image */}
+                <Image img={blog.blogPostItem.coverImage} />
+                {/* cover image */}
               </div>
               <div className="grid place-items-center">
-                <Text />
-              </div>
-              <div className="grid place-items-center pt-5">
-                <Image />
-              </div>
-              <div className="grid place-items-center">
-                <Text />
+                {/* content, title */}
+                <Text
+                  content={blog?.blogPostItem?.content}
+                  title={blog?.blogPostItem?.title}
+                />
               </div>
               <CommentList />
             </Scrollbars>
@@ -57,10 +77,6 @@ const SingleBlog = () => {
               <span>Play Audios</span>
               <span className="">
                 {" "}
-                <Audio />
-                <Audio />
-                <Audio />
-                <Audio />
                 <Audio />
               </span>
               <hr className="mt-6" />

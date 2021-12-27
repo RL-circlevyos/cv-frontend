@@ -6,6 +6,9 @@ import { EDITOR_JS_TOOLS } from "./Editor";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import edjsHTML from "editorjs-html";
+import { useDispatch } from "react-redux";
+import { blogSliceAction } from "../../../store/apps/blogs/blog-slice";
+import { useSelector } from "react-redux";
 
 const edjsParser = edjsHTML();
 
@@ -13,6 +16,7 @@ const Create = ({ data }) => {
   const instanceRef = React.useRef(null);
   const [show, setShow] = useState();
   const [title, setTitle] = useState("");
+  const dispatch = useDispatch();
 
   const limit = 200;
   const setTitleContent = useCallback(
@@ -25,7 +29,18 @@ const Create = ({ data }) => {
     const savedData = await instanceRef.current.save();
 
     console.log("savedData", savedData);
+    console.log("savedtitle", title);
 
+    const newBlogItem = {
+      title: title,
+      content: savedData,
+    };
+
+    dispatch(
+      blogSliceAction.newBlogContent({
+        newBlogItem,
+      })
+    );
     const HTML = edjsParser.parse(savedData);
     const string = HTML;
     const parse = string.join(" ");

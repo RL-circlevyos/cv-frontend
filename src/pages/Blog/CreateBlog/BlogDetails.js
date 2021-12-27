@@ -1,6 +1,10 @@
 import { LocationMarkerIcon, UploadIcon, XIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { blogCreateAction } from "../../../store/apps/blogs/blog-action";
 
 const TagsInput = (props) => {
   const [tags, setTags] = useState(props.tags);
@@ -52,6 +56,12 @@ const TagsInput = (props) => {
 const BlogDetails = () => {
   const [coverImage, setCoverImage] = useState();
   const [location, setLocation] = useState("");
+  const formData = new FormData();
+  const dispatch = useDispatch();
+
+  const blog = useSelector((state) => state.blog);
+  console.log(blog.newBlogItem.content);
+
   const coverImageChange = useCallback((e) => {
     if (e.target.files && e.target.files.length > 0) {
       setCoverImage(e.target.files[0]);
@@ -74,6 +84,25 @@ const BlogDetails = () => {
   const selectedTags = (tags) => {
     console.log(tags);
   };
+
+  const [draft, setDraft] = useState(false);
+
+  formData.append("title", blog.newBlogItem.title);
+  formData.append("content", JSON.stringify(blog.newBlogItem.content));
+  formData.append("coverImage", coverImage);
+  formData.append("audio", blogAudio);
+  formData.append("draft", draft);
+  // formData.append("keywords",)
+
+  const saveAsDraft = () => {
+    setDraft(true);
+  };
+
+  const publish = () => {
+    console.log(formData);
+    dispatch(blogCreateAction(formData));
+  };
+
   return (
     <div className="w-full flex justify-center flex-col items-center font-Mulish">
       <div className="max-w-4xl w-full px-4">
@@ -195,13 +224,14 @@ const BlogDetails = () => {
             className="uppercase  flex text-sm md:text-base font-semibold items-center py-1 lg:py-3 px-3 rounded-md transition 
             duration-200 bg-gray-200 text-primary focus:bg-cyan-900
         dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+            onSubmit={saveAsDraft}
           >
             Save Draft
           </button>{" "}
           <button
             className="uppercase  flex text-sm md:text-base font-semibold items-center py-1 lg:py-3 px-3 rounded-md transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900
         dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
-            //onClick={handleSave}
+            onClick={publish}
           >
             Publish Blog
           </button>

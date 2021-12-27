@@ -12,6 +12,7 @@ import SkeletonLoader from "../../components/SkeletonLoader/SkeletonLoader";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { blogFetchAction } from "../../store/apps/blogs/blog-action";
+import { generalImagineFetchAction } from "../../store/apps/imagines/imagine-action";
 
 const Blog = () => {
   // const [loading, setLoading] = useState(true);
@@ -23,14 +24,14 @@ const Blog = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(blogFetchAction(auth.token));
+      dispatch(blogFetchAction());
     }, 500);
     return () => {
       clearTimeout(timer);
     };
   }, [dispatch, auth.token]);
 
-  console.log(blog.blogPosts);
+  // blog.blogPosts.map((blog) => console.log(blog));
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -60,22 +61,31 @@ const Blog = () => {
                 >
                   <div className="space-y-5 pb-4">
                     {blog.blogPosts.map((blog) => {
-                      console.log(blog);
+                      console.log(blog.id);
                       return (
                         <>
                           {ui.isLoading ? (
                             <SkeletonLoader />
                           ) : (
                             <Card
-                              link={`/blog/${blog._id}`}
+                              key={blog.id}
+                              link={`/blog/${blog.id}`}
                               title={blog.title}
                               content={blog.content}
                               coverImage={blog.coverImage}
-                              avatar={blog.avatar}
-                              userName={blog.name}
-                              likes={blog.likes}
-                              date={blog.date}
+                              keywords={blog.keywords}
+                              user={blog.user.name}
                             />
+
+                            // <Card
+                            //   link={1}
+                            //   title="title"
+                            //   content="{blog.content}"
+                            //   // avatar={blog.avatar}
+                            //   userName="user_anme"
+                            //   // likes={blog.likes}
+                            //   date="45-45-5"
+                            // />
                           )}
                         </>
                       );

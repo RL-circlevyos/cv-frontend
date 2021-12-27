@@ -6,9 +6,13 @@ import ImagineSlider from "./Slider";
 import Recommendation from "../../Recommendation/Recommendation";
 import Nav from "./Nav";
 import posts from "../../Demo.json";
+import { useDispatch } from "react-redux";
 
 const GeneralImagines = () => {
   const [showBox, setShowBox] = useState(false);
+  const imagine = useSelector((state) => state.imagine);
+  const dispatch = useDispatch();
+
   const openCommentBox = useCallback(() => {
     setShowBox(true);
   }, []);
@@ -31,7 +35,7 @@ const GeneralImagines = () => {
                 }md:max-w-5xl w-full`}
               >
                 {" "}
-                <ImagineSlider posts={posts} openCommentBox={openCommentBox} />
+                <ImagineSlider openCommentBox={openCommentBox} />
               </div>
               <div>
                 <CommentBox
