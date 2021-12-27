@@ -2,8 +2,9 @@ import { UploadIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import Header from "./Header";
-import { createImagineAction } from "../../../../store/apps/imagines/imagine-action";
+// import { createImagineAction } from "../../../../store/apps/imagines/imagine-action";
 import { useDispatch } from "react-redux";
+import { generalImagineCreateAction } from "../../../../store/apps/imagines/imagine-action";
 
 const CreateImagines = () => {
   const [title, setTitle] = useState("");
@@ -12,7 +13,20 @@ const CreateImagines = () => {
   const [body, setBody] = useState("");
   const [outro, setOutro] = useState("");
   const [outroImage, setOutroImage] = useState();
+  const [draft, setDraft] = useState(false);
   const dispatch = useDispatch();
+  const formdata = new FormData();
+
+  function saveAsDraft() {
+    setDraft(true);
+  }
+
+  formdata.append("title", title);
+  formdata.append("intro", intro);
+  formdata.append("outro", outro);
+  formdata.append("introImage", introImage);
+  formdata.append("outroImage", outroImage);
+  formdata.append("content", body);
 
   const introImageChange = useCallback((e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -59,24 +73,9 @@ const CreateImagines = () => {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      const newpost = {
-        title: title,
-        intro: intro,
-        introImg: introImage,
-        body: body,
-        outro: outro,
-        outroImg: outroImage,
-      };
-      console.log(newpost);
-      dispatch(createImagineAction(newpost));
-      setTitle("");
-      setIntro("");
-      setIntroImage();
-      setBody("");
-      setOutro("");
-      setOutroImage();
+      dispatch(generalImagineCreateAction(formdata));
     },
-    [title, body, intro, introImage, outro, outroImage, dispatch]
+    [dispatch, formdata]
   );
   return (
     <div className="flex justify-center items-center flex-col font-Mulish">

@@ -37,12 +37,10 @@ import Uploads from "./pages/Ad/Uploads/Uploads";
 import Revenue from "./pages/Ad/Revenue/Revenue";
 import Dashboard from "./pages/Ad/Dashboard/Dashboard";
 import Budget from "./pages/Ad/Budget/Budget";
-import BlogDetails from "./pages/Blog/CreateBlog/BlogDetails";
-import Global from "./pages/Leaderboard/Global";
+// import BlogDetails from "./pages/Blog/CreateBlog/BlogDetails";
+// import Global from "./pages/Leaderboard/Global";
 import { AuthState } from "./store/apps/auth/auth-action";
-
-
-
+import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,7 +52,7 @@ function App() {
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [dispatch]);
 
   let routes;
   const auth = useSelector((state) => state.auth);
@@ -79,7 +77,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Blog />} />
           {/* <Route path="/imagines/:id" element={<Imagine />} /> */}
-          <Route path="/blog/:id" element={<SingleBlog />} />
+          <Route path="/blog/:blogid" element={<SingleBlog />} />
           <Route path="/createblog" element={<Create />} />
           <Route path="/blog-details" element={<BlogDetails />} />
           <Route path="/create-general-imagine" element={<CreateImagines />} />

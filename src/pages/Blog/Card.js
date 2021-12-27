@@ -2,22 +2,27 @@ import { BookmarkIcon, LightBulbIcon } from "@heroicons/react/solid";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Sound from "./Sound";
+import edjsHTML from "editorjs-html";
 
 const src =
   "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
 
-const Card = ({
-  title,
-  content,
-  coverImage,
-
-  link,
-}) => {
+const Card = ({ title, content, coverImage, keywords, user, link }) => {
   let coverImage1 = `https://storage.googleapis.com/niketan-dev-mode.appspot.com/${coverImage}`;
   const [like, setLike] = useState(false);
   const clickLikeHandler = () => {
     setLike(!like);
   };
+  console.log(content);
+  const edjsParser = edjsHTML();
+
+  const HTML = edjsParser.parse(content);
+  const string = HTML;
+  const parse = string.join(" ");
+
+  function createMarkup() {
+    return { __html: parse };
+  }
 
   const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = () => {
@@ -42,15 +47,9 @@ const Card = ({
             >
               {title}
               <p
-                style={{
-                  "white-space": "nowrap",
-                  overflow: "hidden",
-                  "text-overflow": "ellipsis",
-                }}
-                className="text-xs mt-1 text-ellipsis flex justify-center overflow-hidden ..."
-              >
-                {content}
-              </p>
+                className="text-xs mt-1 truncate flex justify-center "
+                dangerouslySetInnerHTML={createMarkup()}
+              ></p>
             </Link>
           </main>
         </div>
@@ -63,8 +62,8 @@ const Card = ({
               className="w-8 h-8 rounded-full"
             />
             <span className="flex flex-col font-medium items-start px-2">
-              <span className="text-sm text-black font-semibold">username</span>
-              <span className="text-xs text-gray-400"> 12-12-21</span>
+              <span className="text-sm text-black font-semibold">{user}</span>
+              <span className="text-xs text-gray-400">12-12-21</span>
             </span>
           </div>
           <div className="flex items-start space-x-5 pr-3">

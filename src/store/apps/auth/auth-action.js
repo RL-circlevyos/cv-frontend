@@ -11,6 +11,7 @@ export const signUpWithNameEmailAndPassword = (data) => {
         `http://localhost:3699/api/auth/signup`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -52,7 +53,7 @@ export const LoginWithNameEmailAndPassword = (data) => {
         "http://localhost:3699/api/auth/login",
         {
           method: "POST",
-          // credentials: "include",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
             // "Access-Control-Allow-Origin": "http://localhost:3000",

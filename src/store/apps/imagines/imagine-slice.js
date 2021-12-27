@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialCreateImagineState = {
-  posts: [],
+  generalImagines: [],
+  singleImagine: {},
 };
 
-const createImagineSlice = createSlice({
+const imagineSlice = createSlice({
   name: "createImagine",
   initialState: initialCreateImagineState,
   reducers: {
@@ -12,8 +13,14 @@ const createImagineSlice = createSlice({
       state.posts = action.payload.posts;
       console.log(state.posts, "post of imagine");
     },
+    getImagine(state, action) {
+      state.generalImagines = action.payload.generalImagines;
+    },
+    getSingleImagine(state, action) {
+      state.singleImagine = action.payload.singleImagine;
+    },
   },
 });
 
-export const createImagineSliceReducer = createImagineSlice.reducer;
-export const createImagineSliceAction = createImagineSlice.actions;
+export const imagineSliceReducer = imagineSlice.reducer;
+export const imagineSliceAction = imagineSlice.actions;

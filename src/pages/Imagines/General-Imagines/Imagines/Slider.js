@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 
 import "./Slider.css";
 import Card from "./Card";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { generalImagineFetchAction } from "../../../../store/apps/imagines/imagine-action";
 
 const NextArrow = ({ onClick, id }) => {
   return (
@@ -27,9 +29,21 @@ const PrevArrow = ({ onClick, id }) => {
   );
 };
 
-const ImagineSlider = ({ slidesToShow = 1, openCommentBox, posts }) => {
+const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
   const sliderRef = useRef(null);
-  const [imagineIndex, setImagineIndex] = useState(0);
+  const imagine = useSelector((state) => state.imagine);
+  const [imagineIndex, setImagineIndex] = useState();
+  console.log(imagineIndex);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(generalImagineFetchAction());
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dispatch]);
 
   const settings = {
     centerMode: true,
@@ -65,11 +79,11 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox, posts }) => {
     ],
   };
 
-  const templateImagines = posts.map((imagine, id) => {
+  const templateImagines = imagine?.generalImagines?.map((imagine) => {
     return (
       <>
         <div
-          className={id === imagineIndex ? "activeSlide" : "slide"}
+          className={imagine.id === imagineIndex ? "activeSlide" : "slide"}
           key={imagine.id}
         >
           <div className="slideWrapper mb-10 w-full">
