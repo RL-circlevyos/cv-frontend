@@ -10,7 +10,10 @@ import Related from "./Related/Related";
 import Navbar from "../../../components/Navbar";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { blogSingleFetchAction } from "../../../store/apps/blogs/blog-action";
+import {
+  blogSingleFetchAction,
+  commentFetchAction,
+} from "../../../store/apps/blogs/blog-action";
 // import { blogSingleFetchAction } from ".././../../store/apps/blogs/blog-action";
 
 const SingleBlog = () => {
@@ -26,6 +29,7 @@ const SingleBlog = () => {
     const timer = setTimeout(() => {
       if (isInitial) {
         dispatch(blogSingleFetchAction(blogid.blogid));
+        dispatch(commentFetchAction(blogid.blogid));
         setIsInitial(false);
       }
     }, 500);
@@ -66,12 +70,20 @@ const SingleBlog = () => {
                 {" "}
                 <div className="pt-4">
                   {/* ad */}
-                  <Header />
+                  {/* <Header /> */}
                   {/* ad */}
                 </div>
                 <div className="grid place-items-center pt-5">
                   {/* cover image */}
-                  <Image img={blog?.blogPostItem?.coverImage} />
+                  {blog?.blogPostItem?.coverImage ? (
+                    <Image img={blog?.blogPostItem?.coverImage} />
+                  ) : (
+                    <div className="w-8/12 h-96 rounded-md bg-gray-200 ">
+                      <div className="align-middle text-center pt-48 text-primary font-semibold">
+                        {blog?.blogPostItem?.title}
+                      </div>
+                    </div>
+                  )}
                   {/* cover image */}
                 </div>
                 <div className="grid place-items-center">
@@ -98,11 +110,16 @@ const SingleBlog = () => {
               <span>Play Audios</span>
               <span className="">
                 {" "}
-                <Audio />
+                <Audio srcaudio={blog?.blogPostItem?.audio} />
               </span>
               <hr className="mt-6" />
               <span className="grid place-items-center">
-                <Info />
+                <Info
+                  username={blog?.blogPostItem?.user?.name}
+                  blogid={blogid.blogid}
+                  userid={blog?.blogPostItem?.user?.id}
+                  likes={blog?.blogPostItem?.likes}
+                />
               </span>
               <hr className="mt-6" />
               <span className="grid place-items-center">

@@ -20,6 +20,9 @@ const blogSlice = createSlice({
       state.blogPosts = action.payload.blogPosts;
       state.isBlogInitiate = false;
     },
+    getComments(state, action) {
+      state.comments = action.payload.comments;
+    },
     getBlogItem(state, action) {
       state.blogPostItem = action.payload.blogPostItem;
     },

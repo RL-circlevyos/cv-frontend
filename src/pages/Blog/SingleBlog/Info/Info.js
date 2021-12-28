@@ -1,11 +1,17 @@
 import { BookmarkIcon, LightBulbIcon } from "@heroicons/react/solid";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { likePostAction } from "../../../../store/apps/blogs/blog-action";
+
 import Tag from "./../../../../components/Tag";
 
-const Info = () => {
+const Info = ({ username, tags, blogid, likes, userid }) => {
   const [like, setLike] = useState(false);
+  const dispatch = useDispatch();
+
   const clickLikeHandler = () => {
     setLike(!like);
+    dispatch(likePostAction(blogid));
   };
 
   const [bookmark, setBookmark] = useState(false);
@@ -22,7 +28,7 @@ const Info = () => {
             className="w-full h-full rounded-full object-cover"
           />
         </span>
-        <span className="text-base font-bold">Creator Name</span>
+        <span className="text-base font-bold">{username}</span>
       </div>
       <div>
         <p className="text-sm pt-1">
@@ -55,7 +61,7 @@ const Info = () => {
               </svg>
             )}
           </span>
-          <i>12k</i>
+          <i>{likes ? likes.length : 0}</i>
         </span>
         <span className="block text-xs">
           <span className="cursor-pointer" onClick={clickBookmarkHandler}>

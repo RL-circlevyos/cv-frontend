@@ -1,6 +1,7 @@
 import React from "react";
+import moment from "moment";
 
-const Comment = () => {
+const Comment = ({ username, commentText, date }) => {
   return (
     <div className="flex flex-col items-start space-x-2 pb-2 px-4 py-1 shadow-sm">
       <div className="flex-wrap">
@@ -12,21 +13,15 @@ const Comment = () => {
           />{" "}
           <div className="flex flex-col">
             <span className="text-tiny font-semibold text-gray-900">
-              User Name
+              {username}
             </span>
 
-            <div className="text-xxs text-gray-500">Posted 23 Nov, 2021.</div>
+            <div className="text-xxs text-gray-500">Posted {"date_add"}.</div>
           </div>
         </div>
         <span className="text-sky-500 text-tiny cursor-pointer">
           {" "}
-          Where does it come from? Contrary to popular belief, Lorem Ipsum is
-          not simply random text.Where does it come from? Contrary to popular
-          belief, Lorem Ipsum is not simply random text.Where does it come from?
-          Contrary to popular belief, Lorem Ipsum is not simply random
-          text.Where does it come from? Contrary to popular belief, Lorem Ipsum
-          is not simply random text.Where does it come from? Contrary to popular
-          belief, Lorem Ipsum is not simply random text.
+          {commentText}
         </span>
       </div>
     </div>
