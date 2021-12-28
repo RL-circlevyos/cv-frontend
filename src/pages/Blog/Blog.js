@@ -23,13 +23,8 @@ const Blog = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(blogFetchAction());
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [dispatch, auth.token]);
+    dispatch(blogFetchAction());
+  }, [dispatch]);
 
   // blog.blogPosts.map((blog) => console.log(blog));
 

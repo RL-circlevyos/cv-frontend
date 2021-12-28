@@ -41,6 +41,8 @@ import Budget from "./pages/Ad/Budget/Budget";
 // import Global from "./pages/Leaderboard/Global";
 import { AuthState } from "./store/apps/auth/auth-action";
 import { useEffect } from "react";
+import { blogFetchAction } from "./store/apps/blogs/blog-action";
+import { generalImagineFetchAction } from "./store/apps/imagines/imagine-action";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +50,8 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(AuthState());
+      dispatch(blogFetchAction());
+      dispatch(generalImagineFetchAction());
     }, 500);
     return () => {
       clearTimeout(timer);

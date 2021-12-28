@@ -106,7 +106,7 @@ export const blogFetchAction = () => async (dispatch) => {
 };
 
 export const blogSingleFetchAction = (blogid) => async (dispatch) => {
-  // console.log(token);
+  console.log(blogid);
   // const auth = useSelector((state) => state.auth);
   const blogSingleFetch = async () => {
     const response = await fetch(
