@@ -1,30 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
-
-import "./Slider.css";
 import Card from "./Card";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { generalImagineFetchAction } from "../../../../store/apps/imagines/imagine-action";
 
-const NextArrow = ({ onClick, id }) => {
+const NextArrow = ({ onClick }) => {
   return (
     <div className="nextArrow" onClick={onClick}>
-      <Link to={`/general-imagines/${id}`}>
-        {" "}
-        <ChevronRightIcon className="h-8 w-8" />
-      </Link>
+      <ChevronRightIcon className="h-8 w-8" />
     </div>
   );
 };
 
-const PrevArrow = ({ onClick, id }) => {
+const PrevArrow = ({ onClick }) => {
   return (
     <div className="prevArrow" onClick={onClick}>
-      <Link to={`/general-imagines/${id}`}>
-        <ChevronLeftIcon className="h-8 w-8" />
-      </Link>
+      <ChevronLeftIcon className="h-8 w-8" />
     </div>
   );
 };
@@ -32,8 +25,7 @@ const PrevArrow = ({ onClick, id }) => {
 const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
   const sliderRef = useRef(null);
   const imagine = useSelector((state) => state.imagine);
-  const [imagineIndex, setImagineIndex] = useState();
-  console.log(imagineIndex);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,12 +43,11 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
     dots: false,
     speed: 300,
     slidesToShow: slidesToShow,
-    nextArrow: <NextArrow onClick id={imagineIndex} />,
-    prevArrow: <PrevArrow onClick id={imagineIndex} />,
+    nextArrow: <NextArrow onClick />,
+    prevArrow: <PrevArrow onClick />,
     centerPadding: "0",
     draggable: false,
     focusOnSelect: true,
-    beforeChange: (current, next) => setImagineIndex(next),
     responsive: [
       {
         breakpoint: 1490,
@@ -79,29 +70,42 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
     ],
   };
 
-  const templateImagines = imagine?.generalImagines?.map((imagine) => {
-    return (
-      <>
-        <div
-          className={imagine.id === imagineIndex ? "activeSlide" : "slide"}
-          key={imagine.id}
-        >
-          <div className="slideWrapper mb-10 w-full">
-            <Card
-              openCommentBox={openCommentBox}
-              post={imagine}
-              styles="max-w-base px-4 mt-2"
-            />
-          </div>
-        </div>{" "}
-      </>
-    );
-  });
-
   return (
-    <Slider ref={sliderRef} {...settings}>
-      {templateImagines}
-    </Slider>
+    <>
+      {/* <div className="flex flex-col">
+        <div
+          className="prevArrow"
+          onClick={() => sliderRef.current.slickPrev()}
+        >
+          <ChevronLeftIcon className="h-8 w-8" />
+        </div>
+        <div
+          className="nextArrow"
+          onClick={() => sliderRef.current.slickNext()}
+        >
+          <ChevronRightIcon className="h-8 w-8" />
+        </div>
+      </div> */}
+      <div>
+        <Slider ref={sliderRef} {...settings}>
+          {imagine?.generalImagines?.map((i) => {
+            return (
+              <div key={i.id}>
+                <Link to={`/general-imagines/${i.id}`}>
+                  <div className=" mb-10 w-full min-w-full">
+                    <Card
+                      openCommentBox={openCommentBox}
+                      post={i}
+                      styles="max-w-base px-4 mt-2"
+                    />
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
+        </Slider>{" "}
+      </div>
+    </>
   );
 };
 

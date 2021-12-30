@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Slider from "react-slick";
 import "./Slider.css";
 import Card from "./Card";
@@ -28,7 +28,6 @@ const PrevArrow = ({ onClick, id }) => {
 
 const ImagineSlider = ({ slidesToShow = 1, openCommentBox, posts }) => {
   const sliderRef = useRef(null);
-  const [imagineIndex, setImagineIndex] = useState(0);
 
   const settings = {
     centerMode: true,
@@ -36,12 +35,12 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox, posts }) => {
     dots: false,
     speed: 300,
     slidesToShow: slidesToShow,
-    nextArrow: <NextArrow onClick id={imagineIndex} />,
-    prevArrow: <PrevArrow onClick id={imagineIndex} />,
+    nextArrow: <NextArrow onClick />,
+    prevArrow: <PrevArrow onClick />,
     centerPadding: "0",
     draggable: false,
     focusOnSelect: true,
-    beforeChange: (current, next) => setImagineIndex(next),
+
     responsive: [
       {
         breakpoint: 1490,
@@ -67,11 +66,8 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox, posts }) => {
   const templateImagines = posts.map((imagine, id) => {
     return (
       <>
-        <div
-          className={id === imagineIndex ? "activeSlide" : "slide"}
-          key={imagine.id}
-        >
-          <div className="slideWrapper mb-10 w-full">
+        <div key={imagine.id}>
+          <div className="mb-10 w-full min-w-full">
             <Link to={`/story-imagines/${id}`}>
               <Card
                 openCommentBox={openCommentBox}

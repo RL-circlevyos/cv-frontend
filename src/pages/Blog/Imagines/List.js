@@ -28,7 +28,7 @@ const List = () => {
       <Scrollbars
         thumbSize={1}
         autoHide
-        style={{ width: "100%", height: "48vh" }}
+        style={{ width: "100%", height: "calc(100vh - 400px)" }}
       >
         <div className="gap-3 w-4/6 float-right">
           {imagine?.generalImagines?.map((imagine) => {
