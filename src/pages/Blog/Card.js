@@ -3,11 +3,23 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Sound from "./Sound";
 import edjsHTML from "editorjs-html";
+import { useSelector } from "react-redux";
+// import { motion } from "framer-motion";
 
 const src =
   "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
 
-const Card = ({ title, content, coverImage, keywords, user, link }) => {
+const Card = ({
+  title,
+  content,
+  coverImage,
+  keywords,
+  username,
+  userid,
+  audiosrc,
+  link,
+  likes,
+}) => {
   let coverImage1 = `https://storage.googleapis.com/niketan-dev-mode.appspot.com/${coverImage}`;
   const [like, setLike] = useState(false);
   const clickLikeHandler = () => {
@@ -15,6 +27,7 @@ const Card = ({ title, content, coverImage, keywords, user, link }) => {
   };
   console.log(content);
   const edjsParser = edjsHTML();
+  const auth = useSelector((state) => state.auth);
 
   const HTML = edjsParser.parse(content);
   const string = HTML;
@@ -30,7 +43,19 @@ const Card = ({ title, content, coverImage, keywords, user, link }) => {
   };
   return (
     <>
+      {/* <motion.div
+        initial={{ opacity: 0.5 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className=" flex flex-col w-full bg-white px-4 py-2 mb-4 "
+      > */}
       <div className="mb-4">
+        {userid === auth.userid && (
+          <div className="flex ">
+            <div className="mr-2">edit</div>
+            <div>delete</div>
+          </div>
+        )}
         <div
           class="relative h-52 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-t-lg font-Mulish"
           style={
@@ -62,7 +87,9 @@ const Card = ({ title, content, coverImage, keywords, user, link }) => {
               className="w-8 h-8 rounded-full"
             />
             <span className="flex flex-col font-medium items-start px-2">
-              <span className="text-sm text-black font-semibold">{user}</span>
+              <span className="text-sm text-black font-semibold">
+                {username}
+              </span>
               <span className="text-xs text-gray-400">12-12-21</span>
             </span>
           </div>
@@ -88,10 +115,10 @@ const Card = ({ title, content, coverImage, keywords, user, link }) => {
                   </svg>
                 )}
               </span>
-              <i>{12}</i>
+              <i>{likes ? likes.length : 0}</i>
             </span>
             <span>
-              <Sound />
+              <Sound audiosrc={audiosrc} />
             </span>
             <span className="block text-xs">
               <span className="cursor-pointer" onClick={clickBookmarkHandler}>
@@ -118,6 +145,7 @@ const Card = ({ title, content, coverImage, keywords, user, link }) => {
           </div>
         </div>
       </div>
+      {/* </motion.div> */}
     </>
   );
 };
