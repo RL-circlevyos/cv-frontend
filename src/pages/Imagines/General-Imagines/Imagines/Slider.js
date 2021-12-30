@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import Card from "./Card";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+import { Link, useRoutes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { generalImagineFetchAction } from "../../../../store/apps/imagines/imagine-action";
 
