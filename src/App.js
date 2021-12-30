@@ -18,6 +18,7 @@ import GeneralImagines from "./pages/Imagines/General-Imagines/Imagines/GeneralI
 import StoryImagines from "./pages/Imagines/Story-Imagines/Imagines/StoryImagines";
 import CreateImagines from "./pages/Imagines/General-Imagines/Create/CreateImagines";
 import CreateStoryImagines from "./pages/Imagines/Story-Imagines/Create/CreateImagines";
+import CreateSImagine from "./pages/Imagines/Story-Imagines/Create/CreateStoryImagine";
 
 import Profile from "./pages/UserProfile/Profile";
 import ProfileBlog from "./pages/UserProfile/ProfileBlog";
@@ -83,10 +84,11 @@ function App() {
           <Route path="/create-general-imagine" element={<CreateImagines />} />
           <Route path="/general-imagines/:id" element={<GeneralImagines />} />
           <Route path="/story-imagines/:id" element={<StoryImagines />} />
-          <Route
+          {/* <Route
             path="/create-story-imagine"
             element={<CreateStoryImagines />}
-          />
+          /> */}
+          <Route path="/create-story-imagine" element={<CreateSImagine />} />
 
           <Route path="/ad/revenue" element={<Revenue />} />
           <Route path="/ad/ad-category" element={<Ad />} />

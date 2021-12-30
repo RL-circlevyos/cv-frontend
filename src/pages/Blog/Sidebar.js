@@ -24,15 +24,15 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="md:flex">
+      <div className="md:flex relative">
         <div
           className={`${
             open
-              ? "translate-x-0 ease-in opacity-100 z-50 bg-gray-900"
+              ? " translate-x-0 ease-in opacity-100 z-50 bg-gray-100"
               : "-translate-x-full ease-out opacity-0"
           }
       absolute inset-0 transform md:transform-none opacity-0 md:opacity-100 duration-200 md:relative z-50 w-64
-       dark:text-sky-400 bg-gray-100 md:bg-transparent transition dark:bg-gray-800  text-teal-600 h-screen p-3`}
+       dark:text-sky-400 bg-gray-100 md:bg-transparent transition  text-teal-600 h-screen p-3`}
         >
           <div class="flex justify-between">
             <button
