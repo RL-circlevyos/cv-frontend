@@ -14,14 +14,14 @@ const List = () => {
 
   imagine?.generalImagines?.map((imagine) => console.log(imagine));
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(generalImagineFetchAction());
-    }, 2000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     dispatch(generalImagineFetchAction());
+  //   }, 2000);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [dispatch]);
 
   return (
     <>

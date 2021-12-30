@@ -1,7 +1,28 @@
 import React from "react";
 import edjsHTML from "editorjs-html";
+import { useSelector } from "react-redux";
 
-const Text = ({ content, title }) => {
+const Text = ({ title }) => {
+  // console.log(content);
+  const loading = {
+    time: 1640678466516,
+    blocks: [
+      {
+        id: "cdc7XwykjG",
+        type: "header",
+        data: {
+          text: "Loading ...",
+          level: 3,
+        },
+      },
+    ],
+    version: "2.22.2",
+  };
+  const blog = useSelector((state) => state.blog);
+  const ui = useSelector((state) => state.ui);
+  let content = blog?.blogPostItem?.content
+    ? blog?.blogPostItem?.content
+    : loading;
   console.log(content);
   const edjsParser = edjsHTML();
   let show;

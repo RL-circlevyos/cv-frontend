@@ -5,12 +5,14 @@ import Slider from "./Slider/Slider";
 import ControlPanel from "./Controls/ControlPanel";
 import { HeartIcon, PlayIcon } from "@heroicons/react/solid";
 import src from "../../../../assets/sound.gif";
+import { useSelector } from "react-redux";
 
-function Audio() {
+function Audio({ srcaudio }) {
   const [percentage, setPercentage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const blog = useSelector((state) => state.blog);
 
   const audioRef = useRef();
 
@@ -122,7 +124,7 @@ function Audio() {
           onLoadedData={(e) => {
             setDuration(e.currentTarget.duration.toFixed(2));
           }}
-          src={song}
+          src={`https://storage.googleapis.com/niketan-dev-mode.appspot.com/${srcaudio}`}
         ></audio>
 
         <ControlPanel

@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { blogFetchAction } from "../../store/apps/blogs/blog-action";
 import { generalImagineFetchAction } from "../../store/apps/imagines/imagine-action";
+// import { motion } from "framer-motion";
 
 const Blog = () => {
   // const [loading, setLoading] = useState(true);
@@ -23,13 +24,8 @@ const Blog = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(blogFetchAction());
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [dispatch, auth.token]);
+    dispatch(blogFetchAction());
+  }, [dispatch]);
 
   // blog.blogPosts.map((blog) => console.log(blog));
 
@@ -74,7 +70,10 @@ const Blog = () => {
                               content={blog.content}
                               coverImage={blog.coverImage}
                               keywords={blog.keywords}
-                              user={blog.user.name}
+                              username={blog.user.name}
+                              userid={blog.user.id}
+                              audiosrc={blog.audio}
+                              likes={blog.likes}
                             />
 
                             // <Card

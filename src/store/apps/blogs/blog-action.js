@@ -106,7 +106,7 @@ export const blogFetchAction = () => async (dispatch) => {
 };
 
 export const blogSingleFetchAction = (blogid) => async (dispatch) => {
-  // console.log(token);
+  console.log(blogid);
   // const auth = useSelector((state) => state.auth);
   const blogSingleFetch = async () => {
     const response = await fetch(
@@ -159,101 +159,151 @@ export const blogSingleFetchAction = (blogid) => async (dispatch) => {
   }
 };
 
-// export const singlequestionFetchAction = (qnaid) => async (dispatch) => {
-//   const singlequestionFetch = async () => {
-//     const response = await fetch(
-//       `${process.env.REACT_APP_API_BASE_URL}/qna/${qnaid}`,
-//       {
-//         credentials: "include",
-//         method: "GET",
-//         headers:{
-//           "Content-Type":"application/json"
-//         },
-//         mode: "cors",
-//       }
-//     );
+// comment create
+export const commentCreateAction = (blogid, comment) => async (dispatch) => {
+  // const auth = useSelector((state) => state.auth);
 
-//     if (!response.ok) {
-//       throw Error("Error occured in class create");
-//     }
+  const commentCreate = async () => {
+    const response = await fetch(
+      // `${process.env.REACT_APP_API_BASE_URL}/blogs`,
+      `http://localhost:3699/api/blogs/${blogid}/comments`,
+      {
+        credentials: "include",
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(comment),
+      }
+    );
 
-//     const data = await response.json();
-//     return data;
-//   };
+    console.log(response.json());
 
-//   try {
-//     const question = await singlequestionFetch();
-//     console.log(question);
-//     dispatch(
-//       discussionSliceAction.getQuestion({
-//         question,
-//       })
-//     );
-//   } catch (err) {
-//     console.log(err);
-//   }
-//   };
+    if (!response.ok) {
+      throw Error("Error occured in blog create");
+    }
+  };
 
-//   export const answerCreateAction =
-//   (qnaid, answerBody) => async (dispatch) => {
+  try {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: true,
+      })
+    );
+    await commentCreate();
+  } catch (e) {
+    dispatch(
+      UiSliceAction.ErrorMessage({
+        errorMessage: e.message,
+      })
+    );
+    throw e;
+  } finally {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: false,
+      })
+    );
+  }
+};
 
-//     const answerCreate = async () => {
-//       const response = await fetch(
-//         `${process.env.REACT_APP_API_BASE_URL}/qna/${qnaid}/answers`,
-//         {
-//           credentials: "include",
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           mode: "cors",
-//           body: JSON.stringify(answerBody),
-//         }
-//       );
+export const commentFetchAction = (blogid) => async (dispatch) => {
+  // console.log(token);
+  // const auth = useSelector((state) => state.auth);
+  const commentFetch = async () => {
+    const response = await fetch(
+      // `${process.env.REACT_APP_API_BASE_URL}/blogposts`,
+      `http://localhost:3699/api/blogs/${blogid}/comments`,
+      {
+        credentials: "include",
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-//       console.log(response.json());
+    if (!response.ok) {
+      throw Error("Error occured in class create");
+    }
 
-//       if (!response.ok) {
-//         throw Error("Error occured in question create");
-//       }
-//     };
+    const data = await response.json();
+    return data;
+  };
 
-//     try {
-//       await answerCreate();
-//      dispatch(discussionSliceAction.createAnswer())
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
+  try {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: true,
+      })
+    );
+    const comments = await commentFetch();
 
-//   export const answerApproveAction =
-//   (qnaid, ansId) => async (dispatch) => {
+    dispatch(
+      blogSliceAction.getComments({
+        comments,
+      })
+    );
+  } catch (err) {
+    console.log(err);
+    dispatch(
+      UiSliceAction.ErrorMessage({
+        errorMessage: err.message,
+      })
+    );
+  } finally {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: false,
+      })
+    );
+  }
+};
 
-//     const answerApprove = async () => {
-//       const response = await fetch(
-//         `${process.env.REACT_APP_API_BASE_URL}/qna/${qnaid}/answers/${ansId}/select`,
-//         {
-//           credentials: "include",
-//           method: "PUT",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           mode: "cors",
+// like blog
+export const likePostAction = (blogid) => async (dispatch) => {
+  // const auth = useSelector((state) => state.auth);
 
-//         }
-//       );
+  const likePost = async () => {
+    const response = await fetch(
+      // `${process.env.REACT_APP_API_BASE_URL}/blogs`,
+      `http://localhost:3699/api/blogs/${blogid}/likes`,
+      {
+        credentials: "include",
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-//       console.log(response.json());
+    if (!response.ok) {
+      throw Error("Error occured in blog create");
+    }
+  };
 
-//       if (!response.ok) {
-//         throw Error("Error occured in question create");
-//       }
-//     };
-
-//     try {
-//       await answerApprove();
-
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
+  try {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: true,
+      })
+    );
+    await likePost();
+  } catch (e) {
+    dispatch(
+      UiSliceAction.ErrorMessage({
+        errorMessage: e.message,
+      })
+    );
+    throw e;
+  } finally {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: false,
+      })
+    );
+  }
+};
