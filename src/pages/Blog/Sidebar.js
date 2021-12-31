@@ -65,7 +65,7 @@ const Sidebar = () => {
                   <BookmarkAltIcon className="w-6 h-6 mr-2" /> Saved
                 </span>
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 onClick={handleClose}
                 to={`/ad/dashboard`}
                 className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
@@ -73,7 +73,7 @@ const Sidebar = () => {
                 <span className="flex items-center space-x-2">
                   <BookmarkAltIcon className="w-6 h-6 mr-2" /> Dashboard
                 </span>
-              </NavLink>
+              </NavLink> */}
               <div className="space-y-5 ">
                 {" "}
                 <NavLink
@@ -92,15 +92,18 @@ const Sidebar = () => {
                   <div className=" text-center">Create Imagine</div>
                 </Link>
               </div>
-              <div>
+              <div className="">
                 {" "}
-                <NavLink
+                <Link
                   onClick={handleClose}
                   to="/"
                   className="flex items-center py-2 gap-2 px-4  ml-6 mr-8 mt-32 rounded-2xl transition duration-200 text-gray-100  bg-yellow-600 focus:bg-yellow-500 dark:hover:bg-yello-900 hover:bg-yellow-800 hover:text-gray-100"
                 >
-                  <FireIcon className="h-6 w-6" /> Premium
-                </NavLink>
+                  <span>
+                    <FireIcon className="h-6 w-6" />
+                  </span>
+                  <span>Premium</span>
+                </Link>
               </div>
             </>
           </nav>

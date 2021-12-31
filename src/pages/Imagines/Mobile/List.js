@@ -25,33 +25,27 @@ const List = () => {
 
   return (
     <>
-      <Scrollbars
-        thumbSize={1}
-        autoHide
-        style={{ width: "100%", height: "calc(100vh - 20px)" }}
-      >
-        <div className="gap-3 w-4/6 float-right">
-          {imagine?.generalImagines?.map((imagine) => {
-            console.log(imagine);
-            return (
-              <>
-                {ui.isLoading ? (
-                  <SkeletonImagines />
-                ) : (
-                  <Link to={`/general-imagines/${imagine.id}`}>
-                    <Card
-                      title={imagine.title}
-                      introImage={imagine.introImage}
-                      username={imagine.user.name}
-                      views={imagine.views}
-                    />
-                  </Link>
-                )}
-              </>
-            );
-          })}
-        </div>
-      </Scrollbars>
+      <div className="gap-3 w-full px-5">
+        {imagine?.generalImagines?.map((imagine) => {
+          console.log(imagine);
+          return (
+            <>
+              {ui.isLoading ? (
+                <SkeletonImagines />
+              ) : (
+                <Link to={`/general-imagines/${imagine.id}`}>
+                  <Card
+                    title={imagine.title}
+                    introImage={imagine.introImage}
+                    username={imagine.user.name}
+                    views={imagine.views}
+                  />
+                </Link>
+              )}
+            </>
+          );
+        })}
+      </div>
     </>
   );
 };

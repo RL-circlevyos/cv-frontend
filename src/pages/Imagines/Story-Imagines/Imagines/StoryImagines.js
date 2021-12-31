@@ -1,20 +1,26 @@
-import React, { useCallback, useState } from "react";
+import React, { useEffect } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
-import { useSelector } from "react-redux";
-import CommentBox from "../../Comment/CommentBox";
-import ImagineSlider from "./Slider";
+import { useDispatch, useSelector } from "react-redux";
+
 import Recommendation from "../../Recommendation/Recommendation";
 import Nav from "./Nav";
-import posts from "../../Demo.json";
+
+import Card from "./Card";
+import CommentList from "../../Comment/List";
 
 const StoryImagines = () => {
-  const [showBox, setShowBox] = useState(false);
-  const openCommentBox = useCallback(() => {
-    setShowBox(true);
-  }, []);
-  const closeCommentBox = useCallback(() => {
-    setShowBox(false);
-  }, []);
+  const imagine = useSelector((state) => state.imagine);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch();
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dispatch]);
   // const posts = useSelector((state) => state.createImagine.posts);
   return (
     <>
@@ -25,19 +31,28 @@ const StoryImagines = () => {
             {" "}
             <div className="flex items-start justify-center w-full max-w-5xl">
               <div
-                className={`${
-                  showBox &&
-                  "bg-gradient-to-t from-gray-500 via-gray-400 to-gray-300 "
-                }md:max-w-5xl w-full`}
+                className={`
+                md:max-w-5xl w-full`}
               >
                 {" "}
-                <ImagineSlider posts={posts} openCommentBox={openCommentBox} />
+                {/* <ImagineSlider posts={posts} openCommentBox={openCommentBox} />
               </div>
               <div>
                 <CommentBox
                   showBox={showBox}
                   closeCommentBox={closeCommentBox}
                 />
+                
+              </div> */}
+                <div>
+                  <div className=" mb-10 w-full min-w-full">
+                    <Card post={imagine} styles="max-w-base px-4 mt-2" />
+                  </div>
+                </div>
+                <div className="w-full px-3 py-1 mt-3">
+                  {" "}
+                  <CommentList />
+                </div>
               </div>
             </div>
             <div>
@@ -58,16 +73,17 @@ const StoryImagines = () => {
       </div>
       <div className="w-full flex flex-col justify-content items-start h-screen lg:hidden">
         <Nav />
-        <div
-          className={`${
-            showBox &&
-            "bg-gradient-to-t from-gray-500 via-gray-400 to-gray-300 "
-          }md:max-w-5xl w-full`}
-        >
-          <ImagineSlider posts={posts} openCommentBox={openCommentBox} />
-        </div>
-        <div>
-          <CommentBox showBox={showBox} closeCommentBox={closeCommentBox} />
+        <div className={`md:max-w-5xl w-full`}>
+          {/* <ImagineSlider posts={posts} openCommentBox={openCommentBox} /> */}
+          <div>
+            <div className=" mb-10 w-full min-w-full">
+              <Card post={imagine} styles="max-w-base px-4 mt-2" />
+            </div>
+          </div>
+          <div className="w-full px-3 py-1 mt-3">
+            {" "}
+            <CommentList />
+          </div>
         </div>
       </div>
     </>

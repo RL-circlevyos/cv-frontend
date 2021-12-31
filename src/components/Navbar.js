@@ -8,6 +8,7 @@ import {
   BriefcaseIcon,
   CogIcon,
   CurrencyRupeeIcon,
+  HeartIcon,
   HomeIcon,
   MoonIcon,
   PencilAltIcon,
@@ -15,6 +16,7 @@ import {
   SunIcon,
   UserCircleIcon,
 } from "@heroicons/react/solid";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +24,7 @@ function Navbar() {
 
   return (
     <div>
-      <nav className="bg-gray-100 text-teal-600 ">
+      <nav className="bg-gray-100 text-teal-600 font-Mulish">
         <div className="w-full mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center justify-between w-full">
@@ -31,29 +33,51 @@ function Navbar() {
               </div>
               <div className="hidden  md:block ">
                 <div className="flex items-center gap-2 justify-center">
-                  <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
+                  {/* <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
                     <HomeIcon className="h-6 w-6" />
                     <b className="sm:block hidden text-sm">clubs</b>
-                  </div>
-
-                  <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
+                  </div> */}
+                  <Link
+                    to="/"
+                    className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    {" "}
                     <PencilAltIcon className="h-6 w-6" />
-                    <b className="sm:block hidden text-sm">blogs</b>
-                  </div>
+                    <b className="sm:block hidden text-sm uppercase font-extrabold">
+                      blogs
+                    </b>
+                  </Link>
 
-                  <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
+                  <Link
+                    to="/marketplace"
+                    className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     <BriefcaseIcon className="h-6 w-6" />
-                    <b className="sm:block hidden text-sm">marketplace</b>
-                  </div>
+                    <b className="sm:block hidden text-sm uppercase font-extrabold">
+                      marketplace
+                    </b>
+                  </Link>
                 </div>
               </div>
               <div className="hidden space-x-2 items-baseline justify-end md:flex">
                 <div className=" flex items-center justify-center">
-                  <div class="dropdown inline-block relative hover:bg-greyish-200 mt-1">
+                  <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                    <BellIcon className="h-6 w-6" />
+                    <b className="sm:hidden block text-xs">notifications</b>
+                  </div>{" "}
+                  <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                    <UserCircleIcon className="h-6 w-6" />
+                    <b className="sm:hidden block text-xs">user</b>
+                  </div>{" "}
+                  <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                    <Power />
+                    <b className="sm:hidden block text-xs">logout</b>
+                  </div>
+                  {/*  <div class="dropdown inline-block relative hover:bg-greyish-200 mt-1">
                     <button class=" text-primary py-2 px-4 rounded inline-flex items-center">
                       <UserCircleIcon className="h-6 w-6" />
                     </button>
-                    <ul class="dropdown-menu absolute hidden text-gray-700 pr-6 border bg-white border-gray-500">
+                   <ul class="dropdown-menu absolute hidden text-gray-700 pr-6 border bg-white border-gray-500">
                       <li class="w-full bg-white hover:bg-gray-300 ">
                         <div
                           className="flex items-center gap-1 rounded-b text-primary py-2 px-4 
@@ -99,10 +123,7 @@ function Navbar() {
                         </div>
                       </li>
                     </ul>
-                  </div>
-                  <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
-                    <BellIcon className="h-6 w-6" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -168,22 +189,35 @@ function Navbar() {
                 ref={ref}
                 className=" px-2 pt-2 pb-3 space-y-1 sm:px-3 uppercase"
               >
-                <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
+                <Link
+                  to="/"
+                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                >
                   <PencilAltIcon className="h-6 w-6" />
                   <b className="sm:hidden  block text-xs">BLOGS</b>
-                </div>{" "}
+                </Link>{" "}
                 <hr />
-                <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                <Link
+                  to="/imagines"
+                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  <HeartIcon className="h-6 w-6 " />
+                  <b className="sm:hidden  block text-xs">imagines</b>
+                </Link>
+                {/* <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
                   <CurrencyRupeeIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">SOLVE & EARN</b>
-                </div>{" "}
+                </div>{" "} */}
                 <hr />
-                <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
-                  <PresentationChartLineIcon className="h-6 w-6" />
+                <Link
+                  to="/marketplace"
+                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                >
+                  <BriefcaseIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">marketplace</b>
-                </div>{" "}
+                </Link>{" "}
                 <hr />
-                <div
+                {/* <div
                   className="flex items-center gap-1 mt-1 hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                   onClick={() => setTheme(colorTheme)}
                 >
@@ -199,7 +233,7 @@ function Navbar() {
                     </span>
                   )}
                 </div>{" "}
-                <hr />
+                <hr /> */}
                 <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
                   <BellIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">notifications</b>

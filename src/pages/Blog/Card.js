@@ -1,4 +1,9 @@
-import { BookmarkIcon, LightBulbIcon } from "@heroicons/react/solid";
+import {
+  BookmarkIcon,
+  DotsVerticalIcon,
+  LightBulbIcon,
+  XIcon,
+} from "@heroicons/react/solid";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Sound from "./Sound";
@@ -28,6 +33,7 @@ const Card = ({
   console.log(content);
   const edjsParser = edjsHTML();
   const auth = useSelector((state) => state.auth);
+  console.log(content);
 
   const HTML = edjsParser.parse(content);
   const string = HTML;
@@ -41,6 +47,13 @@ const Card = ({
   const clickBookmarkHandler = () => {
     setBookmark(!bookmark);
   };
+  const [edit, setEdit] = useState(false);
+  const clickEdit = () => {
+    setEdit(true);
+  };
+  const editClose = () => {
+    setEdit(false);
+  };
   return (
     <>
       {/* <motion.div
@@ -49,13 +62,7 @@ const Card = ({
         transition={{ delay: 1 }}
         className=" flex flex-col w-full bg-white px-4 py-2 mb-4 "
       > */}
-      <div className="mb-4">
-        {userid === auth.userid && (
-          <div className="flex ">
-            <div className="mr-2">edit</div>
-            <div>delete</div>
-          </div>
-        )}
+      <div className="mb-4 w-full">
         <div
           class="relative h-52 w-full flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-t-lg font-Mulish"
           style={
@@ -64,8 +71,11 @@ const Card = ({
               : { backgroundImage: `url(${src})` }
           }
         >
-          <div class="absolute top-0 mt-16 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent via-gray-900 to-gray-900 rounded-lg"></div>
-          <main class="p-5 z-50 text-gray-50 pr-10">
+          <div
+            class="absolute top-0 mt-16 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent via-gray-900 to-gray-900 
+          rounded-lg w-full"
+          ></div>
+          <main class="px-4 z-50 text-gray-50 w-full">
             <Link
               to={link}
               class="text-base font-medium font-regular text-white hover:underline"
@@ -78,8 +88,8 @@ const Card = ({
             </Link>
           </main>
         </div>
-        <div className="flex justify-between items-center bg-gray-100 shadow-md rounded-b-lg">
-          <div className="flex items-center space-x-1 px-3 py-2">
+        <div className="flex justify-between items-center bg-gray-100 shadow-md rounded-b-lg w-full px-3">
+          <div className="flex items-center space-x-1 py-2">
             {/* <img src={avatar} alt="dp" className="w-8 h-8 rounded-full" /> */}
             <img
               src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
@@ -93,15 +103,15 @@ const Card = ({
               <span className="text-xs text-gray-400">12-12-21</span>
             </span>
           </div>
-          <div className="flex items-start space-x-5 pr-3">
-            <span className="flex items-center text-xs">
+          <div className="flex items-center space-x-2 md:space-x-5">
+            <span className="flex items-start text-xs ">
               <span className="cursor-pointer" onClick={clickLikeHandler}>
                 {like ? (
-                  <LightBulbIcon className="h-7 w-7 text-yellow-400" />
+                  <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 text-yellow-600"
+                    className="h-6 w-6 md:h-7 md:w-7 text-yellow-600"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -123,11 +133,11 @@ const Card = ({
             <span className="block text-xs">
               <span className="cursor-pointer" onClick={clickBookmarkHandler}>
                 {bookmark ? (
-                  <BookmarkIcon className="h-7 w-7 text-green-900" />
+                  <BookmarkIcon className="h-6 w-6 md:h-7 md:w-7 text-green-900" />
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-green-900"
+                    className="h-5 w-5 md:h-6 md:w-6 text-green-900"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -142,6 +152,35 @@ const Card = ({
                 )}
               </span>
             </span>
+            {!edit && (
+              <>
+                {userid === auth.userid && (
+                  <span>
+                    <DotsVerticalIcon className="h-5 w-5" onClick={clickEdit} />
+                  </span>
+                )}
+              </>
+            )}
+            {edit && (
+              <div className="relative">
+                {userid === auth.userid && (
+                  <div className="w-20 py-1 text-tiny z-50 bg-gray-200 uppercase text-gray-600 font-Mulish">
+                    <span className="flex justify-between items-center">
+                      <span></span>
+                      <span onClick={editClose} className="cursor-pointer">
+                        <XIcon className="h-4 w-4 text-pink-500" />
+                      </span>
+                    </span>
+                    <div className="px-2 hover:bg-primary hover:text-white cursor-pointer">
+                      edit
+                    </div>
+                    <div className="px-2 mt-1 hover:bg-primary hover:text-white cursor-pointer">
+                      delete
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
