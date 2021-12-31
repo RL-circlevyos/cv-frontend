@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialCreateImagineState = {
   generalImagines: [],
   singleImagine: {},
+  comments: [],
 };
 
 const imagineSlice = createSlice({
@@ -18,6 +19,9 @@ const imagineSlice = createSlice({
     },
     getSingleImagine(state, action) {
       state.singleImagine = action.payload.singleImagine;
+    },
+    getComments(state, action) {
+      state.comments = action.payload.comments;
     },
   },
 });
