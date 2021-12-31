@@ -29,8 +29,11 @@ const Comment = () => {
 };
 
 export default React.memo(Comment);**/
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
+import { commentFetchAction } from "../../../store/apps/imagines/imagine-action";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const Comment = ({ username, commentText, date }) => {
   return (

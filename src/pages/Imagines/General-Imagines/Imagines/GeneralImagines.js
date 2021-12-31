@@ -36,7 +36,7 @@ const GeneralImagines = ({ i }) => {
                 {/* <ImagineSlider openCommentBox={openCommentBox} /> */}
                 <div>
                   <div className=" mb-10 w-full min-w-full">
-                    <Card post={imagine} styles="max-w-base px-4 mt-2" />
+                    <Card styles="max-w-base px-4 mt-2" />
                   </div>
                 </div>
                 <div className="w-full px-3 py-1 mt-3">
