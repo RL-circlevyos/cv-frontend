@@ -65,10 +65,13 @@ function Navbar() {
                     <BellIcon className="h-6 w-6" />
                     <b className="sm:hidden block text-xs">notifications</b>
                   </div>{" "}
-                  <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                  <Link
+                    to="/profile"
+                    className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                  >
                     <UserCircleIcon className="h-6 w-6" />
                     <b className="sm:hidden block text-xs">user</b>
-                  </div>{" "}
+                  </Link>{" "}
                   <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
                     <Power />
                     <b className="sm:hidden block text-xs">logout</b>
@@ -239,10 +242,13 @@ function Navbar() {
                   <b className="sm:hidden block text-xs">notifications</b>
                 </div>{" "}
                 <hr />
-                <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                <Link
+                  to="/profile"
+                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                >
                   <UserCircleIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">user</b>
-                </div>{" "}
+                </Link>{" "}
                 <hr />
                 <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
                   <Power />
