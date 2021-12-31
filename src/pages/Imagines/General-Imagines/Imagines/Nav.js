@@ -144,51 +144,10 @@ const Nav = () => {
       </div>
       {/*****************mobile view *******************/}
       <div className="block lg:hidden">
-        <div className="text-base font-medium text-primary flex justify-between items-start px-3">
-          <div className=" w-full flex flex-col bg-greyish-50 rounded-b-2xl relative shadow-md mb-4">
-            <div className="w-full flex items-center">
-              {" "}
-              <input
-                className="w-full bg-greyish-50 px-5 "
-                type="text"
-                placeholder="Search Imagines"
-                value={wordEntered}
-                onChange={handleFilter}
-              />
-              <div className="searchIcon">
-                {filteredData.length === 0 ? (
-                  // TODO: add button backgroud
-                  <SearchIcon className="h-7 w-7" />
-                ) : (
-                  <XIcon
-                    className="h-7 w-7"
-                    id="clearBtn"
-                    onClick={clearInput}
-                  />
-                )}
-              </div>
-            </div>
-
-            <div className="absolute z-50 mt-16">
-              {filteredData.length !== 0 && (
-                <div className="dataResult w-9/12 ">
-                  {filteredData.slice(0, 15).map((value, key) => {
-                    return (
-                      <div
-                        className="dataItem hover:bg-greyish-300 bg-grey-100"
-                        onClick={() => window.open(value.link, "_blank")}
-                      >
-                        <p>{value.title} </p>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </div>
-          <span></span>
-        </div>
-        <div className="flex items-center justify-center space-x-3 mt-2 lg:hidden">
+        <div className="flex items-center justify-center space-x-3 mt-5 lg:hidden">
+          <Link to="/imagines">
+            <ArrowLeftIcon className="h-5 w-5 mr-4 text-gray-800" />{" "}
+          </Link>
           <Link
             to="/imagines"
             className="flex font-bold items-center py-1.5 px-2 rounded-3xl transition duration-200 bg-gray-200 text-gray-800 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
@@ -203,9 +162,9 @@ const Nav = () => {
           </Link>
           <Link
             to="/create-general-imagine"
-            className="flex text-sm items-center py-1 px-2 rounded-sm transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+            className="flex text-sm items-center py-1 px-2 rounded-md transition duration-200 bg-teal-800 text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
           >
-            Imagines
+            Create
             <PlusIcon className="h-6 w-7" />
           </Link>
         </div>{" "}

@@ -3,7 +3,7 @@ import moment from "moment";
 
 const Comment = ({ username, commentText, date }) => {
   return (
-    <div className="flex flex-col items-start space-x-2 pb-2 px-4 py-1 shadow-sm">
+    <div className="flex flex-col items-start space-x-2 pb-2 px-4 py-1 shadow border border-gray-50 font-Mulish mb-2">
       <div className="flex-wrap">
         <div className="flex items-start space-x-2">
           <img
@@ -19,7 +19,7 @@ const Comment = ({ username, commentText, date }) => {
             <div className="text-xxs text-gray-500">Posted {"date_add"}.</div>
           </div>
         </div>
-        <span className="text-sky-500 text-tiny cursor-pointer">
+        <span className="text-gray-800 text-tiny lg:text-base cursor-pointer">
           {" "}
           {commentText}
         </span>

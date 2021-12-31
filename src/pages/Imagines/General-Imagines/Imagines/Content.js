@@ -3,7 +3,10 @@ import React from "react";
 const Content = ({ post }) => {
   return (
     <div className="mt-3 space-y-2 block text-tiny md:text-sm xl:text-base flex-initial text-gray-900 font-Mulish leading-relaxed">
-      <div className="text-base md:text-lg font-bold px-5">{post.title}</div>
+      <div className="text-base md:text-lg font-bold px-5">
+        {console.log(post)}
+        {post?.generalImagines?.title}
+      </div>
       <div className="flex flex-wrap md:flex-nowrap items-start justify-center gap-2 px-4 font-medium">
         {!post.introImage ? null : (
           <span className="w-full md:w-96 h-32">

@@ -25,18 +25,15 @@ const Text = ({ title }) => {
     : loading;
   console.log(content);
   const edjsParser = edjsHTML();
-  let show;
   const HTML = edjsParser.parse(content);
-  const string = HTML;
-  const parse = string.join(" ");
 
   function createMarkup() {
-    return { __html: parse };
+    return { __html: HTML };
   }
 
   return (
-    <div className="text-gray-900 font-Mulish text-base w-11/12 text-justify mt-4">
-      <div className="text-2xl font-extrabold pb-3">
+    <div className="text-gray-900 font-Mulish text-base lg:w-11/12 w-full px-2 text-justify mt-4">
+      <div className="text-xl font-extrabold pb-3">
         {title ? title : "loading..."}
       </div>
       <div

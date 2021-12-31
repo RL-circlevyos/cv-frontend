@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+/**import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import Card from "./Card";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
@@ -85,7 +85,7 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
         >
           <ChevronRightIcon className="h-8 w-8" />
         </div>
-      </div> */}
+      </div> 
       <div>
         <Slider ref={sliderRef} {...settings}>
           {imagine?.generalImagines?.map((i) => {
@@ -109,4 +109,4 @@ const ImagineSlider = ({ slidesToShow = 1, openCommentBox }) => {
   );
 };
 
-export default React.memo(ImagineSlider);
+export default React.memo(ImagineSlider);**/

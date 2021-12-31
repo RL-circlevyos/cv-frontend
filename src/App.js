@@ -44,6 +44,8 @@ import { AuthState } from "./store/apps/auth/auth-action";
 import { useEffect } from "react";
 import { blogFetchAction } from "./store/apps/blogs/blog-action";
 import { generalImagineFetchAction } from "./store/apps/imagines/imagine-action";
+import ImagineList from "./pages/Imagines/Mobile/ImagineList";
+import Marketplace from "./pages/Marketplace/Marketplace";
 
 function App() {
   const dispatch = useDispatch();
@@ -86,6 +88,7 @@ function App() {
           <Route path="/createblog" element={<Create />} />
           <Route path="/blog-details" element={<BlogDetails />} />
           <Route path="/create-general-imagine" element={<CreateImagines />} />
+          <Route path="/imagines" element={<ImagineList />} />
           <Route path="/general-imagines/:id" element={<GeneralImagines />} />
           <Route path="/story-imagines/:id" element={<StoryImagines />} />
           {/* <Route
@@ -93,6 +96,7 @@ function App() {
             element={<CreateStoryImagines />}
           /> */}
           <Route path="/create-story-imagine" element={<CreateSImagine />} />
+          <Route path="/marketplace" element={<Marketplace />} />
 
           <Route path="/ad/revenue" element={<Revenue />} />
           <Route path="/ad/ad-category" element={<Ad />} />

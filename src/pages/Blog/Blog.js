@@ -39,23 +39,23 @@ const Blog = () => {
   // }, [loading]);
 
   return (
-    <div className="fixed h-screen w-full">
+    <div className="fixed h-screen w-full ">
       <div className="">
         <Navbar />
         <div className="mb-8">
-          <div className="max-w-large gap-x-10 mx-auto grid md:grid-cols-3 px-4 ">
+          <div className="max-w-large gap-x-2 grid md:grid-cols-3 px-1 ">
             <div className="">
               <SearchBar placeholder="Search blogs...." data={BookData} />
               <Sidebar />
             </div>
-            <div className="pt-1 px-1 py-4">
-              <div className="mt-1 ">
+            <div className="pt-1 px-1 py-4 w-full">
+              <div className="mt-1 w-full ">
                 <Scrollbars
                   thumbSize={1}
                   autoHide
-                  style={{ width: "100%", height: "90vh" }}
+                  style={{ width: "100%", height: "95vh" }}
                 >
-                  <div className="space-y-5 pb-4">
+                  <div className="space-y-5 mb-20 lg:mb-10 w-full overflow-x-hidden px-2">
                     {blog.blogPosts.map((blog) => {
                       console.log(blog.id);
                       return (
@@ -95,11 +95,11 @@ const Blog = () => {
             </div>
             <div className="md:flex md:flex-col hidden space-y-3 mb-5 mt-2">
               <div className="md:flex md:flex-col hidden space-y-3 mb-5 mt-2">
-                <div className="">
+                {/* <div className="">
                   <Leaders />
-                </div>
+                </div> */}
 
-                <div className="space-y-3">
+                <div className="space-y-3 h-screen">
                   <span className="w-2/3">
                     <span className=" flex  items-center  px-2 justify-between font-Libre">
                       <span className="text-3xl ml-48 text-yellow-900">

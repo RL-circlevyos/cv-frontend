@@ -59,7 +59,7 @@ const CommentList = () => {
           <PaperAirplaneIcon className="h-5 w-5 transform rotate-45" />
         </Button>
       </form>
-      <div className="mt-2 space-y-3">
+      <div className="mt-2 space-y-3 mb-5">
         {blog?.comments?.length === 0 && (
           <div className="text-center text-gray-700 font-bold">
             No Comments till now
