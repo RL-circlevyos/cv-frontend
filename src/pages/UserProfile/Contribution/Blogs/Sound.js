@@ -1,6 +1,6 @@
 import { PlayIcon } from "@heroicons/react/solid";
 import React, { useState, useRef } from "react";
-import song from "../../../assets/BTS - Pied Piper (방탄소년단 - Pied Piper) _Color Coded Lyrics_Han_Rom_Eng_가사_ ( 128kbps ).mp3";
+import song from "../../../../assets/BTS - Pied Piper (방탄소년단 - Pied Piper) _Color Coded Lyrics_Han_Rom_Eng_가사_ ( 128kbps ).mp3";
 
 function Sound() {
   const [percentage, setPercentage] = useState(0);

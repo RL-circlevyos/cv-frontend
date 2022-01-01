@@ -20,11 +20,6 @@ import CreateImagines from "./pages/Imagines/General-Imagines/Create/CreateImagi
 import CreateStoryImagines from "./pages/Imagines/Story-Imagines/Create/CreateImagines";
 import CreateSImagine from "./pages/Imagines/Story-Imagines/Create/CreateStoryImagine";
 
-import Profile from "./pages/UserProfile/Profile";
-import ProfileBlog from "./pages/UserProfile/ProfileBlog";
-import ProfileSavedBlogs from "./pages/UserProfile/ProfileSavedBlogs";
-import ProfileSavedImagines from "./pages/UserProfile/ProfileSavedImagines";
-
 import { useDispatch, useSelector } from "react-redux";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
 import Global from "./pages/Leaderboard/Global";
@@ -46,6 +41,11 @@ import { blogFetchAction } from "./store/apps/blogs/blog-action";
 import { generalImagineFetchAction } from "./store/apps/imagines/imagine-action";
 import ImagineList from "./pages/Imagines/Mobile/ImagineList";
 import Marketplace from "./pages/Marketplace/Marketplace";
+import ConBlogs from "./pages/UserProfile/Contribution/ConBlogs";
+import ConImagines from "./pages/UserProfile/Contribution/ConImagines";
+import SavedBlogs from "./pages/UserProfile/Saved/SavedBlogs";
+import SavedImagines from "./pages/UserProfile/Saved/SavedImagines";
+import Selection from "./pages/Authentication/Selection/Selection";
 
 function App() {
   const dispatch = useDispatch();
@@ -83,6 +83,7 @@ function App() {
         {/* <div className="w-full fixed h-screen"> */}
         <Routes>
           <Route path="/" element={<Blog />} />
+          <Route path="/selection" element={<Selection />} />
           {/* <Route path="/imagines/:id" element={<Imagine />} /> */}
           <Route path="/blog/:blogid" element={<SingleBlog />} />
           <Route path="/createblog" element={<Create />} />
@@ -108,15 +109,16 @@ function App() {
           <Route path="/ad/others" element={<Others />} />
           <Route path="/ad/uploads" element={<Uploads />} />
 
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile-blogs" element={<ProfileBlog />} />
-          <Route path="/profile-saved-blogs" element={<ProfileSavedBlogs />} />
+          <Route
+            path="/contribution/profile-imagines"
+            element={<ConImagines />}
+          />
+          <Route path="/contribution/profile-blogs" element={<ConBlogs />} />
+          <Route path="/saved/profile-blogs" element={<SavedBlogs />} />
+          <Route path="/saved/profile-imagines" element={<SavedImagines />} />
+
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/leaderboard-global" element={<Global />} />
-          <Route
-            path="/profile-saved-imagines"
-            element={<ProfileSavedImagines />}
-          />
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>

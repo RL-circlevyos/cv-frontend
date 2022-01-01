@@ -66,7 +66,7 @@ function Navbar() {
                     <b className="sm:hidden block text-xs">notifications</b>
                   </div>{" "}
                   <Link
-                    to="/profile"
+                    to="/contribution/profile-imagines"
                     className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                   >
                     <UserCircleIcon className="h-6 w-6" />
@@ -243,7 +243,7 @@ function Navbar() {
                 </div>{" "}
                 <hr />
                 <Link
-                  to="/profile"
+                  to="/contribution/profile-imagines"
                   className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                 >
                   <UserCircleIcon className="h-6 w-6" />

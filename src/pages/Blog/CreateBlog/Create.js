@@ -9,6 +9,7 @@ import edjsHTML from "editorjs-html";
 import { useDispatch } from "react-redux";
 import { blogSliceAction } from "../../../store/apps/blogs/blog-slice";
 import { useSelector } from "react-redux";
+import Parser from "@son_xx/editor-js-parser";
 
 const edjsParser = edjsHTML();
 
@@ -41,10 +42,11 @@ const Create = ({ data }) => {
         newBlogItem,
       })
     );
-    const HTML = edjsParser.parse(savedData);
-
+    const HTML = Parser(savedData.blocks);
+    //createMarkup(HTML);
     setShow(HTML);
   }
+
   function createMarkup() {
     return { __html: show };
   }
@@ -139,10 +141,7 @@ const Create = ({ data }) => {
               </div>
             </div>
           )}
-          <div
-            className="px-4 py-3 space-y-4"
-            dangerouslySetInnerHTML={createMarkup()}
-          />
+          <div className="" dangerouslySetInnerHTML={createMarkup()} />
         </div>
       </div>
     </>
