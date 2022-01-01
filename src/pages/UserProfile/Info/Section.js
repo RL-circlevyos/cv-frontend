@@ -13,12 +13,12 @@ const Section = ({
       <div className="block w-3/5">
         <Link
           to="/contribution/profile-imagines"
-          className="md:text-xl text-lg font-bold"
+          className={`${highlightIC} md:text-xl text-lg font-bold `}
         >
           Your Contribution
         </Link>
         <hr />
-        {show && (
+        {/* {show && (
           <div className="flex items-center justify-around space-x-3 mt-3 ">
             <Link to="/contribution/profile-imagines">
               <span className={`${highlightIC} font-bold text-base md:text-lg`}>
@@ -32,18 +32,18 @@ const Section = ({
             </Link>
             <hr />
           </div>
-        )}
+        )} */}
       </div>
 
       <div className="block w-2/5">
         <Link
           to="/saved/profile-imagines"
-          className="md:text-xl text-lg  font-bold"
+          className={`${highlightSI} md:text-xl text-lg  font-bold`}
         >
           Saved{" "}
         </Link>
         <hr />
-        {!show && (
+        {/* {!show && (
           <div className="flex items-center justify-around space-x-3 mt-3">
             <Link to="/saved/profile-imagines">
               {" "}
@@ -60,7 +60,7 @@ const Section = ({
 
             <hr />
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import Header from "./Header";
 // import { createImagineAction } from "../../../../store/apps/imagines/imagine-action";
 import { useDispatch } from "react-redux";
 import { generalImagineCreateAction } from "../../../../store/apps/imagines/imagine-action";
+import { Link } from "react-router-dom";
 
 const CreateImagines = () => {
   const [title, setTitle] = useState("");
@@ -258,9 +259,12 @@ const CreateImagines = () => {
               <div className="flex justify-between items-center pt-2 mb-4 ">
                 <div></div>
                 <div className="flex items-center space-x-2 ">
-                  <button className="py-1.5 lg:py-2 lg:px-3 font-bold px-2 rounded-sm text-sm lg:text-base transition duration-200 bg-gray-200 text-primary focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100">
-                    Save Draft
-                  </button>
+                  <Link
+                    to="/imagine-details"
+                    className="py-1.5 lg:py-2 lg:px-3 font-bold px-2 rounded-sm text-sm lg:text-base transition duration-200 bg-gray-200 text-primary focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                  >
+                    Next
+                  </Link>
                   <button
                     type="submit"
                     className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 bg-primary text-gray-50 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"

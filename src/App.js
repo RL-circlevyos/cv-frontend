@@ -39,13 +39,16 @@ import { AuthState } from "./store/apps/auth/auth-action";
 import { useEffect } from "react";
 import { blogFetchAction } from "./store/apps/blogs/blog-action";
 import { generalImagineFetchAction } from "./store/apps/imagines/imagine-action";
-import ImagineList from "./pages/Imagines/Mobile/ImagineList";
+import ImagineList from "./pages/Imagines/Home/ImagineList";
 import Marketplace from "./pages/Marketplace/Marketplace";
 import ConBlogs from "./pages/UserProfile/Contribution/ConBlogs";
 import ConImagines from "./pages/UserProfile/Contribution/ConImagines";
 import SavedBlogs from "./pages/UserProfile/Saved/SavedBlogs";
 import SavedImagines from "./pages/UserProfile/Saved/SavedImagines";
 import Selection from "./pages/Authentication/Selection/Selection";
+import Trending from "./pages/Imagines/Home/Trending";
+import ImagineDetails from "./pages/Imagines/General-Imagines/Create/ImagineDetails";
+import Share from "./pages/Imagines/General-Imagines/Create/Share";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,14 +85,17 @@ function App() {
       <>
         {/* <div className="w-full fixed h-screen"> */}
         <Routes>
-          <Route path="/" element={<Blog />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/" element={<ImagineList />} />
           <Route path="/selection" element={<Selection />} />
           {/* <Route path="/imagines/:id" element={<Imagine />} /> */}
           <Route path="/blog/:blogid" element={<SingleBlog />} />
           <Route path="/createblog" element={<Create />} />
           <Route path="/blog-details" element={<BlogDetails />} />
           <Route path="/create-general-imagine" element={<CreateImagines />} />
-          <Route path="/imagines" element={<ImagineList />} />
+          <Route path="/imagine-details" element={<ImagineDetails />} />
+          <Route path="/share" element={<Share />} />
+          {/* <Route path="/imagines" element={<ImagineList />} /> */}
           <Route path="/general-imagines/:id" element={<GeneralImagines />} />
           <Route path="/story-imagines/:id" element={<StoryImagines />} />
           {/* <Route
@@ -98,6 +104,7 @@ function App() {
           /> */}
           <Route path="/create-story-imagine" element={<CreateSImagine />} />
           <Route path="/marketplace" element={<Marketplace />} />
+          <Route path="/trendings" element={<Trending />} />
 
           <Route path="/ad/revenue" element={<Revenue />} />
           <Route path="/ad/ad-category" element={<Ad />} />

@@ -21,10 +21,10 @@ const Details = () => {
               <span className="text-base text-gray-700">1000</span>
             </span>
             <span className="flex justify-center items-start space-x-3">
-              <span className="flex justify-center items-start space-x-1">
+              {/* <span className="flex justify-center items-start space-x-1">
                 <span className="text-base text-primary ">Blogs:</span>
                 <span className="text-base text-gray-700">10</span>
-              </span>
+              </span> */}
               <span className="flex justify-center items-start space-x-1">
                 <span className="text-base text-primary ">Imagines:</span>
                 <span className="text-base text-gray-700">100</span>
@@ -62,10 +62,10 @@ const Details = () => {
               <span className=" text-gray-700">1000</span>
             </span>
             <span className="flex justify-center text-sm items-start space-x-3">
-              <span className="flex justify-center items-start space-x-1">
+              {/* <span className="flex justify-center items-start space-x-1">
                 <span className=" text-primary ">Blogs:</span>
                 <span className=" text-gray-700">10</span>
-              </span>
+              </span> */}
               <span className="flex justify-center text-sm items-start space-x-1">
                 <span className=" text-primary ">Imagines:</span>
                 <span className=" text-gray-700">100</span>
