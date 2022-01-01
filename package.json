@@ -29,6 +29,7 @@
     "@mui/material": "^5.2.3",
     "@mui/styled-engine-sc": "^5.1.0",
     "@reduxjs/toolkit": "^1.6.2",
+    "@son_xx/editor-js-parser": "^1.0.7",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",

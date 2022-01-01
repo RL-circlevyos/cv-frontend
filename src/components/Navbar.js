@@ -6,6 +6,7 @@ import { Power } from "react-feather";
 import {
   BellIcon,
   BriefcaseIcon,
+  ChevronDoubleUpIcon,
   CogIcon,
   CurrencyRupeeIcon,
   HeartIcon,
@@ -37,7 +38,7 @@ function Navbar() {
                     <HomeIcon className="h-6 w-6" />
                     <b className="sm:block hidden text-sm">clubs</b>
                   </div> */}
-                  <Link
+                  {/* <Link
                     to="/"
                     className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                   >
@@ -46,8 +47,26 @@ function Navbar() {
                     <b className="sm:block hidden text-sm uppercase font-extrabold">
                       blogs
                     </b>
+                  </Link> */}
+                  <Link
+                    to="/"
+                    className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    {" "}
+                    <HeartIcon className="h-6 w-6" />
+                    <b className="sm:block hidden text-sm uppercase font-extrabold">
+                      imagines
+                    </b>
                   </Link>
-
+                  <Link
+                    to="/trendings"
+                    className="hidden md:flex lg:hidden items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    <BriefcaseIcon className="h-6 w-6" />
+                    <b className="sm:block hidden text-sm uppercase font-extrabold">
+                      trendings
+                    </b>
+                  </Link>
                   <Link
                     to="/marketplace"
                     className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
@@ -61,12 +80,12 @@ function Navbar() {
               </div>
               <div className="hidden space-x-2 items-baseline justify-end md:flex">
                 <div className=" flex items-center justify-center">
-                  <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                  {/* <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
                     <BellIcon className="h-6 w-6" />
                     <b className="sm:hidden block text-xs">notifications</b>
-                  </div>{" "}
+                  </div>{" "} */}
                   <Link
-                    to="/profile"
+                    to="/contribution/profile-imagines"
                     className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                   >
                     <UserCircleIcon className="h-6 w-6" />
@@ -192,14 +211,14 @@ function Navbar() {
                 ref={ref}
                 className=" px-2 pt-2 pb-3 space-y-1 sm:px-3 uppercase"
               >
-                <Link
+                {/* <Link
                   to="/"
                   className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                 >
                   <PencilAltIcon className="h-6 w-6" />
                   <b className="sm:hidden  block text-xs">BLOGS</b>
                 </Link>{" "}
-                <hr />
+                <hr /> */}
                 <Link
                   to="/imagines"
                   className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
@@ -236,14 +255,22 @@ function Navbar() {
                     </span>
                   )}
                 </div>{" "}
-                <hr /> */}
+                <hr /> 
                 <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
                   <BellIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">notifications</b>
                 </div>{" "}
+                <hr />*/}
+                <Link
+                  to="/trendings"
+                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                >
+                  <ChevronDoubleUpIcon className="h-6 w-6" />
+                  <b className="sm:hidden block text-xs">trendings</b>
+                </Link>{" "}
                 <hr />
                 <Link
-                  to="/profile"
+                  to="/contribution/profile-imagines"
                   className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                 >
                   <UserCircleIcon className="h-6 w-6" />

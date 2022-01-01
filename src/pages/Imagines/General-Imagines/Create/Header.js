@@ -33,12 +33,12 @@ const Header = () => {
           >
             General
           </Link>
-          <Link
+          {/* <Link
             to="/create-story-imagine"
             className="flex items-center py-1.5 px-3 rounded-xl text-base transition duration-200 bg-gray-200 text-primary focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
           >
             Story
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="block lg:hidden">
@@ -68,12 +68,12 @@ const Header = () => {
           >
             General
           </Link>
-          <Link
+          {/* <Link
             to="/create-story-imagine"
             className="text-sm flex items-center py-1.5 px-2 rounded-sm transition duration-200 bg-gray-200 text-primary focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
           >
             Story
-          </Link>
+          </Link> */}
         </div>{" "}
       </div>
     </div>

@@ -20,7 +20,7 @@ const Card = ({ num }) => {
     <>
       <div>
         <div
-          class="relative h-52 w-96 flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-t-lg font-Mulish"
+          class="relative h-52 w-full md:w-96 flex items-end justify-start text-left bg-cover bg-center md:px-3 rounded-t-lg font-Mulish"
           style={{ backgroundImage: `url(${src})` }}
         >
           <div class="absolute top-0 mt-16 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent via-gray-900 to-gray-900 rounded-lg"></div>
