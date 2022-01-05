@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import SkeletonImagines from "../../../components/SkeletonLoader/SkeletonImagines";
+import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImagines";
 import Card from "./Card";
 
 const List = () => {

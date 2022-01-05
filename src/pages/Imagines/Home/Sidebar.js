@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronsRight } from "react-feather";
 import {
   BookmarkAltIcon,
   FireIcon,
+  HeartIcon,
   PaperClipIcon,
 } from "@heroicons/react/solid";
 
@@ -41,12 +42,28 @@ const Sidebar = () => {
             <>
               <NavLink
                 onClick={handleClose}
-                exact
-                to="/frequents"
-                className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "block py-2 px-10 mt-1 rounded-2xl transition duration-200 bg-teal-800 text-white"
+                    : "block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                }
               >
                 <span className="flex items-center space-x-2">
-                  <PaperClipIcon className="w-6 h-6 mr-2" /> General
+                  <HeartIcon className="w-6 h-6 mr-2" /> General
+                </span>
+              </NavLink>
+              <NavLink
+                onClick={handleClose}
+                to={`/story-imagines`}
+                className={({ isActive }) =>
+                  isActive
+                    ? "block py-2 px-10 mt-1 rounded-2xl transition duration-200 bg-teal-800 text-white"
+                    : "block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                }
+              >
+                <span className="flex items-center space-x-2">
+                  <HeartIcon className="w-6 h-6 mr-2" /> Story
                 </span>
               </NavLink>
               <NavLink
@@ -58,14 +75,32 @@ const Sidebar = () => {
                   <BookmarkAltIcon className="w-6 h-6 mr-2" /> Saved
                 </span>
               </NavLink>
-
-              <div className="mt-4">
+              <Link
+                onClick={handleClose}
+                exact
+                to="/general-imagines/myimagines"
+                className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+              >
+                <span className="flex items-center space-x-2">
+                  <PaperClipIcon className="w-6 h-6 mr-2" /> My Imagines
+                </span>
+              </Link>
+              <div className="pt-4">
                 <Link
                   onClick={handleClose}
                   to="/create-general-imagine"
                   className="block py-2 px-10 mt-1  rounded-2xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
                 >
                   <div className=" text-center">Create Imagine</div>
+                </Link>
+              </div>
+              <div className="pt-4">
+                <Link
+                  onClick={handleClose}
+                  to="/story-imagines/story-intro"
+                  className="block py-2 px-10 mt-1  rounded-2xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                >
+                  <div className=" text-center">Create Story</div>
                 </Link>
               </div>
             </>

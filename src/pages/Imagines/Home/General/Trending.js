@@ -1,8 +1,8 @@
 import React from "react";
 import Scrollbars from "react-custom-scrollbars-2";
-import Recommendations from "../Recommendation/Recommendation";
-import logo from "../../../assets/notfound.svg";
-import Navbar from "../../../components/Navbar";
+import Recommendations from "./Recommendation/Recommendation";
+import logo from "../../../../assets/notfound.svg";
+import Navbar from "../../../../components/Navbar";
 
 const Trending = () => {
   return (

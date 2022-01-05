@@ -2,10 +2,10 @@ import { ArrowLeftIcon } from "@heroicons/react/solid";
 import React from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link } from "react-router-dom";
-import Navbar from "../../../components/Navbar";
-import Recommendations from "../Recommendation/Recommendation";
+import Navbar from "../../../../components/Navbar";
+import Recommendations from "./Recommendation/Recommendation";
 import List from "./List";
-import Sidebar from "./Sidebar";
+import Sidebar from "../Sidebar";
 
 const ImagineList = () => {
   return (

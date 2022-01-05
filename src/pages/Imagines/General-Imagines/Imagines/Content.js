@@ -26,9 +26,9 @@ const Content = () => {
         {imagine.singleImagine.title}
         {/* {post?.generalImagines?.title} */}
       </div>
-      <div className="flex flex-wrap md:flex-nowrap items-start justify-center gap-2 px-4 font-medium">
+      <div className="flex flex-wrap md:flex-nowrap items-end justify-center gap-2 px-4 font-medium">
         {!imagine.singleImagine.introImage ? null : (
-          <span className="w-full md:w-96 h-32">
+          <span className="w-full md:w-96 h-40">
             <img
               src={`https://storage.googleapis.com/niketan-dev-mode.appspot.com/${imagine.singleImagine.introImage}`}
               alt="firstpic"
@@ -44,7 +44,7 @@ const Content = () => {
       <div className="flex flex-wrap md:flex-nowrap font-medium items-start justify-center gap-2 px-4 pb-4">
         <span className="w-full text-left">{imagine.singleImagine.outro}</span>{" "}
         {!imagine.singleImagine.outroImage ? null : (
-          <span className="w-full md:w-96 h-32">
+          <span className="w-full md:w-96 h-40">
             <img
               src={`https://storage.googleapis.com/niketan-dev-mode.appspot.com/${imagine.singleImagine.outroImage}`}
               alt="lastpic"

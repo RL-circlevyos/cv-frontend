@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { useDispatch, useSelector } from "react-redux";
 
-import Recommendation from "../../Recommendation/Recommendation";
+import Recommendation from "../../Home/Story/Recommendation/Recommendation";
 import Nav from "./Nav";
 
 import Card from "./Card";

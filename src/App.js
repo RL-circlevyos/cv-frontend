@@ -17,8 +17,6 @@ import BlogDetails from "./pages/Blog/CreateBlog/BlogDetails";
 import GeneralImagines from "./pages/Imagines/General-Imagines/Imagines/GeneralImagines";
 import StoryImagines from "./pages/Imagines/Story-Imagines/Imagines/StoryImagines";
 import CreateImagines from "./pages/Imagines/General-Imagines/Create/CreateImagines";
-import CreateStoryImagines from "./pages/Imagines/Story-Imagines/Create/CreateImagines";
-import CreateSImagine from "./pages/Imagines/Story-Imagines/Create/CreateStoryImagine";
 
 import { useDispatch, useSelector } from "react-redux";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
@@ -39,16 +37,23 @@ import { AuthState } from "./store/apps/auth/auth-action";
 import { useEffect } from "react";
 import { blogFetchAction } from "./store/apps/blogs/blog-action";
 import { generalImagineFetchAction } from "./store/apps/imagines/imagine-action";
-import ImagineList from "./pages/Imagines/Home/ImagineList";
+import ImagineList from "./pages/Imagines/Home/General/ImagineList";
 import Marketplace from "./pages/Marketplace/Marketplace";
 import ConBlogs from "./pages/UserProfile/Contribution/ConBlogs";
 import ConImagines from "./pages/UserProfile/Contribution/ConImagines";
 import SavedBlogs from "./pages/UserProfile/Saved/SavedBlogs";
 import SavedImagines from "./pages/UserProfile/Saved/SavedImagines";
 import Selection from "./pages/Authentication/Selection/Selection";
-import Trending from "./pages/Imagines/Home/Trending";
+import Trending from "./pages/Imagines/Home/General/Trending";
 import ImagineDetails from "./pages/Imagines/General-Imagines/Create/ImagineDetails";
 import Share from "./pages/Imagines/General-Imagines/Create/Share";
+import Intro from "./pages/Imagines/Story-Imagines/Create/Intro/Intro";
+import Form from "./pages/Imagines/Story-Imagines/Create/Intro/Form";
+import StoryDetails from "./pages/Imagines/Story-Imagines/Create/Intro/StoryDetails";
+import PartsList from "./pages/Imagines/Story-Imagines/Create/StoryParts/PartsList";
+import PartForm from "./pages/Imagines/Story-Imagines/Create/StoryParts/PartForm";
+import Start from "./pages/Imagines/General-Imagines/Create/Start";
+import StoryList from "./pages/Imagines/Home/Story/StoryList";
 
 function App() {
   const dispatch = useDispatch();
@@ -97,12 +102,28 @@ function App() {
           <Route path="/share" element={<Share />} />
           {/* <Route path="/imagines" element={<ImagineList />} /> */}
           <Route path="/general-imagines/:id" element={<GeneralImagines />} />
+          <Route path="/general-imagines/myimagines" element={<Start />} />
+          <Route path="/story-imagines" element={<StoryList />} />
           <Route path="/story-imagines/:id" element={<StoryImagines />} />
+          <Route path="/story-imagines/myimagines" element={<Intro />} />
+          <Route
+            path="/story-imagines/myimagines/:id"
+            element={<PartsList />}
+          />
+          <Route
+            path="/story-imagines/myimagines/:id/create"
+            element={<PartForm />}
+          />
+          <Route path="/story-imagines/story-intro" element={<Form />} />
+          <Route
+            path="/story-imagines/story-intro/details"
+            element={<StoryDetails />}
+          />
           {/* <Route
             path="/create-story-imagine"
             element={<CreateStoryImagines />}
           /> */}
-          <Route path="/create-story-imagine" element={<CreateSImagine />} />
+
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/trendings" element={<Trending />} />
 
