@@ -1,8 +1,12 @@
-import { UploadIcon } from "@heroicons/react/solid";
+import { ChevronLeftIcon, UploadIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
+import { ArrowDownLeft } from "react-feather";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const StoryCard = () => {
+const PartForm = () => {
+  let navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [introImage, setIntroImage] = useState();
   const [intro, setIntro] = useState("");
@@ -27,10 +31,10 @@ const StoryCard = () => {
   const removeOutroImage = useCallback(() => {
     setOutroImage();
   }, []);
-  const limit = 250;
+  const limit = 300;
   const setTitleContent = useCallback(
     (text) => {
-      setTitle(text.slice(0, 50));
+      setTitle(text.slice(0, 80));
     },
     [setTitle]
   );
@@ -52,6 +56,17 @@ const StoryCard = () => {
     },
     [setOutro]
   );
+  const [storyAudio, setStoryAudio] = useState();
+
+  const storyAudioChange = useCallback((e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setStoryAudio(e.target.files[0]);
+    }
+  }, []);
+  const removestoryAudio = useCallback(() => {
+    setStoryAudio();
+  }, []);
+
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -62,21 +77,35 @@ const StoryCard = () => {
         body: body,
         outro: outro,
         outroImg: outroImage,
+        audio: storyAudio,
       };
       console.log(newpost);
-
+      toast.success("posted successfully");
       setTitle("");
       setIntro("");
       setIntroImage();
       setBody("");
       setOutro("");
       setOutroImage();
+      setStoryAudio();
+      navigate("/story-imagines/myimagines/:id");
     },
-    [title, body, intro, introImage, outro, outroImage]
+    [title, body, intro, introImage, outro, outroImage, storyAudio, navigate]
   );
   return (
     <div className="flex justify-center items-center font-Mulish">
       <div className=" max-w-xl w-full flex justify-center items-center flex-col mx-3 my-2 lg:mx-0">
+        <div className="w-full flex justify-between items-center">
+          <Link
+            to="/story-imagines/myimagines/:id"
+            className="py-1.5  font-bold px-2 rounded-sm text-sm transition flex items-center
+           duration-200 border border-gray-300 text-primary hover:bg-gray-100"
+          >
+            <ChevronLeftIcon className="h-7 w-7 pr-1" />
+            Back
+          </Link>
+          <div></div>
+        </div>
         <div className="w-full">
           <Scrollbars
             autoHide
@@ -86,28 +115,25 @@ const StoryCard = () => {
             autoHeightMax="100%"
             style={{ width: "100%" }}
           >
-            <form
-              onSubmit={handleSubmit}
-              className="px-3 lg:px-6 py-2 space-y-1 text-base font-Mulish pb-6 "
-            >
+            <form className="px-3 lg:px-6 py-2 space-y-1 text-base font-Mulish pb-6 ">
               <div>
                 {" "}
                 <span className="w-full ">
                   <label className="ml-4 text-xs uppercase font-bold">
                     title
                   </label>
-                  <span className=" w-full text-sm flex items-center border rounded-xl lg:px-4 py-2 hover:border-primary border-gray-300 bg-white ">
+                  <span className=" w-full text-sm flex items-center border rounded-xl py-2 hover:border-primary border-gray-300 bg-white ">
                     <input
                       type="text"
                       required
                       placeholder="Title of Imagine"
-                      className="font-medium w-full lg:px-4 px-1 ml-2 py-2 focus:outline-none form-control "
+                      className="font-medium w-full px-1 ml-2 py-2 focus:outline-none form-control "
                       value={title}
                       onChange={(e) => setTitleContent(e.target.value)}
                     />
                   </span>
                   <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
-                    {title.length}/50
+                    {title.length}/80
                   </p>
                 </span>
               </div>
@@ -189,7 +215,7 @@ const StoryCard = () => {
                     />
                   </span>
                   <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
-                    {body.length}/500
+                    {body.length}/900
                   </p>
                 </span>
               </div>
@@ -249,18 +275,67 @@ const StoryCard = () => {
                   )}
                 </div>
               </div>
+              <div className="w-full max-2xl">
+                <label
+                  className={`${
+                    !storyAudio &&
+                    "border border-gray-200 shadow rounded-lg px-3 py-2 flex w-full justify-center h-30 mt-6 items-center cursor-pointer"
+                  } w-full`}
+                >
+                  {!storyAudio && (
+                    <>
+                      <span className="text-sm font-bold uppercase">
+                        Story audio
+                      </span>
+                      <UploadIcon className="w-7 h-7 ml-2" />
+                    </>
+                  )}
+                  <input
+                    accept="audio/*"
+                    type="file"
+                    onChange={storyAudioChange}
+                    className="invisible hidden"
+                  />
+                </label>
+
+                {storyAudio && (
+                  <>
+                    <div className="w-full h-30 pb-3 mt-8">
+                      <audio
+                        className="w-full"
+                        controls
+                        src={URL.createObjectURL(storyAudio)}
+                      />
+
+                      <button
+                        className="text-xs font-bold bg-gray-200 px-2 py-1 rounded-md mt-1"
+                        onClick={removestoryAudio}
+                      >
+                        Remove This Audio
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
               <div className="flex justify-between items-center pt-2 mb-4 ">
                 <div></div>
                 <div className="flex items-center space-x-2 ">
-                  <button className="py-1.5 lg:py-2 lg:px-3 font-bold px-2 rounded-sm text-sm lg:text-base transition duration-200 bg-gray-200 text-primary focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100">
-                    Save Draft
-                  </button>
-                  <button
-                    type="submit"
-                    className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 bg-primary text-gray-50 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
-                  >
-                    Publish
-                  </button>
+                  {!intro || !body || !outro || !title ? (
+                    <button
+                      className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 
+                    bg-gray-100 text-gray-300 "
+                    >
+                      Publish
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleSubmit}
+                      type="submit"
+                      className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 bg-primary text-gray-50 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                    >
+                      Publish
+                    </button>
+                  )}
                 </div>
               </div>{" "}
             </form>
@@ -271,4 +346,4 @@ const StoryCard = () => {
   );
 };
 
-export default React.memo(StoryCard);
+export default React.memo(PartForm);

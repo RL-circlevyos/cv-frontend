@@ -6,7 +6,7 @@ import {
   LightBulbIcon,
   XIcon,
 } from "@heroicons/react/solid";
-import Sound from "./Sound";
+import Sound from "../Sound";
 import { Link } from "react-router-dom";
 
 const src =

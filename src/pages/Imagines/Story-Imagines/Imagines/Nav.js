@@ -53,14 +53,14 @@ const Nav = () => {
       <div className="lg:flex max-w-screen-2xl items-center space-x-2 hidden w-full justify-between px-3 py-2">
         <div>
           {" "}
-          <Link to="/">
+          <Link to="/story-imagines">
             <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
           </Link>
         </div>
 
         <div className="w-6/12 flex items-center">
           {" "}
-          {show ? (
+          {/* {show ? (
             <div className="w-full flex items-center">
               <XIcon
                 className="h-8 w-8 mr-2 px-1 cursor-pointer text-pink-600 hover:text-white hover:bg-pink-800 rounded-full"
@@ -97,9 +97,9 @@ const Nav = () => {
                 </div>
               </div>
             </div>
-          ) : (
-            <div className="flex items-center space-x-5 w-full">
-              <button
+          ) : ( */}
+          <div className="flex items-center space-x-5 w-full">
+            {/* <button
                 className="border border-primary px-2 py-1 rounded-lg flex items-center font-semibold cursor-pointer"
                 onClick={showSearch}
               >
@@ -111,29 +111,29 @@ const Nav = () => {
                 className="flex items-center py-1.5 px-3 font-semibold uppercase rounded-md text-base transition duration-200 bg-gray-200 text-primary focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
               >
                 General
-              </Link>
-              <span className="flex text-base uppercase font-semibold justify-center items-center w-full py-1.5 px-3 rounded-xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100">
-                Story Imagines
-              </span>
-            </div>
-          )}
+              </Link> */}
+            <span className="flex text-base uppercase font-semibold justify-center items-center w-full py-1.5 px-3 rounded-xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100">
+              Story Imagines
+            </span>
+          </div>
+          {/* )} */}
         </div>
         <div className="flex items-center space-x-5 ">
           <Link
-            to="/imagines"
+            to="/story-imagines/myimagines"
             className="flex font-bold items-center py-1.5 px-2 rounded-3xl transition duration-200 bg-gray-200 text-gray-800 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
           >
             My Imagines
           </Link>
           <Link
-            to="/"
+            to="/story-imagines/myimagines"
             className="flex font-bold items-center py-1.5 px-2  rounded-3xl transition duration-200 bg-gray-200 text-gray-800 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
           >
             Saved Imagines
           </Link>
           <div className="flex items-center space-x-5 ">
             <Link
-              to="/create-story-imagine"
+              to="/story-imagines/story-intro"
               className="flex font-bold items-center py-1.5 px-2.5 pl-2 rounded-3xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
             >
               {" "}
@@ -191,7 +191,7 @@ const Nav = () => {
         </div>
         <div className="flex items-center justify-center space-x-3 mt-2 lg:hidden">
           <Link
-            to="/imagines"
+            to="/story-imagines/myimagines"
             className="flex font-bold items-center py-1.5 px-2 rounded-3xl transition duration-200 bg-gray-200 text-gray-800 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
           >
             <ArchiveIcon className="h-5 w-5 cursor-pointer text-primary" />
@@ -203,7 +203,7 @@ const Nav = () => {
             <SaveIcon className="h-5 w-5 cursor-pointer text-primary" />
           </Link>
           <Link
-            to="/create-general-imagine"
+            to="/story-imagines/story-intro"
             className="flex text-sm items-center py-1 px-2 rounded-sm transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
           >
             Imagines

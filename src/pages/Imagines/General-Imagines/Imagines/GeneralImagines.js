@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import CommentList from "../../Comment/List";
-import Recommendation from "../../Recommendation/Recommendation";
+import Recommendation from "../../Home/General/Recommendation/Recommendation";
 import Nav from "./Nav";
 
 import Card from "./Card";
@@ -31,25 +31,33 @@ const GeneralImagines = ({ i }) => {
           <div className="flex justify-center items-start w-full">
             {" "}
             <div className="flex items-start justify-center w-full max-w-5xl">
-              <div className={`md:max-w-5xl w-full`}>
-                {" "}
-                {/* <ImagineSlider openCommentBox={openCommentBox} /> */}
-                <div>
-                  <div className=" mb-10 w-full min-w-full">
-                    <Card styles="max-w-base px-4 mt-2" />
+              <Scrollbars
+                autoHide
+                thumbSize={1}
+                autoHeight
+                autoHeightMax={"90vh"}
+                style={{ width: "100%" }}
+              >
+                <div className={`md:max-w-5xl w-full`}>
+                  {" "}
+                  {/* <ImagineSlider openCommentBox={openCommentBox} /> */}
+                  <div>
+                    <div className=" mb-10 w-full min-w-full">
+                      <Card styles="max-w-base px-4 mt-2" />
+                    </div>
+                  </div>
+                  <div className="w-full px-3 py-1 mt-3">
+                    {" "}
+                    <CommentList />
                   </div>
                 </div>
-                <div className="w-full px-3 py-1 mt-3">
-                  {" "}
-                  <CommentList />
-                </div>
-              </div>
-              <div>
-                {/* <CommentBox
+                <div>
+                  {/* <CommentBox
                   showBox={showBox}
                   closeCommentBox={closeCommentBox}
                 /> */}
-              </div>
+                </div>
+              </Scrollbars>
             </div>
             <div>
               <Scrollbars
