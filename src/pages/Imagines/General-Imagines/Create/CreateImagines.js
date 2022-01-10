@@ -7,8 +7,19 @@ import { useDispatch } from "react-redux";
 import { generalImagineCreateAction } from "../../../../store/apps/imagines/imagine-action";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState, convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
 
-const CreateImagines = () => {
+const CreateImagines = ({ getContent }) => {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const onEditorStateChange = (editorState) => {
+    setEditorState(editorState);
+    // getContent(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+    console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+  };
+
   let navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [introImage, setIntroImage] = useState();
@@ -30,7 +41,11 @@ const CreateImagines = () => {
   formdata.append("outro", outro);
   formdata.append("introImage", introImage);
   formdata.append("outroImage", outroImage);
-  formdata.append("content", body);
+  //formdata.append("content", body);
+  formdata.append(
+    "content",
+    draftToHtml(convertToRaw(editorState.getCurrentContent()))
+  );
   formdata.append("audio", audio);
 
   const introImageChange = useCallback((e) => {
@@ -188,8 +203,14 @@ const CreateImagines = () => {
               </span>
             </div>
             <div>
-              {" "}
-              <span className="w-full ">
+              <Editor
+                editorState={editorState}
+                toolbarClassName="flex justify-center mx-auto w-full"
+                editorClassName="mt-6 bg-white shadow"
+                onEditorStateChange={onEditorStateChange}
+              />
+
+              {/* <span className="w-full ">
                 <label className="ml-4 text-xs uppercase font-bold">body</label>
                 <span className="w-full flex items-center border rounded-xl px-2 py-1 hover:border-primary border-gray-300 bg-white ">
                   <textarea
@@ -205,7 +226,7 @@ const CreateImagines = () => {
                 <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
                   {body.length}/900
                 </p>
-              </span>
+              </span> */}
             </div>
             <div className="flex items-center justify-center flex-wrap lg:flex-nowrap w-full pb-2 lg:space-x-4">
               <span className="w-full ">

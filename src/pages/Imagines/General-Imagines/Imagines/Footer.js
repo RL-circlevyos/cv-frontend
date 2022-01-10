@@ -1,17 +1,23 @@
 import {
   AnnotationIcon,
-  EyeIcon,
+  //EyeIcon,
   LightBulbIcon,
   ShareIcon,
 } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
+import { useSelector } from "react-redux";
 import Sound from "../Create/Sound";
+import Modal from "./../../../../components/Modal";
 
 const Footer = ({ openCommentBox }) => {
+  const auth = useSelector((state) => state.auth);
+  const [openModal, setOpenModal] = useState(false);
+  const user = auth.userid;
+
   const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
-    setLike(!like);
-  }, [like]);
+    !user ? setLike(!like) : setOpenModal(true);
+  }, [like, user]);
 
   return (
     <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
@@ -50,7 +56,7 @@ const Footer = ({ openCommentBox }) => {
           </span>
         </span>
         <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
-          {/* <span className="flex items-center pb-1 lg:pb-0">
+          {/**  <span className="flex items-center pb-1 lg:pb-0">
             <EyeIcon className="h-5 w-5 md:h-6 md:w-5 text-gray-500 " />
             <span className="text-xs lg:text-sm italic ml-1 text-primary">
               12k
@@ -73,6 +79,16 @@ const Footer = ({ openCommentBox }) => {
           COMMENTS
         </span>
       </div>
+      {openModal && (
+        <Modal
+          title="Alert"
+          link="/login"
+          content="first you have to login to access the content"
+          closeModal={() => {
+            setOpenModal(false);
+          }}
+        />
+      )}
     </div>
   );
 };

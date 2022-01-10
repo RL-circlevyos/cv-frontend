@@ -14,6 +14,7 @@ const List = () => {
       <div className="mb-20 lg:mb-10 w-full overflow-x-hidden">
         {imagine?.generalImagines?.map((i) => {
           console.log(i);
+          console.log(i.user.id);
           return (
             <>
               {ui.isLoading ? (
@@ -21,6 +22,7 @@ const List = () => {
               ) : (
                 <div className="w-full pr-4">
                   <Card
+                    author={i.user.id}
                     id={i.id}
                     title={i.title}
                     introImage={i.introImage}

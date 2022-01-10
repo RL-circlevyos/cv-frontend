@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { generalImagineSingleFetchAction } from "../../../../store/apps/imagines/imagine-action";
@@ -24,7 +23,7 @@ const Content = () => {
     <div className="mt-3 space-y-2 block text-tiny md:text-sm xl:text-base flex-initial text-gray-900 font-Mulish leading-relaxed">
       <div className="text-base md:text-lg font-bold px-5">
         {imagine.singleImagine.title}
-        {/* {post?.generalImagines?.title} */}
+        {/**  {post?.generalImagines?.title} */}
       </div>
       <div className="flex flex-wrap md:flex-nowrap items-end justify-center gap-2 px-4 font-medium">
         {!imagine.singleImagine.introImage ? null : (
@@ -38,9 +37,10 @@ const Content = () => {
         )}
         <span className="w-full text-left">{imagine.singleImagine.intro}</span>
       </div>
-      <div className="font-medium px-4 text-justify">
-        <span>{imagine.singleImagine.content}</span>
-      </div>
+      <div
+        className="font-medium px-4 text-justify"
+        dangerouslySetInnerHTML={{ __html: imagine.singleImagine.content }}
+      ></div>
       <div className="flex flex-wrap md:flex-nowrap font-medium items-start justify-center gap-2 px-4 pb-4">
         <span className="w-full text-left">{imagine.singleImagine.outro}</span>{" "}
         {!imagine.singleImagine.outroImage ? null : (

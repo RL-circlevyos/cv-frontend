@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import logo from "../assets/circlevyos.svg";
-import useDarkMode from "./../hooks/useDarkMode";
+/***import useDarkMode from "./../hooks/useDarkMode";*/
 import { Power } from "react-feather";
 import {
-  BellIcon,
+  //BellIcon,
   BriefcaseIcon,
   ChevronDoubleUpIcon,
-  CogIcon,
-  CurrencyRupeeIcon,
+  // CogIcon,
+  // CurrencyRupeeIcon,
   HeartIcon,
-  HomeIcon,
-  MoonIcon,
-  PencilAltIcon,
-  PresentationChartLineIcon,
-  SunIcon,
+  // HomeIcon,
+  // MoonIcon,
+  // PencilAltIcon,
+  // PresentationChartLineIcon,
+  // SunIcon,
   UserCircleIcon,
 } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [colorTheme, setTheme] = useDarkMode();
+  const auth = useSelector((state) => state.auth);
+  const [openModal, setOpenModal] = useState(false);
+  const user = auth.userid;
+  /***const [colorTheme, setTheme] = useDarkMode();*/
 
   return (
     <div>
@@ -79,23 +83,24 @@ function Navbar() {
                 </div>
               </div>
               <div className="hidden space-x-2 items-baseline justify-end md:flex">
-                <div className=" flex items-center justify-center">
-                  {/* <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                {user && (
+                  <div className=" flex items-center justify-center">
+                    {/* <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
                     <BellIcon className="h-6 w-6" />
                     <b className="sm:hidden block text-xs">notifications</b>
                   </div>{" "} */}
-                  <Link
-                    to="/contribution/profile-imagines"
-                    className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
-                  >
-                    <UserCircleIcon className="h-6 w-6" />
-                    <b className="sm:hidden block text-xs">user</b>
-                  </Link>{" "}
-                  <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
-                    <Power />
-                    <b className="sm:hidden block text-xs">logout</b>
-                  </div>
-                  {/*  <div class="dropdown inline-block relative hover:bg-greyish-200 mt-1">
+                    <Link
+                      to="/contribution/profile-imagines"
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <UserCircleIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">user</b>
+                    </Link>{" "}
+                    <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                      <Power />
+                      <b className="sm:hidden block text-xs">logout</b>
+                    </div>
+                    {/*  <div class="dropdown inline-block relative hover:bg-greyish-200 mt-1">
                     <button class=" text-primary py-2 px-4 rounded inline-flex items-center">
                       <UserCircleIcon className="h-6 w-6" />
                     </button>
@@ -146,7 +151,8 @@ function Navbar() {
                       </li>
                     </ul>
                   </div> */}
-                </div>
+                  </div>
+                )}
               </div>
             </div>
             <div className="-mr-2 flex md:hidden">
@@ -268,19 +274,24 @@ function Navbar() {
                   <ChevronDoubleUpIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">trendings</b>
                 </Link>{" "}
-                <hr />
-                <Link
-                  to="/contribution/profile-imagines"
-                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
-                >
-                  <UserCircleIcon className="h-6 w-6" />
-                  <b className="sm:hidden block text-xs">user</b>
-                </Link>{" "}
-                <hr />
-                <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
-                  <Power />
-                  <b className="sm:hidden block text-xs">logout</b>
-                </div>
+                {user && (
+                  <>
+                    {" "}
+                    <hr />
+                    <Link
+                      to="/contribution/profile-imagines"
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <UserCircleIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">user</b>
+                    </Link>{" "}
+                    <hr />
+                    <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                      <Power />
+                      <b className="sm:hidden block text-xs">logout</b>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           )}

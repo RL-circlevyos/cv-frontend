@@ -21,6 +21,7 @@ const List = () => {
               ) : (
                 <div className="w-full pr-4">
                   <Card
+                    author={i.user.id}
                     id={i.id}
                     title={i.title}
                     introImage={i.introImage}
