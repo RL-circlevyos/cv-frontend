@@ -1,58 +1,69 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   BookmarkIcon,
   DotsVerticalIcon,
-  EyeIcon,
   LightBulbIcon,
   XIcon,
 } from "@heroicons/react/solid";
 import Sound from "../Sound";
 import { Link } from "react-router-dom";
+import Modal from "../../../../components/Modal";
+import { useSelector } from "react-redux";
 
 const src =
   "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
-const Card = ({ title, introImage, username, views, content, id }) => {
+
+const Card = ({ title, introImage, username, author, content, id }) => {
+  const auth = useSelector((state) => state.auth);
+  const [openModal, setOpenModal] = useState(false);
+  const user = auth.userid;
+
   const [bookmark, setBookmark] = useState(false);
-  const clickBookmarkHandler = () => {
-    setBookmark(!bookmark);
-  };
+  const clickBookmarkHandler = useCallback(() => {
+    !user ? setBookmark(!bookmark) : setOpenModal(true);
+  }, [user, bookmark]);
+
   const [like, setLike] = useState(false);
-  const clickLikeHandler = () => {
-    setLike(!like);
-  };
+  const clickLikeHandler = useCallback(() => {
+    user ? setLike(!like) : setOpenModal(true);
+  }, [like, user]);
+
   const [edit, setEdit] = useState(false);
-  const clickEdit = () => {
-    setEdit(true);
-  };
+  const clickEdit = useCallback(() => {
+    user ? setEdit(true) : setOpenModal(true);
+  }, [user]);
+
   const editClose = () => {
     setEdit(false);
   };
   return (
     <div className="w-full space-x-2 flex items-start justify-center shadow mb-3">
       <div className="w-2/5 h-32 bg-gray-50">
-        <Link
-          to={`/general-imagines/${id}`}
-          className="text-sm font-medium hover:underline"
-        >
-          <img
-            src={
-              !introImage
-                ? src
-                : `https://storage.googleapis.com/niketan-dev-mode.appspot.com/${introImage}`
-            }
-            alt="pic"
-            className="h-full w-full object-contain rounded-md "
-          />
-        </Link>
+        <div className="text-sm font-medium hover:underline">
+          <Link to={`/story-imagines/${id}`}>
+            <img
+              src={
+                !introImage
+                  ? src
+                  : `https://storage.googleapis.com/niketan-dev-mode.appspot.com/${introImage}`
+              }
+              alt="pic"
+              className="h-full w-full object-contain rounded-md "
+            />
+          </Link>
+        </div>
       </div>
       <div className="flex flex-col space-y-2 w-3/5 py-1.5">
         <div className="flex items-start pt-3 space-x-2 px-1.5">
-          <div className="flex flex-1">
-            <img
-              src="https://images.unsplash.com/photo-1637867165026-5725fe9fb052?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
-              alt="dp"
-              className="w-6 h-6 rounded-full object-cover"
-            />
+          <div className="flex flex-1 ">
+            <Link to={`/contribution/profile-imagines/${author}`}>
+              {" "}
+              <img
+                src="https://images.unsplash.com/photo-1637867165026-5725fe9fb052?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
+                alt="dp"
+                className="w-7 h-7 rounded-full object-cover"
+              />
+            </Link>
 
             <span className="text-md ml-2 font-medium text-gray-900">
               {username}
@@ -152,6 +163,16 @@ const Card = ({ title, introImage, username, views, content, id }) => {
               </div>
             )}
           </span>
+          {openModal && (
+            <Modal
+              title="Alert"
+              link="/login"
+              content="first you have to login to access the content"
+              closeModal={() => {
+                setOpenModal(false);
+              }}
+            />
+          )}
         </span>
       </div>
     </div>

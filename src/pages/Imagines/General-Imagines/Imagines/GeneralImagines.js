@@ -35,10 +35,11 @@ const GeneralImagines = ({ i }) => {
                 autoHide
                 thumbSize={1}
                 autoHeight
+                autoHeightMin={"90vh"}
                 autoHeightMax={"90vh"}
                 style={{ width: "100%" }}
               >
-                <div className={`md:max-w-5xl w-full`}>
+                <div className={`md:max-w-5xl min-h-screen w-full`}>
                   {" "}
                   {/* <ImagineSlider openCommentBox={openCommentBox} /> */}
                   <div>
