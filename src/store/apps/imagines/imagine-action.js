@@ -8,8 +8,8 @@ export const generalImagineCreateAction =
     console.log(GeneralImagineBody);
     const GeneralImagineCreate = async () => {
       const response = await fetch(
-        // `${process.env.REACT_APP_API_BASE_URL}/blogs`,
-        "http://localhost:3699/api/imagines",
+        `${process.env.REACT_APP_API_BASE_URL}/imagineCreate`,
+        // "http://localhost:3699/api/imagines",
         {
           credentials: "include",
           method: "POST",
@@ -57,8 +57,8 @@ export const generalImagineFetchAction = () => async (dispatch) => {
 
   const generalImagineFetch = async () => {
     const response = await fetch(
-      // `${process.env.REACT_APP_API_BASE_URL}/blogposts`,
-      "http://localhost:3699/api/imagines",
+      `${process.env.REACT_APP_API_BASE_URL}/imagines`,
+      // "http://localhost:3699/api/imagines",
       {
         credentials: "include",
         method: "GET",
@@ -84,11 +84,11 @@ export const generalImagineFetchAction = () => async (dispatch) => {
       })
     );
     const gImagines = await generalImagineFetch();
-    console.log(gImagines);
+    console.log(gImagines.imaginesArray);
 
     dispatch(
       imagineSliceAction.getImagine({
-        generalImagines: gImagines,
+        generalImagines: gImagines.imaginesArray,
       })
     );
   } catch (err) {
@@ -114,8 +114,8 @@ export const generalImagineSingleFetchAction =
 
     const generalImagineSingleFetch = async () => {
       const response = await fetch(
-        // `${process.env.REACT_APP_API_BASE_URL}/blogposts`,
-        `http://localhost:3699/api/imagines/${imagineId}`,
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
+        // `http://localhost:3699/api/imagines/${imagineId}`,
         {
           credentials: "include",
           method: "GET",
@@ -163,6 +163,55 @@ export const generalImagineSingleFetchAction =
       );
     }
   };
+
+// delete imagine
+// get imagine
+export const deleteImagineAction = (imagineId) => async (dispatch) => {
+  const deleteImagine = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
+      // `http://localhost:3699/api/imagines/${imagineId}`,
+      {
+        credentials: "include",
+        method: "DELETE",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw Error("Error occured in class create");
+    }
+
+    const data = await response.json();
+    return data;
+  };
+
+  try {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: true,
+      })
+    );
+    const gImagineDelete = await deleteImagine();
+    console.log(gImagineDelete);
+  } catch (err) {
+    console.log(err);
+    dispatch(
+      UiSliceAction.ErrorMessage({
+        errorMessage: err.message,
+      })
+    );
+  } finally {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: false,
+      })
+    );
+  }
+};
 
 // post comment
 export const commentCreateAction =
