@@ -157,11 +157,11 @@ const CreateImagines = ({ getContent }) => {
                 </label>
 
                 {introImage && (
-                  <div className="w-full pb-3">
+                  <div className="w-full h-56 pb-3">
                     <img
                       src={URL.createObjectURL(introImage)}
                       alt="Thumb"
-                      className="w-full h-full object-cover border border-gray-400"
+                      className="w-full h-full object-contain border border-gray-400"
                     />
                     <button
                       className="text-xs font-bold"

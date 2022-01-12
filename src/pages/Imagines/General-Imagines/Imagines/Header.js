@@ -5,7 +5,6 @@ import moment from "moment";
 
 import { Link } from "react-router-dom";
 import AlertDialogSlide from "./../../../../components/Dialog";
-import { useSelector } from "react-redux";
 
 const Header = ({ author }) => {
   const auth = useSelector((state) => state.auth);
@@ -22,7 +21,6 @@ const Header = ({ author }) => {
   const [bookmark, setBookmark] = useState(false);
   const singleImagine = useSelector((state) => state.imagine.singleImagine);
   const clickBookmarkHandler = useCallback(() => {
-
     user ? setBookmark(!bookmark) : handleClickOpen();
   }, [bookmark, handleClickOpen, user]);
 
@@ -43,7 +41,9 @@ const Header = ({ author }) => {
           </Link>
           <div className="flex flex-col items-start">
             <div className="flex items-center space-x-2">
-              <span className="text-sm font-bold text-gray-900">{singleImagine?.singleImagine?.name}</span>
+              <span className="text-sm font-bold text-gray-900">
+                {singleImagine?.singleImagine?.name}
+              </span>
 
               <span className="cursor-pointer" onClick={clickFollowHandler}>
                 {follow ? (
@@ -58,12 +58,11 @@ const Header = ({ author }) => {
               </span>
             </div>
             <div className="text-xs text-gray-500 mt-1">
-            {moment(singleImagine?.singleImagine?.createdAt).format(
-              "dddd, MMMM Do YYYY, h:mm a"
-            )}
+              {moment(singleImagine?.singleImagine?.createdAt).format(
+                "dddd, MMMM Do YYYY, h:mm a"
+              )}
             </div>
           </div>
-
         </div>
 
         <div className="flex items-start space-x-5 text-gray-400">
