@@ -7,21 +7,28 @@ import Nav from "./Nav";
 import Card from "./Card";
 
 import { useDispatch, useSelector } from "react-redux";
-import { generalImagineFetchAction } from "../../../../store/apps/imagines/imagine-action";
+import {
+  generalImagineFetchAction,
+  generalImagineSingleFetchAction,
+} from "../../../../store/apps/imagines/imagine-action";
+import { useParams } from "react-router-dom";
 
 const GeneralImagines = ({ i }) => {
   const imagine = useSelector((state) => state.imagine);
+  const imagineid = useParams();
 
   const dispatch = useDispatch();
 
+  console.log(imagine?.singleImagine?.singleImagine);
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(generalImagineFetchAction());
+      dispatch(generalImagineSingleFetchAction(imagineid.id));
     }, 500);
     return () => {
       clearTimeout(timer);
     };
-  }, [dispatch]);
+  }, [dispatch, imagineid.id]);
 
   return (
     <>

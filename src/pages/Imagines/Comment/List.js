@@ -15,32 +15,23 @@ const CommentList = ({ comments }) => {
   const dispatch = useDispatch();
   const imagineId = useParams();
 
-  const imagine = useSelector((state) => state.imagine);
+  const singleImagine = useSelector((state) => state.imagine.singleImagine);
   const auth = useSelector((state) => state.auth);
   const [openModal, setOpenModal] = useState(false);
   const user = auth.userid;
 
-  console.log(imagine.comments);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(commentFetchAction(imagineId.id));
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [dispatch, imagineId]);
-
+  // console.log(singleImagine.singleImagine.comments);
   function postComment(e) {
     e.preventDefault();
 
     console.log(newCommentInput, "calling COMMENT");
 
     const commentBody = {
-      text: newCommentInput,
+      textcomment: newCommentInput,
     };
 
     dispatch(commentCreateAction(commentBody, imagineId.id));
+    setNewCommentInput("");
   }
 
   return (
@@ -63,13 +54,14 @@ const CommentList = ({ comments }) => {
         </form>
       )}
       <div className="mt-2 space-y-3 mb-5">
-        {imagine.comments.length === 0 && (
+        {singleImagine?.singleImagine?.comments?.length === 0 && (
           <div className="text-center text-gray-700 font-bold">
             No Comments till now
           </div>
         )}
-        {imagine.comments.map((comment) => (
+        {singleImagine?.singleImagine?.comments?.map((comment) => (
           <>
+            {console.log(comment, "comment")}
             <Comment username="helo" commentText="helo" date="12" key="1" />
           </>
         ))}

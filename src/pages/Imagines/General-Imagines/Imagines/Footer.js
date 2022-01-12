@@ -13,6 +13,7 @@ const Footer = ({ openCommentBox }) => {
   const auth = useSelector((state) => state.auth);
   const [openModal, setOpenModal] = useState(false);
   const user = auth.userid;
+  const singleImagine = useSelector((state) => state.imagine.singleImagine);
 
   const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
@@ -45,7 +46,9 @@ const Footer = ({ openCommentBox }) => {
                 </svg>
               )}
             </span>
-            <i className="text-xs lg:text-sm text-primary">12k</i>
+            <i className="text-xs lg:text-sm text-primary">
+              {singleImagine.singleImagine?.appriciates.length}
+            </i>
           </span>
           APPRECIATE
         </span>
@@ -73,7 +76,7 @@ const Footer = ({ openCommentBox }) => {
               <AnnotationIcon className="h-6 w-6 text-gray-500" />
             </span>
             <span className="text-xs lg:text-sm italic ml-1 text-primary">
-              <i>1k</i>
+              <i>{singleImagine.singleImagine?.comments.length}</i>
             </span>
           </span>
           COMMENTS

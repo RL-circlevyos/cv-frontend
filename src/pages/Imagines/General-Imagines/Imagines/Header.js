@@ -1,27 +1,38 @@
 import React, { useCallback, useState } from "react";
 import { BookmarkIcon, BookOpenIcon } from "@heroicons/react/solid";
+import { useSelector } from "react-redux";
+import moment from "moment";
 
 const Header = () => {
   const [bookmark, setBookmark] = useState(false);
+  const singleImagine = useSelector((state) => state.imagine.singleImagine);
   const clickBookmarkHandler = useCallback(() => {
     setBookmark(!bookmark);
   }, [bookmark]);
+
+  console.log(singleImagine.singleImagine);
   return (
     <div className=" flex justify-between items-start px-3">
       <div className="flex items-center space-x-2">
         <img
-          src="https://images.unsplash.com/photo-1637867165026-5725fe9fb052?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
+          src={singleImagine?.singleImagine?.photo}
           alt="dp"
           className="w-10 h-10 rounded-full object-cover"
         />
         <div className="flex flex-col items-start">
           <div className="flex items-center space-x-2">
-            <span className="text-sm font-bold text-gray-900">User Name</span>
+            <span className="text-sm font-bold text-gray-900">
+              {singleImagine?.singleImagine?.name}
+            </span>
             <span className="text-sky-500 text-tiny cursor-pointer">
               Follow
             </span>
           </div>
-          <div className="text-xs text-gray-500">Published 23 Nov, 2021.</div>
+          <div className="text-xs text-gray-500">
+            {moment(singleImagine?.singleImagine?.createdAt).format(
+              "dddd, MMMM Do YYYY, h:mm a"
+            )}
+          </div>
         </div>
       </div>
 

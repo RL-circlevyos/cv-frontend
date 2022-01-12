@@ -12,9 +12,9 @@ const List = () => {
   return (
     <>
       <div className="mb-20 lg:mb-10 w-full overflow-x-hidden">
-        {imagine?.generalImagines?.map((i) => {
-          console.log(i);
-          console.log(i.user.id);
+        {imagine?.generalImagines?.map((imagine) => {
+          console.log(imagine);
+          console.log(imagine.user.id);
           return (
             <>
               {ui.isLoading ? (
@@ -22,12 +22,14 @@ const List = () => {
               ) : (
                 <div className="w-full pr-4">
                   <Card
-                    author={i.user.id}
-                    id={i.id}
-                    title={i.title}
-                    introImage={i.introImage}
-                    username={i.user.name}
-                    views={i.views}
+                    author={imagine.user}
+                    avatar={imagine.photo}
+                    id={imagine._id}
+                    title={imagine.title}
+                    introImage={imagine.introImage}
+                    username={imagine.name}
+                    // views={imagine.views}
+                    appriciates={imagine.appriciates}
                   />
                 </div>
               )}

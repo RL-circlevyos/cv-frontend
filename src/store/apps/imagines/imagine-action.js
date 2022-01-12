@@ -110,7 +110,7 @@ export const generalImagineFetchAction = () => async (dispatch) => {
 // get imagine
 export const generalImagineSingleFetchAction =
   (imagineId) => async (dispatch) => {
-    console.log("calling");
+    console.log("calling single imagine id", imagineId);
 
     const generalImagineSingleFetch = async () => {
       const response = await fetch(
@@ -221,16 +221,16 @@ export const commentCreateAction =
     console.log(commentBody);
     const commentCreate = async () => {
       const response = await fetch(
-        // `${process.env.REACT_APP_API_BASE_URL}/blogs`,
-        `http://localhost:3699/api/imagines/${imagineId}/comments`,
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/comment`,
+        // `http://localhost:3699/api/imagines/${imagineId}/comments`,
         {
           credentials: "include",
-          method: "PUT",
+          method: "POST",
           mode: "cors",
           headers: {
             "Content-Type": "application/json",
           },
-          body: commentBody,
+          body: JSON.stringify(commentBody),
         }
       );
 
@@ -318,3 +318,54 @@ export const commentFetchAction = (imagineId) => async (dispatch) => {
     );
   }
 };
+
+// appriciate
+export const appriciateAction =
+  (commentBody, imagineId) => async (dispatch) => {
+    console.log(imagineId);
+    // const auth = useSelector((state) => state.auth);
+    console.log(commentBody);
+    const appriciate = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/appriciate`,
+        // `http://localhost:3699/api/imagines/${imagineId}/comments`,
+        {
+          credentials: "include",
+          method: "PUT",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(commentBody),
+        }
+      );
+
+      console.log(response.json());
+
+      if (!response.ok) {
+        throw Error("Error occured in imagine create");
+      }
+    };
+
+    try {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: true,
+        })
+      );
+      await appriciate();
+    } catch (e) {
+      dispatch(
+        UiSliceAction.ErrorMessage({
+          errorMessage: e.message,
+        })
+      );
+      throw e;
+    } finally {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
+    }
+  };

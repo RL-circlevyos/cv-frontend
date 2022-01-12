@@ -61,7 +61,6 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(AuthState());
-      dispatch(blogFetchAction());
       dispatch(generalImagineFetchAction());
     }, 500);
     return () => {
