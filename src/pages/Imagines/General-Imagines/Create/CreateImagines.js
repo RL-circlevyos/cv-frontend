@@ -38,7 +38,7 @@ const CreateImagines = ({ getContent }) => {
   formdata.append("outroImage", outroImage);
 
   formdata.append(
-    "content",
+    "main",
     draftToHtml(convertToRaw(editorState.getCurrentContent()))
   );
   formdata.append("audio", audio);

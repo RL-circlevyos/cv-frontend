@@ -7,13 +7,28 @@ import {
 } from "@heroicons/react/solid";
 import Sound from "../Sound";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+
+
+import { useDispatch, useSelector } from "react-redux";
+import { deleteImagineAction } from "../../../../store/apps/imagines/imagine-action";
+
+
 import AlertDialogSlide from "../../../../components/Dialog";
+
 
 const src =
   "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
 
-const Card = ({ title, introImage, username, author, content, id }) => {
+const Card = ({
+  title,
+  introImage,
+  username,
+  author,
+  content,
+  id,
+  avatar,
+  appriciates,
+}) => {
   const auth = useSelector((state) => state.auth);
 
   const user = auth.userid;
@@ -34,6 +49,11 @@ const Card = ({ title, introImage, username, author, content, id }) => {
 
   const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
+  const dispatch = useDispatch();
+
+  const imagineDeleteHandler = useCallback(() => {
+    dispatch(deleteImagineAction(id));
+  }, [dispatch, id]);
     !user ? setLike(!like) : handleClickOpen();
   }, [like, user, handleClickOpen]);
 
@@ -51,11 +71,7 @@ const Card = ({ title, introImage, username, author, content, id }) => {
         <div className="text-sm font-medium hover:underline h-36">
           <Link to={`/general-imagines/${id}`}>
             <img
-              src={
-                !introImage
-                  ? src
-                  : `https://storage.googleapis.com/niketan-dev-mode.appspot.com/${introImage}`
-              }
+              src={!introImage ? src : introImage.secure_url}
               alt="pic"
               className="h-36 w-full object-contain rounded-md "
             />
@@ -68,7 +84,7 @@ const Card = ({ title, introImage, username, author, content, id }) => {
             <Link to={`/contribution/profile-imagines/${author}`}>
               {" "}
               <img
-                src="https://images.unsplash.com/photo-1637867165026-5725fe9fb052?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
+                src={avatar ? avatar : ""}
                 alt="dp"
                 className="w-7 h-7 rounded-full object-cover"
               />
@@ -113,7 +129,7 @@ const Card = ({ title, introImage, username, author, content, id }) => {
                 </svg>
               )}
             </span>
-            <b>12</b>
+            <b>{appriciates.length}</b>
           </span>
           <span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
@@ -136,7 +152,7 @@ const Card = ({ title, introImage, username, author, content, id }) => {
             )}
           </span>{" "}
           <span className="flex items-center space-x-1 pt-1">
-            {!edit && (
+            {!edit && author === auth.userid && (
               <>
                 {/* {userid === auth.userid && ( */}
                 <span>
@@ -164,7 +180,10 @@ const Card = ({ title, introImage, username, author, content, id }) => {
                   <div className="px-2 hover:bg-primary hover:text-white cursor-pointer">
                     Edit
                   </div>
-                  <div className="px-2 mt-1 hover:bg-primary hover:text-white cursor-pointer">
+                  <div
+                    className="px-2 mt-1 hover:bg-primary hover:text-white cursor-pointer"
+                    onClick={imagineDeleteHandler}
+                  >
                     Delete
                   </div>
                 </div>
