@@ -10,9 +10,9 @@ const Content = () => {
   const dispatch = useDispatch();
 
   console.log(imagine?.singleImagine?.singleImagine);
+  console.log(imagine?.singleImagine?.singleImagine?.introImage.secure_url);
 
   return (
-
     <div className="mt-3 space-y-2 block text-tiny md:text-sl flex-initial text-gray-900 font-Mulish leading-relaxed">
       <div className="text-base md:text-3xl font-bold px-5">
         {imagine?.singleImagine?.singleImagine?.title}
@@ -20,7 +20,7 @@ const Content = () => {
       </div>
       <Divider />
       <div className="flex flex-wrap md:flex-nowrap items-start justify-center gap-2 px-4 font-medium pt-5">
-        {!imagine.singleImagine.introImage ? null : (
+        {!imagine.singleImagine?.singleImagine?.introImage ? null : (
           <span className="h-48 w-full">
             <img
               src={imagine?.singleImagine?.singleImagine?.introImage.secure_url}
@@ -35,10 +35,14 @@ const Content = () => {
       </div>
       <div
         className="font-medium px-4 text-justify pt-6"
-        dangerouslySetInnerHTML={{ __html: imagine?.singleImagine?.singleImagine?.main }}
+        dangerouslySetInnerHTML={{
+          __html: imagine?.singleImagine?.singleImagine?.main,
+        }}
       ></div>
       <div className="flex flex-wrap md:flex-nowrap font-medium items-start justify-center gap-2 px-4 pb-4 pt-6">
-        <span className="w-full text-left">{imagine?.singleImagine?.singleImagine?.outro}</span>{" "}
+        <span className="w-full text-left">
+          {imagine?.singleImagine?.singleImagine?.outro}
+        </span>{" "}
         {!imagine?.singleImagine?.singleImagine?.outroImage ? null : (
           <span className="h-48 w-full">
             <img
