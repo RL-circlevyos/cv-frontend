@@ -4,20 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import Comment from "./Comment";
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
-import Modal from "./../../../components/Modal";
 import {
   commentCreateAction,
   commentFetchAction,
 } from "../../../store/apps/imagines/imagine-action";
 
-const CommentList = ({ comments }) => {
+const CommentList = () => {
   const [newCommentInput, setNewCommentInput] = useState();
   const dispatch = useDispatch();
   const imagineId = useParams();
 
   const imagine = useSelector((state) => state.imagine);
   const auth = useSelector((state) => state.auth);
-  const [openModal, setOpenModal] = useState(false);
+
   const user = auth.userid;
 
   console.log(imagine.comments);
@@ -74,16 +73,6 @@ const CommentList = ({ comments }) => {
           </>
         ))}
       </div>
-      {openModal && (
-        <Modal
-          title="Alert"
-          link="/login"
-          content="first you have to login to access the content"
-          closeModal={() => {
-            setOpenModal(false);
-          }}
-        />
-      )}
     </div>
   );
 };

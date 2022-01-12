@@ -2,15 +2,22 @@ import React, { useState } from "react";
 import Navbar from "../../../../components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { LightBulbIcon, PlusCircleIcon } from "@heroicons/react/solid";
+import {
+  BookmarkIcon,
+  BookOpenIcon,
+  EyeIcon,
+  LightBulbIcon,
+  PlusCircleIcon,
+} from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
-import Sound from "./Sound";
+import Sound from "../Sound";
+import Header from "./Header";
 
-const imagines = [
+const stories = [
   {
     id: 1,
-    imagine: "dddddddddddddmmm nnnnnnnnn jjjjjjj kkkkkkkk",
-
+    storyName: "dddddddddddddmmm nnnnnnnnn jjjjjjj kkkkkkkk",
+    genre: "horror",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a.",
     cover:
@@ -18,8 +25,8 @@ const imagines = [
   },
   {
     id: 2,
-    imagine: "imagine 2",
-
+    storyName: "story 2",
+    genre: "mystery",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a.",
     cover:
@@ -27,8 +34,8 @@ const imagines = [
   },
   {
     id: 3,
-    imagine: "imagine 3",
-
+    storyName: "story 3",
+    genre: "technical",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a.",
     cover:
@@ -36,8 +43,8 @@ const imagines = [
   },
   {
     id: 4,
-    imagine: "imagine 4",
-
+    storyName: "story 4",
+    genre: "nature",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a.",
     cover:
@@ -45,8 +52,8 @@ const imagines = [
   },
   {
     id: 5,
-    imagine: "imagine 5",
-
+    storyName: "story 5",
+    genre: "fiction",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a.",
     cover:
@@ -54,50 +61,45 @@ const imagines = [
   },
 ];
 
-const Start = () => {
+const Part = () => {
   return (
     <div className="flex flex-col w-full">
       <Navbar />
-      <div className="flex justify-center items-center w-full font-Mulish">
+      <div className="flex justify-center flex-col items-center w-full font-Mulish">
         <div className="max-w-7xl w-full pb-10">
-          <div className="flex justify-center items-center w-full  px-2 mt-1">
-            <Link
-              className=" w-full bg-cyan-700 py-2 rounded-2xl"
-              to="/general-imagines/myimagines"
-            >
-              <button className="w-full bg-cyan-700 text-lg font-medium uppercase text-white rounded-2xl ">
-                General
-              </button>
-            </Link>
-            <Link
-              className="w-full bg-white border border-cyan-700 py-2 rounded-2xl"
-              to="/story-imagines/myimagines"
-            >
-              <button className="w-full bg-white rounded-2xl text-lg font-medium uppercase text-cyan-700">
-                Story
-              </button>
-            </Link>
+          <div>
+            <div>
+              <Header />
+            </div>
+            <div></div>
           </div>
+          <div className="flex justify-between items-center w-full  px-2 mt-1">
+            <span className="w-7/12 bg-cyan-700 text-lg font-medium uppercase text-white rounded-2xl flex justify-center py-2">
+              Story Parts &nbsp;
+              <i>(5)</i>
+            </span>
+            <button
+              type="submit"
+              className="py-1.5 lg:py-2 lg:px-8 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200
+                       bg-primary text-gray-50 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+            >
+              Publish
+            </button>
+          </div>
+
           <div className="w-full mx-auto flex-wrap flex justify-center items-start gap-4 mt-10 px-4">
             <Link
-              to="/"
-              className="cursor-pointer px-2 py-1 font-bold
-               border border-gray-300 hover:bg-gray-200 flex flex-col justify-center items-center"
-            >
-              <span>Back</span>
-            </Link>
-            <Link
-              to="/create-general-imagine"
+              to="/series/storyname/:id/createpart"
               className="cursor-pointer px-4 py-2 text-cyan-800 font-bold
                border border-gray-500 h-32 w-32 flex flex-col justify-center items-center"
             >
               <PlusCircleIcon className="w-9 h-9 " />
               <span>Create</span>
             </Link>
-            {imagines.map((story) => {
+            {stories.map((story) => {
               return (
                 <Link
-                  to={`/general-imagines/${story.id}`}
+                  to={`/story-imagines/myimagines/${story.id}`}
                   key={story.id}
                   className="w-full md:w-80 space-x-2 flex items-start justify-center shadow bg-white border border-gray-50 font-Mulish"
                 >
@@ -124,10 +126,7 @@ const Start = () => {
                     </div>
                     <span className=" text-gray-700 flex flex-col space-y-2 pt-2 ml-2">
                       <span className="text-sm  hover:underline truncate font-bold">
-                        {story.imagine}
-                      </span>
-                      <span className="text-xs font-medium hover:underline bg-cyan-700 text-white truncate w-1/2 pl-3 rounded-md">
-                        {story.genre}
+                        {story.storyName}
                       </span>
                     </span>
                     <span className="flex items-start space-x-4 pt-3 pb-1">
@@ -139,6 +138,16 @@ const Start = () => {
                       <span>
                         <Sound />
                       </span>
+                      <span className="flex items-center space-x-1 text-tiny">
+                        <span className="cursor-pointer">
+                          <BookOpenIcon className="h-6 w-6 text-gray-600" />
+                        </span>
+                        <span className="flex font-bold text-gray-600">
+                          {" "}
+                          <i>p-</i>
+                          <i>{story.id}</i>
+                        </span>
+                      </span>
                     </span>
                   </div>
                 </Link>
@@ -147,9 +156,9 @@ const Start = () => {
           </div>
         </div>
       </div>
-      <ToastContainer autoClose={3000} />
+      <ToastContainer autoClose={4000} />
     </div>
   );
 };
 
-export default React.memo(Start);
+export default Part;

@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 
-const StoryDetails = () => {
+const Cover = () => {
   let navigate = useNavigate();
   const [coverImage, setCoverImage] = useState();
 
@@ -34,11 +34,11 @@ const StoryDetails = () => {
     };
 
     console.log(newPost);
-    toast.success("posted successfully");
+
     setCoverImage();
     setStoryAudio();
 
-    navigate("/story-imagines/myimagines");
+    navigate("/series/storyname/:id");
   }, [storyAudio, coverImage, navigate]);
   return (
     <div className="w-full flex justify-center flex-col items-center font-Mulish">
@@ -159,4 +159,4 @@ const StoryDetails = () => {
   );
 };
 
-export default React.memo(StoryDetails);
+export default React.memo(Cover);
