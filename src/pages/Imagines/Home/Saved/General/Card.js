@@ -2,45 +2,54 @@ import React, { useCallback, useState } from "react";
 import {
   BookmarkIcon,
   DotsVerticalIcon,
-  EyeIcon,
   LightBulbIcon,
   XIcon,
 } from "@heroicons/react/solid";
 import Sound from "../Sound";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Modal from "./../../../../components/Modal";
+import AlertDialogSlide from "../../../../components/Dialog";
 
 const src =
   "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
+
 const Card = ({ title, introImage, username, author, content, id }) => {
   const auth = useSelector((state) => state.auth);
-  const [openModal, setOpenModal] = useState(false);
+
   const user = auth.userid;
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
   const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = useCallback(() => {
-    user ? setBookmark(!bookmark) : setOpenModal(true);
-  }, [user, bookmark]);
+    !user ? setBookmark(!bookmark) : handleClickOpen();
+  }, [user, bookmark, handleClickOpen]);
 
   const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
-    user ? setLike(!like) : setOpenModal(true);
-  }, [like, user]);
+    user ? setLike(!like) : handleClickOpen();
+  }, [like, user, handleClickOpen]);
 
   const [edit, setEdit] = useState(false);
   const clickEdit = useCallback(() => {
-    user ? setEdit(true) : setOpenModal(true);
-  }, [user]);
+    user ? setEdit(true) : handleClickOpen();
+  }, [user, handleClickOpen]);
 
-  const editClose = () => {
+  const editClose = useCallback(() => {
     setEdit(false);
-  };
+  }, []);
   return (
-    <div className="md:w-60 w-full space-x-2 flex items-start justify-center flex-wrap flex-col shadow mb-3">
-      <div className="w-full bg-gray-50">
-        <div className="text-sm font-medium hover:underline">
-          <Link to={`/story-imagines/${id}`}>
+    <div className="w-full space-x-2 flex items-start justify-center shadow mb-3">
+      <div className="w-2/5 h-36 bg-gray-50">
+        <div className="text-sm font-medium hover:underline h-36">
+          <Link to={`/general-imagines/${id}`}>
             <img
               src={
                 !introImage
@@ -48,31 +57,31 @@ const Card = ({ title, introImage, username, author, content, id }) => {
                   : `https://storage.googleapis.com/niketan-dev-mode.appspot.com/${introImage}`
               }
               alt="pic"
-              className="h-40 w-full object-contain rounded-md "
+              className="h-36 w-full object-contain rounded-md "
             />
           </Link>
         </div>
       </div>
-      <div className="flex flex-col space-y-2 w-full py-1.5">
+      <div className="flex flex-col space-y-2 w-3/5 py-1.5">
         <div className="flex items-start pt-3 space-x-2 px-1.5">
-          <Link
-            to={`/contribution/profile-imagines/${author}`}
-            className="flex flex-1 hover:underline"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1637867165026-5725fe9fb052?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
-              alt="dp"
-              className="w-6 h-6 rounded-full object-cover"
-            />
+          <div className="flex flex-1 ">
+            <Link to={`/contribution/profile-imagines/${author}`}>
+              {" "}
+              <img
+                src="https://images.unsplash.com/photo-1637867165026-5725fe9fb052?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
+                alt="dp"
+                className="w-7 h-7 rounded-full object-cover"
+              />
+            </Link>
 
             <span className="text-md ml-2 font-medium text-gray-900">
               {username}
             </span>
-          </Link>
+          </div>
         </div>
         <span className=" text-gray-500">
           <Link
-            to={`/story-imagines/${id}`}
+            to={`/general-imagines/${id}`}
             className="text-sm font-medium hover:underline"
           >
             <div>{title}</div>
@@ -163,16 +172,14 @@ const Card = ({ title, introImage, username, author, content, id }) => {
               </div>
             )}
           </span>
-          {openModal && (
-            <Modal
-              title="Alert"
-              link="/login"
-              content="first you have to login to access the content"
-              closeModal={() => {
-                setOpenModal(false);
-              }}
-            />
-          )}
+          <AlertDialogSlide
+            open={open}
+            handleClose={handleClose}
+            title="Login to Circlevyos"
+            content="To get your own access on different contents you should signin first"
+            link="/login"
+            show={true}
+          />
         </span>
       </div>
     </div>

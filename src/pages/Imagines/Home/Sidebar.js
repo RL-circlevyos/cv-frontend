@@ -4,27 +4,38 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { ChevronLeft } from "react-feather";
 import {
+  BookmarkAltIcon,
+  FireIcon,
   //BookmarkAltIcon,
   HeartIcon,
   PaperClipIcon,
 } from "@heroicons/react/solid";
 import { useSelector } from "react-redux";
-import Modal from "./../../../components/Modal";
+import AlertDialogSlide from "./../../../components/Dialog";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
 
   const auth = useSelector((state) => state.auth);
-  const [openModal, setOpenModal] = useState(false);
+
   const user = auth.userid;
 
   const crImagine = useCallback(() => {
-    user ? navigate("/create-general-imagine") : setOpenModal(true);
-  }, [user, navigate]);
+    user ? navigate("/create-general-imagine") : handleClickOpen();
+  }, [user, navigate, handleClickOpen]);
 
   const crStory = useCallback(() => {
-    user ? navigate("/story-imagines/story-intro") : setOpenModal(true);
-  }, [user, navigate]);
+    user ? navigate("/series/start") : handleClickOpen();
+  }, [user, navigate, handleClickOpen]);
   return (
     <>
       <div className="md:flex relative hidden">
@@ -62,17 +73,22 @@ const Sidebar = () => {
                 }
               >
                 <span className="flex items-center space-x-2">
-                  <HeartIcon className="w-6 h-6 mr-2" /> Story
+                  <FireIcon className="w-6 h-6 mr-2" /> Series
                 </span>
               </NavLink>
-              {/* <NavLink
-                to={`/myview`}
-                className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+              <NavLink
+                to={`/saved/general`}
+                className={({ isActive }) =>
+                  isActive
+                    ? "block py-2 px-10 mt-1 rounded-2xl bg-teal-800 text-white"
+                    : "block py-2 px-10 mt-1 rounded-2xl transition duration-200 focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                }
               >
                 <span className="flex items-center space-x-2">
                   <BookmarkAltIcon className="w-6 h-6 mr-2" /> Saved
                 </span>
-              </NavLink> */}
+              </NavLink>
+
               <Link
                 exact
                 to="/general-imagines/myimagines"
@@ -104,16 +120,14 @@ const Sidebar = () => {
             </>
           </nav>
         </div>
-        {openModal && (
-          <Modal
-            title="Alert"
-            link="/login"
-            content="first you have to login to access the content"
-            closeModal={() => {
-              setOpenModal(false);
-            }}
-          />
-        )}
+        <AlertDialogSlide
+          open={open}
+          handleClose={handleClose}
+          title="Login to Circlevyos"
+          content="To get your own access on different contents you should signin first"
+          link="/login"
+          show={true}
+        />
       </div>
     </>
   );

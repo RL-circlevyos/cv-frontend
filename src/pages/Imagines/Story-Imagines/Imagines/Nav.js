@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import data from "../../../Blog/BlogSearch/Data.json";
+import data from "../../../../components/Data.json";
 
 const Nav = () => {
   const [filteredData, setFilteredData] = useState([]);

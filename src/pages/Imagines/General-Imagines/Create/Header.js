@@ -7,7 +7,7 @@ const Header = () => {
     <div className=" w-full font-Mulish text-sm text-gray-800 pt-1 pb-1">
       <div className="lg:flex items-center space-x-2 hidden w-full justify-between px-3 py-2">
         <div className="flex items-center space-x-5 ">
-          <Link to="/general-imagines/myimagines">
+          <Link to="/">
             <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
           </Link>
         </div>

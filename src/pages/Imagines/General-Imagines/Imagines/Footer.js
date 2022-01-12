@@ -6,19 +6,36 @@ import {
 } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
+import AlertDialogSlide from "../../../../components/Dialog";
 import Sound from "../Create/Sound";
-import Modal from "./../../../../components/Modal";
 
 const Footer = ({ openCommentBox }) => {
   const auth = useSelector((state) => state.auth);
-  const [openModal, setOpenModal] = useState(false);
   const user = auth.userid;
   const singleImagine = useSelector((state) => state.imagine.singleImagine);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+  const [openShare, setOpenShare] = useState(false);
+
+  const handleClickOpenShare = useCallback(() => {
+    setOpenShare(true);
+  }, []);
+
+  const handleCloseShare = useCallback(() => {
+    setOpenShare(false);
+  }, []);
 
   const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
-    !user ? setLike(!like) : setOpenModal(true);
-  }, [like, user]);
+    user ? setLike(!like) : handleClickOpen();
+  }, [like, user, handleClickOpen]);
 
   return (
     <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
@@ -53,7 +70,7 @@ const Footer = ({ openCommentBox }) => {
           APPRECIATE
         </span>
         <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
-          <span className="lg:pt-1">
+          <span className="lg:pt-1" onClick={handleClickOpenShare}>
             <ShareIcon className="h-6 w-6 cursor-pointer text-gray-600 pb-1 ml-2" />
             SHARE
           </span>
@@ -82,16 +99,21 @@ const Footer = ({ openCommentBox }) => {
           COMMENTS
         </span>
       </div>
-      {openModal && (
-        <Modal
-          title="Alert"
-          link="/login"
-          content="first you have to login to access the content"
-          closeModal={() => {
-            setOpenModal(false);
-          }}
-        />
-      )}
+      <AlertDialogSlide
+        open={open}
+        handleClose={handleClose}
+        title="Login to Circlevyos"
+        content="To get your own access on different contents you should signin first"
+        link="/login"
+        show={true}
+      />
+      <AlertDialogSlide
+        open={openShare}
+        handleClose={handleCloseShare}
+        title="Share this link"
+        content="the link should be here"
+        show={false}
+      />
     </div>
   );
 };

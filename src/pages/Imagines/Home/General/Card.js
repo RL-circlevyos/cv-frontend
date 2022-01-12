@@ -7,9 +7,14 @@ import {
 } from "@heroicons/react/solid";
 import Sound from "../Sound";
 import { Link } from "react-router-dom";
-import Modal from "../../../../components/Modal";
+
+
 import { useDispatch, useSelector } from "react-redux";
 import { deleteImagineAction } from "../../../../store/apps/imagines/imagine-action";
+
+
+import AlertDialogSlide from "../../../../components/Dialog";
+
 
 const src =
   "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
@@ -25,41 +30,50 @@ const Card = ({
   appriciates,
 }) => {
   const auth = useSelector((state) => state.auth);
-  const [openModal, setOpenModal] = useState(false);
+
   const user = auth.userid;
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
   const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = useCallback(() => {
-    !user ? setBookmark(!bookmark) : setOpenModal(true);
-  }, [user, bookmark]);
+    !user ? setBookmark(!bookmark) : handleClickOpen();
+  }, [user, bookmark, handleClickOpen]);
 
   const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
-    user ? setLike(!like) : setOpenModal(true);
-  }, [like, user]);
   const dispatch = useDispatch();
 
   const imagineDeleteHandler = useCallback(() => {
     dispatch(deleteImagineAction(id));
   }, [dispatch, id]);
+    !user ? setLike(!like) : handleClickOpen();
+  }, [like, user, handleClickOpen]);
 
   const [edit, setEdit] = useState(false);
   const clickEdit = useCallback(() => {
-    user ? setEdit(true) : setOpenModal(true);
-  }, [user]);
+    user ? setEdit(true) : handleClickOpen();
+  }, [user, handleClickOpen]);
 
-  const editClose = () => {
+  const editClose = useCallback(() => {
     setEdit(false);
-  };
+  }, []);
   return (
     <div className="w-full space-x-2 flex items-start justify-center shadow mb-3">
-      <div className="w-2/5 h-32 bg-gray-50">
-        <div className="text-sm font-medium hover:underline">
-          <Link to={`/story-imagines/${id}`}>
+      <div className="w-2/5 h-36 bg-gray-50">
+        <div className="text-sm font-medium hover:underline h-36">
+          <Link to={`/general-imagines/${id}`}>
             <img
               src={!introImage ? src : introImage.secure_url}
               alt="pic"
-              className="h-full w-full object-contain rounded-md "
+              className="h-36 w-full object-contain rounded-md "
             />
           </Link>
         </div>
@@ -177,20 +191,18 @@ const Card = ({
               </div>
             )}
           </span>
-          {openModal && (
-            <Modal
-              title="Alert"
-              link="/login"
-              content="first you have to login to access the content"
-              closeModal={() => {
-                setOpenModal(false);
-              }}
-            />
-          )}
+          <AlertDialogSlide
+            open={open}
+            handleClose={handleClose}
+            title="Login to Circlevyos"
+            content="To get your own access on different contents you should signin first"
+            link="/login"
+            show={true}
+          />
         </span>
       </div>
     </div>
   );
 };
 
-export default Card;
+export default React.memo(Card);
