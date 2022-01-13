@@ -19,6 +19,7 @@ import {
 } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Example from "./Dropdown";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,12 +84,34 @@ function Navbar() {
                 </div>
               </div>
               <div className="hidden space-x-2 items-baseline justify-end md:flex">
-                {user && (
-                  <div className=" flex items-center justify-center">
-                    {/* <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                <div> {user && <Example />}</div>
+
+                {!user && (
+                  <>
+                    <Link
+                      to="/login"
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <b className="block text-sm uppercase bg-primary px-2 py-1 rounded text-white">
+                        Login
+                      </b>
+                    </Link>
+                    <Link
+                      to="/register"
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <b className="block text-sm uppercase bg-cyan-700 px-2 py-1 rounded text-white">
+                        SignUp
+                      </b>
+                    </Link>
+                  </>
+                )}
+
+                {/* <div className=" flex items-center justify-center">
+                     <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
                     <BellIcon className="h-6 w-6" />
                     <b className="sm:hidden block text-xs">notifications</b>
-                  </div>{" "} */}
+                  </div>{" "} 
                     <Link
                       to="/contribution/profile-imagines"
                       className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
@@ -99,8 +122,8 @@ function Navbar() {
                     <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
                       <Power />
                       <b className="sm:hidden block text-xs">logout</b>
-                    </div>
-                    {/*  <div class="dropdown inline-block relative hover:bg-greyish-200 mt-1">
+                    </div>*/}
+                {/*  <div class="dropdown inline-block relative hover:bg-greyish-200 mt-1">
                     <button class=" text-primary py-2 px-4 rounded inline-flex items-center">
                       <UserCircleIcon className="h-6 w-6" />
                     </button>
@@ -150,9 +173,8 @@ function Navbar() {
                         </div>
                       </li>
                     </ul>
-                  </div> */}
                   </div>
-                )}
+                  </div> */}
               </div>
             </div>
             <div className="-mr-2 flex md:hidden">

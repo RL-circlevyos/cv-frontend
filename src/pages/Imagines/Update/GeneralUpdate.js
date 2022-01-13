@@ -1,32 +1,35 @@
-import { UploadIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
-import Header from "./Header";
 
-import { useDispatch } from "react-redux";
-import { generalImagineCreateAction } from "../../../../store/apps/imagines/imagine-action";
+import { useDispatch, useSelector } from "react-redux";
+import { generalImagineCreateAction } from "../../../store/apps/imagines/imagine-action";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
-import data from "../../../../components/Category.json";
-const CreateImagines = ({ getContent }) => {
+import data from "../../../components/Category.json";
+
+const GeneralUpdate = () => {
+  const imagineData = useSelector((state) => state.imagine.singleImagine);
+  const { iTitle, iIntro, iGenre, iOutro } = imagineData;
+
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
+  const onEditorStateChange = (editorsState) => {
+    setEditorState(editorsState);
 
     console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
   };
 
   let navigate = useNavigate();
+  //   const [title, setTitle] = useState(iTitle);
+  //   const [intro, setIntro] = useState(iIntro);
+  //   const [isChecked, setIsChecked] = useState(iGenre);
+  //   const [outro, setOutro] = useState(iOutro);
   const [title, setTitle] = useState("");
-  const [introImage, setIntroImage] = useState();
   const [intro, setIntro] = useState("");
-  const [isChecked, setIsChecked] = useState([]);
+  const [isChecked, setIsChecked] = useState("");
   const [outro, setOutro] = useState("");
-  const [outroImage, setOutroImage] = useState();
-  const [audio, setAudio] = useState();
 
   const dispatch = useDispatch();
   const formdata = new FormData();
@@ -34,32 +37,12 @@ const CreateImagines = ({ getContent }) => {
   formdata.append("title", title);
   formdata.append("intro", intro);
   formdata.append("outro", outro);
-  formdata.append("introImage", introImage);
-  formdata.append("outroImage", outroImage);
   formdata.append("genre", isChecked);
   formdata.append(
     "main",
     draftToHtml(convertToRaw(editorState.getCurrentContent()))
   );
-  formdata.append("audio", audio);
 
-  const introImageChange = useCallback((e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setIntroImage(e.target.files[0]);
-    }
-  }, []);
-  const removeIntroImage = useCallback(() => {
-    setIntroImage();
-  }, []);
-
-  const outroImageChange = useCallback((e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setOutroImage(e.target.files[0]);
-    }
-  }, []);
-  const removeOutroImage = useCallback(() => {
-    setOutroImage();
-  }, []);
   const limit = 300;
   const setTitleContent = useCallback(
     (text) => {
@@ -81,15 +64,6 @@ const CreateImagines = ({ getContent }) => {
     [setOutro]
   );
 
-  const audioChange = useCallback((e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setAudio(e.target.files[0]);
-    }
-  }, []);
-  const removeAudio = useCallback(() => {
-    setAudio();
-  }, []);
-
   const handleSingleCheck = useCallback((e) => {
     setIsChecked({ [e.target.name]: e.target.checked });
   }, []);
@@ -98,7 +72,7 @@ const CreateImagines = ({ getContent }) => {
     (e) => {
       e.preventDefault();
       dispatch(generalImagineCreateAction(formdata));
-      toast.success("posted successfully");
+      toast.success("Updated successfully");
       navigate("/");
     },
 
@@ -106,9 +80,6 @@ const CreateImagines = ({ getContent }) => {
   );
   return (
     <div className="flex justify-center items-center flex-col font-Mulish">
-      <div className="w-full max-w-7xl">
-        <Header />
-      </div>
       <div className="max-w-4xl w-full flex justify-center items-center flex-col mx-3 lg:mx-0">
         <div className="w-full">
           <form
@@ -137,46 +108,6 @@ const CreateImagines = ({ getContent }) => {
               </span>
             </div>
             <div className="flex items-start justify-start w-full flex-wrap lg:flex-nowrap pt-2 lg:pt-0 space-y-4 lg:space-y-0 lg:space-x-5">
-              <div className="grid place-items-center">
-                <label
-                  className={`${
-                    !introImage &&
-                    "border border-gray-300 rounded-md w-full mt-6 px-8 py-8 flex items-center cursor-pointer"
-                  } p-2`}
-                >
-                  {!introImage && (
-                    <>
-                      <span className="text-xs font-bold lg:text-base">
-                        intro image
-                      </span>
-                      <UploadIcon className="w-7 h-7" />
-                    </>
-                  )}
-                  <input
-                    accept="image/*"
-                    type="file"
-                    onChange={introImageChange}
-                    className="invisible hidden"
-                  />
-                </label>
-
-                {introImage && (
-                  <div className="w-full h-56 pb-3">
-                    <img
-                      src={URL.createObjectURL(introImage)}
-                      alt="Thumb"
-                      className="w-full h-full object-contain border border-gray-400"
-                    />
-                    <button
-                      className="text-xs font-bold"
-                      onClick={removeIntroImage}
-                    >
-                      Remove This Image
-                    </button>
-                  </div>
-                )}
-              </div>
-
               <span className="w-full">
                 <label className="ml-4 text-xs uppercase font-bold">
                   intro
@@ -223,45 +154,6 @@ const CreateImagines = ({ getContent }) => {
                   {outro.length}/{limit}
                 </p>
               </span>
-              <div>
-                <label
-                  className={`${
-                    !outroImage &&
-                    "border border-gray-300 rounded-md w-full mt-6 px-8 py-8 flex items-center cursor-pointer"
-                  }p-2`}
-                >
-                  {!outroImage && (
-                    <>
-                      <span className="text-xs font-bold lg:text-base">
-                        outro image
-                      </span>
-                      <UploadIcon className="w-7 h-7" />
-                    </>
-                  )}
-                  <input
-                    accept="image/*"
-                    type="file"
-                    onChange={outroImageChange}
-                    className="invisible hidden"
-                  />
-                </label>
-
-                {outroImage && (
-                  <div className="w-full h-56 pb-3 mt-6">
-                    <img
-                      src={URL.createObjectURL(outroImage)}
-                      alt="Thumb"
-                      className="w-full h-full object-cover border border-gray-400"
-                    />
-                    <button
-                      className="text-xs font-bold"
-                      onClick={removeOutroImage}
-                    >
-                      Remove This Image
-                    </button>
-                  </div>
-                )}
-              </div>
             </div>
             <div
               className="flex items-center flex-col justify-center w-full flex-wrap lg:flex-nowrap pt-10 
@@ -289,48 +181,7 @@ const CreateImagines = ({ getContent }) => {
                 })}
               </div>
             </div>
-            <div className="w-full max-2xl">
-              <label
-                className={`${
-                  !audio &&
-                  "border border-gray-200 shadow rounded-lg px-3 py-3 flex w-full justify-center h-30 mt-3 items-center cursor-pointer"
-                } w-full`}
-              >
-                {!audio && (
-                  <>
-                    <span className="text-sm font-bold lg:text-base uppercase">
-                      Imagine audio
-                    </span>
-                    <UploadIcon className="w-7 h-7 ml-2" />
-                  </>
-                )}
-                <input
-                  accept="audio/*"
-                  type="file"
-                  onChange={audioChange}
-                  className="invisible hidden"
-                />
-              </label>
 
-              {audio && (
-                <>
-                  <div className="w-full h-30 pb-3 mt-8">
-                    <audio
-                      className="w-full"
-                      controls
-                      src={URL.createObjectURL(audio)}
-                    />
-
-                    <button
-                      className="text-xs font-bold bg-gray-200 px-2 py-1 rounded-md mt-1"
-                      onClick={removeAudio}
-                    >
-                      Remove This Audio
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
             <div className="flex justify-end items-center pt-2 mb-4 ">
               <div className="flex items-center space-x-2 ">
                 {!title || !intro ? (
@@ -354,4 +205,4 @@ const CreateImagines = ({ getContent }) => {
   );
 };
 
-export default React.memo(CreateImagines);
+export default React.memo(GeneralUpdate);

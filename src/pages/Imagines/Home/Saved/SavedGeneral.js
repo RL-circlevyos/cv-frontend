@@ -16,28 +16,6 @@ const SavedGeneral = () => {
             <Sidebar />
           </div>
           <div className="flex justify-center items-center w-full max-w-lg flex-col mt-2 md:mt-5">
-            <span className="w-full block mb-5">
-              <span className=" flex items-center px-2 justify-center w-full">
-                <div className="text-base font-medium text-primary flex justify-between items-start px-3 space-x-4">
-                  <span
-                    className="flex text-sm uppercase font-semibold justify-center items-center w-full py-1 px-3
-          rounded-xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900
-          hover:bg-teal-800 hover:text-gray-100"
-                  >
-                    General Imagines
-                  </span>
-                  <span>
-                    <Link
-                      to="/"
-                      className="flex items-center py-1 px-3 font-semibold uppercase rounded-md text-sm transition duration-200
-            bg-gray-200 text-primary focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
-                    >
-                      Story
-                    </Link>
-                  </span>
-                </div>
-              </span>
-            </span>
             <div className="w-full flex justify-center items-center px-4">
               <Scrollbars
                 thumbSize={1}

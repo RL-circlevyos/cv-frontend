@@ -167,7 +167,7 @@ const Login = () => {
               <span className="flex items-center text-sm text-grey-400 lg:text-base">
                 {" "}
                 Don't have an account?
-                <Link exact to="/register">
+                <Link exact to="/select">
                   {" "}
                   <span className="text-primary hover:underline text-base lg:text-base ml-3 cursor-pointer">
                     Sign Up

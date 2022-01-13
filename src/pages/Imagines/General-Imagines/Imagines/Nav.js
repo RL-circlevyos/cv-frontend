@@ -24,7 +24,7 @@ const Nav = () => {
   }, []);
 
   const createImagines = useCallback(() => {
-    user ? navigate("/create-general-imagine") : handleClickOpen();
+    user ? navigate("/create-imagine") : handleClickOpen();
   }, [handleClickOpen, user, navigate]);
 
   return (

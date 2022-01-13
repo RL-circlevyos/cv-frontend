@@ -9,23 +9,25 @@ import ResetPassword from "./pages/Authentication/Reset-Password";
 import PageNotFound from "./components/PageNotFound";
 
 import GeneralImagines from "./pages/Imagines/General-Imagines/Imagines/GeneralImagines";
-import StoryImagines from "./pages/Imagines/Story-Imagines/Imagines/StoryImagines";
+/***import StoryImagines from "./pages/Imagines/Story-Imagines/Imagines/StoryImagines";*/
 import CreateImagines from "./pages/Imagines/General-Imagines/Create/CreateImagines";
 
 import { useDispatch } from "react-redux";
 
 import { AuthState } from "./store/apps/auth/auth-action";
 import { useEffect } from "react";
-import { blogFetchAction } from "./store/apps/blogs/blog-action";
+
 import { generalImagineFetchAction } from "./store/apps/imagines/imagine-action";
 import ImagineList from "./pages/Imagines/Home/General/ImagineList";
 import Marketplace from "./pages/Marketplace/Marketplace";
-import ConBlogs from "./pages/UserProfile/Contribution/ConBlogs";
-import ConImagines from "./pages/UserProfile/Contribution/ConImagines";
-import SavedBlogs from "./pages/UserProfile/Saved/SavedBlogs";
-import SavedImagines from "./pages/UserProfile/Saved/SavedImagines";
+
 import Trending from "./pages/Imagines/Home/General/Trending";
 
+/**
+ * import ConImagines from "./pages/UserProfile/Contribution/ConImagines";
+ import ConBlogs from "./pages/UserProfile/Contribution/ConBlogs";
+ import SavedBlogs from "./pages/UserProfile/Saved/SavedBlogs";
+import SavedImagines from "./pages/UserProfile/Saved/SavedImagines";
 import Intro from "./pages/Imagines/Story-Imagines/Create/Intro/Intro";
 import Form from "./pages/Imagines/Story-Imagines/Create/Intro/Form";
 import StoryDetails from "./pages/Imagines/Story-Imagines/Create/Intro/StoryDetails";
@@ -35,10 +37,15 @@ import StoryList from "./pages/Imagines/Home/Story/StoryList";
 import Saved from "./pages/Imagines/Home/Saved/SavedGeneral";
 import Start from "./pages/Imagines/Series/Start";
 import Cover from "./pages/Imagines/Series/Cover";
-import Part from "./pages/Imagines/Series/Parts/Parts";
-import Select from "./pages/Authentication/Select";
 import Create from "./pages/Imagines/Series/Parts/Create";
+import SinglePart from "./pages/Imagines/Series/Singles/SinglePart";
+import Part from "./pages/Imagines/Series/Parts/Parts";**/
+import Select from "./pages/Authentication/Select/Select";
+
 import SavedGeneral from "./pages/Imagines/Home/Saved/SavedGeneral";
+import Upcoming from "./pages/Imagines/Home/Story/Upcoming";
+import GeneralUpdate from "./pages/Imagines/Update/GeneralUpdate";
+import Profile from "./pages/UserProfile/Info/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,19 +75,26 @@ function App() {
 
         <Route path="/" element={<ImagineList />} />
         <Route path="/saved/general" element={<SavedGeneral />} />
-        {/* <Route path="/saved/series" element={<SavedGeneral />} /> */}
 
-        <Route path="/create-general-imagine" element={<CreateImagines />} />
+        <Route path="/create-imagine" element={<CreateImagines />} />
+        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/:id" element={<GeneralImagines />} />
+        <Route path="/:id/update" element={<GeneralUpdate />} />
+        <Route path="/series" element={<Upcoming />} />
+        <Route path="/marketplace" element={<Marketplace />} />
+        <Route path="/trendings" element={<Trending />} />
 
-        <Route path="/general-imagines/:id" element={<GeneralImagines />} />
+        <Route path="*" element={<PageNotFound />} />
+
         {/* <Route path="/general-imagines/myimagines" element={<Start />} /> */}
-
-        <Route path="/series/start" element={<Start />} />
+        {/* <Route path="/saved/series" element={<SavedGeneral />} /> */}
+        {/* <Route path="/series/start" element={<Start />} />
         <Route path="/series/cover" element={<Cover />} />
         <Route path="/series/storyname/:id" element={<Part />} />
-        <Route path="/series/storyname/:id/createpart" element={<Create />} />
+        <Route path="/series/storyname/:id/part/:id" element={<SinglePart />} />
+        <Route path="/series/storyname/:id/createpart" element={<Create />} /> */}
 
-        <Route path="/story-imagines" element={<StoryList />} />
+        {/* <Route path="/story-imagines" element={<StoryList />} />
         <Route path="/story-imagines/:id" element={<StoryImagines />} />
         <Route path="/story-imagines/myimagines" element={<Intro />} />
         <Route path="/story-imagines/myimagines/:id" element={<PartsList />} />
@@ -92,20 +106,11 @@ function App() {
         <Route
           path="/story-imagines/story-intro/details"
           element={<StoryDetails />}
-        />
+        /> */}
 
-        <Route
-          path="/contribution/profile-imagines/:id"
-          element={<ConImagines />}
-        />
-        <Route path="/contribution/profile-blogs" element={<ConBlogs />} />
+        {/* <Route path="/contribution/profile-blogs" element={<ConBlogs />} />
         <Route path="/saved/profile-blogs" element={<SavedBlogs />} />
-        <Route path="/saved/profile-imagines/:id" element={<SavedImagines />} />
-
-        <Route path="/marketplace" element={<Marketplace />} />
-        <Route path="/trendings" element={<Trending />} />
-
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="/saved/profile-imagines/:id" element={<SavedImagines />} /> */}
       </Routes>
     </BrowserRouter>
   );

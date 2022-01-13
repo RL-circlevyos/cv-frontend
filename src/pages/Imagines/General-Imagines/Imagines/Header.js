@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { BookmarkIcon } from "@heroicons/react/solid";
 import { useSelector } from "react-redux";
 import moment from "moment";
-
+import dp from "../../../../assets/person.png";
 import { Link } from "react-router-dom";
 import AlertDialogSlide from "./../../../../components/Dialog";
 
@@ -32,9 +32,13 @@ const Header = ({ author }) => {
     <>
       <div className=" flex justify-between items-center px-3 font-Mulish">
         <div className="flex items-center space-x-2">
-          <Link to={`/contribution/profile-imagines/${author}`}>
+          <Link to={`/profile/${author}`}>
             <img
-              src={singleImagine?.singleImagine?.photo}
+              src={
+                singleImagine?.singleImagine?.photo
+                  ? singleImagine?.singleImagine?.photo
+                  : dp
+              }
               alt="dp"
               className="w-10 h-10 rounded-full object-cover"
             />

@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../../../../components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
-  BookmarkIcon,
   BookOpenIcon,
-  EyeIcon,
   LightBulbIcon,
   PlusCircleIcon,
 } from "@heroicons/react/solid";
@@ -99,7 +97,7 @@ const Part = () => {
             {stories.map((story) => {
               return (
                 <Link
-                  to={`/story-imagines/myimagines/${story.id}`}
+                  to={`/series/storyname/:id/part/${story.id}`}
                   key={story.id}
                   className="w-full md:w-80 space-x-2 flex items-start justify-center shadow bg-white border border-gray-50 font-Mulish"
                 >
