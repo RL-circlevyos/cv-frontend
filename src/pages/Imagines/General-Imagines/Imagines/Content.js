@@ -9,6 +9,7 @@ const Content = () => {
   const imagine = useSelector((state) => state.imagine);
   const dispatch = useDispatch();
 
+
   return (
     <div className="mt-3 space-y-2 block text-tiny md:text-sl flex-initial text-gray-900 font-Mulish leading-relaxed">
       <div className="text-base md:text-3xl font-bold px-5">

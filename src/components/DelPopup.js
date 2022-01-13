@@ -12,12 +12,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({
+export default function DelPopup({
   open,
   handleClose,
   title,
   content,
-  link,
+  onClick,
   show,
 }) {
   return (
@@ -56,11 +56,11 @@ export default function AlertDialogSlide({
         </DialogContent>
         {show && (
           <DialogActions>
-            <Button variant="contained" color="success" onClick={handleClose}>
-              <Link to="/register"> Signup</Link>
+            <Button variant="contained" color="error" onClick={handleClose}>
+              No
             </Button>
-            <Button variant="contained" color="primary">
-              <Link to={link}> Login</Link>
+            <Button onClick={onClick} variant="contained" color="success">
+              Yes
             </Button>
           </DialogActions>
         )}

@@ -143,6 +143,29 @@ const Start = () => {
               </p>
             </span>
           </div>
+
+          <div className="w-full pt-5">
+            {" "}
+            <span className="w-full ">
+              <label className="ml-4 text-xs uppercase font-bold">
+                Introduction
+              </label>
+              <span className="w-full flex items-center border rounded-xl px-2 py-1 hover:border-primary border-gray-300 bg-white ">
+                <textarea
+                  required
+                  rows="6"
+                  type="text"
+                  placeholder="prologue of your story"
+                  className="font-medium w-full px-1 ml-2 py-1 focus:outline-none lg:text-base text-sm  form-control"
+                  value={body}
+                  onChange={(e) => setBodyContent(e.target.value)}
+                />
+              </span>
+              <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
+                {body.length}/800
+              </p>
+            </span>
+          </div>
           <div
             className="flex items-center flex-col justify-center w-full flex-wrap lg:flex-nowrap pt-10 
           space-y-4 lg:space-y-0 lg:space-x-5"
@@ -167,28 +190,6 @@ const Start = () => {
                   </div>
                 );
               })}
-            </div>
-            <div className="w-full pt-5">
-              {" "}
-              <span className="w-full ">
-                <label className="ml-4 text-xs uppercase font-bold">
-                  Introduction
-                </label>
-                <span className="w-full flex items-center border rounded-xl px-2 py-1 hover:border-primary border-gray-300 bg-white ">
-                  <textarea
-                    required
-                    rows="6"
-                    type="text"
-                    placeholder="prologue of your story"
-                    className="font-medium w-full px-1 ml-2 py-1 focus:outline-none lg:text-base text-sm  form-control"
-                    value={body}
-                    onChange={(e) => setBodyContent(e.target.value)}
-                  />
-                </span>
-                <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
-                  {body.length}/800
-                </p>
-              </span>
             </div>
             <div className="flex justify-between items-center mb-4 pt-10">
               <div></div>

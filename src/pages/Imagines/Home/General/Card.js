@@ -7,11 +7,12 @@ import {
 } from "@heroicons/react/solid";
 import Sound from "../Sound";
 import { Link } from "react-router-dom";
-
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteImagineAction } from "../../../../store/apps/imagines/imagine-action";
-
+import dp from "../../../../assets/person.png";
 import AlertDialogSlide from "../../../../components/Dialog";
+import DelPopup from "./../../../../components/DelPopup";
 
 const src =
   "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
@@ -41,14 +42,23 @@ const Card = ({
   }, []);
   const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = useCallback(() => {
-    !user ? setBookmark(!bookmark) : handleClickOpen();
+    user ? setBookmark(!bookmark) : handleClickOpen();
   }, [user, bookmark, handleClickOpen]);
 
   const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
-    !user ? setLike(!like) : handleClickOpen();
+    user ? setLike(!like) : handleClickOpen();
   }, [like, user, handleClickOpen]);
 
+  const [del, setDel] = useState(false);
+
+  const handleDelOpen = useCallback(() => {
+    setDel(true);
+  }, []);
+
+  const handleDelClose = useCallback(() => {
+    setDel(false);
+  }, []);
   const imagineDeleteHandler = useCallback(() => {
     dispatch(deleteImagineAction(id));
   }, [dispatch, id]);
@@ -65,7 +75,7 @@ const Card = ({
     <div className="w-full space-x-2 flex items-start justify-center shadow mb-3">
       <div className="w-2/5 h-36 bg-gray-50">
         <div className="text-sm font-medium hover:underline h-36">
-          <Link to={`/general-imagines/${id}`}>
+          <Link to={`/${id}`}>
             <img
               src={!introImage ? src : introImage.secure_url}
               alt="pic"
@@ -77,10 +87,10 @@ const Card = ({
       <div className="flex flex-col space-y-2 w-3/5 py-1.5">
         <div className="flex items-start pt-3 space-x-2 px-1.5">
           <div className="flex flex-1 ">
-            <Link to={`/contribution/profile-imagines/${author}`}>
+            <Link to={`/profile/${author}`}>
               {" "}
               <img
-                src={avatar ? avatar : ""}
+                src={avatar ? avatar : dp}
                 alt="dp"
                 className="w-7 h-7 rounded-full object-cover"
               />
@@ -92,10 +102,7 @@ const Card = ({
           </div>
         </div>
         <span className=" text-gray-500">
-          <Link
-            to={`/general-imagines/${id}`}
-            className="text-sm font-medium hover:underline"
-          >
+          <Link to={`/${id}`} className="text-sm font-medium hover:underline">
             <div>{title}</div>
             <div className="truncate">{content}</div>
           </Link>
@@ -161,29 +168,38 @@ const Card = ({
               </>
             )}
             {edit && (
-              <div className="relative">
-                {/* {userid === auth.userid && ( */}
-                <div className="w-20 py-1 text-tiny z-50 bg-white shadow text-gray-600 font-Mulish">
-                  <span className="flex justify-between items-center">
-                    <span></span>
+              <div className="relative inline-block text-left font-Mulish">
+                <div
+                  className="origin-center absolute z-50 font-Mulish right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black 
+        ring-opacity-5 divide-y divide-gray-100 focus:outline-none text-base"
+                >
+                  <span className="flex justify-end items-center mx-1 my-1">
                     <span
                       onClick={editClose}
                       className="cursor-pointer font-bold"
                     >
-                      <XIcon className="h-4 w-4 text-pink-500" />
+                      <XIcon className="h-5 w-5 text-pink-500" />
                     </span>
                   </span>
-                  <div className="px-2 hover:bg-primary hover:text-white cursor-pointer">
-                    Edit
+                  <div className="py-1">
+                    <div>
+                      <Link
+                        to="/:id/update"
+                        className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+                      >
+                        Edit
+                      </Link>
+                    </div>
                   </div>
-                  <div
-                    className="px-2 mt-1 hover:bg-primary hover:text-white cursor-pointer"
-                    onClick={imagineDeleteHandler}
-                  >
-                    Delete
+                  <div className="py-1">
+                    <div
+                      className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+                      onClick={handleDelOpen}
+                    >
+                      Delete
+                    </div>
                   </div>
                 </div>
-                {/* )} */}
               </div>
             )}
           </span>
@@ -193,6 +209,14 @@ const Card = ({
             title="Login to Circlevyos"
             content="To get your own access on different contents you should signin first"
             link="/login"
+            show={true}
+          />
+          <DelPopup
+            open={del}
+            handleClose={handleDelClose}
+            title="Delete"
+            content="Are you sure you want to delete the post"
+            onClick={imagineDeleteHandler}
             show={true}
           />
         </span>

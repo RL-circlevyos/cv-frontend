@@ -83,13 +83,12 @@ const Select = () => {
   const onSubmit = useCallback(() => {
     const itemList = Object.keys(isChecked).map((key) => {
       if (isChecked[key] === true) {
-        console.log(key);
         return key;
       }
     });
 
     console.log(itemList);
-    navigate("/");
+    //navigate("/");
   }, [isChecked, navigate]);
 
   useEffect(() => {
@@ -107,7 +106,7 @@ const Select = () => {
         <div className="lg:text-3xl text-lg font-extrabold uppercase text-primary px-3 py-2  mb-5 mt-5">
           <span classname="">Select your Genres</span>
         </div>
-        <form className="w-full" onClick={() => onSubmit()}>
+        <form className="w-full">
           <div className="font-Mulish flex flex-wrap items-center w-full justify-center gap-x-4 text-xl text-gray-800 font-medium">
             {!loading
               ? data.map((test, index) => (
@@ -130,6 +129,7 @@ const Select = () => {
 
           <div className="flex justify-end items-center px-4 mt-4">
             <button
+              onClick={() => onSubmit()}
               type="submit"
               className="py-1.5 lg:py-2 lg:px-8 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200
                        bg-primary text-gray-50 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"

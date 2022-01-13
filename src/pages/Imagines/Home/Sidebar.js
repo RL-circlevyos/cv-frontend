@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { ChevronLeft } from "react-feather";
 import {
@@ -8,7 +8,7 @@ import {
   FireIcon,
   //BookmarkAltIcon,
   HeartIcon,
-  PaperClipIcon,
+  // PaperClipIcon,
 } from "@heroicons/react/solid";
 import { useSelector } from "react-redux";
 import AlertDialogSlide from "./../../../components/Dialog";
@@ -30,12 +30,12 @@ const Sidebar = () => {
   const user = auth.userid;
 
   const crImagine = useCallback(() => {
-    user ? navigate("/create-general-imagine") : handleClickOpen();
+    user ? navigate("/create-imagine") : handleClickOpen();
   }, [user, navigate, handleClickOpen]);
 
-  const crStory = useCallback(() => {
-    user ? navigate("/series/start") : handleClickOpen();
-  }, [user, navigate, handleClickOpen]);
+  /**  const crStory = useCallback(() => {
+     user ? navigate("/series/start") : handleClickOpen();
+   }, [user, navigate, handleClickOpen]);*/
   return (
     <>
       <div className="md:flex relative hidden">
@@ -65,7 +65,7 @@ const Sidebar = () => {
                 </span>
               </NavLink>
               <NavLink
-                to={`/story-imagines`}
+                to={`/series`}
                 className={({ isActive }) =>
                   isActive
                     ? "block py-2 px-10 mt-1 rounded-2xl bg-teal-800 text-white"
@@ -89,7 +89,7 @@ const Sidebar = () => {
                 </span>
               </NavLink>
 
-              <Link
+              {/* <Link
                 exact
                 to="/general-imagines/myimagines"
                 className="block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
@@ -97,7 +97,7 @@ const Sidebar = () => {
                 <span className="flex items-center space-x-2">
                   <PaperClipIcon className="w-6 h-6 mr-2" /> My Imagines
                 </span>
-              </Link>
+              </Link> */}
               <div className="pt-4">
                 <button
                   onClick={crImagine}
@@ -108,7 +108,7 @@ const Sidebar = () => {
                   <div className=" text-center">Create Imagine</div>
                 </button>
               </div>
-              <div className="pt-4">
+              {/* <div className="pt-4">
                 <button
                   onClick={crStory}
                   className="block py-2 px-10 w-full font-bold mt-1 rounded-2xl transition duration-200 bg-primary 
@@ -116,7 +116,7 @@ const Sidebar = () => {
                 >
                   <div className=" text-center">Create Story</div>
                 </button>
-              </div>
+              </div> */}
             </>
           </nav>
         </div>

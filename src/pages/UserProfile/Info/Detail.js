@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
+import { useSelector } from "react-redux";
+import AlertDialogSlide from "./../../../components/Dialog";
 
-const Details = () => {
+const Detail = () => {
+  const auth = useSelector((state) => state.auth);
+  const user = auth.userid;
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+  const [follow, setFollow] = useState(false);
+  const clickFollowHandler = useCallback(() => {
+    user ? setFollow(!follow) : handleClickOpen();
+  }, [follow, handleClickOpen, user]);
   return (
     <div className="w-full font-Mulish">
       <div className="lg:flex flex-col hidden">
@@ -14,26 +31,32 @@ const Details = () => {
               />
             </span>
           </div>
-          <div className="flex items-start flex-col space-y-2  font-bold">
+          <div className="flex items-start flex-col space-y-2 w-full font-bold">
             <span className="text-2xl">Aindrila Bhattacharjee</span>
-            <span className="flex justify-center items-start space-x-2">
+
+            <span className="flex justify-center flex-wrap items-start space-x-2">
               <span className="text-base text-primary">Followers:</span>
               <span className="text-base text-gray-700">1000</span>
+
+              <span className="text-base text-primary ">Following:</span>
+              <span className="text-base text-gray-700">10</span>
             </span>
-            <span className="flex justify-center items-start space-x-3">
-              {/* <span className="flex justify-center items-start space-x-1">
-                <span className="text-base text-primary ">Blogs:</span>
-                <span className="text-base text-gray-700">10</span>
-              </span> */}
-              <span className="flex justify-center items-start space-x-1">
-                <span className="text-base text-primary ">Imagines:</span>
-                <span className="text-base text-gray-700">100</span>
-              </span>
+            <span className="flex justify-center flex-wrap items-start space-x-2">
+              <span className="text-base text-primary ">Imagines:</span>
+              <span className="text-base text-gray-700">1000</span>
             </span>
           </div>
         </div>
-        <span className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24">
-          Follow
+        <span className="cursor-pointer mt-5" onClick={clickFollowHandler}>
+          {follow ? (
+            <span className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24">
+              Follow
+            </span>
+          ) : (
+            <span className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28">
+              Following
+            </span>
+          )}
         </span>
         <div className="mt-3 space-x-2 px-4">
           <span className="text-lg text-gray-700 font-bold">Bio:</span>
@@ -68,14 +91,22 @@ const Details = () => {
               </span> */}
               <span className="flex justify-center text-sm items-start space-x-1">
                 <span className=" text-primary ">Imagines:</span>
-                <span className=" text-gray-700">100</span>
+                <span className=" text-gray-700">1000</span>
               </span>
             </span>
           </div>
         </div>
 
-        <span className="px-4 mt-3 ml-3 flex justify-center bg-primary text-white font-bold text-base w-40">
-          Follow
+        <span className="cursor-pointer mt-5" onClick={clickFollowHandler}>
+          {follow ? (
+            <span className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24">
+              Follow
+            </span>
+          ) : (
+            <span className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28">
+              Following
+            </span>
+          )}
         </span>
         <div className="mt-3 space-x-2 px-4">
           <span className="text-base text-gray-700 font-bold">Bio:</span>
@@ -85,8 +116,16 @@ const Details = () => {
           </span>
         </div>
       </div>
+      <AlertDialogSlide
+        open={open}
+        handleClose={handleClose}
+        title="Login to Circlevyos"
+        content="To get your own access on different contents you should signin first"
+        link="/login"
+        show={true}
+      />
     </div>
   );
 };
 
-export default React.memo(Details);
+export default React.memo(Detail);
