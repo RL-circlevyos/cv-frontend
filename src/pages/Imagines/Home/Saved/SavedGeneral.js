@@ -1,12 +1,14 @@
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import React from "react";
 import Scrollbars from "react-custom-scrollbars-2";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Navbar from "../../../../components/Navbar";
 import List from "../General/List";
 import Sidebar from "../Sidebar";
 
 const SavedGeneral = () => {
+  const userDetails = useSelector((state) => state.auth.userDetails);
   return (
     <div className="h-screen w-full font-Mulish fixed">
       <Navbar />
@@ -22,8 +24,14 @@ const SavedGeneral = () => {
                 autoHide
                 style={{ width: "100%", height: "95vh" }}
               >
-                <div className="w-full flex justify-center items-center">
-                  <List />
+                <div className="w-full  justify-center items-center">
+                  {userDetails.saveimagines.map((sv) => (
+                    <>
+                      <h1>{sv.title}</h1>
+                      <h1>{sv.photo}</h1>
+                      {sv.photo && <img src={sv.photo} alt="" />}
+                    </>
+                  ))}
                 </div>
               </Scrollbars>
             </div>

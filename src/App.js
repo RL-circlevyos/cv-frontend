@@ -14,7 +14,11 @@ import CreateImagines from "./pages/Imagines/General-Imagines/Create/CreateImagi
 
 import { useDispatch } from "react-redux";
 
-import { AuthState } from "./store/apps/auth/auth-action";
+import {
+  AuthState,
+  userDetailsAction,
+  userImaginesAction,
+} from "./store/apps/auth/auth-action";
 import { useEffect } from "react";
 
 import { generalImagineFetchAction } from "./store/apps/imagines/imagine-action";
@@ -54,6 +58,8 @@ function App() {
     const timer = setTimeout(() => {
       dispatch(AuthState());
       dispatch(generalImagineFetchAction());
+      dispatch(userDetailsAction());
+      dispatch(userImaginesAction());
     }, 500);
     return () => {
       clearTimeout(timer);

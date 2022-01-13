@@ -9,7 +9,11 @@ import Sound from "../Sound";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteImagineAction } from "../../../../store/apps/imagines/imagine-action";
+import {
+  appriciateAction,
+  deleteImagineAction,
+  saveImagineAction,
+} from "../../../../store/apps/imagines/imagine-action";
 import dp from "../../../../assets/person.png";
 import AlertDialogSlide from "../../../../components/Dialog";
 import DelPopup from "./../../../../components/DelPopup";
@@ -26,6 +30,7 @@ const Card = ({
   id,
   avatar,
   appriciates,
+  isAppriciatesAuthor,
 }) => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -42,14 +47,12 @@ const Card = ({
   }, []);
   const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = useCallback(() => {
-    user ? setBookmark(!bookmark) : handleClickOpen();
-  }, [user, bookmark, handleClickOpen]);
+    dispatch(saveImagineAction(id));
+  }, [dispatch, id]);
 
   const [like, setLike] = useState(false);
-  const clickLikeHandler = useCallback(() => {
-    user ? setLike(!like) : handleClickOpen();
-  }, [like, user, handleClickOpen]);
 
+  console.log("card call time");
   const [del, setDel] = useState(false);
 
   const handleDelOpen = useCallback(() => {
@@ -59,6 +62,9 @@ const Card = ({
   const handleDelClose = useCallback(() => {
     setDel(false);
   }, []);
+  const clickLikeHandler = useCallback(() => {
+    dispatch(appriciateAction(id));
+  }, [dispatch, id]);
   const imagineDeleteHandler = useCallback(() => {
     dispatch(deleteImagineAction(id));
   }, [dispatch, id]);
@@ -71,8 +77,9 @@ const Card = ({
   const editClose = useCallback(() => {
     setEdit(false);
   }, []);
+
   return (
-    <div className="w-full space-x-2 flex items-start justify-center shadow mb-3">
+    <div className="w-full space-x-2 flex items-start justify-center rounded-lg shadow mb-3">
       <div className="w-2/5 h-36 bg-gray-50">
         <div className="text-sm font-medium hover:underline h-36">
           <Link to={`/${id}`}>
@@ -113,9 +120,9 @@ const Card = ({
           </span>
           <span className="flex items-center text-xs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
-              {like ? (
-                <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
-              ) : (
+              <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
+
+              {/* : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 md:h-7 md:w-7 text-yellow-600"
@@ -130,7 +137,7 @@ const Card = ({
                     d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
                   />
                 </svg>
-              )}
+              ) */}
             </span>
             <b>{appriciates.length}</b>
           </span>

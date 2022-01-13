@@ -4,10 +4,9 @@ import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImag
 import Card from "./Card";
 
 const List = () => {
+  const auth = useSelector((state) => state.auth);
   const ui = useSelector((state) => state.ui);
   const imagine = useSelector((state) => state.imagine);
-
-  imagine?.generalImagines?.map((i) => console.log(i));
 
   return (
     <>
