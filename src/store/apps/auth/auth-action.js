@@ -88,7 +88,7 @@ export const LoginWithNameEmailAndPassword = (data) => {
   };
 };
 
-//   login
+//   auth state
 // custom action creator function =>  thunk
 export const AuthState = () => {
   return async (dispatch) => {
@@ -123,6 +123,88 @@ export const AuthState = () => {
       dispatch(
         authAction.getInfo({
           userid: response._id,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const userDetailsAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const userDetails = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/userdashboard/${id}`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // console.log(response);
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      const response = await userDetails();
+      console.log(response.id);
+      dispatch(
+        authAction.userDetails({
+          userDetails: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const userImaginesAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const userImagines = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/userimagines/${id}`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // console.log(response);
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      const response = await userImagines();
+      console.log(response);
+      dispatch(
+        authAction.getImagines({
+          userImagines: response,
         })
       );
     } catch (error) {

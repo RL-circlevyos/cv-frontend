@@ -7,6 +7,8 @@ const initialAuthState = {
   username: "",
   email: "",
   password: "",
+  userDetails: {},
+  userImagines: [],
 };
 
 const authSlice = createSlice({
@@ -19,6 +21,12 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.isLoggedin = false;
+    },
+    userDetails(state, action) {
+      state.userDetails = action.payload.userDetails;
+    },
+    getImagines(state, action) {
+      state.userImagines = action.payload.userImagines;
     },
   },
 });

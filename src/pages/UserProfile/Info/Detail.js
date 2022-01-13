@@ -1,11 +1,28 @@
-import React, { useState, useCallback } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import {
+  userDetailsAction,
+  userImaginesAction,
+} from "../../../store/apps/auth/auth-action";
 import AlertDialogSlide from "./../../../components/Dialog";
 
 const Detail = () => {
   const auth = useSelector((state) => state.auth);
   const user = auth.userid;
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const id = useParams();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(userDetailsAction(id.id));
+      dispatch(userImaginesAction(id.id));
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dispatch, id]);
 
   const handleClickOpen = useCallback(() => {
     setOpen(true);
@@ -18,6 +35,7 @@ const Detail = () => {
   const clickFollowHandler = useCallback(() => {
     user ? setFollow(!follow) : handleClickOpen();
   }, [follow, handleClickOpen, user]);
+
   return (
     <div className="w-full font-Mulish">
       <div className="lg:flex flex-col hidden">
@@ -32,14 +50,18 @@ const Detail = () => {
             </span>
           </div>
           <div className="flex items-start flex-col space-y-2 w-full font-bold">
-            <span className="text-2xl">Aindrila Bhattacharjee</span>
+            <span className="text-2xl">{auth?.userDetails.name}</span>
 
             <span className="flex justify-center flex-wrap items-start space-x-2">
               <span className="text-base text-primary">Followers:</span>
-              <span className="text-base text-gray-700">1000</span>
+              <span className="text-base text-gray-700">
+                {auth?.userDetails?.followers?.length}
+              </span>
 
               <span className="text-base text-primary ">Following:</span>
-              <span className="text-base text-gray-700">10</span>
+              <span className="text-base text-gray-700">
+                {auth?.userDetails?.following?.length}
+              </span>
             </span>
             <span className="flex justify-center flex-wrap items-start space-x-2">
               <span className="text-base text-primary ">Imagines:</span>
@@ -47,6 +69,7 @@ const Detail = () => {
             </span>
           </div>
         </div>
+
         <span className="cursor-pointer mt-5" onClick={clickFollowHandler}>
           {follow ? (
             <span className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24">
@@ -58,6 +81,7 @@ const Detail = () => {
             </span>
           )}
         </span>
+
         <div className="mt-3 space-x-2 px-4">
           <span className="text-lg text-gray-700 font-bold">Bio:</span>
           <span className="text-base text-gray-700">
