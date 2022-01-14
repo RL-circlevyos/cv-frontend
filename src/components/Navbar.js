@@ -34,9 +34,9 @@ function Navbar() {
         <div className="w-full mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center justify-between w-full">
-              <div className="flex-shrink-0">
+              <Link to="/" className="flex-shrink-0">
                 <img className="h-14 w-14" src={logo} alt="logo" />
-              </div>
+              </Link>
               <div className="hidden  md:block ">
                 <div className="flex items-center gap-2 justify-center">
                   {/* <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">

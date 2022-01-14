@@ -5,7 +5,6 @@ import { Key, Lock } from "react-feather";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
 
 const validationSchema = yup.object().shape({
   newPassword: yup
@@ -170,14 +169,6 @@ const ResetPassword = () => {
                   Update Password
                 </button>
               </form>
-              <span className="flex items-center text-sm text-grey-400 lg:text-base mt-3">
-                <Link exact to="/forgot-password">
-                  {" "}
-                  <span className="text-primary hover:underline text-base font-bold lg:text-base ml-3 cursor-pointer">
-                    Forgot Password ?
-                  </span>
-                </Link>
-              </span>
             </span>
           </div>
         </div>
