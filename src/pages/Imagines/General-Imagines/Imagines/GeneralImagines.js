@@ -75,7 +75,7 @@ const GeneralImagines = ({ i }) => {
                 autoHeightMax={"90vh"}
                 style={{ width: "100%" }}
               >
-                <div className="block max-w-lg pb-4 ">
+                <div className="block max-w-xs pb-4 ">
                   <Recommendation />
                 </div>
               </Scrollbars>

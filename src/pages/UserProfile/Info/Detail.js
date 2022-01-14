@@ -35,6 +35,7 @@ const Detail = () => {
   const clickFollowHandler = useCallback(() => {
     user ? setFollow(!follow) : handleClickOpen();
   }, [follow, handleClickOpen, user]);
+  console.log(auth?.userDetails);
 
   return (
     <div className="w-full font-Mulish">
@@ -103,10 +104,12 @@ const Detail = () => {
             </span>
           </div>
           <div className="flex items-start flex-col space-y-2  font-bold">
-            <span className="text-lg">Aindrila Bhattacharjee</span>
+            <span className="text-lg">{auth?.userDetails?.name}</span>
             <span className="flex justify-center items-start text-sm space-x-2">
               <span className=" text-primary">Followers:</span>
-              <span className=" text-gray-700">1000</span>
+              <span className=" text-gray-700">
+                {auth?.userDetails?.followers?.length}
+              </span>
             </span>
             <span className="flex justify-center text-sm items-start space-x-3">
               {/* <span className="flex justify-center items-start space-x-1">

@@ -7,6 +7,7 @@ import Recommendations from "./Recommendation/Recommendation";
 import List from "./List";
 import Sidebar from "../Sidebar";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ImagineList = () => {
   return (
@@ -54,7 +55,6 @@ const ImagineList = () => {
                 style={{ width: "100%", height: "95vh" }}
               >
                 <div className="w-full flex justify-center items-center">
-                  {" "}
                   <List />
                 </div>
               </Scrollbars>
@@ -70,7 +70,7 @@ const ImagineList = () => {
               style={{ width: "100%" }}
             >
               <div className="block max-w-xs pb-4">
-                <span className="w-2/3">
+                <span className="w-1/4">
                   <span className=" flex  items-center  px-2 justify-between font-Libre">
                     <span className="text-2xl  text-yellow-900">Trending</span>
                     <span className="float-right">All</span>

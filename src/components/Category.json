@@ -3,7 +3,7 @@
       "name": "Science",
       "id": 1    },
     {
-      "name": "Fantasy",
+      "name": "Technology",
       "id": 2    },
     {
       "name": "Life Events",
@@ -12,26 +12,26 @@
       "name": "Fiction",
       "id": 4    },
     {
-      "name": "Horror",
+      "name": "Business",
       "id": 5    },
     {
-      "name": "Mystery",
+      "name": "Food",
       "id": 6    },
     {
-      "name": "Business",
+      "name": "Entertainment",
       "id": 7    },
     {
-      "name": "Entertainment",
+      "name": "Music",
       "id": 8    },
     {
-      "name": "Food",
+      "name": "Mystery",
       "id": 9    },
     {
-      "name": "Music",
+      "name": "Horror",
       "id": 10
     },
     {
-      "name": "Romance",
+      "name": "Thriller",
       "id": 11
     },
     {
@@ -43,11 +43,11 @@
       "id": 13
     },
     {
-      "name": "Technology",
+      "name": "Romance",
       "id": 14
     },
     {
-      "name": "Thriller",
+      "name": "Fantasy",
       "id": 15
     },
     {
