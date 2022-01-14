@@ -3,6 +3,7 @@ import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dp from "../assets/person.png";
+import DelPopup from "./DelPopup";
 
 export default function Example() {
   const [show, setShow] = useState(false);
@@ -11,6 +12,14 @@ export default function Example() {
   }, [show]);
   const auth = useSelector((state) => state.auth);
   const user = auth.userid;
+  const [del, setDel] = useState(false);
+  const logout = useCallback(() => {
+    setDel(true);
+  }, []);
+
+  const handleDelClose = useCallback(() => {
+    setDel(false);
+  }, []);
   return (
     <div className="relative inline-block text-left font-Mulish">
       <div>
@@ -54,7 +63,7 @@ export default function Example() {
           <div className="py-1">
             <div>
               <Link
-                to="/"
+                to={`/settings/${user}`}
                 className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
               >
                 Settings
@@ -64,13 +73,20 @@ export default function Example() {
 
           <div className="py-1">
             <div>
-              <Link
-                to="/"
+              <div
+                onClick={logout}
                 className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
               >
                 Logout
-              </Link>
+              </div>
             </div>
+            <DelPopup
+              open={del}
+              handleClose={handleDelClose}
+              title="Logout"
+              content="Do you want to logout"
+              show={true}
+            />
           </div>
         </div>
       )}

@@ -50,6 +50,7 @@ import SavedGeneral from "./pages/Imagines/Home/Saved/SavedGeneral";
 import Upcoming from "./pages/Imagines/Home/Story/Upcoming";
 import GeneralUpdate from "./pages/Imagines/Update/GeneralUpdate";
 import Profile from "./pages/UserProfile/Info/Profile";
+import Settings from "./pages/UserProfile/Info/Settings";
 
 function App() {
   const dispatch = useDispatch();
@@ -84,6 +85,7 @@ function App() {
 
         <Route path="/create-imagine" element={<CreateImagines />} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/settings/:id" element={<Settings />} />
         <Route path="/:id" element={<GeneralImagines />} />
         <Route path="/:id/update" element={<GeneralUpdate />} />
         <Route path="/series" element={<Upcoming />} />
