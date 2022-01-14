@@ -14,6 +14,7 @@ const List = () => {
         {imagine?.generalImagines?.map((imagine) => {
           console.log(imagine);
           console.log(imagine.user.id);
+          console.log(imagine.category);
           return (
             <>
               {ui.isLoading ? (
@@ -27,6 +28,7 @@ const List = () => {
                     title={imagine.title}
                     introImage={imagine.introImage}
                     username={imagine.name}
+                    category={imagine.category}
                     // views={imagine.views}
                     appriciates={imagine.appriciates}
                   />

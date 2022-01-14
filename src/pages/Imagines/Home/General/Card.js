@@ -30,12 +30,13 @@ const Card = ({
   id,
   avatar,
   appriciates,
+  category,
   isAppriciatesAuthor,
 }) => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const user = auth.userid;
-
+  console.log(category);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = useCallback(() => {
@@ -80,13 +81,13 @@ const Card = ({
 
   return (
     <div className="w-full space-x-2 flex items-start justify-center rounded-lg shadow mb-3">
-      <div className="w-2/5 h-36 bg-gray-50">
+      <div className="w-2/5 h-40 bg-gray-50">
         <div className="text-sm font-medium hover:underline h-36">
           <Link to={`/${id}`}>
             <img
               src={!introImage ? src : introImage.secure_url}
               alt="pic"
-              className="h-36 w-full object-contain rounded-md "
+              className="h-40 w-full object-contain rounded-md "
             />
           </Link>
         </div>
@@ -112,7 +113,12 @@ const Card = ({
           <Link to={`/${id}`} className="text-sm font-medium hover:underline">
             <div>{title}</div>
             <div className="truncate">{content}</div>
+
+            <div className="bg-cyan-700 w-1/4 rounded text-xs text-white flex justify-center mt-3 mb-3">
+              {category}
+            </div>
           </Link>
+          {category}
         </span>
         <span className="flex items-start justify-around bottom-0 sticky space-x-4 pt-1">
           <span>
@@ -191,7 +197,7 @@ const Card = ({
                   <div className="py-1">
                     <div>
                       <Link
-                        to="/:id/update"
+                        to={`/${id}/update`}
                         className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
                       >
                         Edit

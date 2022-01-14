@@ -16,8 +16,81 @@ const CreateImagines = ({ getContent }) => {
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
 
-    console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+    console.log(
+      draftToHtml(convertToRaw(editorState.getCurrentContent())).length
+    );
   };
+  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    .length;
+  // const MAX_LENGTH = 15;
+
+  // const getLengthOfSelectedText = () => {
+  //   const currentSelection = editorState.getSelection();
+  //   const isCollapsed = currentSelection.isCollapsed();
+
+  //   let length = 0;
+
+  //   if (!isCollapsed) {
+  //     const currentContent = editorState.getCurrentContent();
+  //     const startKey = currentSelection.getStartKey();
+  //     const endKey = currentSelection.getEndKey();
+  //     const startBlock = currentContent.getBlockForKey(startKey);
+  //     const isStartAndEndBlockAreTheSame = startKey === endKey;
+  //     const startBlockTextLength = startBlock.getLength();
+  //     const startSelectedTextLength =
+  //       startBlockTextLength - currentSelection.getStartOffset();
+  //     const endSelectedTextLength = currentSelection.getEndOffset();
+  //     const keyAfterEnd = currentContent.getKeyAfter(endKey);
+  //     console.log(currentSelection);
+  //     if (isStartAndEndBlockAreTheSame) {
+  //       length +=
+  //         currentSelection.getEndOffset() - currentSelection.getStartOffset();
+  //     } else {
+  //       let currentKey = startKey;
+
+  //       while (currentKey && currentKey !== keyAfterEnd) {
+  //         if (currentKey === startKey) {
+  //           length += startSelectedTextLength + 1;
+  //         } else if (currentKey === endKey) {
+  //           length += endSelectedTextLength;
+  //         } else {
+  //           length += currentContent.getBlockForKey(currentKey).getLength() + 1;
+  //         }
+
+  //         currentKey = currentContent.getKeyAfter(currentKey);
+  //       }
+  //     }
+  //   }
+
+  //   return length;
+  // };
+
+  // const handleBeforeInput = () => {
+  //   const currentContent = editorState.getCurrentContent();
+  //   const currentContentLength = currentContent.getPlainText("").length;
+  //   const selectedTextLength = getLengthOfSelectedText();
+
+  //   if (currentContentLength - selectedTextLength > MAX_LENGTH - 1) {
+  //     //console.log(currentContentLength - selectedTextLength);
+
+  //     return "handled";
+  //   }
+  // };
+
+  // const handlePastedText = (pastedText) => {
+  //   const currentContent = editorState.getCurrentContent();
+  //   const currentContentLength = currentContent.getPlainText("").length;
+  //   const selectedTextLength = getLengthOfSelectedText();
+
+  //   if (
+  //     currentContentLength + pastedText.length - selectedTextLength >
+  //     MAX_LENGTH
+  //   ) {
+  //     console.log(MAX_LENGTH.length);
+
+  //     return "handled";
+  //   }
+  // };
 
   let navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -199,10 +272,28 @@ const CreateImagines = ({ getContent }) => {
             <div>
               <Editor
                 editorState={editorState}
+                placeholder="Type your main content"
                 toolbarClassName="flex justify-center mx-auto w-full"
-                editorClassName="mt-6 bg-white shadow py-6 px-3"
+                editorClassName="mt-6 bg-white shadow py-5 px-3"
                 onEditorStateChange={onEditorStateChange}
+                //handleBeforeInput={handleBeforeInput}
+                //handlePastedText={handlePastedText}
+                toolbar={{
+                  options: [
+                    "inline",
+                    "blockType",
+                    "emoji",
+                    "colorPicker",
+                    "list",
+                    "link",
+                    "textAlign",
+                    "history",
+                  ],
+                }}
               />
+              <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
+                {count - 8}
+              </p>
             </div>
             <div className="flex items-start justify-center flex-wrap lg:flex-nowrap w-full pb-2 lg:space-x-4">
               <span className="w-full ">

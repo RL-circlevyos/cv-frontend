@@ -84,9 +84,9 @@ function Navbar() {
                 </div>
               </div>
               <div className="hidden space-x-2 items-baseline justify-end md:flex">
-                <div> {user && <Example />}</div>
-
-                {!user && (
+                {user ? (
+                  <Example />
+                ) : (
                   <>
                     <Link
                       to="/login"

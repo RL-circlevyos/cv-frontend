@@ -61,7 +61,12 @@ const CommentList = () => {
         {singleImagine?.singleImagine?.comments?.map((comment) => (
           <>
             {console.log(comment, "comment")}
-            <Comment username="helo" commentText="helo" date="12" key="1" />
+            <Comment
+              username={comment.name}
+              commentText={comment.textcomment}
+              date={comment.createdAt}
+              key={comment._id}
+            />
           </>
         ))}
       </div>

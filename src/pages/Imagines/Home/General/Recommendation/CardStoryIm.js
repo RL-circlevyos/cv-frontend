@@ -6,7 +6,7 @@ import {
   LightBulbIcon,
 } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
-
+import dp from "../../../../../assets/person.png";
 const src =
   "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
 const CardStoryIm = ({
@@ -23,9 +23,9 @@ const CardStoryIm = ({
     setBookmark(!bookmark);
   };
   return (
-    <div className="w-full space-x-2 flex items-start justify-center shadow-sm">
+    <div className="w-full space-x-2 flex items-start justify-center shadow px-2">
       <Link to={`/${id}`}>
-        <div className="w-2/6 h-32 bg-gray-50">
+        <div className="w-28 h-28 bg-gray-50">
           <img
             src={introImage ? introImage.secure_url : src}
             alt="pic"
@@ -34,10 +34,10 @@ const CardStoryIm = ({
         </div>
       </Link>
       <div className="flex flex-col w-3/5 ">
-        <div className="flex items-center pt-3 space-x-2">
+        <div className="flex items-start pt-3 space-x-2">
           <div className="flex flex-1">
             <img
-              src={avatar && avatar}
+              src={avatar ? avatar : dp}
               alt="dp"
               className="w-6 h-6 rounded-full object-cover"
             />
@@ -68,8 +68,10 @@ const CardStoryIm = ({
           </span>
         </div>
         <Link to={`/${id}`}>
-          <span className=" text-gray-500">
-            <span className="text-xs font-medium hover:underline">{title}</span>
+          <span className=" text-gray-500 ">
+            <span className="text-xs font-medium hover:underline overflow-ellipsis">
+              {title}
+            </span>
           </span>
         </Link>
         <span className="flex items-start space-x-4 pt-1">
