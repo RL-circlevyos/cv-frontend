@@ -109,7 +109,7 @@ const CreateImagines = ({ getContent }) => {
   formdata.append("outro", outro);
   formdata.append("introImage", introImage);
   formdata.append("outroImage", outroImage);
-  formdata.append("genre", isChecked);
+  formdata.append("category", isChecked);
   formdata.append(
     "main",
     draftToHtml(convertToRaw(editorState.getCurrentContent()))
@@ -166,6 +166,7 @@ const CreateImagines = ({ getContent }) => {
   const handleSingleCheck = useCallback((e) => {
     setIsChecked({ [e.target.name]: e.target.checked });
   }, []);
+  console.log(isChecked);
 
   const handleSubmit = useCallback(
     (e) => {

@@ -8,6 +8,7 @@ import List from "./List";
 import Sidebar from "../Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Info from "../Info";
 
 const ImagineList = () => {
   return (
@@ -62,23 +63,28 @@ const ImagineList = () => {
           </div>
           <div className="block lg:hidden"></div>
           <div className="lg:block hidden">
-            <Scrollbars
+            <div className="block max-w-xs pb-4">
+              <span className="w-1/4">
+                {" "}
+                <Info />
+              </span>
+            </div>
+            {/* <Scrollbars
               autoHide
               thumbSize={1}
               autoHeight
-              autoHeightMax={"90vh"}
+              autoHeightMax={"75vh"}
               style={{ width: "100%" }}
             >
-              <div className="block max-w-xs pb-4">
-                <span className="w-1/4">
-                  <span className=" flex  items-center  px-2 justify-between font-Libre">
-                    <span className="text-2xl  text-yellow-900">Trending</span>
-                    <span className="float-right">All</span>
-                  </span>
+             <span className=" flex  items-center  px-2 justify-between font-Libre">
+                  <span className="text-2xl  text-yellow-900">Trending</span>
+                  <span className="float-right">All</span>
                 </span>
+              </span>
+              <div className="block max-w-xs pb-4">
                 <Recommendations />
               </div>
-            </Scrollbars>
+            </Scrollbars> */}
           </div>
         </div>
         <ToastContainer autoClose={3000} />
