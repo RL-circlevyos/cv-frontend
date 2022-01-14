@@ -25,7 +25,7 @@ const SavedGeneral = () => {
                 style={{ width: "100%", height: "95vh" }}
               >
                 <div className="w-full  justify-center items-center">
-                  {userDetails.saveimagines.map((sv) => (
+                  {userDetails?.saveimagines?.map((sv) => (
                     <>
                       <h1>{sv.title}</h1>
                       <h1>{sv.photo}</h1>
