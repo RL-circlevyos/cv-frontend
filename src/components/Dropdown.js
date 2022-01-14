@@ -1,9 +1,10 @@
 import { useState, useCallback } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import dp from "../assets/person.png";
 import DelPopup from "./DelPopup";
+import { logoutAction } from "../store/apps/auth/auth-action";
 
 export default function Example() {
   const [show, setShow] = useState(false);
@@ -13,6 +14,7 @@ export default function Example() {
   const auth = useSelector((state) => state.auth);
   const user = auth.userid;
   const [del, setDel] = useState(false);
+  const dispatch = useDispatch();
   const logout = useCallback(() => {
     setDel(true);
   }, []);
@@ -84,8 +86,11 @@ export default function Example() {
               open={del}
               handleClose={handleDelClose}
               title="Logout"
-              content="Do you want to logout"
+              content="Do you want to logout ?"
               show={true}
+              onClick={() => {
+                dispatch(logoutAction());
+              }}
             />
           </div>
         </div>

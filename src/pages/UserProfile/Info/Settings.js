@@ -3,28 +3,43 @@ import React, { useCallback, useState } from "react";
 import dp from "../../../assets/person.png";
 import { PencilIcon, UploadIcon, XIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userDetailsUpdateAction } from "../../../store/apps/auth/auth-action";
 
 const Settings = () => {
-  const [userName, setUserName] = useState("");
+  const auth = useSelector((state) => state.auth);
+  const [userName, setUserName] = useState(auth?.userDetails?.name);
   const [showName, setShowName] = useState(false);
   const changeName = () => {
     setShowName(!showName);
   };
 
-  const [userBio, setUserBio] = useState("");
+  const [userBio, setUserBio] = useState(auth?.userDetails?.bio);
   const [showBio, setShowBio] = useState(false);
   const changeBio = () => {
     setShowBio(!showBio);
   };
-  const [introImage, setIntroImage] = useState();
-  const introImageChange = useCallback((e) => {
+  const [userImage, setuserImage] = useState();
+  const userImageChange = useCallback((e) => {
     if (e.target.files && e.target.files.length > 0) {
-      setIntroImage(e.target.files[0]);
+      setuserImage(e.target.files[0]);
     }
   }, []);
   const removeIntroImage = useCallback(() => {
-    setIntroImage();
+    setuserImage();
   }, []);
+
+  const formdata = new FormData();
+  const dispatch = useDispatch();
+
+  formdata.append("name", userName);
+  formdata.append("bio", userBio);
+  formdata.append("photo", userImage);
+
+  const profileUpdateHandler = () => {
+    dispatch(userDetailsUpdateAction(formdata));
+  };
+
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <div
@@ -38,7 +53,10 @@ const Settings = () => {
           >
             Back
           </Link>
-          <button className="bg-primary text-white px-4 py-2 rounded shadow font-semibold">
+          <button
+            className="bg-primary text-white px-4 py-2 rounded shadow font-semibold"
+            onClick={profileUpdateHandler}
+          >
             Save Changes
           </button>
         </div>
@@ -47,7 +65,7 @@ const Settings = () => {
             <div className="w-28 h-28">
               <img
                 className="w-full h-full rounded-full object-fill"
-                src={dp}
+                src={auth?.userDetails?.photo?.secure_url}
                 alt="dp"
               />
             </div>
@@ -58,11 +76,11 @@ const Settings = () => {
             <div className="ml-4">
               <label
                 className={`${
-                  !introImage &&
+                  !userImage &&
                   "border border-gray-300 rounded-full w-28 h-28 mt-6 px-8 py-8 flex items-center justify-center cursor-pointer"
                 } p-2`}
               >
-                {!introImage && (
+                {!userImage && (
                   <>
                     <UploadIcon className="w-7 h-7" />
                   </>
@@ -70,7 +88,7 @@ const Settings = () => {
                 <input
                   accept="image/*"
                   type="file"
-                  onChange={introImageChange}
+                  onChange={userImageChange}
                   className="invisible hidden"
                 />
               </label>
@@ -78,10 +96,10 @@ const Settings = () => {
                 preview image
               </span>
 
-              {introImage && (
+              {userImage && (
                 <div className="w-28 h-32 pb-3">
                   <img
-                    src={URL.createObjectURL(introImage)}
+                    src={URL.createObjectURL(userImage)}
                     alt="Thumb"
                     className="w-full h-full object-cover rounded-full border border-gray-400"
                   />
@@ -102,7 +120,7 @@ const Settings = () => {
               <PencilIcon className="h-6 w-6 mr-2 " />
             </span>
             <span className="text-2xl font-bold mt-2">
-              Aindrila Bhattacharjee
+              {auth?.userDetails?.name}
             </span>
           </div>
         ) : (
@@ -157,8 +175,7 @@ const Settings = () => {
             <div className="text-lg mt-4 px-4 font-bold">
               Bio{" "}
               <i className="ml-2 text-lg font-medium">
-                The Auto-Save feature will make sure you won't lose any change
-                while editing, even if you leave the site and come back later.
+                {auth?.userDetails?.bio}
               </i>{" "}
             </div>
           </div>

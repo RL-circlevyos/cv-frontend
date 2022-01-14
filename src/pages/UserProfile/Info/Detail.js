@@ -44,7 +44,7 @@ const Detail = () => {
           <div className="block w-32 space-y-4">
             <span className="w-24 h-24">
               <img
-                src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                src={auth?.userDetails?.photo?.secure_url}
                 alt="dp"
                 className="w-28 h-28 object-cover rounded-full "
               />
@@ -66,7 +66,9 @@ const Detail = () => {
             </span>
             <span className="flex justify-center flex-wrap items-start space-x-2">
               <span className="text-base text-primary ">Imagines:</span>
-              <span className="text-base text-gray-700">1000</span>
+              <span className="text-base text-gray-700">
+                {auth?.userImagines?.length}
+              </span>
             </span>
           </div>
         </div>
@@ -86,8 +88,7 @@ const Detail = () => {
         <div className="mt-3 space-x-2 px-4">
           <span className="text-lg text-gray-700 font-bold">Bio:</span>
           <span className="text-base text-gray-700">
-            The Auto-Save feature will make sure you won't lose any change while
-            editing, even if you leave the site and come back later.
+            {auth?.userDetails?.bio}.
           </span>
         </div>
       </div>
@@ -118,7 +119,9 @@ const Detail = () => {
               </span> */}
               <span className="flex justify-center text-sm items-start space-x-1">
                 <span className=" text-primary ">Imagines:</span>
-                <span className=" text-gray-700">1000</span>
+                <span className=" text-gray-700">
+                  {auth?.userImagines?.length}
+                </span>
               </span>
             </span>
           </div>
@@ -138,8 +141,7 @@ const Detail = () => {
         <div className="mt-3 space-x-2 px-4">
           <span className="text-base text-gray-700 font-bold">Bio:</span>
           <span className="text-sm text-gray-700">
-            The Auto-Save feature will make sure you won't lose any change while
-            editing, even if you leave the site and come back later.
+            {auth?.userImagines?.bio}
           </span>
         </div>
       </div>

@@ -35,6 +35,11 @@ export const generalImagineCreateAction =
         })
       );
       await GeneralImagineCreate();
+      dispatch(
+        imagineSliceAction.createPost({
+          isinitiate: true,
+        })
+      );
     } catch (e) {
       dispatch(
         UiSliceAction.ErrorMessage({
@@ -190,24 +195,18 @@ export const deleteImagineAction = (imagineId) => async (dispatch) => {
   };
 
   try {
+    const gImagineDelete = await deleteImagine();
     dispatch(
-      UiSliceAction.loading({
-        isLoading: true,
+      imagineSliceAction.inititateProcess({
+        isinitiate: true,
       })
     );
-    const gImagineDelete = await deleteImagine();
     console.log(gImagineDelete);
   } catch (err) {
     console.log(err);
     dispatch(
       UiSliceAction.ErrorMessage({
         errorMessage: err.message,
-      })
-    );
-  } finally {
-    dispatch(
-      UiSliceAction.loading({
-        isLoading: false,
       })
     );
   }
@@ -344,12 +343,12 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
   };
 
   try {
+    await appriciate();
     dispatch(
-      UiSliceAction.loading({
-        isLoading: true,
+      imagineSliceAction.inititateProcess({
+        isinitiate: true,
       })
     );
-    await appriciate();
   } catch (e) {
     dispatch(
       UiSliceAction.ErrorMessage({
