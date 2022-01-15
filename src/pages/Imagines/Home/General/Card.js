@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   BookmarkIcon,
   DotsVerticalIcon,
@@ -17,6 +17,7 @@ import {
 import dp from "../../../../assets/person.png";
 import AlertDialogSlide from "../../../../components/Dialog";
 import DelPopup from "./../../../../components/DelPopup";
+import { userDetailsAction } from "../../../../store/apps/auth/auth-action";
 
 const src =
   "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
@@ -79,6 +80,17 @@ const Card = ({
     setEdit(false);
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(userDetailsAction(author));
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dispatch, author]);
+
+  console.log(auth?.userDetails);
+
   return (
     <div className="w-full space-x-2 flex items-start justify-center rounded-lg shadow mb-3">
       <div className="w-2/5 h-40 bg-gray-50">
@@ -87,7 +99,7 @@ const Card = ({
             <img
               src={!introImage ? src : introImage.secure_url}
               alt="pic"
-              className="h-40 w-full object-contain rounded-md "
+              className="h-40 w-full object-fit rounded-md "
             />
           </Link>
         </div>
@@ -98,20 +110,24 @@ const Card = ({
             <Link to={`/profile/${author}`}>
               {" "}
               <img
-                src={avatar ? avatar : dp}
+                src={
+                  auth?.userDetails?.photo
+                    ? auth?.userDetails?.photo?.secure_url
+                    : dp
+                }
                 alt="dp"
                 className="w-7 h-7 rounded-full object-cover"
               />
             </Link>
 
-            <span className="text-md ml-2 font-medium text-gray-900">
-              {username}
+            <span className="text-sm ml-2 font-medium text-gray-600">
+              {auth?.userDetails?.name}
             </span>
           </div>
         </div>
         <span className=" text-gray-500">
           <Link to={`/${id}`} className="text-sm font-medium hover:underline">
-            <div>{title}</div>
+            <div className="text-base text-blackish font-semibold">{title}</div>
             <div className="truncate">{content}</div>
 
             <div className="bg-cyan-700 w-1/4 rounded text-xs text-white flex justify-center mt-3 mb-3">

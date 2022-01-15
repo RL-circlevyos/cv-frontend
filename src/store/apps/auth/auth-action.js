@@ -131,6 +131,83 @@ export const AuthState = () => {
   };
 };
 
+// logout
+export const logoutAction = () => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const Logout = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/logout`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // console.log(response);
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("logout failed");
+      }
+    };
+
+    try {
+      const response = await Logout();
+      console.log(response.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const userDetailsUpdateAction = (updateBody) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const userDetailsUpdate = async () => {
+      console.log("update calling");
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/userdashboard/update`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "PATCH",
+          credentials: "include",
+          // headers: {
+          //   "Content-Type": "formdata",
+          // },
+          body: updateBody,
+        }
+      );
+
+      // console.log(response);
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("user update failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      const response = await userDetailsUpdate();
+
+      dispatch(
+        authAction.userDetails({
+          userDetails: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const userDetailsAction = (id) => {
   return async (dispatch) => {
     // 📈 send data to database
@@ -196,7 +273,7 @@ export const userImaginesAction = (id) => {
       }
 
       const responseData = await response.json();
-      return responseData.user;
+      return responseData.imagine;
     };
 
     try {

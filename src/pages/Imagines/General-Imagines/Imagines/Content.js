@@ -26,6 +26,7 @@ const Content = () => {
             />
           </span>
         )}
+
         <span className="w-full text-left">
           {imagine?.singleImagine?.singleImagine?.intro}
         </span>

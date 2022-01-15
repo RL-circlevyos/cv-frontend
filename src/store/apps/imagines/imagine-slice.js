@@ -4,18 +4,22 @@ const initialCreateImagineState = {
   generalImagines: [],
   singleImagine: {},
   comments: [],
+  isinitiate: false,
 };
 
 const imagineSlice = createSlice({
   name: "createImagine",
   initialState: initialCreateImagineState,
   reducers: {
-    createPosts: (state, action) => {
-      state.posts = action.payload.posts;
-      console.log(state.posts, "post of imagine");
+    inititateProcess(state, action) {
+      state.isinitiate = action.payload.isinitiate;
+    },
+    createPost: (state, action) => {
+      state.isinitiate = action.payload.isinitiate;
     },
     getImagine(state, action) {
       state.generalImagines = action.payload.generalImagines;
+      state.isinitiate = false;
     },
     getSingleImagine(state, action) {
       state.singleImagine = action.payload.singleImagine;
