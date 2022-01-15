@@ -10,7 +10,8 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
-import data from "../../../../components/Category.json";
+import RadioBtn from "./Radio";
+
 const CreateImagines = ({ getContent }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const onEditorStateChange = (editorState) => {
@@ -96,7 +97,7 @@ const CreateImagines = ({ getContent }) => {
   const [title, setTitle] = useState("");
   const [introImage, setIntroImage] = useState();
   const [intro, setIntro] = useState("");
-  const [isChecked, setIsChecked] = useState([]);
+  const [value, setValue] = useState([]);
   const [outro, setOutro] = useState("");
   const [outroImage, setOutroImage] = useState();
   const [audio, setAudio] = useState();
@@ -109,12 +110,13 @@ const CreateImagines = ({ getContent }) => {
   formdata.append("outro", outro);
   formdata.append("introImage", introImage);
   formdata.append("outroImage", outroImage);
-  formdata.append("category", isChecked);
+  formdata.append("category", value);
   formdata.append(
     "main",
     draftToHtml(convertToRaw(editorState.getCurrentContent()))
   );
   formdata.append("audio", audio);
+  console.log(value);
 
   const introImageChange = useCallback((e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -163,10 +165,9 @@ const CreateImagines = ({ getContent }) => {
     setAudio();
   }, []);
 
-  const handleSingleCheck = useCallback((e) => {
-    setIsChecked({ [e.target.name]: e.target.checked });
+  const handleChange = useCallback((event) => {
+    setValue(event.target.value);
   }, []);
-  console.log(isChecked);
 
   const handleSubmit = useCallback(
     (e) => {
@@ -359,26 +360,8 @@ const CreateImagines = ({ getContent }) => {
               className="flex items-center flex-col justify-center w-full flex-wrap lg:flex-nowrap pt-10 
           space-y-4 lg:space-y-0 lg:space-x-5"
             >
-              <label className="text-base uppercase font-bold mb-10">
-                Select imagine genre
-              </label>
               <div className="flex flex-wrap items-start justify-center gap-x-3 lg:gap-x-6 px-3">
-                {data.map((d) => {
-                  return (
-                    <div className="mb-7" key={d.id}>
-                      <input
-                        className="border-gray-600 w-5 h-5 border cursor-pointer"
-                        type="radio"
-                        name={d.name}
-                        checked={isChecked[`${d.name}`]}
-                        onChange={handleSingleCheck}
-                      />
-                      <label className="ml-1 text-lg text-gray-600">
-                        {d.name}
-                      </label>
-                    </div>
-                  );
-                })}
+                <RadioBtn value={value} handleChange={handleChange} />
               </div>
             </div>
             <div className="w-full max-2xl">

@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AlertDialogSlide from "../../../../components/Dialog";
 
 const Nav = () => {

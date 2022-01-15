@@ -23,11 +23,12 @@ const Info = () => {
   return (
     <Link
       to={`/profile/${user}`}
-      className="w-full bg-white mt-2 py-8 shadow rounded-xl mb-3 lg:flex justify-center flex-col items-center hidden font-Mulish text-gray-600 border border-gray-100"
+      className="w-full bg-white mt-2 py-8 shadow rounded-xl mb-3 lg:flex justify-center px-6
+       flex-col items-center hidden font-Mulish text-gray-600 border border-gray-100"
     >
-      <div className="w-20 h-20">
+      <div className="w-24 h-24">
         <img
-          className="w-full h-full rounded-full object-fill"
+          className="w-full h-full rounded-full object-cover"
           src={auth?.userDetails?.photo?.secure_url}
           alt="dp"
         />
