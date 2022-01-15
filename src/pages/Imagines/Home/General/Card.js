@@ -80,14 +80,14 @@ const Card = ({
     setEdit(false);
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(userDetailsAction(author));
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [dispatch, author]);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     dispatch(userDetailsAction(author));
+  //   }, 500);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [dispatch, author]);
 
   console.log(auth?.userDetails);
 
@@ -110,18 +110,14 @@ const Card = ({
             <Link to={`/profile/${author}`}>
               {" "}
               <img
-                src={
-                  auth?.userDetails?.photo
-                    ? auth?.userDetails?.photo?.secure_url
-                    : dp
-                }
+                src={dp}
                 alt="dp"
                 className="w-7 h-7 rounded-full object-cover"
               />
             </Link>
 
             <span className="text-sm ml-2 font-medium text-gray-600">
-              {auth?.userDetails?.name}
+              {author}
             </span>
           </div>
         </div>

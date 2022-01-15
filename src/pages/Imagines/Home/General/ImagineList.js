@@ -64,7 +64,7 @@ const ImagineList = () => {
           <div className="block lg:hidden"></div>
           <div className="lg:block hidden">
             <div className="block max-w-xs pb-4">
-              <span className="w-1/4">
+              <span className="w-1/4 ">
                 {" "}
                 <Info />
               </span>
