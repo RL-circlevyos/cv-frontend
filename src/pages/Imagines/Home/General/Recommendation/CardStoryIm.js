@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  BookmarkIcon,
-  BookOpenIcon,
-  EyeIcon,
-  LightBulbIcon,
-} from "@heroicons/react/solid";
+import { BookmarkIcon, LightBulbIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import dp from "../../../../../assets/person.png";
 const src =
@@ -42,7 +37,7 @@ const CardStoryIm = ({
               className="w-6 h-6 rounded-full object-cover"
             />
 
-            <span className="text-sm ml-2 font-medium text-gray-900">
+            <span className="text-sm ml-2 font-medium text-gray-900 ">
               {username}
             </span>
           </div>
@@ -68,8 +63,8 @@ const CardStoryIm = ({
           </span>
         </div>
         <Link to={`/${id}`}>
-          <span className=" text-gray-500 ">
-            <span className="text-xs font-medium hover:underline overflow-ellipsis">
+          <span className=" text-gray-500 w-3/5">
+            <span className="text-xs font-medium hover:underline truncate">
               {title}
             </span>
           </span>

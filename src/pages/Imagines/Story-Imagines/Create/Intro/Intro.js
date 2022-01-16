@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+/***import React, { useState } from "react";
 import Navbar from "../../../../../components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -169,4 +169,4 @@ const Intro = () => {
   );
 };
 
-export default Intro;
+export default Intro;*/

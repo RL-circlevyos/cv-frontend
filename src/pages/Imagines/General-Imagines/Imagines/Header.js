@@ -56,7 +56,6 @@ const Header = ({ author }) => {
               <span className="text-sm font-bold text-gray-900">
                 {imagine?.singleImagine?.singleImagine?.user?.name}
               </span>
-              {imagine?.singleImagine?.singleImagine?.user?.email}
 
               <span className="cursor-pointer" onClick={clickFollowHandler}>
                 {follow ? (

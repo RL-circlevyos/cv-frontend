@@ -1,4 +1,4 @@
-import {
+/**import {
   AnnotationIcon,
   EyeIcon,
   LightBulbIcon,
@@ -56,7 +56,7 @@ const Footer = ({ openCommentBox }) => {
               12k
             </span>
           </span>
-          VIEWS */}
+          VIEWS /}
           <span>
             <Sound />
           </span>
@@ -77,4 +77,4 @@ const Footer = ({ openCommentBox }) => {
   );
 };
 
-export default React.memo(Footer);
+export default React.memo(Footer);*/

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Transition } from "@headlessui/react";
 import logo from "../assets/circlevyos.svg";
 /***import useDarkMode from "./../hooks/useDarkMode";*/
@@ -23,16 +23,44 @@ import {
   PlusIcon,
   CheckCircleIcon,
 } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Example from "./Dropdown";
+import AlertDialogSlide from "./Dialog";
+import DelPopup from "./DelPopup";
+import { logoutAction } from "../store/apps/auth/auth-action";
 
 function Navbar() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const auth = useSelector((state) => state.auth);
   /**const [openModal, setOpenModal] = useState(false);**/
   const user = auth.userid;
+  const userDp = auth?.userDetails?.photo?.secure_url;
   /***const [colorTheme, setTheme] = useDarkMode();*/
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+
+  const [del, setDel] = useState(false);
+  const dispatch = useDispatch();
+  const logout = useCallback(() => {
+    setDel(true);
+  }, []);
+
+  const handleDelClose = useCallback(() => {
+    setDel(false);
+  }, []);
+  const crImagine = useCallback(() => {
+    user ? navigate("/create-imagine") : handleClickOpen();
+  }, [user, handleClickOpen, navigate]);
 
   return (
     <div>
@@ -40,15 +68,8 @@ function Navbar() {
         <div className="w-full mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center justify-between w-full">
+              {/**********************************mobile view name start *******************************/}
               <div className="-mr-2 flex justify-center items-center gap-x-8 md:hidden">
-                {/* <Link
-                  to="/create-imagine"
-                  className="flex-shrink-0 bg-cyan-700 text-white py-1 px-1.5 rounded shadow flex font-bold text-tiny"
-                >
-                  Create
-                  <PlusIcon className="h-5 w-5" />
-                </Link> */}
-
                 <button
                   onClick={() => setIsOpen(!isOpen)}
                   type="button"
@@ -93,6 +114,7 @@ function Navbar() {
                   )}
                 </button>
               </div>
+
               <div className="flex items-center justify-center ml-2 w-full md:hidden ">
                 <Link to="/" className="flex-shrink-0">
                   <img className="h-10 w-10" src={logo} alt="logo" />
@@ -104,6 +126,7 @@ function Navbar() {
                   Circlevyos
                 </Link>
               </div>
+              {/**********************************mobile view name end *******************************/}
 
               <Link to="/" className="flex-shrink-0 hidden md:flex">
                 <img className="h-14 w-14" src={logo} alt="logo" />
@@ -111,20 +134,6 @@ function Navbar() {
 
               <div className="hidden  md:block ">
                 <div className="flex items-center gap-2 justify-center">
-                  {/* <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
-                    <HomeIcon className="h-6 w-6" />
-                    <b className="sm:block hidden text-sm">clubs</b>
-                  </div> */}
-                  {/* <Link
-                    to="/"
-                    className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    {" "}
-                    <PencilAltIcon className="h-6 w-6" />
-                    <b className="sm:block hidden text-sm uppercase font-extrabold">
-                      blogs
-                    </b>
-                  </Link> */}
                   <Link
                     to="/"
                     className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
@@ -135,15 +144,7 @@ function Navbar() {
                       imagines
                     </b>
                   </Link>
-                  {/* <Link
-                    to="/trendings"
-                    className="hidden md:flex lg:hidden items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    <BriefcaseIcon className="h-6 w-6" />
-                    <b className="sm:block hidden text-sm uppercase font-extrabold">
-                      trendings
-                    </b>
-                  </Link> */}
+
                   <Link
                     to="/marketplace"
                     className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
@@ -178,98 +179,37 @@ function Navbar() {
                     </Link>
                   </>
                 )}
-
-                {/* <div className=" flex items-center justify-center">
-                     <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
-                    <BellIcon className="h-6 w-6" />
-                    <b className="sm:hidden block text-xs">notifications</b>
-                  </div>{" "} 
-                    <Link
-                      to="/contribution/profile-imagines"
-                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
-                    >
-                      <UserCircleIcon className="h-6 w-6" />
-                      <b className="sm:hidden block text-xs">user</b>
-                    </Link>{" "}
-                    <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
-                      <Power />
-                      <b className="sm:hidden block text-xs">logout</b>
-                    </div>*/}
-                {/*  <div class="dropdown inline-block relative hover:bg-greyish-200 mt-1">
-                    <button class=" text-primary py-2 px-4 rounded inline-flex items-center">
-                      <UserCircleIcon className="h-6 w-6" />
-                    </button>
-                   <ul class="dropdown-menu absolute hidden text-gray-700 pr-6 border bg-white border-gray-500">
-                      <li class="w-full bg-white hover:bg-gray-300 ">
-                        <div
-                          className="flex items-center gap-1 rounded-b text-primary py-2 px-4 
-                           whitespace-no-wrap cursor-pointer transition duration-500 linear text-sm font-medium"
-                        >
-                          <b className="sm:block hidden text-sm">profile</b>
-                        </div>
-                      </li>
-                      <li class="w-full bg-white hover:bg-gray-300 ">
-                        <div
-                          className="flex items-center gap-1 text-primary py-2 px-4 
-                           whitespace-no-wrap cursor-pointer transition duration-500 linear text-sm font-medium"
-                        >
-                          <CogIcon className="h-7 w-7 text-primary" />
-                          <b className="sm:block hidden text-sm">settings</b>
-                        </div>
-                      </li>
-                      <li class="w-full bg-white hover:bg-gray-300 ">
-                        <div
-                          className="flex items-center gap-1 text-primary py-2 px-4 
-                           whitespace-no-wrap cursor-pointer transition duration-500 linear rounded-md text-sm font-medium"
-                          onClick={() => setTheme(colorTheme)}
-                        >
-                          {colorTheme === "light" ? (
-                            <span className="flex items-center gap-1">
-                              <MoonIcon className="h-5 w-5" />
-                              <b className="sm:block hidden text-sm ">dark</b>
-                            </span>
-                          ) : (
-                            <span className="flex items-center gap-1">
-                              <SunIcon className="h-5 w-5" />
-                              <b className="sm:block hidden text-sm ">light</b>
-                            </span>
-                          )}
-                        </div>
-                      </li>
-                      <li class="w-full bg-white hover:bg-gray-300 ">
-                        <div
-                          className="flex items-center gap-1 rounded-b text-primary py-2 px-4 
-                           whitespace-no-wrap cursor-pointer transition duration-500 linear text-sm font-medium"
-                        >
-                          <b className="sm:block hidden text-sm">logout</b>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  </div> */}
               </div>
             </div>
+            {/**********************************mobile view options *******************************/}
             <div className="mx-2 flex justify-center items-center gap-x-1 md:hidden">
-              <Link
-                to="/create-imagine"
+              <div
+                onClick={crImagine}
                 className="flex-shrink-0 bg-cyan-700 text-white py-1 px-1.5 rounded-full shadow flex font-bold text-tiny mr-2"
               >
                 <PlusIcon className="h-6 w-5" />
-              </Link>
-              <Link
-                to={user && `/profile/${user}`}
-                className="flex-shrink-0 py-1 px-1.5 rounded-full flex"
-              >
-                <img
-                  src={dp}
-                  alt="dp"
-                  className="w-7 h-7 rounded-full object-cover"
-                />
-              </Link>
+              </div>
+              {user && (
+                <Link
+                  to={user && `/profile/${user}`}
+                  className="flex-shrink-0 py-1 px-1.5 rounded-full flex"
+                >
+                  <img
+                    src={
+                      user === auth?.userDetails?._id &&
+                      auth?.userDetails?.photo?.secure_url
+                        ? auth?.userDetails?.photo?.secure_url
+                        : dp
+                    }
+                    alt="dp"
+                    className="w-7 h-7 rounded-full object-cover"
+                  />
+                </Link>
+              )}
             </div>
           </div>
         </div>
-
+        {/**********************************mobile view menu *******************************/}
         <Transition
           show={isOpen}
           enter="transition ease-out duration-300 transform"
@@ -285,14 +225,6 @@ function Navbar() {
                 ref={ref}
                 className=" px-2 pt-2 pb-3 space-y-1 sm:px-3 uppercase"
               >
-                {/* <Link
-                  to="/"
-                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  <PencilAltIcon className="h-6 w-6" />
-                  <b className="sm:hidden  block text-xs">BLOGS</b>
-                </Link>{" "}
-                <hr /> */}
                 <Link
                   to="/"
                   className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
@@ -300,10 +232,6 @@ function Navbar() {
                   <HeartIcon className="h-6 w-6 " />
                   <b className="sm:hidden  block text-xs">imagines</b>
                 </Link>
-                {/* <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
-                  <CurrencyRupeeIcon className="h-6 w-6" />
-                  <b className="sm:hidden block text-xs">SOLVE & EARN</b>
-                </div>{" "} */}
                 <hr />
                 <Link
                   to="/saved/general"
@@ -329,35 +257,6 @@ function Navbar() {
                   <b className="sm:hidden block text-xs">marketplace</b>
                 </Link>{" "}
                 <hr />
-                {/* <div
-                  className="flex items-center gap-1 mt-1 hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
-                  onClick={() => setTheme(colorTheme)}
-                >
-                  {colorTheme === "light" ? (
-                    <span className="flex items-center gap-1">
-                      <MoonIcon className="h-6 w-6" />
-                      <b className="sm:hidden block text-xs ">dark</b>
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-1">
-                      <SunIcon className="h-6 w-6" />
-                      <b className="sm:hidden block text-xs ">light</b>
-                    </span>
-                  )}
-                </div>{" "}
-                <hr /> 
-                <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
-                  <BellIcon className="h-6 w-6" />
-                  <b className="sm:hidden block text-xs">notifications</b>
-                </div>{" "}
-                <hr />
-                <Link
-                  to="/trendings"
-                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
-                >
-                  <ChevronDoubleUpIcon className="h-6 w-6" />
-                  <b className="sm:hidden block text-xs">trendings</b>
-                </Link>{" "}*/}
                 {!user ? (
                   <div>
                     <hr />
@@ -396,7 +295,10 @@ function Navbar() {
                       <b className="sm:hidden block text-xs">Settings</b>
                     </Link>{" "}
                     <hr />
-                    <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                    <div
+                      onClick={logout}
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
                       <Power />
                       <b className="sm:hidden block text-xs">logout</b>
                     </div>
@@ -407,6 +309,25 @@ function Navbar() {
           )}
         </Transition>
       </nav>
+      <AlertDialogSlide
+        open={open}
+        handleClose={handleClose}
+        title="Login to Circlevyos"
+        content="To get your own access on different contents you should signin first"
+        link="/login"
+        show={true}
+      />
+      <DelPopup
+        open={del}
+        handleClose={handleDelClose}
+        title="Logout"
+        content="Do you want to logout ?"
+        show={true}
+        onClick={() => {
+          dispatch(logoutAction());
+          navigate("/login");
+        }}
+      />
     </div>
   );
 }

@@ -26,9 +26,7 @@ import { generalImagineFetchAction } from "./store/apps/imagines/imagine-action"
 import ImagineList from "./pages/Imagines/Home/General/ImagineList";
 import Marketplace from "./pages/Marketplace/Marketplace";
 
-import Trending from "./pages/Imagines/Home/General/Trending";
-
-/**
+/**import Trending from "./pages/Imagines/Home/General/Trending";
  * import ConImagines from "./pages/UserProfile/Contribution/ConImagines";
  import ConBlogs from "./pages/UserProfile/Contribution/ConBlogs";
  import SavedBlogs from "./pages/UserProfile/Saved/SavedBlogs";

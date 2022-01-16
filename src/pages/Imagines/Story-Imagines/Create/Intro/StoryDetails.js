@@ -1,4 +1,4 @@
-import { UploadIcon } from "@heroicons/react/solid";
+/**import { UploadIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
@@ -159,4 +159,4 @@ const StoryDetails = () => {
   );
 };
 
-export default React.memo(StoryDetails);
+export default React.memo(StoryDetails);*/

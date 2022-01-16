@@ -1,4 +1,4 @@
-import {
+/*import {
   ArchiveIcon,
   ArrowLeftIcon,
   PlusIcon,
@@ -97,7 +97,7 @@ const Nav = () => {
                 </div>
               </div>
             </div>
-          ) : ( */}
+          ) : ( /}
           <div className="flex items-center space-x-5 w-full">
             {/* <button
                 className="border border-primary px-2 py-1 rounded-lg flex items-center font-semibold cursor-pointer"
@@ -111,12 +111,12 @@ const Nav = () => {
                 className="flex items-center py-1.5 px-3 font-semibold uppercase rounded-md text-base transition duration-200 bg-gray-200 text-primary focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
               >
                 General
-              </Link> */}
+              </Link> /}
             <span className="flex text-base uppercase font-semibold justify-center items-center w-full py-1.5 px-3 rounded-xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100">
               Story Imagines
             </span>
           </div>
-          {/* )} */}
+          {/* )} /}
         </div>
         <div className="flex items-center space-x-5 ">
           <Link
@@ -143,8 +143,8 @@ const Nav = () => {
           </div>
         </div>
       </div>
-      {/*****************mobile view *******************/}
-      <div className="block lg:hidden">
+      {/*****************mobile view *******************/
+/*<div className="block lg:hidden">
         <div className="text-base font-medium text-primary flex justify-between items-start px-3">
           <div className=" w-full flex flex-col bg-greyish-50 rounded-b-2xl relative shadow-md mb-4">
             <div className="w-full flex items-center">
@@ -215,4 +215,4 @@ const Nav = () => {
   );
 };
 
-export default React.memo(Nav);
+export default React.memo(Nav);*/

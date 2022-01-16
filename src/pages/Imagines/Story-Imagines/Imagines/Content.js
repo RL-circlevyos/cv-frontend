@@ -1,4 +1,4 @@
-import React from "react";
+/**import React from "react";
 
 const Content = ({ post }) => {
   return (
@@ -35,4 +35,4 @@ const Content = ({ post }) => {
   );
 };
 
-export default React.memo(Content);
+export default React.memo(Content);*/

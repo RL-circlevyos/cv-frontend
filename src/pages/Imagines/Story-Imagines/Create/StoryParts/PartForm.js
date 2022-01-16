@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, UploadIcon } from "@heroicons/react/solid";
+/**import { ChevronLeftIcon, UploadIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { ArrowDownLeft } from "react-feather";
@@ -346,4 +346,4 @@ const PartForm = () => {
   );
 };
 
-export default React.memo(PartForm);
+export default React.memo(PartForm);*/

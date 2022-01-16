@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+/**import React, { useEffect } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -43,7 +43,7 @@ const StoryImagines = () => {
                   closeCommentBox={closeCommentBox}
                 />
                 
-              </div> */}
+              </div> /}
                 <div>
                   <div className=" mb-10 w-full min-w-full">
                     <Card post={imagine} styles="max-w-base px-4 mt-2" />
@@ -74,7 +74,7 @@ const StoryImagines = () => {
       <div className="w-full flex flex-col justify-content items-start h-screen lg:hidden">
         <Nav />
         <div className={`md:max-w-5xl w-full`}>
-          {/* <ImagineSlider posts={posts} openCommentBox={openCommentBox} /> */}
+          {/* <ImagineSlider posts={posts} openCommentBox={openCommentBox} /> /}
           <div>
             <div className=" mb-10 w-full min-w-full">
               <Card post={imagine} styles="max-w-base px-4 mt-2" />
@@ -90,4 +90,4 @@ const StoryImagines = () => {
   );
 };
 
-export default React.memo(StoryImagines);
+export default React.memo(StoryImagines);*/

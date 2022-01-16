@@ -1,9 +1,4 @@
-import {
-  ArchiveIcon,
-  ArrowLeftIcon,
-  PlusIcon,
-  SaveIcon,
-} from "@heroicons/react/solid";
+import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";

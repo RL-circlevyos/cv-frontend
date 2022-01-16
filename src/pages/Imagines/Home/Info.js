@@ -37,9 +37,16 @@ const Info = () => {
           alt="dp"
         />
       </div>
+      {!user && (
+        <div className="text-xl italic font-bold mt-4">
+          You are not logged in.
+        </div>
+      )}
       <div className="text-xl font-bold mt-4">{auth?.userDetails?.name}</div>
-      <div className="text-base mt-4 px-4">
-        <i className="ml-2 text-sm">{auth?.userDetails?.bio}</i>
+      <div className="text-sm mt-4 px-4 italic">
+        {auth?.userDetails?.bio === "undefined"
+          ? "Hello, I am a newbie in circlevyos"
+          : auth?.userDetails?.bio}
       </div>
       <div className="flex justify-center items-start w-full px-4 gap-x-3 font-bold">
         <div className="text-base mt-4">

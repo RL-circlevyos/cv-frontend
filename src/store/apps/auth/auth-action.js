@@ -366,13 +366,49 @@ export const userFollowAction = (id) => {
     try {
       const response = await userDetails();
       console.log(response.id);
-      dispatch(
-        authAction.userDetails({
-          userDetails: response,
-        })
-      );
     } catch (error) {
       console.log(error);
     }
   };
 };
+
+// unfollow
+export const userUnfollowAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const userDetails = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/unfollow`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id,
+          }),
+        }
+      );
+
+      // console.log(response);
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      await userDetails();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// change password

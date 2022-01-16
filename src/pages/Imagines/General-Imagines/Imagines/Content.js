@@ -1,15 +1,11 @@
 import { Divider } from "@mui/material";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { generalImagineSingleFetchAction } from "../../../../store/apps/imagines/imagine-action";
+import React from "react";
+import { useSelector } from "react-redux";
 import song from "../../../../assets/Vsong.mp3";
 import Audio from "../../../Audio/Audio";
 
 const Content = () => {
-  const imagineid = useParams();
   const imagine = useSelector((state) => state.imagine);
-  const dispatch = useDispatch();
 
   const checkIntroImg = imagine?.singleImagine?.singleImagine?.intro
     ? "h-48"

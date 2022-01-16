@@ -1,13 +1,10 @@
 import { PaperAirplaneIcon } from "@heroicons/react/solid";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Comment from "./Comment";
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
-import {
-  commentCreateAction,
-  commentFetchAction,
-} from "../../../store/apps/imagines/imagine-action";
+import { commentCreateAction } from "../../../store/apps/imagines/imagine-action";
 
 const CommentList = () => {
   const [newCommentInput, setNewCommentInput] = useState();
@@ -19,7 +16,7 @@ const CommentList = () => {
 
   const user = auth.userid;
 
-  // console.log(singleImagine.singleImagine.comments);
+  /**  console.log(singleImagine.singleImagine.comments);*/
   function postComment(e) {
     e.preventDefault();
 

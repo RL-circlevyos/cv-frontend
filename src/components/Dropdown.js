@@ -1,12 +1,13 @@
 import { useState, useCallback } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import dp from "../assets/person.png";
 import DelPopup from "./DelPopup";
 import { logoutAction } from "../store/apps/auth/auth-action";
 
 export default function Example() {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleOpen = useCallback(() => {
     setShow(!show);
@@ -39,7 +40,12 @@ export default function Example() {
           className="bg-white text-primary hover:bg-primary hover:text-white rounded shadow flex items-center px-2 py-2 cursor-pointer"
         >
           <img
-            src={dp}
+            src={
+              user === auth?.userDetails?._id &&
+              auth?.userDetails?.photo?.secure_url
+                ? auth?.userDetails?.photo?.secure_url
+                : dp
+            }
             alt="dp"
             className="w-7 h-7 rounded-full object-cover"
           />
@@ -90,6 +96,7 @@ export default function Example() {
               show={true}
               onClick={() => {
                 dispatch(logoutAction());
+                navigate("/login");
               }}
             />
           </div>

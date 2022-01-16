@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import registerlogo from "../../assets/register.svg";
 import { useForm } from "react-hook-form";
-import { Key, Mail, PhoneCall } from "react-feather";
+import { Key, Mail } from "react-feather";
 import { Link, useNavigate } from "react-router-dom";
 import { EyeIcon, EyeOffIcon, UserIcon } from "@heroicons/react/solid";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { signUpWithNameEmailAndPassword } from "../../store/apps/auth/auth-action";
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+/**const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;*/
 
 const validationSchema = yup.object().shape({
   email: yup
