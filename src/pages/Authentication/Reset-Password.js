@@ -5,6 +5,9 @@ import { Key, Lock } from "react-feather";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { changePasswordAction } from "../../store/apps/auth/auth-action";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object().shape({
   newPassword: yup
@@ -19,6 +22,7 @@ const validationSchema = yup.object().shape({
 });
 
 const ResetPassword = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -29,12 +33,21 @@ const ResetPassword = () => {
     resolver: yupResolver(validationSchema),
   });
 
+  const dispatch = useDispatch();
+
   const onSubmit = useCallback(
     (data) => {
-      console.log(data);
+      const passwordBody = {
+        oldPassword: data.confirmPassword,
+        password: data.newPassword,
+      };
+
+      dispatch(changePasswordAction(passwordBody));
+
       reset();
+      navigate("/");
     },
-    [reset]
+    [reset, dispatch, navigate]
   );
   /**  console.log(errors);*/
 

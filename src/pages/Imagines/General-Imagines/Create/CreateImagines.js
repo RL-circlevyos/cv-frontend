@@ -21,8 +21,9 @@ const CreateImagines = ({ getContent }) => {
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
     );
   };
-  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    .length;
+  const count = draftToHtml(
+    convertToRaw(editorState.getCurrentContent())
+  ).length;
   // const MAX_LENGTH = 15;
 
   // const getLengthOfSelectedText = () => {
@@ -115,7 +116,7 @@ const CreateImagines = ({ getContent }) => {
     "main",
     draftToHtml(convertToRaw(editorState.getCurrentContent()))
   );
-  formdata.append("audio", audio);
+  formdata.append("audiovoice", audio);
   console.log(value);
 
   const introImageChange = useCallback((e) => {
@@ -374,7 +375,7 @@ const CreateImagines = ({ getContent }) => {
                 {!audio && (
                   <>
                     <span className="text-sm font-bold lg:text-base uppercase">
-                      Imagine audio
+                      Imagine audio or voice
                     </span>
                     <UploadIcon className="w-7 h-7 ml-2" />
                   </>

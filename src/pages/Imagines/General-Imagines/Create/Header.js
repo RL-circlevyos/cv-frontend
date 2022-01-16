@@ -11,18 +11,19 @@ const Header = () => {
             <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
           </Link>
         </div>
-        <div className="text-2xl font-medium uppercase text-primary">
+        <div className="text-2xl font-medium  text-primary">
           Create Imagines
         </div>
-        <Link
+        <div></div>
+        {/* <Link
           to="/"
           className="flex font-bold items-center py-1.5 px-2  rounded-3xl transition duration-200 bg-gray-200 text-gray-800 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
         >
           Saved Imagines
-        </Link>
+        </Link> */}
       </div>
       <div className="block lg:hidden">
-        <div className="text-lg font-bold uppercase text-primary flex justify-between items-start px-3 mt-5">
+        <div className="text-lg font-bold uppercase text-primary flex justify-center items-start px-3 mt-5">
           <Link to="/">
             <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
           </Link>

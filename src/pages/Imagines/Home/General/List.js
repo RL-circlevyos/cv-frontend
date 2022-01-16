@@ -43,6 +43,7 @@ const List = () => {
                     category={imagine.category}
                     // views={imagine.views}
                     appriciates={imagine.appriciates}
+                    audiovoice={imagine?.audiovoice?.secure_url}
                   />
                 </div>
               )}

@@ -29,7 +29,7 @@ const Nav = () => {
 
   return (
     <div className=" w-full flex justify-center items-start font-Mulish text-sm text-gray-800 pb-1">
-      <div className="lg:flex max-w-screen-2xl items-center space-x-2 hidden w-full justify-between px-3 py-2">
+      <div className="lg:flex max-w-5xl items-center space-x-2 hidden w-full justify-between px-3 py-2">
         <div>
           {" "}
           <Link to="/">
@@ -45,22 +45,22 @@ const Nav = () => {
           </div>
         </div>
         <div className="flex items-center space-x-5 ">
-          <Link
+          {/* <Link
             to="/"
             className="flex font-bold items-center py-1.5 px-2  rounded-3xl transition duration-200 bg-gray-200 text-gray-800 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
           >
             Saved Imagines
-          </Link>
+          </Link> */}
           <div className="flex items-center space-x-5 ">
             <span
               onClick={createImagines}
               className="flex font-bold items-center cursor-pointer
-               py-1.5 px-2.5 pl-2 rounded-3xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 
+               py-1.5 px-3 pl-2 rounded-xl transition duration-200 bg-primary text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 
                hover:bg-teal-800 hover:text-gray-100"
             >
               {" "}
               <PlusIcon className="h-7 w-7" />
-              Imagines
+              Create
             </span>
           </div>
         </div>

@@ -31,6 +31,7 @@ const Card = ({
   appriciates,
   category,
   isAppriciatesAuthor,
+  audiovoice,
 }) => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -120,16 +121,14 @@ const Card = ({
           </Link>
         </span>
         <span className="flex items-start justify-around bottom-0 sticky space-x-4 pt-1">
-          <span>
-            <Sound />
-          </span>
+          <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
               <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
             </span>
             <b>{appriciates.length}</b>
           </span>
-          <span className="cursor-pointer " onClick={clickBookmarkHandler}>
+          {/* <span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
               <BookmarkIcon className="h-6 w-6 text-blue-800 pt-1" />
             ) : (
@@ -148,7 +147,7 @@ const Card = ({
                 />
               </svg>
             )}
-          </span>{" "}
+          </span>{" "} */}
           <span className="flex items-center space-x-1 pt-1">
             {!edit && author === auth.userid && (
               <>
@@ -176,7 +175,7 @@ const Card = ({
                       <XIcon className="h-5 w-5 text-pink-500" />
                     </span>
                   </span>
-                  <div className="py-1">
+                  {/* <div className="py-1">
                     <div>
                       <Link
                         to={`/${id}/update`}
@@ -185,7 +184,7 @@ const Card = ({
                         Edit
                       </Link>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="py-1">
                     <div
                       className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"

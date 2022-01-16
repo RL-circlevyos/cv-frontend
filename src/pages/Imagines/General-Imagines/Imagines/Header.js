@@ -56,9 +56,9 @@ const Header = ({ author }) => {
               <span className="text-sm font-bold text-gray-900">
                 {imagine?.singleImagine?.singleImagine?.user?.name}
               </span>
-              {imagine?.singleImagine?.singleImagine?.user?.email}
+              {/* {imagine?.singleImagine?.singleImagine?.user?.email} */}
 
-              <span className="cursor-pointer" onClick={clickFollowHandler}>
+              {/* <span className="cursor-pointer" onClick={clickFollowHandler}>
                 {follow ? (
                   <span className="bg-sky-600 text-gray-100 px-1 py-1 font-medium text-tiny cursor-pointer">
                     Following
@@ -68,7 +68,7 @@ const Header = ({ author }) => {
                     Follow
                   </span>
                 )}
-              </span>
+              </span> */}
             </div>
             <div className="text-xs text-gray-500 mt-1">
               {moment(singleImagine?.singleImagine?.createdAt).format(
@@ -81,11 +81,17 @@ const Header = ({ author }) => {
         <div className="w-full hidden lg:flex justify-between items-center">
           <div></div>
           <div className="w-full max-w-sm">
-            <Audio audiosrc={song} />
+            {imagine.singleImagine?.singleImagine?.audiovoice && (
+              <Audio
+                audiosrc={
+                  imagine.singleImagine?.singleImagine?.audiovoice?.secure_url
+                }
+              />
+            )}
           </div>
         </div>
 
-        <div className="flex items-start space-x-5 text-gray-400">
+        {/* <div className="flex items-start space-x-5 text-gray-400">
           <span className="cursor-pointer" onClick={clickBookmarkHandler}>
             {bookmark ? (
               <BookmarkIcon className="h-6 w-6 text-primary" />
@@ -107,7 +113,7 @@ const Header = ({ author }) => {
             )}
           </span>
           <span className=""></span>
-        </div>
+        </div> */}
       </div>
       <AlertDialogSlide
         open={open}

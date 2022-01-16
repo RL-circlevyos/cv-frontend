@@ -5,8 +5,10 @@ import {
   ShareIcon,
 } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import AlertDialogSlide from "../../../../components/Dialog";
+import { appriciateAction } from "../../../../store/apps/imagines/imagine-action";
 
 const Footer = ({ openCommentBox }) => {
   const auth = useSelector((state) => state.auth);
@@ -31,10 +33,13 @@ const Footer = ({ openCommentBox }) => {
     setOpenShare(false);
   }, []);
 
+  const dispatch = useDispatch();
+  const id = useParams();
+
   const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
-    user ? setLike(!like) : handleClickOpen();
-  }, [like, user, handleClickOpen]);
+    user ? dispatch(appriciateAction(id.id)) : handleClickOpen();
+  }, [user, handleClickOpen, dispatch, id.id]);
 
   return (
     <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
@@ -68,12 +73,12 @@ const Footer = ({ openCommentBox }) => {
           </span>
           APPRECIATE
         </span>
-        <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
+        {/* <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
           <span className="lg:pt-1" onClick={handleClickOpenShare}>
             <ShareIcon className="h-6 w-6 cursor-pointer text-gray-600 pb-1 ml-2" />
             SHARE
           </span>
-        </span>
+        </span> */}
 
         <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
           <span className="flex items-center space-x-1 text-xs ">

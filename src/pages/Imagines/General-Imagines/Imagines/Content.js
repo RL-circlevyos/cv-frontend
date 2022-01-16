@@ -29,7 +29,7 @@ const Content = () => {
   return (
     <div className="mt-3 space-y-2 block text-base md:text-sl flex-initial text-gray-900 font-Mulish leading-relaxed">
       <div className="text-lg md:text-3xl font-bold px-5">
-        <label className="text-tiny md:text-base bg-cyan-700 text-white py-1 px-2 mr-4">
+        <label className="text-tiny md:text-base bg-primary rounded-md text-white py-1 px-2 mr-4">
           {" "}
           {imagine?.singleImagine?.singleImagine?.category}
         </label>

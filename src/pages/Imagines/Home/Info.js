@@ -22,7 +22,7 @@ const Info = () => {
   console.log(auth?.userDetails);
   return (
     <Link
-      to={`/profile/${user}`}
+      to={user && `/profile/${user}`}
       className="w-full bg-white mt-2 py-8 shadow rounded-xl mb-3 lg:flex justify-center px-6
        flex-col items-center hidden font-Mulish text-gray-600 border border-gray-100"
     >
@@ -37,9 +37,16 @@ const Info = () => {
           alt="dp"
         />
       </div>
+      {!user && (
+        <div className="text-xl italic font-bold mt-4">
+          You are not logged in.
+        </div>
+      )}
       <div className="text-xl font-bold mt-4">{auth?.userDetails?.name}</div>
-      <div className="text-base mt-4 px-4">
-        <i className="ml-2 text-sm">{auth?.userDetails?.bio}</i>
+      <div className="text-sm mt-4 px-4 italic">
+        {auth?.userDetails?.bio === "undefined"
+          ? "Hello, I am a newbie in circlevyos"
+          : auth?.userDetails?.bio}
       </div>
       <div className="flex justify-center items-start w-full px-4 gap-x-3 font-bold">
         <div className="text-base mt-4">

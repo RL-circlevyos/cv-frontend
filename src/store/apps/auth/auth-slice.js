@@ -10,6 +10,7 @@ const initialAuthState = {
   userDetails: {},
   myDetails: {},
   userImagines: [],
+  isinitiate: false,
 };
 
 const authSlice = createSlice({
@@ -31,6 +32,9 @@ const authSlice = createSlice({
     },
     getImagines(state, action) {
       state.userImagines = action.payload.userImagines;
+    },
+    userInitiate(state, action) {
+      state.isinitiate = action.payload.isinitiate;
     },
   },
 });
