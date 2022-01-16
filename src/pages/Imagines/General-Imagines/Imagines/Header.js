@@ -5,6 +5,8 @@ import moment from "moment";
 import dp from "../../../../assets/person.png";
 import { Link } from "react-router-dom";
 import AlertDialogSlide from "./../../../../components/Dialog";
+import Audio from "../../../Audio/Audio";
+import song from "../../../../assets/Vsong.mp3";
 
 const Header = ({ author }) => {
   const auth = useSelector((state) => state.auth);
@@ -31,7 +33,7 @@ const Header = ({ author }) => {
   return (
     <>
       <div className=" flex justify-between items-center px-3 font-Mulish">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center w-full space-x-2">
           <Link to={`/profile/${author}`}>
             <img
               src={
@@ -66,6 +68,13 @@ const Header = ({ author }) => {
                 "dddd, MMMM Do YYYY, h:mm a"
               )}
             </div>
+          </div>
+        </div>
+
+        <div className="w-full hidden lg:flex justify-between items-center">
+          <div></div>
+          <div className="w-full max-w-sm">
+            <Audio audiosrc={song} />
           </div>
         </div>
 

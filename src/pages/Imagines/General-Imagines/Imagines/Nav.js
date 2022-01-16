@@ -66,8 +66,8 @@ const Nav = () => {
         </div>
       </div>
       {/*****************mobile view *******************/}
-      <div className="block lg:hidden">
-        <div className="flex items-center justify-center space-x-3 mt-5 lg:hidden">
+      {/* <div className="block w-full lg:hidden">
+        <div className="flex items-center justify-around space-x-3 mt-5 lg:hidden w-full">
           <Link to="/">
             <ArrowLeftIcon className="h-5 w-5 mr-4 text-gray-800" />{" "}
           </Link>
@@ -87,7 +87,7 @@ const Nav = () => {
             <PlusIcon className="h-6 w-7" />
           </span>
         </div>{" "}
-      </div>
+      </div> */}
       <AlertDialogSlide
         open={open}
         handleClose={handleClose}

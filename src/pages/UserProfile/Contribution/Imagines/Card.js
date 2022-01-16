@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { BookmarkIcon, EyeIcon, LightBulbIcon } from "@heroicons/react/solid";
+import { BookmarkIcon, LightBulbIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { userDetailsAction } from "../../../../store/apps/auth/auth-action";
-
+import dp from "../../../../assets/person.png";
+import { Link } from "react-router-dom";
 const src =
   "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
-const Card = ({ introImage, outroImage, author, name, title, appriciates }) => {
+const Card = ({
+  introImage,
+  outroImage,
+  id,
+  author,
+  name,
+  title,
+  appriciates,
+  category,
+}) => {
   const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = () => {
     setBookmark(!bookmark);
@@ -24,24 +34,28 @@ const Card = ({ introImage, outroImage, author, name, title, appriciates }) => {
   }, [dispatch, author]);
 
   return (
-    <div className="w-96 space-x-2 flex items-start justify-center shadow">
-      <div className="w-2/5 h-32 bg-gray-50">
+    <div className="w-full md:w-96 space-x-2 flex items-start justify-center shadow">
+      <Link to={`/${id}`} className="w-2/5 h-32 bg-gray-50">
         <img
           src={introImage ? introImage.secure_url : src}
           alt="pic"
           className="h-full w-full object-fill rounded-md "
         />
-      </div>
-      <div className="flex flex-col w-3/5 ">
-        <div className="flex items-center pt-3 space-x-2">
+      </Link>
+      <div className="flex flex-col w-3/5 px-2">
+        <div className="flex items-start pt-3 space-x-2">
           <div className="flex flex-1">
             <img
-              src={auth?.userDetails?.photo?.secure_url}
+              src={
+                auth?.userDetails?.photo?.secure_url
+                  ? auth?.userDetails?.photo?.secure_url
+                  : dp
+              }
               alt="dp"
               className="w-6 h-6 rounded-full object-cover"
             />
 
-            <span className="text-md ml-2 font-medium text-gray-900">
+            <span className="text-sm ml-2 font-medium text-gray-900">
               {name}
             </span>
           </div>
@@ -66,8 +80,16 @@ const Card = ({ introImage, outroImage, author, name, title, appriciates }) => {
             )}
           </span>
         </div>
-        <span className=" text-gray-500">
-          <span className="text-xs font-medium hover:underline">{title}</span>
+        <span className=" text-gray-500 pt-2">
+          <Link to={`/${id}`} className="text-sm font-medium hover:underline">
+            <div className="text-base text-blackish font-semibold truncate">
+              {title}
+            </div>
+
+            <div className="bg-cyan-700 w-1/2 rounded text-xs text-white flex justify-center mt-3 mb-3">
+              {category}
+            </div>
+          </Link>
         </span>
         <span className="flex items-start space-x-4 pt-1">
           {" "}

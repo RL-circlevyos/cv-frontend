@@ -1,10 +1,12 @@
 import React from "react";
+import Navbar from "../../../components/Navbar";
 import List from "../Contribution/Imagines/List";
 import Intro from "./Intro";
 
 const Profile = () => {
   return (
-    <div>
+    <div className="w-full">
+      <Navbar />
       <Intro />
 
       <div className="flex justify-center items-center">

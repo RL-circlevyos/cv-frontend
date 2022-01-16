@@ -3,7 +3,7 @@ import Scrollbars from "react-custom-scrollbars-2";
 import CommentList from "../../Comment/List";
 import Recommendation from "../../Home/General/Recommendation/Recommendation";
 import Nav from "./Nav";
-
+import Navbar from "../../../../components/Navbar";
 import Card from "./Card";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -83,21 +83,24 @@ const GeneralImagines = ({ i }) => {
           </div>
         </div>
       </div>
-      <div className="w-full flex flex-col justify-content items-start h-screen lg:hidden">
-        <Nav />
-        <div className={`md:max-w-5xl w-full`}>
-          {/* <ImagineSlider openCommentBox={openCommentBox} /> */}
-          <div>
-            <div className=" mb-10 w-full min-w-full">
-              <Card post={imagine} styles="max-w-base px-4 mt-2" />
-            </div>
-            <div className="w-full px-3 py-1 mt-3">
-              {" "}
-              <CommentList />
+      <div className="w-full h-screen lg:hidden">
+        <Navbar />
+        <div className="w-full flex flex-col justify-content items-start">
+          <Nav />
+          <div className={`md:max-w-5xl w-full`}>
+            {/* <ImagineSlider openCommentBox={openCommentBox} /> */}
+            <div>
+              <div className=" mb-10 w-full min-w-full">
+                <Card post={imagine} styles="max-w-base px-4 mt-2" />
+              </div>
+              <div className="w-full px-3 py-1 mt-3">
+                {" "}
+                <CommentList />
+              </div>
             </div>
           </div>
+          <div></div>
         </div>
-        <div></div>
       </div>
     </>
   );

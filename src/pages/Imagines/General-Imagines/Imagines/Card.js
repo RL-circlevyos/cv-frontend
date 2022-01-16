@@ -23,7 +23,7 @@ const Card = ({
           <SkeletonContentLeader />
         ) : (
           <>
-            <div className="shadow-sm rounded-xl px-5">
+            <div className="shadow-sm rounded-xl px-2">
               <div className="header pt-3">
                 <Header />
               </div>

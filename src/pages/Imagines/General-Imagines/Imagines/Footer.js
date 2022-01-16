@@ -7,7 +7,6 @@ import {
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import AlertDialogSlide from "../../../../components/Dialog";
-import Sound from "../Create/Sound";
 
 const Footer = ({ openCommentBox }) => {
   const auth = useSelector((state) => state.auth);
@@ -75,18 +74,7 @@ const Footer = ({ openCommentBox }) => {
             SHARE
           </span>
         </span>
-        <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
-          {/**  <span className="flex items-center pb-1 lg:pb-0">
-            <EyeIcon className="h-5 w-5 md:h-6 md:w-5 text-gray-500 " />
-            <span className="text-xs lg:text-sm italic ml-1 text-primary">
-              12k
-            </span>
-          </span>
-          VIEWS*/}
-          <span>
-            <Sound />
-          </span>
-        </span>
+
         <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
           <span className="flex items-center space-x-1 text-xs ">
             <span className="cursor-pointer " onClick={openCommentBox}>

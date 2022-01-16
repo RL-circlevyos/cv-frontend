@@ -6,16 +6,20 @@ import { Power } from "react-feather";
 import {
   //BellIcon,
   BriefcaseIcon,
-  ChevronDoubleUpIcon,
+  FireIcon,
+  CogIcon,
+  // ChevronDoubleUpIcon,
   // CogIcon,
   // CurrencyRupeeIcon,
   HeartIcon,
+  BookmarkAltIcon,
   // HomeIcon,
   // MoonIcon,
   // PencilAltIcon,
   // PresentationChartLineIcon,
   // SunIcon,
   UserCircleIcon,
+  PlusIcon,
 } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -24,7 +28,7 @@ import Example from "./Dropdown";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const auth = useSelector((state) => state.auth);
-  const [openModal, setOpenModal] = useState(false);
+  /**const [openModal, setOpenModal] = useState(false);**/
   const user = auth.userid;
   /***const [colorTheme, setTheme] = useDarkMode();*/
 
@@ -34,9 +38,22 @@ function Navbar() {
         <div className="w-full mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center justify-between w-full">
-              <Link to="/" className="flex-shrink-0">
+              <div className="flex items-center justify-start w-full md:hidden ">
+                <Link to="/" className="flex-shrink-0">
+                  <img className="h-14 w-14" src={logo} alt="logo" />
+                </Link>
+                <Link
+                  to="/"
+                  className="flex-shrink-0 hidden xs:block md:hidden font-extrabold text-sl"
+                >
+                  Circlevyos
+                </Link>
+              </div>
+
+              <Link to="/" className="flex-shrink-0 hidden md:flex">
                 <img className="h-14 w-14" src={logo} alt="logo" />
               </Link>
+
               <div className="hidden  md:block ">
                 <div className="flex items-center gap-2 justify-center">
                   {/* <div className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium">
@@ -63,7 +80,7 @@ function Navbar() {
                       imagines
                     </b>
                   </Link>
-                  <Link
+                  {/* <Link
                     to="/trendings"
                     className="hidden md:flex lg:hidden items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                   >
@@ -71,7 +88,7 @@ function Navbar() {
                     <b className="sm:block hidden text-sm uppercase font-extrabold">
                       trendings
                     </b>
-                  </Link>
+                  </Link> */}
                   <Link
                     to="/marketplace"
                     className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
@@ -177,11 +194,20 @@ function Navbar() {
                   </div> */}
               </div>
             </div>
-            <div className="-mr-2 flex md:hidden">
+            <div className="-mr-2 flex justify-center items-center gap-x-8 md:hidden">
+              <Link
+                to="/create-imagine"
+                className="flex-shrink-0 bg-cyan-700 text-white py-1 px-1.5 rounded shadow flex font-bold text-tiny"
+              >
+                Create
+                <PlusIcon className="h-5 w-5" />
+              </Link>
+
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
-                className="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                className="bg-teal-700 inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white
+                 hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-800 focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -248,7 +274,7 @@ function Navbar() {
                 </Link>{" "}
                 <hr /> */}
                 <Link
-                  to="/imagines"
+                  to="/"
                   className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                 >
                   <HeartIcon className="h-6 w-6 " />
@@ -258,6 +284,22 @@ function Navbar() {
                   <CurrencyRupeeIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">SOLVE & EARN</b>
                 </div>{" "} */}
+                <hr />
+                <Link
+                  to="/saved/general"
+                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                >
+                  <BookmarkAltIcon className="h-6 w-6" />
+                  <b className="sm:hidden block text-xs">Saved</b>
+                </Link>{" "}
+                <hr />
+                <Link
+                  to="/series"
+                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                >
+                  <FireIcon className="h-6 w-6" />
+                  <b className="sm:hidden block text-xs">Series</b>
+                </Link>{" "}
                 <hr />
                 <Link
                   to="/marketplace"
@@ -288,24 +330,32 @@ function Navbar() {
                   <BellIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">notifications</b>
                 </div>{" "}
-                <hr />*/}
+                <hr />
                 <Link
                   to="/trendings"
                   className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                 >
                   <ChevronDoubleUpIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">trendings</b>
-                </Link>{" "}
-                {user && (
+                </Link>{" "}*/}
+                {user ? (
                   <>
                     {" "}
                     <hr />
                     <Link
-                      to="/contribution/profile-imagines"
+                      to={`/profile/${user}`}
                       className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                     >
                       <UserCircleIcon className="h-6 w-6" />
-                      <b className="sm:hidden block text-xs">user</b>
+                      <b className="sm:hidden block text-xs">Profile</b>
+                    </Link>{" "}
+                    <hr />
+                    <Link
+                      to={`/settings/${user}`}
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <CogIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">Settings</b>
                     </Link>{" "}
                     <hr />
                     <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
@@ -313,6 +363,25 @@ function Navbar() {
                       <b className="sm:hidden block text-xs">logout</b>
                     </div>
                   </>
+                ) : (
+                  <div>
+                    <hr />
+                    <Link
+                      to="/login"
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <UserCircleIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">Login</b>
+                    </Link>{" "}
+                    <hr />
+                    <Link
+                      to="/register"
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <UserCircleIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">SignUp</b>
+                    </Link>{" "}
+                  </div>
                 )}
               </div>
             </div>
