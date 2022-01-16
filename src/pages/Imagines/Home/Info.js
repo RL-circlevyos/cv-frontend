@@ -37,9 +37,9 @@ const Info = () => {
           alt="dp"
         />
       </div>
-      <div className="text-xl font-bold mt-4">{auth?.userDetails.name}</div>
+      <div className="text-xl font-bold mt-4">{auth?.userDetails?.name}</div>
       <div className="text-base mt-4 px-4">
-        <i className="ml-2 text-sm">{auth?.userDetails.bio}</i>
+        <i className="ml-2 text-sm">{auth?.userDetails?.bio}</i>
       </div>
       <div className="flex justify-center items-start w-full px-4 gap-x-3 font-bold">
         <div className="text-base mt-4">

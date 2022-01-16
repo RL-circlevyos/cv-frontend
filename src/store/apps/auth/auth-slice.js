@@ -8,6 +8,7 @@ const initialAuthState = {
   email: "",
   password: "",
   userDetails: {},
+  myDetails: {},
   userImagines: [],
 };
 
@@ -24,6 +25,9 @@ const authSlice = createSlice({
     },
     userDetails(state, action) {
       state.userDetails = action.payload.userDetails;
+    },
+    myDetails(state, action) {
+      state.myDetails = action.payload.myDetails;
     },
     getImagines(state, action) {
       state.userImagines = action.payload.userImagines;

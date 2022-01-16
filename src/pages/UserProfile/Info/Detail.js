@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   userDetailsAction,
+  userFollowAction,
   userImaginesAction,
 } from "../../../store/apps/auth/auth-action";
 import AlertDialogSlide from "./../../../components/Dialog";
@@ -14,6 +15,14 @@ const Detail = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const id = useParams();
+
+  console.log(id.id);
+  console.log(auth.userid);
+  if (auth.userid === id.id) {
+    console.log("me user");
+  } else {
+    console.log("other user");
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -34,9 +43,10 @@ const Detail = () => {
   }, []);
   const [follow, setFollow] = useState(false);
   const clickFollowHandler = useCallback(() => {
-    user ? setFollow(!follow) : handleClickOpen();
-  }, [follow, handleClickOpen, user]);
+    user ? dispatch(userFollowAction(id.id)) : handleClickOpen();
+  }, [handleClickOpen, user, id.id, dispatch]);
   console.log(auth?.userDetails);
+  console.log(auth?.myDetails);
 
   return (
     <div className="w-full font-Mulish">
@@ -56,7 +66,7 @@ const Detail = () => {
             </span>
           </div>
           <div className="flex items-start flex-col space-y-2 w-full font-bold">
-            <span className="text-2xl">{auth?.userDetails.name}</span>
+            <span className="text-2xl">{auth?.userDetails?.name}</span>
 
             <span className="flex justify-center flex-wrap items-start space-x-2">
               <span className="text-base text-primary">Followers:</span>
@@ -77,18 +87,20 @@ const Detail = () => {
             </span>
           </div>
         </div>
-
-        <span className="cursor-pointer mt-5" onClick={clickFollowHandler}>
-          {follow ? (
-            <span className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24">
-              Follow
-            </span>
-          ) : (
-            <span className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28">
-              Following
-            </span>
-          )}
-        </span>
+        {console.log(id.id)}
+        {auth.userid === id.id ? null : (
+          <span className="cursor-pointer mt-5" onClick={clickFollowHandler}>
+            {follow ? (
+              <span className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24">
+                Follow
+              </span>
+            ) : (
+              <span className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28">
+                Following
+              </span>
+            )}
+          </span>
+        )}
 
         <div className="mt-3 space-x-2 px-4">
           <span className="text-lg text-gray-700 font-bold">Bio:</span>
@@ -144,17 +156,19 @@ const Detail = () => {
           </div>
         </div>
 
-        <span className="cursor-pointer mt-5" onClick={clickFollowHandler}>
-          {follow ? (
-            <span className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24">
-              Follow
-            </span>
-          ) : (
-            <span className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28">
-              Following
-            </span>
-          )}
-        </span>
+        {auth.userid === id.id ? null : (
+          <span className="cursor-pointer mt-5" onClick={clickFollowHandler}>
+            {follow ? (
+              <span className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24">
+                Follow
+              </span>
+            ) : (
+              <span className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28">
+                Following
+              </span>
+            )}
+          </span>
+        )}
         <div className="mt-3 space-x-2 px-4">
           <span className="text-base text-gray-700 font-bold">Bio:</span>
           <span className="text-sm text-gray-700 italic">

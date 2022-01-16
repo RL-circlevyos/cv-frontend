@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 
 import {
   AuthState,
+  myDetailsAction,
   userDetailsAction,
   userImaginesAction,
 } from "./store/apps/auth/auth-action";
@@ -62,6 +63,7 @@ function App() {
       dispatch(generalImagineFetchAction());
       dispatch(userDetailsAction());
       dispatch(userImaginesAction());
+      dispatch(myDetailsAction());
     }, 500);
     return () => {
       clearTimeout(timer);
