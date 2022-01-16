@@ -114,7 +114,6 @@ function Navbar() {
                   )}
                 </button>
               </div>
-
               <div className="flex items-center justify-center ml-2 w-full md:hidden ">
                 <Link to="/" className="flex-shrink-0">
                   <img className="h-10 w-10" src={logo} alt="logo" />

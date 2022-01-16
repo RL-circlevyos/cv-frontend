@@ -65,6 +65,18 @@ const Sidebar = () => {
                 </span>
               </NavLink>
               <NavLink
+                to="/helo"
+                className={({ isActive }) =>
+                  isActive
+                    ? "block py-2 px-10 mt-1 rounded-2xl transition duration-200 bg-teal-800 text-white"
+                    : "block py-2 px-10 mt-1 rounded-2xl transition duration-200  focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                }
+              >
+                <span className="flex items-center space-x-2">
+                  <HeartIcon className="w-6 h-6 mr-2" /> Helo
+                </span>
+              </NavLink>
+              <NavLink
                 to={`/series`}
                 className={({ isActive }) =>
                   isActive
