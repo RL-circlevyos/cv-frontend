@@ -22,8 +22,8 @@ const Header = () => {
         </Link>
       </div>
       <div className="block lg:hidden">
-        <div className="text-lg font-medium uppercase text-primary flex justify-between items-start px-3">
-          <Link to="/general-imagines/myimagines">
+        <div className="text-lg font-bold uppercase text-primary flex justify-between items-start px-3 mt-5">
+          <Link to="/">
             <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
           </Link>
           <span>Create Imagines</span>

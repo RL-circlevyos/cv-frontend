@@ -408,7 +408,7 @@ const CreateImagines = ({ getContent }) => {
             </div>
             <div className="flex justify-end items-center pt-2 mb-4 ">
               <div className="flex items-center space-x-2 ">
-                {!title || !intro ? (
+                {!title || !value ? (
                   <button className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 bg-gray-300 text-white ">
                     Publish
                   </button>

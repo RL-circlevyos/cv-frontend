@@ -29,7 +29,11 @@ const Info = () => {
       <div className="w-24 h-24">
         <img
           className="w-full h-full rounded-full object-cover"
-          src={auth?.userDetails?.photo?.secure_url}
+          src={
+            auth?.userDetails?.photo?.secure_url
+              ? auth?.userDetails?.photo?.secure_url
+              : dp
+          }
           alt="dp"
         />
       </div>

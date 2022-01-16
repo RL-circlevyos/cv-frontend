@@ -90,7 +90,7 @@ function App() {
         <Route path="/:id/update" element={<GeneralUpdate />} />
         <Route path="/series" element={<Upcoming />} />
         <Route path="/marketplace" element={<Marketplace />} />
-        <Route path="/trendings" element={<Trending />} />
+        {/* <Route path="/trendings" element={<Trending />} /> */}
 
         <Route path="*" element={<PageNotFound />} />
 

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Scrollbars from "react-custom-scrollbars-2";
+import React from "react";
 import { useSelector } from "react-redux";
 import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImagines";
 import Card from "./Card";
@@ -20,9 +19,11 @@ const List = () => {
                   <SkeletonImagines />
                 ) : (
                   <Card
+                    id={imagine?._id}
                     introImage={imagine?.introImage}
                     outroImage={imagine?.outroImage}
                     title={imagine?.title}
+                    category={imagine?.category}
                     author={imagine?.user}
                     name={imagine?.user?.name}
                     appriciates={imagine.appriciates}

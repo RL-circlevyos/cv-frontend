@@ -6,6 +6,7 @@ import {
   userImaginesAction,
 } from "../../../store/apps/auth/auth-action";
 import AlertDialogSlide from "./../../../components/Dialog";
+import dp from "../../../assets/person.png";
 
 const Detail = () => {
   const auth = useSelector((state) => state.auth);
@@ -44,7 +45,11 @@ const Detail = () => {
           <div className="block w-32 space-y-4">
             <span className="w-24 h-24">
               <img
-                src={auth?.userDetails?.photo?.secure_url}
+                src={
+                  auth?.userDetails?.photo?.secure_url
+                    ? auth?.userDetails?.photo?.secure_url
+                    : dp
+                }
                 alt="dp"
                 className="w-28 h-28 object-cover rounded-full "
               />
@@ -88,7 +93,9 @@ const Detail = () => {
         <div className="mt-3 space-x-2 px-4">
           <span className="text-lg text-gray-700 font-bold">Bio:</span>
           <span className="text-base text-gray-700">
-            {auth?.userDetails?.bio}.
+            {auth?.userDetails?.bio
+              ? auth?.userDetails?.bio
+              : "Hi there, I m a newbie in circlevyos"}
           </span>
         </div>
       </div>
@@ -98,7 +105,11 @@ const Detail = () => {
           <div className="block w-20 space-y-4">
             <span className="w-14 h-14">
               <img
-                src="https://images.unsplash.com/photo-1582266255765-fa5cf1a1d501?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                src={
+                  auth?.userDetails?.photo?.secure_url
+                    ? auth?.userDetails?.photo?.secure_url
+                    : dp
+                }
                 alt="dp"
                 className="w-16 h-16 object-cover rounded-full "
               />
@@ -106,10 +117,16 @@ const Detail = () => {
           </div>
           <div className="flex items-start flex-col space-y-2  font-bold">
             <span className="text-lg">{auth?.userDetails?.name}</span>
-            <span className="flex justify-center items-start text-sm space-x-2">
-              <span className=" text-primary">Followers:</span>
-              <span className=" text-gray-700">
+
+            <span className="flex justify-center flex-wrap items-start space-x-2">
+              <span className="text-sm text-primary">Followers:</span>
+              <span className="text-sm text-gray-700">
                 {auth?.userDetails?.followers?.length}
+              </span>
+
+              <span className="text-sm text-primary ">Following:</span>
+              <span className="text-sm text-gray-700">
+                {auth?.userDetails?.following?.length}
               </span>
             </span>
             <span className="flex justify-center text-sm items-start space-x-3">
@@ -140,8 +157,10 @@ const Detail = () => {
         </span>
         <div className="mt-3 space-x-2 px-4">
           <span className="text-base text-gray-700 font-bold">Bio:</span>
-          <span className="text-sm text-gray-700">
-            {auth?.userImagines?.bio}
+          <span className="text-sm text-gray-700 italic">
+            {auth?.userDetails?.bio
+              ? auth?.userDetails?.bio
+              : "Hi there, I m a newbie in circlevyos"}
           </span>
         </div>
       </div>

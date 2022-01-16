@@ -106,31 +106,31 @@ const Card = ({
       </div>
       <div className="flex flex-col space-y-2 w-3/5 py-1.5">
         <div className="flex items-start pt-3 space-x-2 px-1.5">
-          <div className="flex flex-1 ">
+          <div className="flex flex-1 w-full">
             <Link to={`/profile/${author}`}>
               {" "}
               <img
                 src={dp}
                 alt="dp"
-                className="w-7 h-7 rounded-full object-cover"
+                className="w-10 xs:w-7 h-7 rounded-full object-cover"
               />
             </Link>
 
-            <span className="text-sm ml-2 font-medium text-gray-600">
+            <span className="text-sm ml-2 font-medium text-gray-600 truncate">
               {author}
             </span>
           </div>
         </div>
         <span className=" text-gray-500">
           <Link to={`/${id}`} className="text-sm font-medium hover:underline">
-            <div className="text-base text-blackish font-semibold">{title}</div>
-            <div className="truncate">{content}</div>
+            <div className="text-base text-blackish font-semibold truncate">
+              {title}
+            </div>
 
-            <div className="bg-cyan-700 w-1/4 rounded text-xs text-white flex justify-center mt-3 mb-3">
+            <div className="bg-cyan-700 w-1/2 rounded text-xs text-white flex justify-center mt-3 mb-3">
               {category}
             </div>
           </Link>
-          {category}
         </span>
         <span className="flex items-start justify-around bottom-0 sticky space-x-4 pt-1">
           <span>
