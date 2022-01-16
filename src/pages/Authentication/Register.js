@@ -3,7 +3,7 @@ import registerlogo from "../../assets/register.svg";
 import { useForm } from "react-hook-form";
 import { Key, Mail, PhoneCall } from "react-feather";
 import { Link, useNavigate } from "react-router-dom";
-import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
+import { EyeIcon, EyeOffIcon, UserIcon } from "@heroicons/react/solid";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
@@ -108,7 +108,7 @@ const Register = () => {
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <span className="w-full ">
-                  {/* <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
+                  {/**  <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
                     {" "}
                     <PhoneCall />
                     <input
@@ -126,7 +126,7 @@ const Register = () => {
                   </span> */}
                   <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
                     {" "}
-                    <PhoneCall />
+                    <UserIcon className="h-6 w-6" />
                     <input
                       type="text"
                       placeholder="User Name"

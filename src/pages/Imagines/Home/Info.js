@@ -22,7 +22,7 @@ const Info = () => {
   console.log(auth?.userDetails);
   return (
     <Link
-      to={`/profile/${user}`}
+      to={user && `/profile/${user}`}
       className="w-full bg-white mt-2 py-8 shadow rounded-xl mb-3 lg:flex justify-center px-6
        flex-col items-center hidden font-Mulish text-gray-600 border border-gray-100"
     >

@@ -3,6 +3,7 @@ import { Transition } from "@headlessui/react";
 import logo from "../assets/circlevyos.svg";
 /***import useDarkMode from "./../hooks/useDarkMode";*/
 import { Power } from "react-feather";
+import dp from "../assets/person.png";
 import {
   //BellIcon,
   BriefcaseIcon,
@@ -20,6 +21,7 @@ import {
   // SunIcon,
   UserCircleIcon,
   PlusIcon,
+  CheckCircleIcon,
 } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -38,9 +40,62 @@ function Navbar() {
         <div className="w-full mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center justify-between w-full">
-              <div className="flex items-center justify-start w-full md:hidden ">
+              <div className="-mr-2 flex justify-center items-center gap-x-8 md:hidden">
+                {/* <Link
+                  to="/create-imagine"
+                  className="flex-shrink-0 bg-cyan-700 text-white py-1 px-1.5 rounded shadow flex font-bold text-tiny"
+                >
+                  Create
+                  <PlusIcon className="h-5 w-5" />
+                </Link> */}
+
+                <button
+                  onClick={() => setIsOpen(!isOpen)}
+                  type="button"
+                  className=" inline-flex items-center justify-center p-2 rounded-md text-primary hover:text-primary
+                  focus:outline-none"
+                  aria-controls="mobile-menu"
+                  aria-expanded="false"
+                >
+                  <span className="sr-only">Open main menu</span>
+                  {!isOpen ? (
+                    <svg
+                      className="block h-6 w-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="block h-6 w-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  )}
+                </button>
+              </div>
+              <div className="flex items-center justify-center ml-2 w-full md:hidden ">
                 <Link to="/" className="flex-shrink-0">
-                  <img className="h-14 w-14" src={logo} alt="logo" />
+                  <img className="h-10 w-10" src={logo} alt="logo" />
                 </Link>
                 <Link
                   to="/"
@@ -194,58 +249,23 @@ function Navbar() {
                   </div> */}
               </div>
             </div>
-            <div className="-mr-2 flex justify-center items-center gap-x-8 md:hidden">
+            <div className="mx-2 flex justify-center items-center gap-x-1 md:hidden">
               <Link
                 to="/create-imagine"
-                className="flex-shrink-0 bg-cyan-700 text-white py-1 px-1.5 rounded shadow flex font-bold text-tiny"
+                className="flex-shrink-0 bg-cyan-700 text-white py-1 px-1.5 rounded-full shadow flex font-bold text-tiny mr-2"
               >
-                Create
-                <PlusIcon className="h-5 w-5" />
+                <PlusIcon className="h-6 w-5" />
               </Link>
-
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                type="button"
-                className="bg-teal-700 inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white
-                 hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-teal-800 focus:ring-white"
-                aria-controls="mobile-menu"
-                aria-expanded="false"
+              <Link
+                to={user && `/profile/${user}`}
+                className="flex-shrink-0 py-1 px-1.5 rounded-full flex"
               >
-                <span className="sr-only">Open main menu</span>
-                {!isOpen ? (
-                  <svg
-                    className="block h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="block h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                )}
-              </button>
+                <img
+                  src={dp}
+                  alt="dp"
+                  className="w-7 h-7 rounded-full object-cover"
+                />
+              </Link>
             </div>
           </div>
         </div>
@@ -338,32 +358,7 @@ function Navbar() {
                   <ChevronDoubleUpIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">trendings</b>
                 </Link>{" "}*/}
-                {user ? (
-                  <>
-                    {" "}
-                    <hr />
-                    <Link
-                      to={`/profile/${user}`}
-                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
-                    >
-                      <UserCircleIcon className="h-6 w-6" />
-                      <b className="sm:hidden block text-xs">Profile</b>
-                    </Link>{" "}
-                    <hr />
-                    <Link
-                      to={`/settings/${user}`}
-                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
-                    >
-                      <CogIcon className="h-6 w-6" />
-                      <b className="sm:hidden block text-xs">Settings</b>
-                    </Link>{" "}
-                    <hr />
-                    <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
-                      <Power />
-                      <b className="sm:hidden block text-xs">logout</b>
-                    </div>
-                  </>
-                ) : (
+                {!user ? (
                   <div>
                     <hr />
                     <Link
@@ -378,10 +373,34 @@ function Navbar() {
                       to="/register"
                       className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                     >
-                      <UserCircleIcon className="h-6 w-6" />
+                      <CheckCircleIcon className="h-6 w-6" />
                       <b className="sm:hidden block text-xs">SignUp</b>
                     </Link>{" "}
                   </div>
+                ) : (
+                  <>
+                    <hr />
+                    <Link
+                      to={user && `/profile/${user}`}
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <UserCircleIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">Profile</b>
+                    </Link>{" "}
+                    <hr />
+                    <Link
+                      to={user && `/settings/${user}`}
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <CogIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">Settings</b>
+                    </Link>{" "}
+                    <hr />
+                    <div className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium">
+                      <Power />
+                      <b className="sm:hidden block text-xs">logout</b>
+                    </div>
+                  </>
                 )}
               </div>
             </div>
