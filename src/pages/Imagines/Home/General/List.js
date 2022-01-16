@@ -34,7 +34,7 @@ const List = () => {
               ) : (
                 <div className="w-full pr-4">
                   <Card
-                    author={imagine?.user}
+                    author={imagine?.user?._id}
                     avatar={imagine?.user?.photo?.secure_url}
                     id={imagine._id}
                     title={imagine.title}
@@ -43,6 +43,7 @@ const List = () => {
                     category={imagine.category}
                     // views={imagine.views}
                     appriciates={imagine.appriciates}
+                    audiovoice={imagine?.audiovoice?.secure_url}
                   />
                 </div>
               )}

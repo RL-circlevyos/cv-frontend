@@ -12,6 +12,9 @@ const Header = ({ author }) => {
   const auth = useSelector((state) => state.auth);
   const user = auth.userid;
   const [open, setOpen] = useState(false);
+  const imagine = useSelector((state) => state.imagine);
+
+  console.log(imagine?.singleImagine?.singleImagine);
 
   const handleClickOpen = useCallback(() => {
     setOpen(true);
@@ -34,11 +37,14 @@ const Header = ({ author }) => {
     <>
       <div className=" flex justify-between items-center px-3 font-Mulish">
         <div className="flex items-center w-full space-x-2">
-          <Link to={`/profile/${author}`}>
+          <Link
+            to={`/profile/${imagine?.singleImagine?.singleImagine?.user?._id}`}
+          >
             <img
               src={
-                singleImagine?.singleImagine?.photo
-                  ? singleImagine?.singleImagine?.photo
+                imagine?.singleImagine?.singleImagine?.user?.photo
+                  ? imagine?.singleImagine?.singleImagine?.user?.photo
+                      ?.secure_url
                   : dp
               }
               alt="dp"
@@ -48,10 +54,11 @@ const Header = ({ author }) => {
           <div className="flex flex-col items-start">
             <div className="flex items-center space-x-2">
               <span className="text-sm font-bold text-gray-900">
-                {singleImagine?.singleImagine?.name}
+                {imagine?.singleImagine?.singleImagine?.user?.name}
               </span>
+              {/* {imagine?.singleImagine?.singleImagine?.user?.email} */}
 
-              <span className="cursor-pointer" onClick={clickFollowHandler}>
+              {/* <span className="cursor-pointer" onClick={clickFollowHandler}>
                 {follow ? (
                   <span className="bg-sky-600 text-gray-100 px-1 py-1 font-medium text-tiny cursor-pointer">
                     Following
@@ -61,7 +68,7 @@ const Header = ({ author }) => {
                     Follow
                   </span>
                 )}
-              </span>
+              </span> */}
             </div>
             <div className="text-xs text-gray-500 mt-1">
               {moment(singleImagine?.singleImagine?.createdAt).format(
@@ -74,11 +81,17 @@ const Header = ({ author }) => {
         <div className="w-full hidden lg:flex justify-between items-center">
           <div></div>
           <div className="w-full max-w-sm">
-            <Audio audiosrc={song} />
+            {imagine.singleImagine?.singleImagine?.audiovoice && (
+              <Audio
+                audiosrc={
+                  imagine.singleImagine?.singleImagine?.audiovoice?.secure_url
+                }
+              />
+            )}
           </div>
         </div>
 
-        <div className="flex items-start space-x-5 text-gray-400">
+        {/* <div className="flex items-start space-x-5 text-gray-400">
           <span className="cursor-pointer" onClick={clickBookmarkHandler}>
             {bookmark ? (
               <BookmarkIcon className="h-6 w-6 text-primary" />
@@ -100,7 +113,7 @@ const Header = ({ author }) => {
             )}
           </span>
           <span className=""></span>
-        </div>
+        </div> */}
       </div>
       <AlertDialogSlide
         open={open}

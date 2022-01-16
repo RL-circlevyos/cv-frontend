@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   userDetailsAction,
+  userFollowAction,
   userImaginesAction,
+  userUnfollowAction,
 } from "../../../store/apps/auth/auth-action";
 import AlertDialogSlide from "./../../../components/Dialog";
 import dp from "../../../assets/person.png";
+import { authAction } from "../../../store/apps/auth/auth-slice";
 
 const Detail = () => {
   const auth = useSelector((state) => state.auth);
@@ -34,9 +37,13 @@ const Detail = () => {
   }, []);
   const [follow, setFollow] = useState(false);
   const clickFollowHandler = useCallback(() => {
-    user ? setFollow(!follow) : handleClickOpen();
-  }, [follow, handleClickOpen, user]);
+    user ? dispatch(userFollowAction(id.id)) : handleClickOpen();
+  }, [handleClickOpen, user, id.id, dispatch]);
+  const clickUnfollowHandler = useCallback(() => {
+    user ? dispatch(userUnfollowAction(id.id)) : handleClickOpen();
+  }, [handleClickOpen, user, id.id, dispatch]);
   console.log(auth?.userDetails);
+  console.log(auth?.myDetails);
 
   return (
     <div className="w-full font-Mulish">
@@ -56,8 +63,10 @@ const Detail = () => {
             </span>
           </div>
           <div className="flex items-start flex-col space-y-2 w-full font-bold">
-            <span className="text-2xl">{auth?.userDetails.name}</span>
-
+            <span className="text-2xl">{auth?.userDetails?.name}</span>
+            <span className="text-base text-gray-400">
+              {auth?.userDetails?.email}{" "}
+            </span>
             <span className="flex justify-center flex-wrap items-start space-x-2">
               <span className="text-base text-primary">Followers:</span>
               <span className="text-base text-gray-700">
@@ -77,25 +86,33 @@ const Detail = () => {
             </span>
           </div>
         </div>
-
-        <span className="cursor-pointer mt-5" onClick={clickFollowHandler}>
-          {follow ? (
-            <span className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24">
-              Follow
-            </span>
-          ) : (
-            <span className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28">
-              Following
-            </span>
-          )}
-        </span>
+        {console.log(id.id)}
+        {auth.userid === id.id ? null : (
+          <span className="cursor-pointer mt-5">
+            {!auth?.userDetails?.followers?.includes(auth.userid) ? (
+              <span
+                className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24"
+                onClick={clickFollowHandler}
+              >
+                Follow
+              </span>
+            ) : (
+              <span
+                className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28"
+                onClick={clickUnfollowHandler}
+              >
+                Following
+              </span>
+            )}
+          </span>
+        )}
 
         <div className="mt-3 space-x-2 px-4">
           <span className="text-lg text-gray-700 font-bold">Bio:</span>
           <span className="text-base text-gray-700">
-            {auth?.userDetails?.bio
-              ? auth?.userDetails?.bio
-              : "Hi there, I m a newbie in circlevyos"}
+            {auth?.userDetails?.bio === "undefined"
+              ? "Hello, I am a newbie in circlevyos"
+              : auth?.userDetails?.bio}
           </span>
         </div>
       </div>
@@ -117,7 +134,9 @@ const Detail = () => {
           </div>
           <div className="flex items-start flex-col space-y-2  font-bold">
             <span className="text-lg">{auth?.userDetails?.name}</span>
-
+            <span className="text-sm text-gray-400">
+              {auth?.userDetails?.email}{" "}
+            </span>
             <span className="flex justify-center flex-wrap items-start space-x-2">
               <span className="text-sm text-primary">Followers:</span>
               <span className="text-sm text-gray-700">
@@ -144,23 +163,31 @@ const Detail = () => {
           </div>
         </div>
 
-        <span className="cursor-pointer mt-5" onClick={clickFollowHandler}>
-          {follow ? (
-            <span className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24">
-              Follow
-            </span>
-          ) : (
-            <span className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28">
-              Following
-            </span>
-          )}
-        </span>
+        {auth.userid === id.id ? null : (
+          <span className="cursor-pointer mt-5">
+            {!auth?.userDetails?.followers?.includes(auth.userid) ? (
+              <span
+                className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24"
+                onClick={clickFollowHandler}
+              >
+                Follow
+              </span>
+            ) : (
+              <span
+                className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28"
+                onClick={clickUnfollowHandler}
+              >
+                Following
+              </span>
+            )}
+          </span>
+        )}
         <div className="mt-3 space-x-2 px-4">
           <span className="text-base text-gray-700 font-bold">Bio:</span>
           <span className="text-sm text-gray-700 italic">
-            {auth?.userDetails?.bio
-              ? auth?.userDetails?.bio
-              : "Hi there, I m a newbie in circlevyos"}
+            {auth?.userDetails?.bio === "undefined"
+              ? "Hello, I am a newbie in circlevyos"
+              : auth?.userDetails?.bio}
           </span>
         </div>
       </div>

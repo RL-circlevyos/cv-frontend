@@ -1,8 +1,8 @@
 import { PlayIcon } from "@heroicons/react/solid";
 import React, { useState, useRef } from "react";
-import song from "../../../assets/BTS - Pied Piper (방탄소년단 - Pied Piper) _Color Coded Lyrics_Han_Rom_Eng_가사_ ( 128kbps ).mp3";
+// import song from "../../../assets/BTS - Pied Piper (방탄소년단 - Pied Piper) _Color Coded Lyrics_Han_Rom_Eng_가사_ ( 128kbps ).mp3";
 
-function Sound() {
+function Sound({ audiovoice }) {
   const [percentage, setPercentage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -84,7 +84,7 @@ function Sound() {
             setDuration(e.currentTarget.duration.toFixed(2));
           }}
           // src={`https://storage.googleapis.com/niketan-dev-mode.appspot.com/${audiosrc}`}
-          src={song}
+          src={audiovoice}
         ></audio>
       </div>
     </div>

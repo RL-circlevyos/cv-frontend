@@ -64,6 +64,7 @@ const Sidebar = () => {
                   <HeartIcon className="w-6 h-6 mr-2" /> General
                 </span>
               </NavLink>
+
               <NavLink
                 to={`/series`}
                 className={({ isActive }) =>
@@ -84,9 +85,9 @@ const Sidebar = () => {
                     : "block py-2 px-10 mt-1 rounded-2xl transition duration-200 focus:text-white focus:bg-cyan-900   dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
                 }
               >
-                <span className="flex items-center space-x-2">
+                {/* <span className="flex items-center space-x-2">
                   <BookmarkAltIcon className="w-6 h-6 mr-2" /> Saved
-                </span>
+                </span> */}
               </NavLink>
 
               {/* <Link

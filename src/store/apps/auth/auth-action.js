@@ -249,6 +249,48 @@ export const userDetailsAction = (id) => {
   };
 };
 
+// mydetail
+export const myDetailsAction = () => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const userDetails = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/mydetails`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // console.log(response);
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      const response = await userDetails();
+      console.log(response.id);
+      dispatch(
+        authAction.userDetails({
+          myDetails: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const userImaginesAction = (id) => {
   return async (dispatch) => {
     // 📈 send data to database
@@ -284,6 +326,122 @@ export const userImaginesAction = (id) => {
           userImagines: response,
         })
       );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// follow
+export const userFollowAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const userDetails = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/follow`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id,
+          }),
+        }
+      );
+
+      // console.log(response);
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      const response = await userDetails();
+      console.log(response.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// unfollow
+export const userUnfollowAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const userDetails = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/unfollow`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id,
+          }),
+        }
+      );
+
+      // console.log(response);
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      await userDetails();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// change password
+export const changePasswordAction = (passwordBody) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const userDetails = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/password/update`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(passwordBody),
+        }
+      );
+
+      // console.log(response);
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      await userDetails();
     } catch (error) {
       console.log(error);
     }

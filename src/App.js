@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 
 import {
   AuthState,
+  myDetailsAction,
   userDetailsAction,
   userImaginesAction,
 } from "./store/apps/auth/auth-action";
@@ -51,6 +52,7 @@ import Upcoming from "./pages/Imagines/Home/Story/Upcoming";
 import GeneralUpdate from "./pages/Imagines/Update/GeneralUpdate";
 import Profile from "./pages/UserProfile/Info/Profile";
 import Settings from "./pages/UserProfile/Info/Settings";
+import Helo from "./Helo";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +63,7 @@ function App() {
       dispatch(generalImagineFetchAction());
       dispatch(userDetailsAction());
       dispatch(userImaginesAction());
+      dispatch(myDetailsAction());
     }, 500);
     return () => {
       clearTimeout(timer);
@@ -81,6 +84,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route path="/" element={<ImagineList />} />
+        <Route path="/helo" element={<Helo />} />
         <Route path="/saved/general" element={<SavedGeneral />} />
 
         <Route path="/create-imagine" element={<CreateImagines />} />

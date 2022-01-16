@@ -7,6 +7,8 @@ import {
 } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import dp from "../../../../../assets/person.png";
+import Sound from "../../Sound";
+import reading_book from "../../../../../assets/reading_book.svg";
 const src =
   "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
 const CardStoryIm = ({
@@ -17,17 +19,18 @@ const CardStoryIm = ({
   introImage,
   username,
   appriciates,
+  audiovoice,
 }) => {
   const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = () => {
     setBookmark(!bookmark);
   };
   return (
-    <div className="w-full space-x-2 flex items-start justify-center shadow px-2">
+    <div className="w-full space-x-3 flex items-start justify-center shadow px-2">
       <Link to={`/${id}`}>
         <div className="w-28 h-28 bg-gray-50">
           <img
-            src={introImage ? introImage.secure_url : src}
+            src={introImage ? introImage.secure_url : reading_book}
             alt="pic"
             className="h-full w-full object-fill rounded-md "
           />
@@ -42,11 +45,11 @@ const CardStoryIm = ({
               className="w-6 h-6 rounded-full object-cover"
             />
 
-            <span className="text-sm ml-2 font-medium text-gray-900">
+            <span className="text-sm ml-2 font-medium text-gray-600">
               {username}
             </span>
           </div>
-          <span className="cursor-pointer " onClick={clickBookmarkHandler}>
+          {/* <span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
               <BookmarkIcon className="h-6 w-6 text-primary pt-1" />
             ) : (
@@ -65,17 +68,18 @@ const CardStoryIm = ({
                 />
               </svg>
             )}
-          </span>
+          </span> */}
         </div>
         <Link to={`/${id}`}>
           <span className=" text-gray-500 ">
-            <span className="text-xs font-medium hover:underline overflow-ellipsis">
+            <span className="text-base text-blackish font-medium hover:underline overflow-ellipsis truncate ...">
               {title}
             </span>
           </span>
         </Link>
         <span className="flex items-start space-x-4 pt-1">
           {" "}
+          <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center space-x-1">
             <LightBulbIcon className="h-6 w-6 text-yellow-500" />
             <i className="text-gray-500 text-xs font-bold">
