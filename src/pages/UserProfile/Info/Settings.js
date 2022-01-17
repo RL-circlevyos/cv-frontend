@@ -9,6 +9,7 @@ import Navbar from "../../../components/Navbar";
 
 const Settings = () => {
   const auth = useSelector((state) => state.auth);
+  const user = auth.userid;
   const [userName, setUserName] = useState(auth?.userDetails?.name);
   const [showName, setShowName] = useState(false);
   const changeName = () => {
@@ -67,8 +68,12 @@ const Settings = () => {
             <div className="mt-6 flex justify-center flex-col items-center">
               <div className="w-28 h-28">
                 <img
-                  className="w-full h-full rounded-full object-fill"
-                  src={auth?.userDetails?.photo?.secure_url}
+                  className="w-full h-full rounded-full object-cover"
+                  src={
+                    auth?.userDetails?.photo?.secure_url
+                      ? auth?.userDetails?.photo?.secure_url
+                      : dp
+                  }
                   alt="dp"
                 />
               </div>
@@ -186,7 +191,7 @@ const Settings = () => {
 
           <hr />
           <Link
-            to="/reset-password"
+            to={`/new-password/${user}`}
             className="my-10 text-lg bg-cyan-700 text-white px-4 py-2 rounded shadow-md font-semibold"
           >
             Change Your Password

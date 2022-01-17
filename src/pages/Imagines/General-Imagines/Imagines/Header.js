@@ -48,7 +48,7 @@ const Header = ({ author }) => {
                   : dp
               }
               alt="dp"
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-10 h-10 rounded-full object-cover border border-gray-300"
             />
           </Link>
           <div className="flex flex-col items-start">
@@ -56,7 +56,7 @@ const Header = ({ author }) => {
               <span className="text-sm font-bold text-gray-900">
                 {imagine?.singleImagine?.singleImagine?.user?.name}
               </span>
-              {/* {imagine?.singleImagine?.singleImagine?.user?.email} */}
+              {/** {imagine?.singleImagine?.singleImagine?.user?.email} */}
 
               {/* <span className="cursor-pointer" onClick={clickFollowHandler}>
                 {follow ? (

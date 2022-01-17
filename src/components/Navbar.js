@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { Transition } from "@headlessui/react";
 import logo from "../assets/circlevyos.svg";
 /***import useDarkMode from "./../hooks/useDarkMode";*/
-import { Power } from "react-feather";
+import { Feather, Power } from "react-feather";
 import dp from "../assets/person.png";
 import {
   //BellIcon,
@@ -22,8 +22,10 @@ import {
   UserCircleIcon,
   PlusIcon,
   CheckCircleIcon,
+  MenuAlt2Icon,
+  XIcon,
 } from "@heroicons/react/solid";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Example from "./Dropdown";
 import AlertDialogSlide from "./Dialog";
@@ -36,7 +38,7 @@ function Navbar() {
   const auth = useSelector((state) => state.auth);
   /**const [openModal, setOpenModal] = useState(false);**/
   const user = auth.userid;
-  const userDp = auth?.userDetails?.photo?.secure_url;
+
   /***const [colorTheme, setTheme] = useDarkMode();*/
 
   const [open, setOpen] = useState(false);
@@ -73,44 +75,16 @@ function Navbar() {
                 <button
                   onClick={() => setIsOpen(!isOpen)}
                   type="button"
-                  className=" inline-flex items-center justify-center p-2 rounded-md text-primary hover:text-primary
+                  className=" inline-flex items-center justify-center p-2 rounded-md text-teal-800 hover:text-teal-800
                   focus:outline-none"
                   aria-controls="mobile-menu"
                   aria-expanded="false"
                 >
                   <span className="sr-only">Open main menu</span>
                   {!isOpen ? (
-                    <svg
-                      className="block h-6 w-6"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M4 6h16M4 12h16M4 18h16"
-                      />
-                    </svg>
+                    <MenuAlt2Icon className="w-7 h-7" />
                   ) : (
-                    <svg
-                      className="block h-6 w-6"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
+                    <XIcon className="w-6 h-6" />
                   )}
                 </button>
               </div>
@@ -133,26 +107,30 @@ function Navbar() {
 
               <div className="hidden  md:block ">
                 <div className="flex items-center gap-2 justify-center">
-                  <Link
+                  <NavLink
                     to="/"
-                    className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "flex items-center gap-1 mt-1 text-sm bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md uppercase font-extrabold"
+                        : "flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm uppercase font-extrabold"
+                    }
                   >
-                    {" "}
-                    <HeartIcon className="h-6 w-6" />
-                    <b className="sm:block hidden text-sm uppercase font-extrabold">
-                      imagines
-                    </b>
-                  </Link>
-
-                  <Link
+                    <span className="flex items-center space-x-2">
+                      <HeartIcon className="w-6 h-6 mr-2" /> Imagines
+                    </span>
+                  </NavLink>
+                  <NavLink
                     to="/marketplace"
-                    className="flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "flex items-center gap-1 mt-1 text-sm bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md uppercase font-extrabold"
+                        : "flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm uppercase font-extrabold"
+                    }
                   >
-                    <BriefcaseIcon className="h-6 w-6" />
-                    <b className="sm:block hidden text-sm uppercase font-extrabold">
-                      marketplace
-                    </b>
-                  </Link>
+                    <span className="flex items-center space-x-2">
+                      <BriefcaseIcon className="w-6 h-6 mr-2" /> Marketplace
+                    </span>
+                  </NavLink>
                 </div>
               </div>
               <div className="hidden space-x-2 items-baseline justify-end md:flex">
@@ -232,19 +210,19 @@ function Navbar() {
                   <b className="sm:hidden  block text-xs">imagines</b>
                 </Link>
                 <hr />
-                <Link
+                {/* <Link
                   to="/saved/general"
                   className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                 >
                   <BookmarkAltIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">Saved</b>
                 </Link>{" "}
-                <hr />
+                <hr /> */}
                 <Link
                   to="/series"
                   className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                 >
-                  <FireIcon className="h-6 w-6" />
+                  <Feather />
                   <b className="sm:hidden block text-xs">Series</b>
                 </Link>{" "}
                 <hr />

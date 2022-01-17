@@ -50,7 +50,7 @@ const Register = () => {
       console.log(data);
       dispatch(signUpWithNameEmailAndPassword(data));
       reset();
-      navigate("/select");
+      navigate("/");
     },
     [reset, dispatch, navigate]
   );
