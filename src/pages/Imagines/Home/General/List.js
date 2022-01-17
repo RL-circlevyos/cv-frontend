@@ -25,8 +25,6 @@ const List = () => {
     <>
       <div className="mb-20 lg:mb-10 w-full overflow-x-hidden">
         {imagine?.generalImagines?.map((imagine) => {
-          console.log(imagine);
-
           return (
             <>
               {ui.isLoading ? (

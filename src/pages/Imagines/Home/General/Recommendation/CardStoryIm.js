@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  BookmarkIcon,
-  BookOpenIcon,
-  EyeIcon,
-  LightBulbIcon,
-} from "@heroicons/react/solid";
+import { LightBulbIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import dp from "../../../../../assets/person.png";
 import Sound from "../../Sound";

@@ -19,7 +19,6 @@ const Info = () => {
     };
   }, [dispatch, auth.userid]);
 
-  console.log(auth?.userDetails);
   return (
     <Link
       to={user && `/profile/${user}`}

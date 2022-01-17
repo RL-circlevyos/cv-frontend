@@ -28,11 +28,13 @@ const Content = () => {
     : "w-0";
   return (
     <div className="mt-3 space-y-2 block text-base md:text-sl flex-initial text-gray-900 font-Mulish leading-relaxed">
-      <div className="text-lg md:text-3xl font-bold px-5">
-        <label className="text-tiny md:text-base bg-primary rounded-md text-white py-1 px-2 mr-4">
-          {" "}
-          {imagine?.singleImagine?.singleImagine?.category}
-        </label>
+      <div className="text-lg md:text-3xl font-bold px-5 flex items-center ">
+        {imagine?.singleImagine?.singleImagine?.category ? (
+          <label className="text-tiny md:text-base bg-primary rounded-md text-white py-1 px-2 mr-4">
+            {" "}
+            {imagine?.singleImagine?.singleImagine?.category}
+          </label>
+        ) : null}
         {imagine?.singleImagine?.singleImagine?.title}
 
         {/**  {post?.generalImagines?.title} */}

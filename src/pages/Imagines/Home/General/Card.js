@@ -36,7 +36,7 @@ const Card = ({
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const user = auth.userid;
-  console.log(category);
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = useCallback(() => {
@@ -53,7 +53,6 @@ const Card = ({
 
   const [like, setLike] = useState(false);
 
-  console.log("card call time");
   const [del, setDel] = useState(false);
 
   const handleDelOpen = useCallback(() => {
@@ -92,7 +91,7 @@ const Card = ({
           </Link>
         </div>
       </div>
-      <div className="flex flex-col space-y-2 w-3/5 py-1.5">
+      <div className="flex flex-col space-y-1 w-3/5 py-1">
         <div className="flex items-start pt-3 space-x-2 px-1.5">
           <div className="flex flex-1 w-full">
             <Link to={`/profile/${author}`}>
@@ -100,7 +99,7 @@ const Card = ({
               <img
                 src={avatar ? avatar : dp}
                 alt="dp"
-                className="w-10 xs:w-7 h-7 rounded-full object-cover"
+                className="w-10 xs:w-7 h-7 rounded-full object-cover border border-gray-300"
               />
             </Link>
 
@@ -109,13 +108,13 @@ const Card = ({
             </span>
           </div>
         </div>
-        <span className=" text-gray-500">
+        <span className=" text-gray-500 ml-2">
           <Link to={`/${id}`} className="text-sm font-medium hover:underline">
             <div className="text-base text-blackish font-semibold truncate">
               {title}
             </div>
 
-            <div className="bg-cyan-700 w-1/2 rounded text-xs text-white flex justify-center mt-3 mb-3">
+            <div className="bg-cyan-700 w-1/2 rounded text-xs text-white flex justify-center mt-4 mb-2">
               {category}
             </div>
           </Link>

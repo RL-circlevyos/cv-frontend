@@ -53,6 +53,7 @@ import GeneralUpdate from "./pages/Imagines/Update/GeneralUpdate";
 import Profile from "./pages/UserProfile/Info/Profile";
 import Settings from "./pages/UserProfile/Info/Settings";
 import Helo from "./Helo";
+import NewPassword from "./pages/Authentication/NewPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,6 +83,7 @@ function App() {
         <Route path="/select" element={<Select />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/new-password/:id" element={<NewPassword />} />
 
         <Route path="/" element={<ImagineList />} />
         <Route path="/helo" element={<Helo />} />

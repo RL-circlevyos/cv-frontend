@@ -11,7 +11,6 @@ const Recommendations = () => {
       <div className="space-y-5 flex flex-col justify-center items-center w-full font-Mulish px-4 py-2">
         {" "}
         {imagine?.generalImagines?.map((imagine) => {
-          console.log(imagine, "recommendation");
           return (
             <>
               {ui.isLoading ? (

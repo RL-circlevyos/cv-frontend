@@ -9,10 +9,15 @@ const List = () => {
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full font-Mulish">
         <div className="gap-4 flex flex-wrap items-center justify-center overflow-x-hidden px-4">
+          {!auth?.userImagines && (
+            <span className="mt-4 font-bold italic text-lg">
+              You have not posted any imagine yet
+            </span>
+          )}
+
           {auth?.userImagines?.map((imagine) => {
-            console.log(imagine);
             return (
               <>
                 {ui.isLoading ? (

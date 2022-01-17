@@ -35,15 +35,13 @@ const Detail = () => {
   const handleClose = useCallback(() => {
     setOpen(false);
   }, []);
-  const [follow, setFollow] = useState(false);
+
   const clickFollowHandler = useCallback(() => {
     user ? dispatch(userFollowAction(id.id)) : handleClickOpen();
   }, [handleClickOpen, user, id.id, dispatch]);
   const clickUnfollowHandler = useCallback(() => {
     user ? dispatch(userUnfollowAction(id.id)) : handleClickOpen();
   }, [handleClickOpen, user, id.id, dispatch]);
-  console.log(auth?.userDetails);
-  console.log(auth?.myDetails);
 
   return (
     <div className="w-full font-Mulish">
@@ -86,7 +84,7 @@ const Detail = () => {
             </span>
           </div>
         </div>
-        {console.log(id.id)}
+
         {auth.userid === id.id ? null : (
           <span className="cursor-pointer mt-5">
             {!auth?.userDetails?.followers?.includes(auth.userid) ? (

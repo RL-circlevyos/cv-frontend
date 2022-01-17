@@ -21,78 +21,77 @@ const CreateImagines = ({ getContent }) => {
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
     );
   };
-  const count = draftToHtml(
-    convertToRaw(editorState.getCurrentContent())
-  ).length;
-  // const MAX_LENGTH = 15;
+  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    .length;
+  const MAX_LENGTH = 15;
 
-  // const getLengthOfSelectedText = () => {
-  //   const currentSelection = editorState.getSelection();
-  //   const isCollapsed = currentSelection.isCollapsed();
+  const getLengthOfSelectedText = () => {
+    const currentSelection = editorState.getSelection();
+    const isCollapsed = currentSelection.isCollapsed();
 
-  //   let length = 0;
+    let length = 0;
 
-  //   if (!isCollapsed) {
-  //     const currentContent = editorState.getCurrentContent();
-  //     const startKey = currentSelection.getStartKey();
-  //     const endKey = currentSelection.getEndKey();
-  //     const startBlock = currentContent.getBlockForKey(startKey);
-  //     const isStartAndEndBlockAreTheSame = startKey === endKey;
-  //     const startBlockTextLength = startBlock.getLength();
-  //     const startSelectedTextLength =
-  //       startBlockTextLength - currentSelection.getStartOffset();
-  //     const endSelectedTextLength = currentSelection.getEndOffset();
-  //     const keyAfterEnd = currentContent.getKeyAfter(endKey);
-  //     console.log(currentSelection);
-  //     if (isStartAndEndBlockAreTheSame) {
-  //       length +=
-  //         currentSelection.getEndOffset() - currentSelection.getStartOffset();
-  //     } else {
-  //       let currentKey = startKey;
+    if (!isCollapsed) {
+      const currentContent = editorState.getCurrentContent();
+      const startKey = currentSelection.getStartKey();
+      const endKey = currentSelection.getEndKey();
+      const startBlock = currentContent.getBlockForKey(startKey);
+      const isStartAndEndBlockAreTheSame = startKey === endKey;
+      const startBlockTextLength = startBlock.getLength();
+      const startSelectedTextLength =
+        startBlockTextLength - currentSelection.getStartOffset();
+      const endSelectedTextLength = currentSelection.getEndOffset();
+      const keyAfterEnd = currentContent.getKeyAfter(endKey);
+      console.log(currentSelection);
+      if (isStartAndEndBlockAreTheSame) {
+        length +=
+          currentSelection.getEndOffset() - currentSelection.getStartOffset();
+      } else {
+        let currentKey = startKey;
 
-  //       while (currentKey && currentKey !== keyAfterEnd) {
-  //         if (currentKey === startKey) {
-  //           length += startSelectedTextLength + 1;
-  //         } else if (currentKey === endKey) {
-  //           length += endSelectedTextLength;
-  //         } else {
-  //           length += currentContent.getBlockForKey(currentKey).getLength() + 1;
-  //         }
+        while (currentKey && currentKey !== keyAfterEnd) {
+          if (currentKey === startKey) {
+            length += startSelectedTextLength + 1;
+          } else if (currentKey === endKey) {
+            length += endSelectedTextLength;
+          } else {
+            length += currentContent.getBlockForKey(currentKey).getLength() + 1;
+          }
 
-  //         currentKey = currentContent.getKeyAfter(currentKey);
-  //       }
-  //     }
-  //   }
+          currentKey = currentContent.getKeyAfter(currentKey);
+        }
+      }
+    }
 
-  //   return length;
-  // };
+    return length;
+  };
 
-  // const handleBeforeInput = () => {
-  //   const currentContent = editorState.getCurrentContent();
-  //   const currentContentLength = currentContent.getPlainText("").length;
-  //   const selectedTextLength = getLengthOfSelectedText();
+  const handleBeforeInput = () => {
+    const currentContent = editorState.getCurrentContent();
+    const currentContentLength = currentContent.getPlainText("").length;
+    const selectedTextLength = getLengthOfSelectedText();
 
-  //   if (currentContentLength - selectedTextLength > MAX_LENGTH - 1) {
-  //     //console.log(currentContentLength - selectedTextLength);
+    if (currentContentLength - selectedTextLength > MAX_LENGTH - 1) {
+      //console.log(currentContentLength - selectedTextLength);
 
-  //     return "handled";
-  //   }
-  // };
+      return "handled";
+    }
+  };
 
-  // const handlePastedText = (pastedText) => {
-  //   const currentContent = editorState.getCurrentContent();
-  //   const currentContentLength = currentContent.getPlainText("").length;
-  //   const selectedTextLength = getLengthOfSelectedText();
+  const handlePastedText = (pastedText) => {
+    const currentContent = editorState.getCurrentContent();
+    const currentContentLength = currentContent.getPlainText("").length;
+    const selectedTextLength = getLengthOfSelectedText();
 
-  //   if (
-  //     currentContentLength + pastedText.length - selectedTextLength >
-  //     MAX_LENGTH
-  //   ) {
-  //     console.log(MAX_LENGTH.length);
+    if (
+      currentContentLength + pastedText.length - selectedTextLength >
+      MAX_LENGTH
+    ) {
+      console.log(MAX_LENGTH.length);
 
-  //     return "handled";
-  //   }
-  // };
+      return "handled";
+    }
+  };
 
   let navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -207,7 +206,7 @@ const CreateImagines = ({ getContent }) => {
                     onChange={(e) => setTitleContent(e.target.value)}
                   />
                 </span>
-                <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
+                <p className="mr-4 text-sm uppercase font-bold text-teal-700 float-right">
                   {title.length}/80
                 </p>
               </span>
@@ -267,7 +266,7 @@ const CreateImagines = ({ getContent }) => {
                     onChange={(e) => setIntroContent(e.target.value)}
                   />
                 </span>
-                <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right ">
+                <p className="mr-4 text-sm uppercase font-bold text-teal-700 float-right ">
                   {intro.length}/{limit}
                 </p>
               </span>
@@ -279,8 +278,8 @@ const CreateImagines = ({ getContent }) => {
                 toolbarClassName="flex justify-center mx-auto w-full"
                 editorClassName="mt-6 bg-white shadow py-5 px-3"
                 onEditorStateChange={onEditorStateChange}
-                //handleBeforeInput={handleBeforeInput}
-                //handlePastedText={handlePastedText}
+                handleBeforeInput={handleBeforeInput}
+                handlePastedText={handlePastedText}
                 toolbar={{
                   options: [
                     "inline",
@@ -294,7 +293,7 @@ const CreateImagines = ({ getContent }) => {
                   ],
                 }}
               />
-              <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
+              <p className="mr-4 text-sm uppercase font-bold text-teal-700 float-right">
                 {count - 8}
               </p>
             </div>
@@ -313,7 +312,7 @@ const CreateImagines = ({ getContent }) => {
                     onChange={(e) => setOutroContent(e.target.value)}
                   />
                 </span>
-                <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right">
+                <p className="mr-4 text-sm uppercase font-bold text-teal-700 float-right">
                   {outro.length}/{limit}
                 </p>
               </span>
