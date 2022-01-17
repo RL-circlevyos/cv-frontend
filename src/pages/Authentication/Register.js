@@ -2,10 +2,12 @@ import React, { useCallback, useState } from "react";
 import registerlogo from "../../assets/register.svg";
 import { useForm } from "react-hook-form";
 import { Key, Mail, PhoneCall } from "react-feather";
-import { Link } from "react-router-dom";
-import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
+import { Link, useNavigate } from "react-router-dom";
+import { EyeIcon, EyeOffIcon, UserIcon } from "@heroicons/react/solid";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { signUpWithNameEmailAndPassword } from "../../store/apps/auth/auth-action";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -23,13 +25,16 @@ const validationSchema = yup.object().shape({
     .min(8, "Password must be at least 8 characters")
     .max(16, "Password must not exceed 16 characters"),
 
-  phone: yup
-    .string()
-    .required("Phone number is required")
-    .matches(phoneRegExp, "Phone number is not valid"),
+  // phone: yup
+  //   .string()
+  //   .required("Phone number is required")
+  //   .matches(phoneRegExp, "Phone number is not valid"),
+  name: yup.string(),
 });
 
 const Register = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -43,9 +48,11 @@ const Register = () => {
   const onSubmit = useCallback(
     (data) => {
       console.log(data);
+      dispatch(signUpWithNameEmailAndPassword(data));
       reset();
+      navigate("/");
     },
-    [reset]
+    [reset, dispatch, navigate]
   );
   /**  console.log(errors);*/
 
@@ -101,7 +108,7 @@ const Register = () => {
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <span className="w-full ">
-                  <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
+                  {/**  <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
                     {" "}
                     <PhoneCall />
                     <input
@@ -114,6 +121,21 @@ const Register = () => {
                       {...register("phone")}
                       onKeyUp={() => {
                         trigger("phone");
+                      }}
+                    />
+                  </span> */}
+                  <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
+                    {" "}
+                    <UserIcon className="h-6 w-6" />
+                    <input
+                      type="text"
+                      placeholder="User Name"
+                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none  form-control ${
+                        errors.name && "invalid"
+                      }`}
+                      {...register("name")}
+                      onKeyUp={() => {
+                        trigger("name");
                       }}
                     />
                   </span>

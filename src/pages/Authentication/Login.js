@@ -2,10 +2,12 @@ import React, { useCallback, useState } from "react";
 import loginlogo from "../../assets/circlevyos.svg";
 import { useForm } from "react-hook-form";
 import { Key, Mail } from "react-feather";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { LoginWithNameEmailAndPassword } from "../../store/apps/auth/auth-action";
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -23,6 +25,9 @@ const validationSchema = yup.object().shape({
 });
 
 const Login = () => {
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -36,14 +41,16 @@ const Login = () => {
   const onSubmit = useCallback(
     (data) => {
       console.log(data);
+      dispatch(LoginWithNameEmailAndPassword(data));
       reset();
+      navigate("/");
     },
-    [reset]
+    [reset, dispatch, navigate]
   );
   /**  console.log(errors);*/
 
   const [passwordShown, setPasswordShown] = useState(false);
-  const view = () => {
+  const view = useCallback(() => {
     if (!passwordShown) {
       setPasswordShown(true);
     }
@@ -51,7 +58,7 @@ const Login = () => {
     if (passwordShown) {
       setPasswordShown(false);
     }
-  };
+  }, [passwordShown]);
   return (
     <>
       <div className="flex justify-center items-start md:space-x-6 bg-white">

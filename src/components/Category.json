@@ -1,0 +1,57 @@
+ [
+    {
+      "name": "Science",
+      "id": 1    },
+    {
+      "name": "Technology",
+      "id": 2    },
+    {
+      "name": "Life Events",
+      "id": 3    },
+    {
+      "name": "Fiction",
+      "id": 4    },
+    {
+      "name": "Business",
+      "id": 5    },
+    {
+      "name": "Food",
+      "id": 6    },
+    {
+      "name": "Entertainment",
+      "id": 7    },
+    {
+      "name": "Music",
+      "id": 8    },
+    {
+      "name": "Mystery",
+      "id": 9    },
+    {
+      "name": "Horror",
+      "id": 10
+    },
+    {
+      "name": "Thriller",
+      "id": 11
+    },
+    {
+      "name": "Nature",
+      "id": 12
+    },
+    {
+      "name": "Historical",
+      "id": 13
+    },
+    {
+      "name": "Romance",
+      "id": 14
+    },
+    {
+      "name": "Fantasy",
+      "id": 15
+    },
+    {
+      "name": "Others",
+      "id": 16
+    }
+  ]

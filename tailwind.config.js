@@ -4,13 +4,28 @@ module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: "class", // or 'media' or 'class'
   theme: {
+    screens: {
+      xs: "350px",
+      sm: "640px",
+      md: "768px",
+      lg: "1010px",
+      xl: "1280px",
+      x2l: "1536px",
+    },
+    minWidth: {
+      "0": "0",
+      "1/4": "25%",
+      "1/2": "50%",
+      "3/4": "75%",
+      full: "100%",
+    },
     fontSize: {
       xxs: ".60rem",
       xs: ".75rem",
       tiny: ".84rem",
       sm: ".875rem",
-
       base: "1rem",
+      sl: "1.09rem",
       lg: "1.125rem",
       xl: "1.25rem",
       "2xl": "1.5rem",
