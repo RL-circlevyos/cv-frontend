@@ -23,7 +23,7 @@ const CreateImagines = ({ getContent }) => {
   };
   const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
     .length;
-  const MAX_LENGTH = 15;
+  const MAX_LENGTH = 1500;
 
   const getLengthOfSelectedText = () => {
     const currentSelection = editorState.getSelection();

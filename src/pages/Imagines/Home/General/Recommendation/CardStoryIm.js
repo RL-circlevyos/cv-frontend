@@ -31,7 +31,7 @@ const CardStoryIm = ({
           />
         </div>
       </Link>
-      <div className="flex flex-col w-3/5 ">
+      <div className="flex flex-col w-3/5">
         <div className="flex items-start pt-3 space-x-2">
           <div className="flex flex-1">
             <img
