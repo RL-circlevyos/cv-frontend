@@ -12,7 +12,7 @@ import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import RadioBtn from "./Radio";
 
-const CreateImagines = ({ getContent }) => {
+const CreateImagines = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
@@ -72,8 +72,6 @@ const CreateImagines = ({ getContent }) => {
     const selectedTextLength = getLengthOfSelectedText();
 
     if (currentContentLength - selectedTextLength > MAX_LENGTH - 1) {
-      //console.log(currentContentLength - selectedTextLength);
-
       return "handled";
     }
   };
