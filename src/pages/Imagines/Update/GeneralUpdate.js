@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+/**import React, { useCallback, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { generalImagineCreateAction } from "../../../store/apps/imagines/imagine-action";
@@ -185,4 +185,4 @@ const GeneralUpdate = () => {
   );
 };
 
-export default React.memo(GeneralUpdate);
+export default React.memo(GeneralUpdate);*/

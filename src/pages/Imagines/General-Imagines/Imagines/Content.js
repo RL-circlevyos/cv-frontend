@@ -1,15 +1,11 @@
 import { Divider } from "@mui/material";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { generalImagineSingleFetchAction } from "../../../../store/apps/imagines/imagine-action";
-import song from "../../../../assets/Vsong.mp3";
+import React from "react";
+import { useSelector } from "react-redux";
+
 import Audio from "../../../Audio/Audio";
 
 const Content = () => {
-  const imagineid = useParams();
   const imagine = useSelector((state) => state.imagine);
-  const dispatch = useDispatch();
 
   const checkIntroImg = imagine?.singleImagine?.singleImagine?.intro
     ? "h-48"
@@ -41,7 +37,13 @@ const Content = () => {
       </div>
       <Divider />
       <div className="w-full lg:hidden block">
-        <Audio audiosrc={song} />
+        {imagine.singleImagine?.singleImagine?.audiovoice && (
+          <Audio
+            audiosrc={
+              imagine.singleImagine?.singleImagine?.audiovoice?.secure_url
+            }
+          />
+        )}
       </div>
 
       <div className="flex flex-wrap md:flex-nowrap items-start justify-center gap-2 px-4 font-medium pt-5">

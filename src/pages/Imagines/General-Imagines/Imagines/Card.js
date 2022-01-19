@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Content from "./Content";
 import Header from "./Header";
 import Footer from "./Footer";
-import { generalImagineSingleFetchAction } from "../../../../store/apps/imagines/imagine-action";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImagines";
+
+import { useSelector } from "react-redux";
+
 import SkeletonContentLeader from "../../../../components/SkeletonLoader/SkeletonContentLeader";
 
 const Card = ({

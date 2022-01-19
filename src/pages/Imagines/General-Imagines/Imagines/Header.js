@@ -1,38 +1,37 @@
 import React, { useCallback, useState } from "react";
-import { BookmarkIcon } from "@heroicons/react/solid";
+
 import { useSelector } from "react-redux";
 import moment from "moment";
 import dp from "../../../../assets/person.png";
 import { Link } from "react-router-dom";
 import AlertDialogSlide from "./../../../../components/Dialog";
 import Audio from "../../../Audio/Audio";
-import song from "../../../../assets/Vsong.mp3";
 
 const Header = ({ author }) => {
-  const auth = useSelector((state) => state.auth);
-  const user = auth.userid;
+  /**const auth = useSelector((state) => state.auth);
+  const user = auth.userid;*/
   const [open, setOpen] = useState(false);
   const imagine = useSelector((state) => state.imagine);
 
   console.log(imagine?.singleImagine?.singleImagine);
 
-  const handleClickOpen = useCallback(() => {
+  /**const handleClickOpen = useCallback(() => {
     setOpen(true);
-  }, []);
+  }, []);*/
 
   const handleClose = useCallback(() => {
     setOpen(false);
   }, []);
-  const [bookmark, setBookmark] = useState(false);
+  /**  const [bookmark, setBookmark] = useState(false);*/
   const singleImagine = useSelector((state) => state.imagine.singleImagine);
-  const clickBookmarkHandler = useCallback(() => {
+  /**const clickBookmarkHandler = useCallback(() => {
     user ? setBookmark(!bookmark) : handleClickOpen();
-  }, [bookmark, handleClickOpen, user]);
+  }, [bookmark, handleClickOpen, user]);*/
 
-  const [follow, setFollow] = useState(false);
-  const clickFollowHandler = useCallback(() => {
+  /**const [follow, setFollow] = useState(false);
+const clickFollowHandler = useCallback(() => {
     user ? setFollow(!follow) : handleClickOpen();
-  }, [follow, handleClickOpen, user]);
+  }, [follow, handleClickOpen, user]);*/
   return (
     <>
       <div className=" flex justify-between items-center px-3 font-Mulish">

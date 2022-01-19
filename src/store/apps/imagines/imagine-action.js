@@ -1,5 +1,6 @@
 import { UiSliceAction } from "../ui/uiSlice";
 import { imagineSliceAction } from "./imagine-slice";
+import { toast } from "react-toastify";
 
 // post imagine
 export const generalImagineCreateAction = (GeneralImagineBody) => async (
@@ -25,8 +26,13 @@ export const generalImagineCreateAction = (GeneralImagineBody) => async (
     console.log(response.json());
 
     if (!response.ok) {
+
+      toast.error("something went wrong");
+
       throw Error("Error occured in imagine create");
     }
+
+    toast.success("posted successfully");
   };
 
   try {
@@ -47,6 +53,7 @@ export const generalImagineCreateAction = (GeneralImagineBody) => async (
         errorMessage: e.message,
       })
     );
+
     throw e;
   } finally {
     dispatch(
@@ -76,6 +83,7 @@ export const generalImagineFetchAction = () => async (dispatch) => {
     );
 
     if (!response.ok) {
+      toast.error("something went wrong");
       throw Error("Error occured in class create");
     }
 
@@ -134,6 +142,9 @@ export const generalImagineSingleFetchAction = (imagineId) => async (
     );
 
     if (!response.ok) {
+
+      toast.error("something went wrong");
+
       throw Error("Error occured in class create");
     }
 
@@ -189,9 +200,10 @@ export const deleteImagineAction = (imagineId) => async (dispatch) => {
     );
 
     if (!response.ok) {
+      toast.error("something went wrong");
       throw Error("Error occured in class create");
     }
-
+    toast.info("deleted successfully");
     const data = await response.json();
     return data;
   };
@@ -239,8 +251,13 @@ export const commentCreateAction = (commentBody, imagineId) => async (
     console.log(response.json());
 
     if (!response.ok) {
+
+      toast.error("something went wrong");
+
       throw Error("Error occured in imagine create");
     }
+
+    toast.info("comment posted");
   };
 
   try {
@@ -256,6 +273,7 @@ export const commentCreateAction = (commentBody, imagineId) => async (
         errorMessage: e.message,
       })
     );
+
     throw e;
   } finally {
     dispatch(
@@ -285,6 +303,7 @@ export const commentFetchAction = (imagineId) => async (dispatch) => {
     );
 
     if (!response.ok) {
+      toast.error("something went wrong");
       throw Error("Error occured in class create");
     }
 
@@ -341,6 +360,7 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
     );
 
     if (!response.ok) {
+      toast.error("something went wrong");
       throw Error("Error occured in imagine appriciate");
     }
   };
@@ -358,6 +378,7 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
         errorMessage: e.message,
       })
     );
+
     throw e;
   } finally {
     dispatch(
@@ -388,6 +409,7 @@ export const saveImagineAction = (imagineId) => async (dispatch) => {
     );
 
     if (!response.ok) {
+      toast.error("something went wrong");
       throw Error("Error occured in imagine appriciate");
     }
   };
@@ -405,6 +427,7 @@ export const saveImagineAction = (imagineId) => async (dispatch) => {
         errorMessage: e.message,
       })
     );
+
     throw e;
   } finally {
     dispatch(

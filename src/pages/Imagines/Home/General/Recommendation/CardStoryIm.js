@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { LightBulbIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import dp from "../../../../../assets/person.png";
 import Sound from "../../Sound";
 import reading_book from "../../../../../assets/reading_book.svg";
-const src =
-  "https://images.unsplash.com/photo-1638208561774-6e02a8e17cc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
+
 const CardStoryIm = ({
   autor,
   avatar,
@@ -16,10 +15,10 @@ const CardStoryIm = ({
   appriciates,
   audiovoice,
 }) => {
-  const [bookmark, setBookmark] = useState(false);
+  /**  const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = () => {
     setBookmark(!bookmark);
-  };
+  };*/
   return (
     <div className="w-full space-x-3 flex items-start justify-center shadow px-2">
       <Link to={`/${id}`}>

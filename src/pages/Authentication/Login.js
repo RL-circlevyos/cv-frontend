@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { LoginWithNameEmailAndPassword } from "../../store/apps/auth/auth-action";
+import { ToastContainer } from "react-toastify";
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -184,6 +185,7 @@ const Login = () => {
             </div>
           </div>
         </div>
+        <ToastContainer autoClose={2000} />
       </div>
     </>
   );

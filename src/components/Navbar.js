@@ -7,13 +7,12 @@ import dp from "../assets/person.png";
 import {
   //BellIcon,
   BriefcaseIcon,
-  FireIcon,
   CogIcon,
   // ChevronDoubleUpIcon,
   // CogIcon,
   // CurrencyRupeeIcon,
   HeartIcon,
-  BookmarkAltIcon,
+
   // HomeIcon,
   // MoonIcon,
   // PencilAltIcon,
@@ -123,7 +122,7 @@ function Navbar() {
                     to="/marketplace"
                     className={({ isActive }) =>
                       isActive
-                        ? "flex items-center gap-1 mt-1 text-sm bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md uppercase font-extrabold"
+                        ? "flex items-center gap-1 mt-1 text-sm bg-greyish-200 cursor-pointer transition linear px-3 py-2 rounded-md uppercase font-extrabold"
                         : "flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm uppercase font-extrabold"
                     }
                   >
@@ -236,7 +235,6 @@ function Navbar() {
                 <hr />
                 {!user ? (
                   <div>
-                    <hr />
                     <Link
                       to="/login"
                       className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
@@ -255,7 +253,6 @@ function Navbar() {
                   </div>
                 ) : (
                   <>
-                    <hr />
                     <Link
                       to={user && `/profile/${user}`}
                       className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"

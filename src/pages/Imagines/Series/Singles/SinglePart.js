@@ -1,4 +1,4 @@
-import {
+/**import {
   ArrowLeftIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -120,7 +120,7 @@ const SinglePart = () => {
         dangerouslySetInnerHTML={{
           __html: content,
         }}
-      ></div> */}
+      ></div> 
           King Agnarr of Arendelle tells his daughters Elsa and Anna that their
           grandfather, King Runeard, forged a treaty with the neighboring tribe
           of Northuldra by building a dam in the Enchanted Forest (their
@@ -165,4 +165,4 @@ const SinglePart = () => {
   );
 };
 
-export default React.memo(SinglePart);
+export default React.memo(SinglePart);*/

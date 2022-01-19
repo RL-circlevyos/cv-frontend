@@ -4,8 +4,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import { ChevronLeft, Feather } from "react-feather";
 import {
-  BookmarkAltIcon,
-  FireIcon,
   //BookmarkAltIcon,
   HeartIcon,
   // PaperClipIcon,
@@ -78,7 +76,7 @@ const Sidebar = () => {
                   <label className="ml-2 font-extrabold">Series</label>
                 </span>
               </NavLink>
-              <NavLink
+              {/**  <NavLink
                 to={`/saved/general`}
                 className={({ isActive }) =>
                   isActive
@@ -88,8 +86,8 @@ const Sidebar = () => {
               >
                 {/* <span className="flex items-center space-x-2">
                   <BookmarkAltIcon className="w-6 h-6 mr-2" /> Saved
-                </span> */}
-              </NavLink>
+                </span> 
+              </NavLink> */}
 
               {/* <Link
                 exact

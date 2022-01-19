@@ -1,6 +1,6 @@
-import { UploadIcon } from "@heroicons/react/solid";
+/**import { UploadIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+
 import { useNavigate } from "react-router-dom";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -9,8 +9,8 @@ import draftToHtml from "draftjs-to-html";
 
 const CreateSeries = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
+  const onEditorStateChange = (editorsState) => {
+    setEditorState(editorsState);
 
     console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
   };
@@ -20,7 +20,7 @@ const CreateSeries = () => {
   const [coverImage, setCoverImage] = useState();
   const [audio, setAudio] = useState();
 
-  const dispatch = useDispatch();
+ 
   const formdata = new FormData();
 
   formdata.append("title", title);
@@ -61,8 +61,7 @@ const CreateSeries = () => {
     (e) => {
       e.preventDefault();
       console.log(formdata);
-      // dispatch(generalImagineCreateAction(formdata));
-
+     
       navigate("/series/storyname/:id");
     },
 
@@ -208,3 +207,4 @@ const CreateSeries = () => {
 };
 
 export default React.memo(CreateSeries);
+*/

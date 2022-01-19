@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import CommentList from "../../Comment/List";
 import Recommendation from "../../Home/General/Recommendation/Recommendation";
@@ -7,10 +7,7 @@ import Navbar from "../../../../components/Navbar";
 import Card from "./Card";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  generalImagineFetchAction,
-  generalImagineSingleFetchAction,
-} from "../../../../store/apps/imagines/imagine-action";
+import { generalImagineSingleFetchAction } from "../../../../store/apps/imagines/imagine-action";
 import { useParams } from "react-router-dom";
 
 const GeneralImagines = ({ i }) => {
