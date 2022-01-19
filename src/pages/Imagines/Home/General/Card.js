@@ -1,23 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  BookmarkIcon,
-  DotsVerticalIcon,
-  LightBulbIcon,
-  XIcon,
-} from "@heroicons/react/solid";
+import React, { useCallback, useState } from "react";
+import { DotsVerticalIcon, LightBulbIcon, XIcon } from "@heroicons/react/solid";
 import Sound from "../Sound";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   appriciateAction,
   deleteImagineAction,
-  saveImagineAction,
 } from "../../../../store/apps/imagines/imagine-action";
 import dp from "../../../../assets/person.png";
 import AlertDialogSlide from "../../../../components/Dialog";
 import DelPopup from "./../../../../components/DelPopup";
-import { userDetailsAction } from "../../../../store/apps/auth/auth-action";
+
 import just_saying from "../../../../assets/reading_book.svg";
 
 const Card = ({
@@ -46,12 +40,12 @@ const Card = ({
   const handleClose = useCallback(() => {
     setOpen(false);
   }, []);
-  const [bookmark, setBookmark] = useState(false);
+  /**const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = useCallback(() => {
     dispatch(saveImagineAction(id));
   }, [dispatch, id]);
 
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState(false);*/
 
   const [del, setDel] = useState(false);
 

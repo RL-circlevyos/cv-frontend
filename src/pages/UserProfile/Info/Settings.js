@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userDetailsUpdateAction } from "../../../store/apps/auth/auth-action";
 import Navbar from "../../../components/Navbar";
+import { ToastContainer } from "react-toastify";
 
 const Settings = () => {
   const auth = useSelector((state) => state.auth);
@@ -38,9 +39,12 @@ const Settings = () => {
   formdata.append("bio", userBio);
   formdata.append("photo", userImage);
 
-  const profileUpdateHandler = () => {
+  const profileUpdateHandler = useCallback(() => {
     dispatch(userDetailsUpdateAction(formdata));
-  };
+    setShowBio(false);
+    setShowName(false);
+    setuserImage();
+  }, [dispatch, formdata]);
 
   return (
     <>
@@ -197,6 +201,7 @@ const Settings = () => {
             Change Your Password
           </Link>
         </div>
+        <ToastContainer autoClose={2000} />
       </div>
     </>
   );

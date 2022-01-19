@@ -6,7 +6,7 @@ function ControlPanel({ play, isPlaying, duration, currentTime }) {
   function secondsToHms(seconds) {
     if (!seconds) return "00m 00s";
 
-    let duration = seconds;
+    /**let duration = seconds;*/
     let hours = duration / 3600;
     duration = duration % 3600;
 

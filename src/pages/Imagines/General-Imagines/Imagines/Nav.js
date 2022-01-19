@@ -1,9 +1,4 @@
-import {
-  ArchiveIcon,
-  ArrowLeftIcon,
-  PlusIcon,
-  SaveIcon,
-} from "@heroicons/react/solid";
+import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -66,13 +61,13 @@ const Nav = () => {
         </div>
       </div>
       {/*****************mobile view *******************/}
-      {/* <div className="block w-full lg:hidden">
-        <div className="flex items-center justify-around space-x-3 mt-5 lg:hidden w-full">
+      <div className="block w-full lg:hidden">
+        <div className="flex items-center justify-start space-x-3 mt-5 lg:hidden w-full px-5">
           <Link to="/">
             <ArrowLeftIcon className="h-5 w-5 mr-4 text-gray-800" />{" "}
           </Link>
 
-          <Link
+          {/*<Link
             to="/"
             className="flex font-bold items-center py-1.5 px-2  rounded-3xl transition duration-200 bg-gray-200 text-gray-800 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
           >
@@ -85,9 +80,9 @@ const Nav = () => {
           >
             Create
             <PlusIcon className="h-6 w-7" />
-          </span>
+          </span>*/}
         </div>{" "}
-      </div> */}
+      </div>
       <AlertDialogSlide
         open={open}
         handleClose={handleClose}

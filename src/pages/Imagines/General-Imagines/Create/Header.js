@@ -1,4 +1,4 @@
-import { ArchiveIcon, ArrowLeftIcon, SaveIcon } from "@heroicons/react/solid";
+import { ArrowLeftIcon } from "@heroicons/react/solid";
 import React from "react";
 import { Link } from "react-router-dom";
 

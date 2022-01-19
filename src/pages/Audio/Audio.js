@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 
 import Slider from "./Slider/Slider";
 import ControlPanel from "./Contols/ControlPanel";
-import { HeartIcon, PlayIcon } from "@heroicons/react/solid";
+import { PlayIcon } from "@heroicons/react/solid";
 import src from "../../assets/sound.gif";
 
 function Audio({ audiosrc }) {
@@ -45,10 +45,10 @@ function Audio({ audiosrc }) {
     setCurrentTime(time.toFixed(2));
   };
 
-  const [like, setLike] = useState(false);
+  /**const [like, setLike] = useState(false);
   const clickLikeHandler = () => {
     setLike(!like);
-  };
+  };*/
 
   return (
     <div className="">

@@ -1,10 +1,9 @@
-import { ArrowLeftIcon } from "@heroicons/react/solid";
 import React from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+
 import Navbar from "../../../../components/Navbar";
-import List from "../General/List";
+
 import Sidebar from "../Sidebar";
 import GCard from "./GCard";
 

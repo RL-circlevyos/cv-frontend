@@ -1,9 +1,8 @@
-import { ArrowLeftIcon } from "@heroicons/react/solid";
 import React from "react";
 import Scrollbars from "react-custom-scrollbars-2";
-import { Link } from "react-router-dom";
+
 import Navbar from "../../../../components/Navbar";
-import Recommendations from "./Recommendation/Recommendation";
+
 import List from "./List";
 import Sidebar from "../Sidebar";
 import { ToastContainer } from "react-toastify";
@@ -24,9 +23,9 @@ const ImagineList = () => {
               <Scrollbars
                 thumbSize={1}
                 autoHide
-                style={{ width: "100%", height: "95vh" }}
+                style={{ width: "100%", height: "92vh" }}
               >
-                <div className="w-full flex justify-center items-center">
+                <div className="w-full flex justify-center px-2 lg:0 items-center">
                   <List />
                 </div>
               </Scrollbars>

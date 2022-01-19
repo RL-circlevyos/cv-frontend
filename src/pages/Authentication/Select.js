@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+/**import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const data = [
   {
@@ -143,4 +143,4 @@ const Select = () => {
   );
 };
 
-export default React.memo(Select);
+export default React.memo(Select);*/
