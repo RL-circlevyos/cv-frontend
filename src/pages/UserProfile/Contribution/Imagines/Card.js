@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { BookmarkIcon, LightBulbIcon } from "@heroicons/react/solid";
+import React, { useCallback, useEffect, useState } from "react";
+import { DotsVerticalIcon, LightBulbIcon, XIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { userDetailsAction } from "../../../../store/apps/auth/auth-action";
 import dp from "../../../../assets/person.png";
 import { Link } from "react-router-dom";
 import src from "../../../../assets/reading_book.svg";
+import { deleteImagineAction } from "../../../../store/apps/imagines/imagine-action";
+import AlertDialogSlide from "../../../../components/Dialog";
+import DelPopup from "../../../../components/DelPopup";
 
 const Card = ({
   introImage,
@@ -16,13 +19,48 @@ const Card = ({
   appriciates,
   category,
 }) => {
-  const [bookmark, setBookmark] = useState(false);
-  const clickBookmarkHandler = () => {
-    setBookmark(!bookmark);
-  };
+  /**  const [bookmark, setBookmark] = useState(false);
+  // const clickBookmarkHandler = () => {
+  //   setBookmark(!bookmark);
+  // };*/
 
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+
+  const user = auth.userid;
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+
+  const [del, setDel] = useState(false);
+
+  const handleDelOpen = useCallback(() => {
+    setDel(true);
+  }, []);
+
+  const handleDelClose = useCallback(() => {
+    setDel(false);
+  }, []);
+
+  const [edit, setEdit] = useState(false);
+  const clickEdit = useCallback(() => {
+    user ? setEdit(true) : handleClickOpen();
+  }, [user, handleClickOpen]);
+
+  const imagineDeleteHandler = useCallback(() => {
+    dispatch(deleteImagineAction(id));
+  }, [dispatch, id]);
+
+  const editClose = useCallback(() => {
+    setEdit(false);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -59,7 +97,7 @@ const Card = ({
               {name}
             </span>
           </div>
-          <span className="cursor-pointer " onClick={clickBookmarkHandler}>
+          {/**<span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
               <BookmarkIcon className="h-6 w-6 text-blue-800 pt-1" />
             ) : (
@@ -78,7 +116,7 @@ const Card = ({
                 />
               </svg>
             )}
-          </span>
+            </span>*/}
         </div>
         <span className=" text-gray-500 pt-2">
           <Link to={`/${id}`} className="text-sm font-medium hover:underline">
@@ -99,6 +137,71 @@ const Card = ({
               {appriciates.length}
             </i>
           </span>{" "}
+          <span className="space-x-1 pt-1">
+            {!edit && (
+              <>
+                {/* {userid === auth.userid && ( */}
+                <span>
+                  <DotsVerticalIcon
+                    className="h-5 w-5 cursor-pointer"
+                    onClick={clickEdit}
+                  />
+                </span>
+                {/* )} */}
+              </>
+            )}
+            {edit && (
+              <div className="relative inline-block text-left font-Mulish">
+                <div
+                  className="origin-center absolute z-50 font-Mulish right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black 
+                   ring-opacity-5 divide-y divide-gray-100 focus:outline-none text-base"
+                >
+                  <span className="flex justify-end items-center mx-1 my-1">
+                    <span
+                      onClick={editClose}
+                      className="cursor-pointer font-bold"
+                    >
+                      <XIcon className="h-5 w-5 text-pink-500" />
+                    </span>
+                  </span>
+                  {/* <div className="py-1">
+                    <div>
+                      <Link
+                        to={`/${id}/update`}
+                        className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+                      >
+                        Edit
+                      </Link>
+                    </div>
+                  </div> */}
+                  <div className="py-1">
+                    <div
+                      className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+                      onClick={handleDelOpen}
+                    >
+                      Delete
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </span>
+          <AlertDialogSlide
+            open={open}
+            handleClose={handleClose}
+            title="Login to Circlevyos"
+            content="To get your own access on different contents you should signin first"
+            link="/login"
+            show={true}
+          />
+          <DelPopup
+            open={del}
+            handleClose={handleDelClose}
+            title="Delete"
+            content="Are you sure you want to delete the post"
+            onClick={imagineDeleteHandler}
+            show={true}
+          />
         </span>
       </div>
     </div>

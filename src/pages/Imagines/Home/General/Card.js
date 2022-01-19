@@ -13,6 +13,7 @@ import AlertDialogSlide from "../../../../components/Dialog";
 import DelPopup from "./../../../../components/DelPopup";
 
 import just_saying from "../../../../assets/reading_book.svg";
+import { ToastContainer } from "react-toastify";
 
 const Card = ({
   title,
@@ -158,7 +159,7 @@ const Card = ({
               <div className="relative inline-block text-left font-Mulish">
                 <div
                   className="origin-center absolute z-50 font-Mulish right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black 
-        ring-opacity-5 divide-y divide-gray-100 focus:outline-none text-base"
+                   ring-opacity-5 divide-y divide-gray-100 focus:outline-none text-base"
                 >
                   <span className="flex justify-end items-center mx-1 my-1">
                     <span
@@ -207,6 +208,7 @@ const Card = ({
             show={true}
           />
         </span>
+        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );
