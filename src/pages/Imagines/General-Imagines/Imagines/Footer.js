@@ -2,7 +2,6 @@ import {
   AnnotationIcon,
   //EyeIcon,
   LightBulbIcon,
-  ShareIcon,
 } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,9 +24,9 @@ const Footer = ({ openCommentBox }) => {
   }, []);
   const [openShare, setOpenShare] = useState(false);
 
-  const handleClickOpenShare = useCallback(() => {
+  /**const handleClickOpenShare = useCallback(() => {
     setOpenShare(true);
-  }, []);
+  }, []);*/
 
   const handleCloseShare = useCallback(() => {
     setOpenShare(false);
@@ -36,10 +35,15 @@ const Footer = ({ openCommentBox }) => {
   const dispatch = useDispatch();
   const id = useParams();
 
+  const post = useCallback(() => {
+    dispatch(appriciateAction(id.id));
+    setLike(true);
+  }, [dispatch, id.id]);
+
   const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
-    user ? dispatch(appriciateAction(id.id)) : handleClickOpen();
-  }, [user, handleClickOpen, dispatch, id.id]);
+    user ? post() : handleClickOpen();
+  }, [user, handleClickOpen, post]);
 
   return (
     <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
@@ -82,7 +86,7 @@ const Footer = ({ openCommentBox }) => {
 
         <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
           <span className="flex items-center space-x-1 text-xs ">
-            <span className="cursor-pointer " onClick={openCommentBox}>
+            <span className="" onClick={openCommentBox}>
               <AnnotationIcon className="h-6 w-6 text-gray-500" />
             </span>
             <span className="text-xs lg:text-sm italic ml-1 text-primary">

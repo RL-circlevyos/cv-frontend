@@ -5,7 +5,6 @@ import { generalImagineFetchAction } from "../../../../store/apps/imagines/imagi
 import Card from "./Card";
 
 const List = () => {
-  const auth = useSelector((state) => state.auth);
   const ui = useSelector((state) => state.ui);
   const imagine = useSelector((state) => state.imagine);
   const dispatch = useDispatch();
@@ -23,25 +22,25 @@ const List = () => {
 
   return (
     <>
-      <div className="mb-20 lg:mb-10 w-full overflow-x-hidden">
-        {imagine?.generalImagines?.map((imagine) => {
+      <div className="mb-20 lg:mb-10 w-full justify-center flex flex-col items-center overflow-x-hidden">
+        {imagine?.generalImagines?.map((imagines) => {
           return (
             <>
               {ui.isLoading ? (
                 <SkeletonImagines />
               ) : (
-                <div className="w-full pr-4">
+                <div className="w-full">
                   <Card
-                    author={imagine?.user?._id}
-                    avatar={imagine?.user?.photo?.secure_url}
-                    id={imagine._id}
-                    title={imagine.title}
-                    introImage={imagine.introImage}
-                    username={imagine?.user?.name}
-                    category={imagine.category}
-                    // views={imagine.views}
-                    appriciates={imagine.appriciates}
-                    audiovoice={imagine?.audiovoice?.secure_url}
+                    author={imagines?.user?._id}
+                    avatar={imagines?.user?.photo?.secure_url}
+                    id={imagines._id}
+                    title={imagines.title}
+                    introImage={imagines.introImage}
+                    username={imagines?.user?.name}
+                    category={imagines.category}
+                    // views={imagines.views}
+                    appriciates={imagines.appriciates}
+                    audiovoice={imagines?.audiovoice?.secure_url}
                   />
                 </div>
               )}

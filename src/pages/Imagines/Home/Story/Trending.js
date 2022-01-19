@@ -1,4 +1,4 @@
-import React from "react";
+/**import React from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import Recommendations from "./Recommendation/Recommendation";
 import logo from "../../../../assets/notfound.svg";
@@ -44,4 +44,4 @@ const Trending = () => {
   );
 };
 
-export default Trending;
+export default Trending;*/

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+/**import React, { useState } from "react";
 import Navbar from "../../../../components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -152,4 +152,4 @@ const Start = () => {
   );
 };
 
-export default React.memo(Start);
+export default React.memo(Start);*/

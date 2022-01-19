@@ -9,7 +9,6 @@ import {
 } from "../../../store/apps/auth/auth-action";
 import AlertDialogSlide from "./../../../components/Dialog";
 import dp from "../../../assets/person.png";
-import { authAction } from "../../../store/apps/auth/auth-slice";
 
 const Detail = () => {
   const auth = useSelector((state) => state.auth);

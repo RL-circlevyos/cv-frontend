@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+/**import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 function CheckBox({ data }) {
@@ -74,4 +74,4 @@ function CheckBox({ data }) {
     </div>
   );
 }
-export default React.memo(CheckBox);
+export default React.memo(CheckBox);*/

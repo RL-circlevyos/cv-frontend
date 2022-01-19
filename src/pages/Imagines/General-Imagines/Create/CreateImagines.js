@@ -5,7 +5,7 @@ import Header from "./Header";
 import { useDispatch } from "react-redux";
 import { generalImagineCreateAction } from "../../../../store/apps/imagines/imagine-action";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from "draft-js";
@@ -14,8 +14,8 @@ import RadioBtn from "./Radio";
 
 const CreateImagines = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
+  const onEditorStateChange = (editorsState) => {
+    setEditorState(editorsState);
 
     console.log(
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
@@ -23,7 +23,7 @@ const CreateImagines = () => {
   };
   const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
     .length;
-  const MAX_LENGTH = 15;
+  const MAX_LENGTH = 3000;
 
   const getLengthOfSelectedText = () => {
     const currentSelection = editorState.getSelection();
@@ -171,7 +171,7 @@ const CreateImagines = () => {
     (e) => {
       e.preventDefault();
       dispatch(generalImagineCreateAction(formdata));
-      toast.success("posted successfully");
+
       navigate("/");
     },
 

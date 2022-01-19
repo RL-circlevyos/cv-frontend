@@ -1,4 +1,4 @@
-import { PencilIcon, UploadIcon } from "@heroicons/react/solid";
+/**import { PencilIcon, UploadIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -119,7 +119,7 @@ const Header = () => {
   const [isChecked, setIsChecked] = useState([]);
 
   /*********************submit function ***************/
-  const handleSingleCheck = useCallback((e) => {
+/**const handleSingleCheck = useCallback((e) => {
     setIsChecked({ [e.target.name]: e.target.checked });
   }, []);
   const handleSubmit = useCallback(
@@ -149,7 +149,7 @@ const Header = () => {
     [title, isChecked, body, storyAudio, coverImage]
   );
   /*********************submit function ***************/
-  return (
+/**return (
     <div className="flex justify-center flex-col items-center w-full">
       <div className="max-w-7xl w-full">
         <form
@@ -157,8 +157,8 @@ const Header = () => {
           className="px-3 py-2 space-y-1 text-base font-Mulish pb-6"
         >
           <div className=" lg:flex justify-between items-start block">
-            {/***********title start *********/}
-            <div className="w-full lg:w-1/2 flex flex-col justify-start items-start">
+            {/***********title start *********/
+/**<div className="w-full lg:w-1/2 flex flex-col justify-start items-start">
               {show && (
                 <span className="flex justify-between items-center w-full">
                   <span></span>
@@ -196,10 +196,10 @@ const Header = () => {
                   </span>
                 )}
               </div>
-              {/***********title ends *********/}
+              {/***********title ends *********/
 
-              {/***********genre start *********/}
-              <div
+/***********genre start *********/
+/**  <div
                 className="flex items-start flex-col justify-start w-full flex-wrap pt-5
           space-y-4 lg:space-y-0 lg:space-x-5"
               >
@@ -232,10 +232,10 @@ const Header = () => {
                     </div>
                   </>
                 )}
-                {/***********genre ends *********/}
+                {/***********genre ends *********/
 
-                {/***********intro start *********/}
-                <div className="w-full pt-3">
+/***********intro start *********/
+/**  <div className="w-full pt-3">
                   {" "}
                   <label className=" text-base uppercase font-extrabold ml-2 text-gray-900">
                     Introduction
@@ -273,10 +273,10 @@ const Header = () => {
                 </div>
               </div>
             </div>
-            {/***********intro ends *********/}
+            {/***********intro ends *********/
 
-            {/***********cover start *********/}
-            <div className="flex flex-col w-full lg:w-1/2">
+/***********cover start *********/
+/**<div className="flex flex-col w-full lg:w-1/2">
               {show ? (
                 <span className="w-full flex justify-center items-center h-80 mb-4">
                   <img
@@ -327,9 +327,9 @@ const Header = () => {
                   )}
                 </div>
               )}
-              {/***********cover ends *********/}
-              {/***********audio starts *********/}
-              {show ? (
+              {/***********cover ends *********/
+/***********audio starts *********/
+/**  {show ? (
                 <audio className="w-full" controls src={song} />
               ) : (
                 <div className="w-full max-xl px-5">
@@ -375,8 +375,8 @@ const Header = () => {
                   )}
                 </div>
               )}
-              {/***********audio ends *********/}
-              {!show && (
+              {/***********audio ends *********/
+/** {!show && (
                 <div className="flex justify-between items-center mb-4 pt-10">
                   <div></div>
                   <div className="flex items-center space-x-2 ">
@@ -405,4 +405,4 @@ const Header = () => {
   );
 };
 
-export default React.memo(Header);
+export default React.memo(Header);*/

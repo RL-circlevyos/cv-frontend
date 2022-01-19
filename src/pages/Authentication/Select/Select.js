@@ -1,4 +1,4 @@
-import React from "react";
+/**import React from "react";
 import CheckBox from "./Checkbox";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
@@ -102,4 +102,4 @@ const Select = () => {
   );
 };
 
-export default React.memo(Select);
+export default React.memo(Select);*/

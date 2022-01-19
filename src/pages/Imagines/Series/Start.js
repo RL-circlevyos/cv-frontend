@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+/**import React, { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const data = [
@@ -88,7 +88,7 @@ const Start = () => {
   const [isChecked, setIsChecked] = useState([]);
 
   /*********************submit function ***************/
-  const handleSingleCheck = useCallback((e) => {
+/**  const handleSingleCheck = useCallback((e) => {
     setIsChecked({ [e.target.name]: e.target.checked });
   }, []);
   const handleSubmit = useCallback(
@@ -116,7 +116,7 @@ const Start = () => {
     [title, navigate, isChecked, body]
   );
   /*********************submit function ***************/
-  return (
+/**return (
     <div className="flex justify-center flex-col items-center w-full">
       <div className="max-w-3xl w-full">
         <form
@@ -215,4 +215,4 @@ const Start = () => {
   );
 };
 
-export default React.memo(Start);
+export default React.memo(Start);*/

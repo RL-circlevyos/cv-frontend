@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { authAction } from "./auth-slice";
 
 // custom action creator function =>  thunk
@@ -22,9 +23,10 @@ export const signUpWithNameEmailAndPassword = (data) => {
 
       // checking response status
       if (!response.ok) {
+        toast.error("something went wrong");
         throw Error("authentication failed");
       }
-
+      toast.success("signup successful");
       const responseData = await response.json();
       return responseData;
     };
@@ -63,13 +65,12 @@ export const LoginWithNameEmailAndPassword = (data) => {
         }
       );
 
-      // console.log(response);
-
       // checking response status
       if (!response.ok) {
+        toast.error("something went wrong");
         throw Error("authentication failed");
       }
-
+      toast.success("login successful");
       const responseData = await response.json();
       return responseData;
     };
@@ -105,8 +106,6 @@ export const AuthState = () => {
           },
         }
       );
-
-      // console.log(response);
 
       // checking response status
       if (!response.ok) {
@@ -148,12 +147,12 @@ export const logoutAction = () => {
         }
       );
 
-      // console.log(response);
-
       // checking response status
       if (!response.ok) {
+        toast.error("something went wrong");
         throw Error("logout failed");
       }
+      toast.warn("you are logged out");
     };
 
     try {
@@ -183,13 +182,14 @@ export const userDetailsUpdateAction = (updateBody) => {
         }
       );
 
-      // console.log(response);
+      /**  console.log(response);*/
 
       // checking response status
       if (!response.ok) {
+        toast.error("something went wrong");
         throw Error("user update failed");
       }
-
+      toast.info("updated successfully");
       const responseData = await response.json();
       return responseData.user;
     };
@@ -224,10 +224,9 @@ export const userDetailsAction = (id) => {
         }
       );
 
-      // console.log(response);
-
       // checking response status
       if (!response.ok) {
+        /**toast.error("something went wrong");*/
         throw Error("authentication failed");
       }
 
@@ -266,13 +265,11 @@ export const myDetailsAction = () => {
         }
       );
 
-      // console.log(response);
-
       // checking response status
       if (!response.ok) {
         throw Error("authentication failed");
       }
-
+      /**toast.success("successfully updated");*/
       const responseData = await response.json();
       return responseData.user;
     };
@@ -306,8 +303,6 @@ export const userImaginesAction = (id) => {
           },
         }
       );
-
-      // console.log(response);
 
       // checking response status
       if (!response.ok) {
@@ -352,7 +347,7 @@ export const userFollowAction = (id) => {
         }
       );
 
-      // console.log(response);
+      /**console.log(response);*/
 
       // checking response status
       if (!response.ok) {
@@ -392,8 +387,6 @@ export const userUnfollowAction = (id) => {
         }
       );
 
-      // console.log(response);
-
       // checking response status
       if (!response.ok) {
         throw Error("authentication failed");
@@ -429,13 +422,12 @@ export const changePasswordAction = (passwordBody) => {
         }
       );
 
-      // console.log(response);
-
       // checking response status
       if (!response.ok) {
+        toast.error("something went wrong");
         throw Error("authentication failed");
       }
-
+      toast.info("password changed successfully");
       const responseData = await response.json();
       return responseData.user;
     };

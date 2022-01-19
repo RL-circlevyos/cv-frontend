@@ -1,20 +1,19 @@
 import { PlayIcon } from "@heroicons/react/solid";
 import React, { useState, useRef } from "react";
-// import song from "../../../assets/BTS - Pied Piper (방탄소년단 - Pied Piper) _Color Coded Lyrics_Han_Rom_Eng_가사_ ( 128kbps ).mp3";
 
 function Sound({ audiovoice }) {
-  const [percentage, setPercentage] = useState(0);
+  /**const [percentage, setPercentage] = useState(0);*/
   const [isPlaying, setIsPlaying] = useState(false);
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
+  /**const [duration, setDuration] = useState(0);*/
+  /**const [currentTime, setCurrentTime] = useState(0);*/
 
   const audioRef = useRef();
 
-  const onChange = (e) => {
+  /**  const onChange = (e) => {
     const audio = audioRef.current;
     audio.currentTime = (audio.duration / 100) * e.target.value;
     setPercentage(e.target.value);
-  };
+  };*/
 
   const play = () => {
     const audio = audioRef.current;
@@ -31,21 +30,21 @@ function Sound({ audiovoice }) {
     }
   };
 
-  const getCurrDuration = (e) => {
+  /** const getCurrDuration = (e) => {
     const percent = (
       (e.currentTarget.currentTime / e.currentTarget.duration) *
       100
     ).toFixed(2);
     const time = e.currentTarget.currentTime;
 
-    setPercentage(+percent);
+  setPercentage(+percent);
     setCurrentTime(time.toFixed(2));
-  };
+  };*/
 
-  const [like, setLike] = useState(false);
+  /**const [like, setLike] = useState(false);
   const clickLikeHandler = () => {
     setLike(!like);
-  };
+  };*/
 
   return (
     <div className="app-container">
@@ -79,10 +78,10 @@ function Sound({ audiovoice }) {
       <div className="grid place-items-center">
         <audio
           ref={audioRef}
-          onTimeUpdate={getCurrDuration}
+          /**onTimeUpdate={getCurrDuration}
           onLoadedData={(e) => {
             setDuration(e.currentTarget.duration.toFixed(2));
-          }}
+          }}*/
           // src={`https://storage.googleapis.com/niketan-dev-mode.appspot.com/${audiosrc}`}
           src={audiovoice}
         ></audio>

@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "@heroicons/react/solid";
+/**import { ArrowLeftIcon } from "@heroicons/react/solid";
 import React from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { Link } from "react-router-dom";
@@ -85,4 +85,4 @@ const StoryList = () => {
   );
 };
 
-export default React.memo(StoryList);
+export default React.memo(StoryList);*/

@@ -1,4 +1,4 @@
-import React from "react";
+/**import React from "react";
 import CardStoryIm from "./CardStoryIm";
 
 const Recommendations = () => {
@@ -20,4 +20,4 @@ const Recommendations = () => {
   );
 };
 
-export default Recommendations;
+export default Recommendations;*/

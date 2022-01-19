@@ -10,22 +10,22 @@ const Recommendations = () => {
     <>
       <div className="space-y-5 flex flex-col justify-center items-center w-full font-Mulish px-4 py-2">
         {" "}
-        {imagine?.generalImagines?.map((imagine) => {
+        {imagine?.generalImagines?.map((imagines) => {
           return (
             <>
               {ui.isLoading ? (
                 <SkeletonImagines />
               ) : (
                 <CardStoryIm
-                  author={imagine?.user?._id}
-                  avatar={imagine?.user?.photo?.secure_url}
-                  id={imagine._id}
-                  title={imagine.title}
-                  introImage={imagine.introImage}
-                  username={imagine?.user?.name}
-                  // views={imagine.views}
-                  audiovoice={imagine?.audiovoice}
-                  appriciates={imagine.appriciates}
+                  author={imagines?.user?._id}
+                  avatar={imagines?.user?.photo?.secure_url}
+                  id={imagines._id}
+                  title={imagines.title}
+                  introImage={imagines.introImage}
+                  username={imagines?.user?.name}
+                  // views={imagines.views}
+                  audiovoice={imagines?.audiovoice}
+                  appriciates={imagines.appriciates}
                 />
               )}
             </>
