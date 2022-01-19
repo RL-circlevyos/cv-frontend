@@ -17,6 +17,7 @@ const List = () => {
       // }
 
       socket.on("create-imagine", (data) => {
+        console.log("socket call");
         dispatch(generalImagineFetchAction());
       });
     }, 500);
