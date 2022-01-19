@@ -5,53 +5,56 @@
     {
       "name": "Technology",
       "id": 2    },
+      {
+        "name": "Code",
+        "id": 3    },
     {
       "name": "Life Events",
-      "id": 3    },
+      "id": 4   },
     {
       "name": "Fiction",
-      "id": 4    },
-    {
-      "name": "Business",
       "id": 5    },
     {
+      "name": "Business",
+      "id": 6   },
+    {
       "name": "Food",
-      "id": 6    },
+      "id": 7   },
     {
       "name": "Entertainment",
-      "id": 7    },
+      "id": 8   },
     {
       "name": "Music",
-      "id": 8    },
+      "id": 9   },
     {
       "name": "Mystery",
-      "id": 9    },
+      "id": 10   },
     {
       "name": "Horror",
-      "id": 10
-    },
-    {
-      "name": "Thriller",
       "id": 11
     },
     {
-      "name": "Nature",
+      "name": "Thriller",
       "id": 12
     },
     {
-      "name": "Historical",
+      "name": "Nature",
       "id": 13
     },
     {
-      "name": "Romance",
+      "name": "Historical",
       "id": 14
     },
     {
-      "name": "Fantasy",
+      "name": "Romance",
       "id": 15
     },
     {
-      "name": "Others",
+      "name": "Fantasy",
       "id": 16
+    },
+    {
+      "name": "Others",
+      "id": 17
     }
   ]

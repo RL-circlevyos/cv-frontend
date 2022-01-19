@@ -26,7 +26,9 @@ export const generalImagineCreateAction = (GeneralImagineBody) => async (
     console.log(response.json());
 
     if (!response.ok) {
+
       toast.error("something went wrong");
+
       throw Error("Error occured in imagine create");
     }
 
@@ -140,7 +142,9 @@ export const generalImagineSingleFetchAction = (imagineId) => async (
     );
 
     if (!response.ok) {
+
       toast.error("something went wrong");
+
       throw Error("Error occured in class create");
     }
 
@@ -247,7 +251,9 @@ export const commentCreateAction = (commentBody, imagineId) => async (
     console.log(response.json());
 
     if (!response.ok) {
+
       toast.error("something went wrong");
+
       throw Error("Error occured in imagine create");
     }
 
