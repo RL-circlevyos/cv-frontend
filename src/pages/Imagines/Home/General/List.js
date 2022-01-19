@@ -3,22 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImagines";
 import { generalImagineFetchAction } from "../../../../store/apps/imagines/imagine-action";
 import Card from "./Card";
+import { useSocket } from "./../../../../hooks/socketHook";
 
 const List = () => {
   const ui = useSelector((state) => state.ui);
   const imagine = useSelector((state) => state.imagine);
   const dispatch = useDispatch();
-
+  const socket = useSocket();
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (imagine.isinitiate) {
+      // if (imagine.isinitiate) {
+      //   dispatch(generalImagineFetchAction());
+      // }
+
+      socket.on("create-imagine", (data) => {
         dispatch(generalImagineFetchAction());
-      }
+      });
     }, 500);
     return () => {
       clearTimeout(timer);
     };
-  }, [dispatch, imagine.isinitiate]);
+  }, [dispatch, imagine.isinitiate, socket]);
 
   return (
     <>
