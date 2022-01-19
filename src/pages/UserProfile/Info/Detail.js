@@ -9,6 +9,7 @@ import {
 } from "../../../store/apps/auth/auth-action";
 import AlertDialogSlide from "./../../../components/Dialog";
 import dp from "../../../assets/person.png";
+import { useSocket } from "../../../hooks/socketHook";
 
 const Detail = () => {
   const auth = useSelector((state) => state.auth);
@@ -16,16 +17,27 @@ const Detail = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const id = useParams();
+  const socket = useSocket();
+  const [isInitial, setIsInitial] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(userDetailsAction(id.id));
       dispatch(userImaginesAction(id.id));
+
+      socket.on("follow", () => {
+        dispatch(userDetailsAction(id.id));
+        dispatch(userImaginesAction(id.id));
+      });
+      socket.on("unfollow", () => {
+        dispatch(userDetailsAction(id.id));
+        dispatch(userImaginesAction(id.id));
+      });
     }, 500);
     return () => {
       clearTimeout(timer);
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, socket, isInitial]);
 
   const handleClickOpen = useCallback(() => {
     setOpen(true);
