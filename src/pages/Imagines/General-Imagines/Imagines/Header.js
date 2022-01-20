@@ -81,10 +81,11 @@ const clickFollowHandler = useCallback(() => {
           <div></div>
           <div className="w-full max-w-sm">
             {imagine.singleImagine?.singleImagine?.audiovoice && (
-              <Audio
-                audiosrc={
+              <audio
+                src={
                   imagine.singleImagine?.singleImagine?.audiovoice?.secure_url
                 }
+                controls
               />
             )}
           </div>
