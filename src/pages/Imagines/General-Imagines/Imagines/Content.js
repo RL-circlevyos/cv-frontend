@@ -38,12 +38,10 @@ const Content = () => {
       <Divider />
       <div className="w-full lg:hidden block">
         {imagine.singleImagine?.singleImagine?.audiovoice && (
-          <audio controls>
-            <source
-              src={imagine.singleImagine?.singleImagine?.audiovoice?.secure_url}
-              type="audio/*"
-            />
-          </audio>
+          <audio
+            src={imagine.singleImagine?.singleImagine?.audiovoice?.secure_url}
+            controls
+          />
         )}
       </div>
 
