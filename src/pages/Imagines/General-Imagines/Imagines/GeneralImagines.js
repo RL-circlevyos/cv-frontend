@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { generalImagineSingleFetchAction } from "../../../../store/apps/imagines/imagine-action";
 import { useParams } from "react-router-dom";
 import { useSocket } from "../../../../hooks/socketHook";
+import { ToastContainer } from "react-toastify";
 
 const GeneralImagines = ({ i }) => {
   const imagine = useSelector((state) => state.imagine);
@@ -109,6 +110,7 @@ const GeneralImagines = ({ i }) => {
           </div>
           <div></div>
         </div>
+        <ToastContainer autoClose={2000} />
       </div>
     </>
   );

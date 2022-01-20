@@ -26,7 +26,7 @@ const CommentList = () => {
     };
 
     dispatch(commentCreateAction(commentBody, imagineId.id));
-    setNewCommentInput("");
+    setNewCommentInput(" ");
   }
 
   return (
