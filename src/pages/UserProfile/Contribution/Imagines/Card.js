@@ -59,7 +59,7 @@ const Card = ({
               {name}
             </span>
           </div>
-          <span className="cursor-pointer " onClick={clickBookmarkHandler}>
+          {/* <span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
               <BookmarkIcon className="h-6 w-6 text-blue-800 pt-1" />
             ) : (
@@ -78,7 +78,7 @@ const Card = ({
                 />
               </svg>
             )}
-          </span>
+          </span> */}
         </div>
         <span className=" text-gray-500 pt-2">
           <Link to={`/${id}`} className="text-sm font-medium hover:underline">
