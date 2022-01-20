@@ -57,7 +57,7 @@ const ImagineList = () => {
             </Scrollbars> */}
           </div>
         </div>
-        <ToastContainer autoClose={3000} />
+        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );
