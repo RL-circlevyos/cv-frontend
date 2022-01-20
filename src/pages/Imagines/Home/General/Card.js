@@ -13,7 +13,9 @@ import AlertDialogSlide from "../../../../components/Dialog";
 import DelPopup from "./../../../../components/DelPopup";
 
 import just_saying from "../../../../assets/reading_book.svg";
-import { ToastContainer } from "react-toastify";
+
+import { useSocket } from "../../../../hooks/socketHook";
+
 
 const Card = ({
   title,
@@ -47,6 +49,7 @@ const Card = ({
   }, [dispatch, id]);
 
   const [like, setLike] = useState(false);*/
+  const socket = useSocket();
 
   const [del, setDel] = useState(false);
 

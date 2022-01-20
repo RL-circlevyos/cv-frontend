@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImagines";
+import { useSocket } from "../../../../hooks/socketHook";
 import { generalImagineFetchAction } from "../../../../store/apps/imagines/imagine-action";
 import Card from "./Card";
 import { useSocket } from "./../../../../hooks/socketHook";
@@ -10,6 +11,7 @@ const List = () => {
   const imagine = useSelector((state) => state.imagine);
   const dispatch = useDispatch();
   const socket = useSocket();
+
   useEffect(() => {
     const timer = setTimeout(() => {
       // if (imagine.isinitiate) {
@@ -17,6 +19,10 @@ const List = () => {
       // }
 
       socket.on("create-imagine", (data) => {
+        console.log("socket call");
+        dispatch(generalImagineFetchAction());
+      });
+      socket.on("appriciate", (data) => {
         console.log("socket call");
         dispatch(generalImagineFetchAction());
       });

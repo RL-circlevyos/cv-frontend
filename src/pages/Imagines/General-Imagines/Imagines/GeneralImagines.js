@@ -9,18 +9,29 @@ import Card from "./Card";
 import { useDispatch, useSelector } from "react-redux";
 import { generalImagineSingleFetchAction } from "../../../../store/apps/imagines/imagine-action";
 import { useParams } from "react-router-dom";
+import { useSocket } from "../../../../hooks/socketHook";
 
 const GeneralImagines = ({ i }) => {
   const imagine = useSelector((state) => state.imagine);
   const imagineid = useParams();
 
   const dispatch = useDispatch();
+  const socket = useSocket();
 
   console.log(imagine?.singleImagine?.singleImagine);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(generalImagineSingleFetchAction(imagineid.id));
+      socket.on("create-comment", () => {
+        dispatch(generalImagineSingleFetchAction(imagineid.id));
+      });
+      socket.on("delete-comment", () => {
+        dispatch(generalImagineSingleFetchAction(imagineid.id));
+      });
+      socket.on("appriciate", () => {
+        dispatch(generalImagineSingleFetchAction(imagineid.id));
+      });
     }, 500);
     return () => {
       clearTimeout(timer);
