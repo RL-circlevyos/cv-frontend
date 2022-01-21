@@ -63,7 +63,8 @@ const Card = ({
   }, [dispatch, id]);
   const imagineDeleteHandler = useCallback(() => {
     dispatch(deleteImagineAction(id));
-  }, [dispatch, id]);
+    handleDelClose();
+  }, [dispatch, id, handleDelClose]);
 
   const [edit, setEdit] = useState(false);
   const clickEdit = useCallback(() => {
