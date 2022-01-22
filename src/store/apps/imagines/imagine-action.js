@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 export const generalImagineCreateAction = (GeneralImagineBody) => async (
   dispatch
 ) => {
-  // const auth = useSelector((state) => state.auth);
   console.log(GeneralImagineBody);
   const GeneralImagineCreate = async () => {
     const response = await fetch(
@@ -26,7 +25,6 @@ export const generalImagineCreateAction = (GeneralImagineBody) => async (
     console.log(response.json());
 
     if (!response.ok) {
-
       toast.error("something went wrong");
 
       throw Error("Error occured in imagine create");
@@ -36,11 +34,11 @@ export const generalImagineCreateAction = (GeneralImagineBody) => async (
   };
 
   try {
-    dispatch(
-      UiSliceAction.loading({
-        isLoading: true,
-      })
-    );
+    // dispatch(
+    //   UiSliceAction.loading({
+    //     isLoading: true,
+    //   })
+    // );
     await GeneralImagineCreate();
     dispatch(
       imagineSliceAction.createPost({
@@ -92,11 +90,11 @@ export const generalImagineFetchAction = () => async (dispatch) => {
   };
 
   try {
-    dispatch(
-      UiSliceAction.loading({
-        isLoading: true,
-      })
-    );
+    // dispatch(
+    //   UiSliceAction.loading({
+    //     isLoading: true,
+    //   })
+    // );
     const gImagines = await generalImagineFetch();
     console.log(gImagines.imaginesArray);
 
@@ -142,7 +140,6 @@ export const generalImagineSingleFetchAction = (imagineId) => async (
     );
 
     if (!response.ok) {
-
       toast.error("something went wrong");
 
       throw Error("Error occured in class create");
@@ -153,11 +150,11 @@ export const generalImagineSingleFetchAction = (imagineId) => async (
   };
 
   try {
-    dispatch(
-      UiSliceAction.loading({
-        isLoading: true,
-      })
-    );
+    // dispatch(
+    //   UiSliceAction.loading({
+    //     isLoading: true,
+    //   })
+    // );
     const gImagine = await generalImagineSingleFetch();
     console.log(gImagine);
 
@@ -251,7 +248,6 @@ export const commentCreateAction = (commentBody, imagineId) => async (
     console.log(response.json());
 
     if (!response.ok) {
-
       toast.error("something went wrong");
 
       throw Error("Error occured in imagine create");
@@ -261,11 +257,11 @@ export const commentCreateAction = (commentBody, imagineId) => async (
   };
 
   try {
-    dispatch(
-      UiSliceAction.loading({
-        isLoading: true,
-      })
-    );
+    // dispatch(
+    //   UiSliceAction.loading({
+    //     isLoading: true,
+    //   })
+    // );
     await commentCreate();
   } catch (e) {
     dispatch(
@@ -312,11 +308,11 @@ export const commentFetchAction = (imagineId) => async (dispatch) => {
   };
 
   try {
-    dispatch(
-      UiSliceAction.loading({
-        isLoading: true,
-      })
-    );
+    // dispatch(
+    //   UiSliceAction.loading({
+    //     isLoading: true,
+    //   })
+    // );
     const comments = await commentFetch();
 
     dispatch(
