@@ -40,7 +40,7 @@ const CommentList = () => {
             onChange={(e) => setNewCommentInput(e.target.value)}
             type="text"
             placeholder="leave a comment"
-            className="w-full text-sm px-3 focus:outline-none  dark:bg-gray-800"
+            className="w-full text-sm px-3 focus:outline-none bg-white"
           />
 
           <Button variant="text" color="primary" onClick={postComment}>
