@@ -1,9 +1,13 @@
 const colors = require("tailwindcss/colors");
-
 module.exports = {
-  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-  darkMode: "class", // or 'media' or 'class'
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    extend: {
+      fontFamily: {
+        Libre: ["Libre Baskerville", "serif"],
+        Mulish: ["Mulish", "sans-serif"],
+      },
+    },
     screens: {
       xs: "350px",
       sm: "640px",
@@ -37,7 +41,6 @@ module.exports = {
       large: "7rem",
     },
     colors: {
-      // Build your palette here
       transparent: "transparent",
       current: "currentColor",
       gray: colors.blueGray,
@@ -63,17 +66,10 @@ module.exports = {
       blackish: "rgb(0, 0, 0, 0.7)",
       white: "#ffffff",
     },
-    extend: {
-      fontFamily: {
-        Libre: ["Libre Baskerville", "serif"],
-        Mulish: ["Mulish", "sans-serif"],
-      },
-    },
   },
   variants: {
     transitionProperty: ["responsive", "motion-safe", "motion-reduce"],
     extend: {},
   },
-
   plugins: [],
 };

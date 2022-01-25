@@ -2,13 +2,11 @@ import { Divider } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import Audio from "../../../Audio/Audio";
-
 const Content = () => {
   const imagine = useSelector((state) => state.imagine);
 
   const checkIntroImg = imagine?.singleImagine?.singleImagine?.intro
-    ? "h-48"
+    ? "h-96"
     : "h-96 flex justify-center items-center";
 
   const checkIntro = imagine?.singleImagine?.singleImagine?.intro
@@ -16,7 +14,7 @@ const Content = () => {
     : "w-0";
 
   const checkOutroImg = imagine?.singleImagine?.singleImagine?.outro
-    ? "h-48"
+    ? "h-96"
     : "h-96 flex justify-center items-center";
 
   const checkOutro = imagine?.singleImagine?.singleImagine?.outro
@@ -45,13 +43,13 @@ const Content = () => {
         )}
       </div>
 
-      <div className="flex flex-wrap md:flex-nowrap items-start justify-center gap-2 px-4 font-medium pt-5">
+      <div className="flex flex-wrap md:flex-nowrap items-start justify-center gap-2 font-medium pt-5">
         {!imagine.singleImagine?.singleImagine?.introImage ? null : (
-          <span className={`${checkIntroImg} w-full bg-gray-50`}>
+          <span className={`${checkIntroImg} w-full `}>
             <img
               src={imagine?.singleImagine?.singleImagine?.introImage.secure_url}
               alt="firstpic"
-              className="w-full h-full object-contain scale-x-100 scale-y-125"
+              className="w-full h-full object-contain"
             />
           </span>
         )}
@@ -68,16 +66,16 @@ const Content = () => {
           __html: imagine?.singleImagine?.singleImagine?.main,
         }}
       ></div>
-      <div className="flex flex-wrap md:flex-nowrap font-medium items-start justify-center gap-2 px-4 pb-4 pt-6">
-        <span className={`${checkOutro} text-left`}>
+      <div className="flex flex-wrap md:flex-nowrap font-medium items-start justify-center gap-2  pb-4 pt-6">
+        <span className={`${checkOutro} text-left px-4`}>
           {imagine?.singleImagine?.singleImagine?.outro}
         </span>{" "}
         {!imagine?.singleImagine?.singleImagine?.outroImage ? null : (
-          <span className={`${checkOutroImg} w-full bg-gray-50`}>
+          <span className={`${checkOutroImg} w-full `}>
             <img
               src={imagine?.singleImagine?.singleImagine?.outroImage.secure_url}
               alt="lastpic"
-              className="w-full h-full object-contain scale-x-100 scale-y-125"
+              className="w-full h-full object-contain "
             />
           </span>
         )}
