@@ -1,12 +1,12 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import List from "@mui/material/List";
+import dp from "../../../assets/person.png";
 
 import { Link } from "react-router-dom";
 
-export default function Following({ buttonName, data }) {
+export default function Following({ buttonName, followings }) {
   const [state, setState] = React.useState({
     right: false,
   });
@@ -30,13 +30,36 @@ export default function Following({ buttonName, data }) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {data.map((items, index) => (
+        <span className="flex justify-center items-center text-lg font-Mulish font-extrabold text-primary px-2 py-1 ">
+          Following
+        </span>
+        <hr />
+        {followings?.map((following, index) => (
           <div
-            to={`/profile/${items}`}
             className="text-base font-Mulish text-gray-700 px-4 py-3 cursor-pointer hover:bg-gray-200"
             key={index}
           >
-            <Link to={`/profile/${items}`}> {items}</Link>
+            <Link to={`/profile/${following._id}`}>
+              <div className="flex items-start justify-center w-full">
+                <div>
+                  <img
+                    src={
+                      following?.photo?.secure_url
+                        ? following.photo?.secure_url
+                        : dp
+                    }
+                    alt="dp"
+                    className="w-11 h-11 object-cover rounded-full border border-gray-400"
+                  />
+                </div>
+                <div className="flex flex-col w-3/4 ml-2">
+                  <span className="font-bold">{following.name}</span>
+                  <span className="text-sm truncate text-gray-400">
+                    {following.email}
+                  </span>
+                </div>
+              </div>
+            </Link>
           </div>
         ))}
       </List>

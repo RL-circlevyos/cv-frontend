@@ -57,10 +57,7 @@ const Detail = () => {
   }, [handleClickOpen, user, id.id, dispatch]);
 
   // tesing
-  console.log(
-    auth?.userDetails?.followers?.includes(auth.userid),
-    "testing user like"
-  );
+  console.log(auth?.userDetails);
 
   return (
     <div className="w-full font-Mulish">
@@ -89,7 +86,7 @@ const Detail = () => {
               <span className="text-base text-primary">
                 <Followers
                   buttonName="Followers"
-                  data={auth?.userDetails?.followers}
+                  followers={auth?.userDetails?.followers}
                 />
               </span>
               <span className="text-base text-gray-700">
@@ -100,7 +97,7 @@ const Detail = () => {
                 {" "}
                 <Following
                   buttonName="Following"
-                  data={auth?.userDetails?.following}
+                  followings={auth?.userDetails?.following}
                 />
               </span>
               <span className="text-base text-gray-700">
@@ -149,7 +146,7 @@ const Detail = () => {
       <div className="flex justify-center flex-col lg:hidden">
         <div className="flex justify-start items-start space-x-2 w-full">
           <div className="block w-20 space-y-4">
-            <span className="w-14 h-14">
+            <span className="w-16 h-16">
               <img
                 src={
                   auth?.userDetails?.photo?.secure_url
@@ -157,7 +154,7 @@ const Detail = () => {
                     : dp
                 }
                 alt="dp"
-                className="w-16 h-16 object-cover rounded-full "
+                className="w-16 h-12 object-cover rounded-full "
               />
             </span>
           </div>
@@ -171,7 +168,7 @@ const Detail = () => {
                 {" "}
                 <Followers
                   buttonName="Followers"
-                  data={auth?.userDetails?.followers}
+                  followers={auth?.userDetails?.followers}
                 />
               </span>
               <span className="text-sm text-gray-700">
@@ -182,7 +179,7 @@ const Detail = () => {
                 {" "}
                 <Following
                   buttonName="Following"
-                  data={auth?.userDetails?.following}
+                  followings={auth?.userDetails?.following}
                 />
               </span>
               <span className="text-sm text-gray-700">
