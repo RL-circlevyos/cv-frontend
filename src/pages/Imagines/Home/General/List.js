@@ -36,6 +36,10 @@ const List = () => {
         console.log("socket call");
         dispatch(generalImagineFetchAction());
       });
+      socket.on("delete-imagine", (data) => {
+        console.log("socket call");
+        dispatch(generalImagineFetchAction());
+      });
     }, 500);
     return () => {
       clearTimeout(timer);
@@ -46,6 +50,7 @@ const List = () => {
     <>
       <div className="mb-20 lg:mb-10 w-full justify-center flex flex-col items-center overflow-x-hidden">
         {imagine?.generalImagines?.map((imagines) => {
+          console.log(imagines.createdAt);
           return (
             <>
               {isInitial ? (
@@ -60,6 +65,7 @@ const List = () => {
                     introImage={imagines.introImage}
                     username={imagines?.user?.name}
                     category={imagines.category}
+                    date={imagines.createdAt}
                     // views={imagines.views}
                     appriciates={imagines.appriciates}
                     audiovoice={imagines?.audiovoice?.secure_url}

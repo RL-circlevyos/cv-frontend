@@ -11,7 +11,7 @@ const List = () => {
     <>
       <div className="w-full font-Mulish">
         <div className="gap-4 flex flex-wrap items-center justify-center overflow-x-hidden px-4 flex-row-reverse">
-          {!auth?.userImagines && (
+          {auth?.userImagines.length === 0 && (
             <span className="mt-4 font-bold italic text-lg">
               You have not posted any imagine yet
             </span>
