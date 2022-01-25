@@ -57,9 +57,9 @@ const Info = () => {
           <b className="ml-2">{auth?.userDetails?.following?.length}</b>
         </div>
       </div>
-      <div className="text-base mt-4 font-bold">
+      {/* <div className="text-base mt-4 font-bold">
         Imagines <b className="ml-2">{auth?.userImagines?.length}</b>
-      </div>
+      </div> */}
     </Link>
   );
 };

@@ -281,7 +281,7 @@ const CreateImagines = () => {
                 toolbar={{
                   options: [
                     "inline",
-                    "blockType",
+                    // "blockType",
                     "emoji",
                     "colorPicker",
                     "list",

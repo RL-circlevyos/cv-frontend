@@ -1,7 +1,11 @@
 import React, { useCallback, useState } from "react";
-import { DotsVerticalIcon, LightBulbIcon, XIcon } from "@heroicons/react/solid";
+import {
+  DotsHorizontalIcon,
+  LightBulbIcon,
+  XIcon,
+} from "@heroicons/react/solid";
 import Sound from "../Sound";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,7 +17,6 @@ import AlertDialogSlide from "../../../../components/Dialog";
 import DelPopup from "./../../../../components/DelPopup";
 
 import just_saying from "../../../../assets/reading_book.svg";
-import { useSocket } from "../../../../hooks/socketHook";
 
 const Card = ({
   title,
@@ -47,7 +50,6 @@ const Card = ({
   }, [dispatch, id]);
 
   const [like, setLike] = useState(false);*/
-  const socket = useSocket();
 
   const [del, setDel] = useState(false);
 
@@ -58,9 +60,21 @@ const Card = ({
   const handleDelClose = useCallback(() => {
     setDel(false);
   }, []);
-  const clickLikeHandler = useCallback(() => {
+
+  const navigate = useNavigate();
+  const profileHandler = useCallback(() => {
+    user ? navigate(`/profile/${author}`) : handleClickOpen();
+  }, [navigate, author, user, handleClickOpen]);
+
+  const appreciate = useCallback(() => {
     dispatch(appriciateAction(id));
+    setShow(true);
   }, [dispatch, id]);
+  const [show, setShow] = useState(false);
+  const clickLikeHandler = useCallback(() => {
+    user ? appreciate() : handleClickOpen();
+  }, [appreciate, user, handleClickOpen]);
+
   const imagineDeleteHandler = useCallback(() => {
     dispatch(deleteImagineAction(id));
     handleDelClose();
@@ -91,14 +105,14 @@ const Card = ({
       <div className="flex flex-col space-y-1 w-3/5 py-1">
         <div className="flex items-start pt-3 space-x-2 px-1.5">
           <div className="flex flex-1 w-full">
-            <Link to={`/profile/${author}`}>
+            <div onClick={profileHandler}>
               {" "}
               <img
                 src={avatar ? avatar : dp}
                 alt="dp"
-                className="w-10 xs:w-7 h-7 rounded-full object-cover border border-gray-300"
+                className="w-10 xs:w-7 h-7 rounded-full object-cover border border-gray-300 cursor-pointer"
               />
-            </Link>
+            </div>
 
             <span className="text-sm ml-2 font-medium text-gray-600 truncate">
               {username}
@@ -120,7 +134,24 @@ const Card = ({
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
-              <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
+              {show ? (
+                <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              )}
             </span>
             <b>{appriciates.length}</b>
           </span>
@@ -149,7 +180,7 @@ const Card = ({
               <>
                 {/* {userid === auth.userid && ( */}
                 <span>
-                  <DotsVerticalIcon
+                  <DotsHorizontalIcon
                     className="h-5 w-5 cursor-pointer"
                     onClick={clickEdit}
                   />

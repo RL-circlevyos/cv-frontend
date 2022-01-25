@@ -3,21 +3,25 @@ import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import dp from "../../../../assets/person.png";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AlertDialogSlide from "./../../../../components/Dialog";
-import Audio from "../../../Audio/Audio";
 
 const Header = ({ author }) => {
-  /**const auth = useSelector((state) => state.auth);
-  const user = auth.userid;*/
+  const auth = useSelector((state) => state.auth);
+  const user = auth.userid;
   const [open, setOpen] = useState(false);
   const imagine = useSelector((state) => state.imagine);
 
   console.log(imagine?.singleImagine?.singleImagine);
 
-  /**const handleClickOpen = useCallback(() => {
+  const handleClickOpen = useCallback(() => {
     setOpen(true);
-  }, []);*/
+  }, []);
+
+  const navigate = useNavigate();
+  const profileHandler = useCallback(() => {
+    user ? navigate(`/profile/${author}`) : handleClickOpen();
+  }, [navigate, author, user, handleClickOpen]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -36,7 +40,8 @@ const clickFollowHandler = useCallback(() => {
     <>
       <div className=" flex justify-between items-center px-3 font-Mulish">
         <div className="flex items-center w-full space-x-2">
-          <Link
+          <div
+            onClick={profileHandler}
             to={`/profile/${imagine?.singleImagine?.singleImagine?.user?._id}`}
           >
             <img
@@ -49,7 +54,7 @@ const clickFollowHandler = useCallback(() => {
               alt="dp"
               className="w-10 h-10 rounded-full object-cover border border-gray-300"
             />
-          </Link>
+          </div>
           <div className="flex flex-col items-start">
             <div className="flex items-center space-x-2">
               <span className="text-sm font-bold text-gray-900">

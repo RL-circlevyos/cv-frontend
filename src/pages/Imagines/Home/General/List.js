@@ -13,9 +13,9 @@ const List = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // if (imagine.isinitiate) {
+      /** if (imagine.isinitiate) {
       //   dispatch(generalImagineFetchAction());
-      // }
+      // }*/
 
       socket.on("create-imagine", (data) => {
         console.log("socket call");
