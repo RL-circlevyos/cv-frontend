@@ -54,6 +54,12 @@ const Detail = () => {
     user ? dispatch(userUnfollowAction(id.id)) : handleClickOpen();
   }, [handleClickOpen, user, id.id, dispatch]);
 
+  // tesing
+  console.log(
+    auth?.userDetails?.followers?.includes(auth.userid),
+    "testing user like"
+  );
+
   return (
     <div className="w-full font-Mulish">
       <div className="lg:flex flex-col hidden">

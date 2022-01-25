@@ -58,16 +58,11 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(AuthState());
-      dispatch(generalImagineFetchAction());
-      dispatch(userDetailsAction());
-      dispatch(userImaginesAction());
-      dispatch(myDetailsAction());
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
+    dispatch(AuthState());
+    dispatch(generalImagineFetchAction());
+    dispatch(userDetailsAction());
+    dispatch(userImaginesAction());
+    dispatch(myDetailsAction());
   }, [dispatch]);
 
   /**const auth = useSelector((state) => state.auth);*/

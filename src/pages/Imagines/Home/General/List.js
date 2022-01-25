@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImagines";
 import { useSocket } from "../../../../hooks/socketHook";
 import { generalImagineFetchAction } from "../../../../store/apps/imagines/imagine-action";
+import { UiSliceAction } from "../../../../store/apps/ui/uiSlice";
 import Card from "./Card";
 
 const List = () => {
@@ -10,6 +11,16 @@ const List = () => {
   const imagine = useSelector((state) => state.imagine);
   const dispatch = useDispatch();
   const socket = useSocket();
+  const [isInitial, setisInitial] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setisInitial(false);
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -37,7 +48,7 @@ const List = () => {
         {imagine?.generalImagines?.map((imagines) => {
           return (
             <>
-              {ui.isLoading ? (
+              {isInitial ? (
                 <SkeletonImagines />
               ) : (
                 <div className="w-full">
