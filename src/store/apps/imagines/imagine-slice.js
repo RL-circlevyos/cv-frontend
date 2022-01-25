@@ -5,6 +5,7 @@ const initialCreateImagineState = {
   singleImagine: {},
   comments: [],
   isinitiate: false,
+  appreciate: {},
 };
 
 const imagineSlice = createSlice({
@@ -26,6 +27,10 @@ const imagineSlice = createSlice({
     },
     getComments(state, action) {
       state.comments = action.payload.comments;
+    },
+    getAppreciates(state, action) {
+      state.appreciate = action.payload.appreciate;
+      console.log(state.appreciate, "imagineSlice action");
     },
   },
 });

@@ -356,10 +356,19 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
       toast.error("something went wrong");
       throw Error("Error occured in imagine appriciate");
     }
+
+    const data = await response.json();
+    console.log(data, "appriciate");
+    return data;
   };
 
   try {
-    await appriciate();
+    const aprct = await appriciate();
+    dispatch(
+      imagineSliceAction.getAppreciates({
+        appriciate: aprct,
+      })
+    );
   } catch (e) {
     dispatch(
       UiSliceAction.ErrorMessage({
