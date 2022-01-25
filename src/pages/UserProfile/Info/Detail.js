@@ -10,6 +10,8 @@ import {
 import AlertDialogSlide from "./../../../components/Dialog";
 import dp from "../../../assets/person.png";
 import { useSocket } from "../../../hooks/socketHook";
+import Followers from "./Followers";
+import Following from "./Following";
 
 const Detail = () => {
   const auth = useSelector((state) => state.auth);
@@ -76,13 +78,25 @@ const Detail = () => {
             <span className="text-base text-gray-400">
               {auth?.userDetails?.email}{" "}
             </span>
-            <span className="flex justify-center flex-wrap items-start space-x-2">
-              <span className="text-base text-primary">Followers:</span>
+
+            <span className="flex justify-center flex-wrap items-center space-x-2">
+              <span className="text-base text-primary">
+                <Followers
+                  buttonName="Followers"
+                  data={auth?.userDetails?.followers}
+                />
+              </span>
               <span className="text-base text-gray-700">
                 {auth?.userDetails?.followers?.length}
               </span>
 
-              <span className="text-base text-primary ">Following:</span>
+              <span className="text-base text-primary ">
+                {" "}
+                <Following
+                  buttonName="Following"
+                  data={auth?.userDetails?.following}
+                />
+              </span>
               <span className="text-base text-gray-700">
                 {auth?.userDetails?.following?.length}
               </span>
@@ -146,13 +160,25 @@ const Detail = () => {
             <span className="text-sm text-gray-400">
               {auth?.userDetails?.email}{" "}
             </span>
-            <span className="flex justify-center flex-wrap items-start space-x-2">
-              <span className="text-sm text-primary">Followers:</span>
+            <span className="flex justify-center flex-wrap items-center space-x-2">
+              <span className="text-sm text-primary">
+                {" "}
+                <Followers
+                  buttonName="Followers"
+                  data={auth?.userDetails?.followers}
+                />
+              </span>
               <span className="text-sm text-gray-700">
                 {auth?.userDetails?.followers?.length}
               </span>
 
-              <span className="text-sm text-primary ">Following:</span>
+              <span className="text-sm text-primary ">
+                {" "}
+                <Following
+                  buttonName="Following"
+                  data={auth?.userDetails?.following}
+                />
+              </span>
               <span className="text-sm text-gray-700">
                 {auth?.userDetails?.following?.length}
               </span>

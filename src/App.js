@@ -51,7 +51,6 @@ import Upcoming from "./pages/Imagines/Home/Story/Upcoming";
 import GeneralUpdate from "./pages/Imagines/Update/GeneralUpdate";
 import Profile from "./pages/UserProfile/Info/Profile";
 import Settings from "./pages/UserProfile/Info/Settings";
-import Helo from "./Helo";
 import NewPassword from "./pages/Authentication/NewPassword";
 
 function App() {
@@ -85,7 +84,6 @@ function App() {
         <Route path="/new-password/:id" element={<NewPassword />} />
 
         <Route path="/" element={<ImagineList />} />
-        <Route path="/helo" element={<Helo />} />
         <Route path="/saved/general" element={<SavedGeneral />} />
 
         <Route path="/create-imagine" element={<CreateImagines />} />
