@@ -68,7 +68,6 @@ const Card = ({
 
   const appreciate = useCallback(() => {
     dispatch(appriciateAction(id));
-    setShow(true);
   }, [dispatch, id]);
   const [show, setShow] = useState(false);
   const clickLikeHandler = useCallback(() => {
@@ -134,7 +133,7 @@ const Card = ({
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
-              {show ? (
+              {appriciates.includes(auth.userid) ? (
                 <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
               ) : (
                 <svg

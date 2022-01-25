@@ -3,64 +3,63 @@ import { imagineSliceAction } from "./imagine-slice";
 import { toast } from "react-toastify";
 
 // post imagine
-export const generalImagineCreateAction = (GeneralImagineBody) => async (
-  dispatch
-) => {
-  console.log(GeneralImagineBody);
-  const GeneralImagineCreate = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/imagineCreate`,
-      // "http://localhost:3699/api/imagines",
-      {
-        credentials: "include",
-        method: "POST",
-        mode: "cors",
-        // headers: {
-        //   "Content-Type": "form-data",
-        // },
-        body: GeneralImagineBody,
+export const generalImagineCreateAction =
+  (GeneralImagineBody) => async (dispatch) => {
+    console.log(GeneralImagineBody);
+    const GeneralImagineCreate = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagineCreate`,
+        // "http://localhost:3699/api/imagines",
+        {
+          credentials: "include",
+          method: "POST",
+          mode: "cors",
+          // headers: {
+          //   "Content-Type": "form-data",
+          // },
+          body: GeneralImagineBody,
+        }
+      );
+
+      console.log(response.json());
+
+      if (!response.ok) {
+        toast.error("something went wrong");
+
+        throw Error("Error occured in imagine create");
       }
-    );
 
-    console.log(response.json());
+      toast.success("posted successfully");
+    };
 
-    if (!response.ok) {
-      toast.error("something went wrong");
+    try {
+      // dispatch(
+      //   UiSliceAction.loading({
+      //     isLoading: true,
+      //   })
+      // );
+      await GeneralImagineCreate();
+      dispatch(
+        imagineSliceAction.createPost({
+          isinitiate: true,
+        })
+      );
+    } catch (e) {
+      dispatch(
+        UiSliceAction.ErrorMessage({
+          errorMessage: e.message,
+        })
+      );
 
-      throw Error("Error occured in imagine create");
+      throw e;
+    } finally {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
     }
-
-    toast.success("posted successfully");
   };
-
-  try {
-    // dispatch(
-    //   UiSliceAction.loading({
-    //     isLoading: true,
-    //   })
-    // );
-    await GeneralImagineCreate();
-    dispatch(
-      imagineSliceAction.createPost({
-        isinitiate: true,
-      })
-    );
-  } catch (e) {
-    dispatch(
-      UiSliceAction.ErrorMessage({
-        errorMessage: e.message,
-      })
-    );
-
-    throw e;
-  } finally {
-    dispatch(
-      UiSliceAction.loading({
-        isLoading: false,
-      })
-    );
-  }
-};
 
 // get all imagine
 export const generalImagineFetchAction = () => async (dispatch) => {
@@ -120,64 +119,63 @@ export const generalImagineFetchAction = () => async (dispatch) => {
 };
 
 // get imagine
-export const generalImagineSingleFetchAction = (imagineId) => async (
-  dispatch
-) => {
-  console.log("calling single imagine id", imagineId);
+export const generalImagineSingleFetchAction =
+  (imagineId) => async (dispatch) => {
+    console.log("calling single imagine id", imagineId);
 
-  const generalImagineSingleFetch = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
-      // `http://localhost:3699/api/imagines/${imagineId}`,
-      {
-        credentials: "include",
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const generalImagineSingleFetch = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
+        // `http://localhost:3699/api/imagines/${imagineId}`,
+        {
+          credentials: "include",
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        toast.error("something went wrong");
+
+        throw Error("Error occured in class create");
       }
-    );
 
-    if (!response.ok) {
-      toast.error("something went wrong");
+      const data = await response.json();
+      return data;
+    };
 
-      throw Error("Error occured in class create");
+    try {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: true,
+        })
+      );
+      const gImagine = await generalImagineSingleFetch();
+      console.log(gImagine);
+
+      dispatch(
+        imagineSliceAction.getSingleImagine({
+          singleImagine: gImagine,
+        })
+      );
+    } catch (err) {
+      console.log(err);
+      dispatch(
+        UiSliceAction.ErrorMessage({
+          errorMessage: err.message,
+        })
+      );
+    } finally {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
     }
-
-    const data = await response.json();
-    return data;
   };
-
-  try {
-    // dispatch(
-    //   UiSliceAction.loading({
-    //     isLoading: true,
-    //   })
-    // );
-    const gImagine = await generalImagineSingleFetch();
-    console.log(gImagine);
-
-    dispatch(
-      imagineSliceAction.getSingleImagine({
-        singleImagine: gImagine,
-      })
-    );
-  } catch (err) {
-    console.log(err);
-    dispatch(
-      UiSliceAction.ErrorMessage({
-        errorMessage: err.message,
-      })
-    );
-  } finally {
-    dispatch(
-      UiSliceAction.loading({
-        isLoading: false,
-      })
-    );
-  }
-};
 
 // delete imagine
 // get imagine
@@ -224,61 +222,60 @@ export const deleteImagineAction = (imagineId) => async (dispatch) => {
 };
 
 // post comment
-export const commentCreateAction = (commentBody, imagineId) => async (
-  dispatch
-) => {
-  console.log(imagineId);
-  // const auth = useSelector((state) => state.auth);
-  console.log(commentBody);
-  const commentCreate = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/comment`,
-      // `http://localhost:3699/api/imagines/${imagineId}/comments`,
-      {
-        credentials: "include",
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(commentBody),
+export const commentCreateAction =
+  (commentBody, imagineId) => async (dispatch) => {
+    console.log(imagineId);
+    // const auth = useSelector((state) => state.auth);
+    console.log(commentBody);
+    const commentCreate = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/comment`,
+        // `http://localhost:3699/api/imagines/${imagineId}/comments`,
+        {
+          credentials: "include",
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(commentBody),
+        }
+      );
+
+      console.log(response.json());
+
+      if (!response.ok) {
+        toast.error("something went wrong");
+
+        throw Error("Error occured in imagine create");
       }
-    );
 
-    console.log(response.json());
+      toast.info("comment posted");
+    };
 
-    if (!response.ok) {
-      toast.error("something went wrong");
+    try {
+      // dispatch(
+      //   UiSliceAction.loading({
+      //     isLoading: true,
+      //   })
+      // );
+      await commentCreate();
+    } catch (e) {
+      dispatch(
+        UiSliceAction.ErrorMessage({
+          errorMessage: e.message,
+        })
+      );
 
-      throw Error("Error occured in imagine create");
+      throw e;
+    } finally {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
     }
-
-    toast.info("comment posted");
   };
-
-  try {
-    // dispatch(
-    //   UiSliceAction.loading({
-    //     isLoading: true,
-    //   })
-    // );
-    await commentCreate();
-  } catch (e) {
-    dispatch(
-      UiSliceAction.ErrorMessage({
-        errorMessage: e.message,
-      })
-    );
-
-    throw e;
-  } finally {
-    dispatch(
-      UiSliceAction.loading({
-        isLoading: false,
-      })
-    );
-  }
-};
 
 // get comments
 export const commentFetchAction = (imagineId) => async (dispatch) => {
@@ -363,11 +360,6 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
 
   try {
     await appriciate();
-    dispatch(
-      imagineSliceAction.inititateProcess({
-        isinitiate: true,
-      })
-    );
   } catch (e) {
     dispatch(
       UiSliceAction.ErrorMessage({
