@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImagines";
-import Card from "./Card";
+import Card from "../../../Imagines/Home/General/Card";
 
 const List = () => {
   const auth = useSelector((state) => state.auth);
@@ -17,21 +17,24 @@ const List = () => {
             </span>
           )}
 
-          {auth?.userImagines?.map((imagine) => {
+          {auth?.userImagines?.map((imagines) => {
             return (
               <>
                 {ui.isLoading ? (
                   <SkeletonImagines />
                 ) : (
                   <Card
-                    id={imagine?._id}
-                    introImage={imagine?.introImage}
-                    outroImage={imagine?.outroImage}
-                    title={imagine?.title}
-                    category={imagine?.category}
-                    author={imagine?.user}
-                    name={imagine?.user?.name}
-                    appriciates={imagine.appriciates}
+                    author={imagines?.user?._id}
+                    avatar={imagines?.user?.photo?.secure_url}
+                    id={imagines._id}
+                    title={imagines.title}
+                    introImage={imagines.introImage}
+                    username={imagines?.user?.name}
+                    category={imagines.category}
+                    date={imagines.createdAt}
+                    // views={imagines.views}
+                    appriciates={imagines.appriciates}
+                    audiovoice={imagines?.audiovoice?.secure_url}
                   />
                 )}
               </>
