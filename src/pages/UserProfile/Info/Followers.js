@@ -71,7 +71,7 @@ export default function Followers({ buttonName, followers }) {
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <span
-            className="text-sm text-primary bg-green-50 py-2 px-1 cursor-pointer"
+            className="text-sm text-primary py-2 px-1 cursor-pointer"
             onClick={toggleDrawer(anchor, true)}
           >
             {buttonName}

@@ -10,10 +10,8 @@ const List = () => {
   return (
     <>
       <div className="w-full font-Mulish">
-
         <div className="gap-4 flex flex-wrap items-center justify-center overflow-x-hidden px-4 flex-row-reverse">
           {auth?.userImagines.length === 0 && (
-
             <span className="mt-4 font-bold italic text-lg">
               You have not posted any imagine yet
             </span>
@@ -26,6 +24,7 @@ const List = () => {
                   <SkeletonImagines />
                 ) : (
                   <Card
+                    width="w-full md:w-96"
                     author={imagines?.user?._id}
                     avatar={imagines?.user?.photo?.secure_url}
                     id={imagines._id}

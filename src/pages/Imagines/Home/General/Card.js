@@ -26,6 +26,7 @@ const Card = ({
   username,
   author,
   date,
+  width,
   content,
   id,
   avatar,
@@ -93,7 +94,9 @@ const Card = ({
   }, [user, handleClickOpen]);
 
   return (
-    <div className="w-full space-x-2 flex items-start justify-center rounded-lg shadow mb-3">
+    <div
+      className={`${width} space-x-2 flex items-start justify-center rounded-lg shadow mb-3`}
+    >
       <div className="w-2/5 h-40 bg-gray-50">
         <div className="text-sm font-medium hover:underline h-36">
           <Link to={`/${id}`}>

@@ -58,6 +58,7 @@ const List = () => {
               ) : (
                 <div className="w-full">
                   <Card
+                    width="w-full"
                     author={imagines?.user?._id}
                     avatar={imagines?.user?.photo?.secure_url}
                     id={imagines._id}
