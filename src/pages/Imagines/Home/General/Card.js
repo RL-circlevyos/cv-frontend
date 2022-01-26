@@ -17,12 +17,15 @@ import AlertDialogSlide from "../../../../components/Dialog";
 import DelPopup from "./../../../../components/DelPopup";
 
 import just_saying from "../../../../assets/reading_book.svg";
+import moment from "moment";
+import CardUtilityThreeDots from "../../../../components/CardUtilityThreeDots";
 
 const Card = ({
   title,
   introImage,
   username,
   author,
+  date,
   content,
   id,
   avatar,
@@ -61,6 +64,10 @@ const Card = ({
     setDel(false);
   }, []);
 
+  const editClose = useCallback(() => {
+    setEdit(false);
+  }, []);
+
   const navigate = useNavigate();
   const profileHandler = useCallback(() => {
     user ? navigate(`/profile/${author}`) : handleClickOpen();
@@ -68,9 +75,8 @@ const Card = ({
 
   const appreciate = useCallback(() => {
     dispatch(appriciateAction(id));
-    setShow(true);
   }, [dispatch, id]);
-  const [show, setShow] = useState(false);
+
   const clickLikeHandler = useCallback(() => {
     user ? appreciate() : handleClickOpen();
   }, [appreciate, user, handleClickOpen]);
@@ -78,16 +84,13 @@ const Card = ({
   const imagineDeleteHandler = useCallback(() => {
     dispatch(deleteImagineAction(id));
     handleDelClose();
-  }, [dispatch, id, handleDelClose]);
+    editClose();
+  }, [dispatch, id, handleDelClose, editClose]);
 
   const [edit, setEdit] = useState(false);
   const clickEdit = useCallback(() => {
     user ? setEdit(true) : handleClickOpen();
   }, [user, handleClickOpen]);
-
-  const editClose = useCallback(() => {
-    setEdit(false);
-  }, []);
 
   return (
     <div className="w-full space-x-2 flex items-start justify-center rounded-lg shadow mb-3">
@@ -103,7 +106,59 @@ const Card = ({
         </div>
       </div>
       <div className="flex flex-col space-y-1 w-3/5 py-1">
-        <div className="flex items-start pt-3 space-x-2 px-1.5">
+        {/*********************** three dots start ******************/}
+        <CardUtilityThreeDots author imagineId={id} />
+        <span className="flex items-center justify-end pr-4 space-x-1">
+          {!edit && author === auth.userid && (
+            <>
+              {/* {userid === auth.userid && ( */}
+              <span>
+                <DotsHorizontalIcon
+                  className="h-5 w-5 cursor-pointer"
+                  onClick={clickEdit}
+                />
+              </span>
+              {/* )} */}
+            </>
+          )}
+          {edit && (
+            <div className="relative inline-block text-left font-Mulish">
+              <div
+                className="origin-center absolute z-50 font-Mulish right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black 
+                   ring-opacity-5 divide-y divide-gray-100 focus:outline-none text-base"
+              >
+                <span className="flex justify-end items-center mx-1 my-1">
+                  <span
+                    onClick={editClose}
+                    className="cursor-pointer font-bold"
+                  >
+                    <XIcon className="h-5 w-5 text-pink-500" />
+                  </span>
+                </span>
+                {/* <div className="py-1">
+                  <div>
+                    <Link
+                      to={`/${id}/update`}
+                      className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+                    >
+                      Edit
+                    </Link>
+                  </div>
+                </div> */}
+                <div className="py-1">
+                  <div
+                    className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+                    onClick={handleDelOpen}
+                  >
+                    Delete
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </span>
+        {/*********************** three dots end ******************/}
+        <div className="flex items-start space-x-2 px-1.5">
           <div className="flex flex-1 w-full">
             <div onClick={profileHandler}>
               {" "}
@@ -114,12 +169,17 @@ const Card = ({
               />
             </div>
 
-            <span className="text-sm ml-2 font-medium text-gray-600 truncate">
-              {username}
-            </span>
+            <div className="flex flex-col">
+              <span className="text-sm ml-2 font-medium text-gray-600 truncate">
+                {username}
+              </span>
+              <div className="text-xxs md:text-xs text-gray-500 mt-1 ml-2">
+                {moment(date).format(" MMMM Do YYYY, h:mm a")}
+              </div>
+            </div>
           </div>
         </div>
-        <span className=" text-gray-500 ml-2">
+        <span className=" text-gray-500 ml-3 pt-2">
           <Link to={`/${id}`} className="text-sm font-medium hover:underline">
             <div className="text-base text-blackish font-semibold truncate">
               {title}
@@ -134,7 +194,7 @@ const Card = ({
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
-              {show ? (
+              {appriciates.includes(auth.userid) ? (
                 <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
               ) : (
                 <svg
@@ -175,55 +235,7 @@ const Card = ({
               </svg>
             )}
           </span>{" "} */}
-          <span className="flex items-center space-x-1 pt-1">
-            {!edit && author === auth.userid && (
-              <>
-                {/* {userid === auth.userid && ( */}
-                <span>
-                  <DotsHorizontalIcon
-                    className="h-5 w-5 cursor-pointer"
-                    onClick={clickEdit}
-                  />
-                </span>
-                {/* )} */}
-              </>
-            )}
-            {edit && (
-              <div className="relative inline-block text-left font-Mulish">
-                <div
-                  className="origin-center absolute z-50 font-Mulish right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black 
-        ring-opacity-5 divide-y divide-gray-100 focus:outline-none text-base"
-                >
-                  <span className="flex justify-end items-center mx-1 my-1">
-                    <span
-                      onClick={editClose}
-                      className="cursor-pointer font-bold"
-                    >
-                      <XIcon className="h-5 w-5 text-pink-500" />
-                    </span>
-                  </span>
-                  {/* <div className="py-1">
-                    <div>
-                      <Link
-                        to={`/${id}/update`}
-                        className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
-                      >
-                        Edit
-                      </Link>
-                    </div>
-                  </div> */}
-                  <div className="py-1">
-                    <div
-                      className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
-                      onClick={handleDelOpen}
-                    >
-                      Delete
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </span>
+
           <AlertDialogSlide
             open={open}
             handleClose={handleClose}

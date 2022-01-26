@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImagines";
 import { useSocket } from "../../../../hooks/socketHook";
 import { generalImagineFetchAction } from "../../../../store/apps/imagines/imagine-action";
+import { UiSliceAction } from "../../../../store/apps/ui/uiSlice";
 import Card from "./Card";
 
 const List = () => {
@@ -10,6 +11,16 @@ const List = () => {
   const imagine = useSelector((state) => state.imagine);
   const dispatch = useDispatch();
   const socket = useSocket();
+  const [isInitial, setisInitial] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setisInitial(false);
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -25,6 +36,10 @@ const List = () => {
         console.log("socket call");
         dispatch(generalImagineFetchAction());
       });
+      socket.on("delete-imagine", (data) => {
+        console.log("socket call");
+        dispatch(generalImagineFetchAction());
+      });
     }, 500);
     return () => {
       clearTimeout(timer);
@@ -35,9 +50,10 @@ const List = () => {
     <>
       <div className="mb-20 lg:mb-10 w-full justify-center flex flex-col items-center overflow-x-hidden">
         {imagine?.generalImagines?.map((imagines) => {
+          console.log(imagines.createdAt);
           return (
             <>
-              {ui.isLoading ? (
+              {isInitial ? (
                 <SkeletonImagines />
               ) : (
                 <div className="w-full">
@@ -49,6 +65,7 @@ const List = () => {
                     introImage={imagines.introImage}
                     username={imagines?.user?.name}
                     category={imagines.category}
+                    date={imagines.createdAt}
                     // views={imagines.views}
                     appriciates={imagines.appriciates}
                     audiovoice={imagines?.audiovoice?.secure_url}

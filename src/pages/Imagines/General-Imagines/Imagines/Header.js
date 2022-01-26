@@ -5,6 +5,7 @@ import moment from "moment";
 import dp from "../../../../assets/person.png";
 import { useNavigate } from "react-router-dom";
 import AlertDialogSlide from "./../../../../components/Dialog";
+import CardUtilityThreeDots from "../../../../components/CardUtilityThreeDots";
 
 const Header = ({ author }) => {
   const auth = useSelector((state) => state.auth);
@@ -36,8 +37,14 @@ const Header = ({ author }) => {
 const clickFollowHandler = useCallback(() => {
     user ? setFollow(!follow) : handleClickOpen();
   }, [follow, handleClickOpen, user]);*/
+  // console.log(singleImagine.singleImagine.user._id);
   return (
     <>
+      <CardUtilityThreeDots
+        author={singleImagine?.singleImagine?.user?._id}
+        imagineId={singleImagine?.singleImagine?._id}
+        singlePage={true}
+      />
       <div className=" flex justify-between items-center px-3 font-Mulish">
         <div className="flex items-center w-full space-x-2">
           <div

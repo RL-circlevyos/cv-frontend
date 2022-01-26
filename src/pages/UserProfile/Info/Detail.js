@@ -10,6 +10,8 @@ import {
 import AlertDialogSlide from "./../../../components/Dialog";
 import dp from "../../../assets/person.png";
 import { useSocket } from "../../../hooks/socketHook";
+import Followers from "./Followers";
+import Following from "./Following";
 
 const Detail = () => {
   const auth = useSelector((state) => state.auth);
@@ -54,6 +56,9 @@ const Detail = () => {
     user ? dispatch(userUnfollowAction(id.id)) : handleClickOpen();
   }, [handleClickOpen, user, id.id, dispatch]);
 
+  // tesing
+  console.log(auth?.userDetails);
+
   return (
     <div className="w-full font-Mulish">
       <div className="lg:flex flex-col hidden">
@@ -76,13 +81,25 @@ const Detail = () => {
             <span className="text-base text-gray-400">
               {auth?.userDetails?.email}{" "}
             </span>
-            <span className="flex justify-center flex-wrap items-start space-x-2">
-              <span className="text-base text-primary">Followers:</span>
+
+            <span className="flex justify-center flex-wrap items-center space-x-2">
+              <span className="text-base text-primary">
+                <Followers
+                  buttonName="Followers"
+                  followers={auth?.userDetails?.followers}
+                />
+              </span>
               <span className="text-base text-gray-700">
                 {auth?.userDetails?.followers?.length}
               </span>
 
-              <span className="text-base text-primary ">Following:</span>
+              <span className="text-base text-primary ">
+                {" "}
+                <Following
+                  buttonName="Following"
+                  followings={auth?.userDetails?.following}
+                />
+              </span>
               <span className="text-base text-gray-700">
                 {auth?.userDetails?.following?.length}
               </span>
@@ -129,7 +146,7 @@ const Detail = () => {
       <div className="flex justify-center flex-col lg:hidden">
         <div className="flex justify-start items-start space-x-2 w-full">
           <div className="block w-20 space-y-4">
-            <span className="w-14 h-14">
+            <span className="w-16 h-16">
               <img
                 src={
                   auth?.userDetails?.photo?.secure_url
@@ -137,7 +154,7 @@ const Detail = () => {
                     : dp
                 }
                 alt="dp"
-                className="w-16 h-16 object-cover rounded-full "
+                className="w-16 h-12 object-cover rounded-full "
               />
             </span>
           </div>
@@ -146,13 +163,25 @@ const Detail = () => {
             <span className="text-sm text-gray-400">
               {auth?.userDetails?.email}{" "}
             </span>
-            <span className="flex justify-center flex-wrap items-start space-x-2">
-              <span className="text-sm text-primary">Followers:</span>
+            <span className="flex justify-center flex-wrap items-center space-x-2">
+              <span className="text-sm text-primary">
+                {" "}
+                <Followers
+                  buttonName="Followers"
+                  followers={auth?.userDetails?.followers}
+                />
+              </span>
               <span className="text-sm text-gray-700">
                 {auth?.userDetails?.followers?.length}
               </span>
 
-              <span className="text-sm text-primary ">Following:</span>
+              <span className="text-sm text-primary ">
+                {" "}
+                <Following
+                  buttonName="Following"
+                  followings={auth?.userDetails?.following}
+                />
+              </span>
               <span className="text-sm text-gray-700">
                 {auth?.userDetails?.following?.length}
               </span>

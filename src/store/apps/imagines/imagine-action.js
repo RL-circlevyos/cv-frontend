@@ -221,6 +221,63 @@ export const deleteImagineAction = (imagineId) => async (dispatch) => {
   }
 };
 
+
+// update imagine
+export const generalImagineUpdateAction =
+  (GeneralImagineBody, imagineId) => async (dispatch) => {
+    console.log(GeneralImagineBody);
+    const GeneralImagineUpdate = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
+        // "http://localhost:3699/api/imagines",
+        {
+          credentials: "include",
+          method: "PATCH",
+          mode: "cors",
+          // headers: {
+          //   "Content-Type": "form-data",
+          // },
+          body: GeneralImagineBody,
+        }
+      );
+
+      console.log(response.json());
+
+      if (!response.ok) {
+        toast.error("something went wrong");
+
+        throw Error("Error occured in imagine create");
+      }
+
+      toast.success("updated successfully");
+    };
+
+    try {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: true,
+        })
+      );
+      await GeneralImagineUpdate();
+
+    } catch (e) {
+      dispatch(
+        UiSliceAction.ErrorMessage({
+          errorMessage: e.message,
+        })
+      );
+
+      throw e;
+    } finally {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
+    }
+  };
+
+
 // post comment
 export const commentCreateAction =
   (commentBody, imagineId) => async (dispatch) => {
@@ -276,6 +333,7 @@ export const commentCreateAction =
       );
     }
   };
+
 
 // get comments
 export const commentFetchAction = (imagineId) => async (dispatch) => {
@@ -356,13 +414,17 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
       toast.error("something went wrong");
       throw Error("Error occured in imagine appriciate");
     }
+
+    const data = await response.json();
+    console.log(data, "appriciate");
+    return data;
   };
 
   try {
-    await appriciate();
+    const aprct = await appriciate();
     dispatch(
-      imagineSliceAction.inititateProcess({
-        isinitiate: true,
+      imagineSliceAction.getAppreciates({
+        appriciate: aprct,
       })
     );
   } catch (e) {

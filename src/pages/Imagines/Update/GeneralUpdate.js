@@ -1,52 +1,117 @@
-/**import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { generalImagineCreateAction } from "../../../store/apps/imagines/imagine-action";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  generalImagineCreateAction,
+  generalImagineUpdateAction,
+} from "../../../store/apps/imagines/imagine-action";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
-import data from "../../../components/Category.json";
 import { generalImagineSingleFetchAction } from "./../../../store/apps/imagines/imagine-action";
 
 const GeneralUpdate = () => {
   const dispatch = useDispatch();
   const imagineid = useParams();
-  const imagineData = useSelector((state) => state.imagine.singleImagine);
-  const { title, intro, main, outro } = imagineData;
-  console.log(imagineData);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(generalImagineSingleFetchAction(imagineid.id));
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [dispatch, imagineid.id]);
 
-  const [editorState, setEditorState] = useState(
-    EditorState.createEmpty(imagineData?.singleImagine?.main)
-  );
+  const imagine = useSelector((state) => state.imagine);
+
+  console.log(imagine?.singleImagine?.singleImagine);
+
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const onEditorStateChange = (editorsState) => {
     setEditorState(editorsState);
 
-    console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+    console.log(
+      draftToHtml(convertToRaw(editorState.getCurrentContent())).length
+    );
+  };
+  const count = draftToHtml(
+    convertToRaw(editorState.getCurrentContent())
+  ).length;
+  const MAX_LENGTH = 3000;
+
+  const getLengthOfSelectedText = () => {
+    const currentSelection = editorState.getSelection();
+    const isCollapsed = currentSelection.isCollapsed();
+
+    let length = 0;
+
+    if (!isCollapsed) {
+      const currentContent = editorState.getCurrentContent();
+      const startKey = currentSelection.getStartKey();
+      const endKey = currentSelection.getEndKey();
+      const startBlock = currentContent.getBlockForKey(startKey);
+      const isStartAndEndBlockAreTheSame = startKey === endKey;
+      const startBlockTextLength = startBlock.getLength();
+      const startSelectedTextLength =
+        startBlockTextLength - currentSelection.getStartOffset();
+      const endSelectedTextLength = currentSelection.getEndOffset();
+      const keyAfterEnd = currentContent.getKeyAfter(endKey);
+      console.log(currentSelection);
+      if (isStartAndEndBlockAreTheSame) {
+        length +=
+          currentSelection.getEndOffset() - currentSelection.getStartOffset();
+      } else {
+        let currentKey = startKey;
+
+        while (currentKey && currentKey !== keyAfterEnd) {
+          if (currentKey === startKey) {
+            length += startSelectedTextLength + 1;
+          } else if (currentKey === endKey) {
+            length += endSelectedTextLength;
+          } else {
+            length += currentContent.getBlockForKey(currentKey).getLength() + 1;
+          }
+
+          currentKey = currentContent.getKeyAfter(currentKey);
+        }
+      }
+    }
+
+    return length;
+  };
+
+  const handleBeforeInput = () => {
+    const currentContent = editorState.getCurrentContent();
+    const currentContentLength = currentContent.getPlainText("").length;
+    const selectedTextLength = getLengthOfSelectedText();
+
+    if (currentContentLength - selectedTextLength > MAX_LENGTH - 1) {
+      return "handled";
+    }
+  };
+
+  const handlePastedText = (pastedText) => {
+    const currentContent = editorState.getCurrentContent();
+    const currentContentLength = currentContent.getPlainText("").length;
+    const selectedTextLength = getLengthOfSelectedText();
+
+    if (
+      currentContentLength + pastedText.length - selectedTextLength >
+      MAX_LENGTH
+    ) {
+      console.log(MAX_LENGTH.length);
+
+      return "handled";
+    }
   };
 
   let navigate = useNavigate();
 
-  const [titleUpdate, setTitleUpdate] = useState(
-    imagineData?.singleImagine?.title
-  );
-  const [introUpdate, setIntroUpdate] = useState(
-    imagineData?.singleImagine?.intro
-  );
+  const { title, intro, outro } = imagine?.singleImagine?.singleImagine;
 
-  const [outroUpdate, setOutroUpdate] = useState(
-    imagineData?.singleImagine?.outro
-  );
+  // test
+  // console.log(title);
+  // console.log(intro);
+  // console.log(outro);
+
+  const [titleUpdate, setTitleUpdate] = useState(title);
+  const [introUpdate, setIntroUpdate] = useState(intro);
+  const [outroUpdate, setOutroUpdate] = useState(outro);
 
   const formdata = new FormData();
 
@@ -83,12 +148,12 @@ const GeneralUpdate = () => {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(generalImagineCreateAction(formdata));
+      dispatch(generalImagineUpdateAction(formdata, imagineid.id));
       toast.success("Updated successfully");
-      navigate("/");
+      navigate(`/${imagineid.id}`);
     },
 
-    [dispatch, formdata, navigate]
+    [dispatch, formdata, navigate, imagineid]
   );
   return (
     <div className="flex justify-center items-center flex-col font-Mulish">
@@ -114,7 +179,10 @@ const GeneralUpdate = () => {
                     onChange={(e) => setTitleContent(e.target.value)}
                   />
                 </span>
-                <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right"></p>
+                <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
+                  {" "}
+                  {/* {titleUpdate.length}/80 */}
+                </p>
               </span>
             </div>
             <div className="flex items-start justify-start w-full flex-wrap lg:flex-nowrap pt-2 lg:pt-0 space-y-4 lg:space-y-0 lg:space-x-5">
@@ -132,7 +200,10 @@ const GeneralUpdate = () => {
                     onChange={(e) => setIntroContent(e.target.value)}
                   />
                 </span>
-                <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right "></p>
+                <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right ">
+                  {" "}
+                  {/* {introUpdate.length}/{limit} */}
+                </p>
               </span>
             </div>
             <div>
@@ -141,7 +212,24 @@ const GeneralUpdate = () => {
                 toolbarClassName="flex justify-center mx-auto w-full"
                 editorClassName="mt-6 bg-white shadow py-6 px-3"
                 onEditorStateChange={onEditorStateChange}
+                handleBeforeInput={handleBeforeInput}
+                handlePastedText={handlePastedText}
+                toolbar={{
+                  options: [
+                    "inline",
+                    // "blockType",
+                    "emoji",
+                    "colorPicker",
+                    "list",
+                    "link",
+                    "textAlign",
+                    "history",
+                  ],
+                }}
               />
+              <p className="mr-4 text-sm uppercase font-bold text-teal-700 float-right">
+                {count - 8}
+              </p>
             </div>
             <div className="flex items-start justify-center flex-wrap lg:flex-nowrap w-full pb-2 lg:space-x-4">
               <span className="w-full ">
@@ -158,24 +246,28 @@ const GeneralUpdate = () => {
                     onChange={(e) => setOutroContent(e.target.value)}
                   />
                 </span>
-                <p className="mr-4 text-sm uppercase font-bold text-pink-700 float-right"></p>
+                <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
+                  {" "}
+                  {/* {outroUpdate.length}/{limit} */}
+                </p>
               </span>
             </div>
 
             <div className="flex justify-end items-center pt-2 mb-4 ">
               <div className="flex items-center space-x-2 ">
-                {!title || !intro ? (
-                  <button className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 bg-gray-300 text-white ">
-                    Publish
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 bg-primary text-gray-50 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
-                  >
-                    Publish
-                  </button>
-                )}
+                <Link
+                  to="/"
+                  className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 bg-gray-300 text-white "
+                >
+                  Cancel
+                </Link>
+
+                <button
+                  type="submit"
+                  className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 bg-primary text-gray-50 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
+                >
+                  Update
+                </button>
               </div>
             </div>
           </form>
@@ -185,4 +277,4 @@ const GeneralUpdate = () => {
   );
 };
 
-export default React.memo(GeneralUpdate);*/
+export default React.memo(GeneralUpdate);
