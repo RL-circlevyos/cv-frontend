@@ -13,9 +13,11 @@ import { generalImagineSingleFetchAction } from "./../../../store/apps/imagines/
 const GeneralUpdate = () => {
   const dispatch = useDispatch();
   const imagineid = useParams();
-  const imagineData = useSelector((state) => state.imagine.singleImagine);
 
-  console.log(imagineData);
+  const imagine = useSelector((state) => state.imagine);
+
+  console.log(imagine?.singleImagine?.singleImagine);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(generalImagineSingleFetchAction(imagineid.id));
@@ -33,8 +35,9 @@ const GeneralUpdate = () => {
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
     );
   };
-  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    .length;
+  const count = draftToHtml(
+    convertToRaw(editorState.getCurrentContent())
+  ).length;
   const MAX_LENGTH = 3000;
 
   const getLengthOfSelectedText = () => {
@@ -105,16 +108,16 @@ const GeneralUpdate = () => {
 
   let navigate = useNavigate();
 
-  const [titleUpdate, setTitleUpdate] = useState(
-    imagineData?.singleImagine?.title
-  );
-  const [introUpdate, setIntroUpdate] = useState(
-    imagineData?.singleImagine?.intro
-  );
+  const { title, intro, outro } = imagine?.singleImagine?.singleImagine;
 
-  const [outroUpdate, setOutroUpdate] = useState(
-    imagineData?.singleImagine?.outro
-  );
+  // test
+  // console.log(title);
+  // console.log(intro);
+  // console.log(outro);
+
+  const [titleUpdate, setTitleUpdate] = useState(title);
+  const [introUpdate, setIntroUpdate] = useState(intro);
+  const [outroUpdate, setOutroUpdate] = useState(outro);
 
   const formdata = new FormData();
 
@@ -184,7 +187,7 @@ const GeneralUpdate = () => {
                 </span>
                 <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
                   {" "}
-                  {titleUpdate.length}/80
+                  {/* {titleUpdate.length}/80 */}
                 </p>
               </span>
             </div>
@@ -205,7 +208,7 @@ const GeneralUpdate = () => {
                 </span>
                 <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right ">
                   {" "}
-                  {introUpdate.length}/{limit}
+                  {/* {introUpdate.length}/{limit} */}
                 </p>
               </span>
             </div>
@@ -251,7 +254,7 @@ const GeneralUpdate = () => {
                 </span>
                 <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
                   {" "}
-                  {outroUpdate.length}/{limit}
+                  {/* {outroUpdate.length}/{limit} */}
                 </p>
               </span>
             </div>

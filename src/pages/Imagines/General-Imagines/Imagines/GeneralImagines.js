@@ -37,7 +37,7 @@ const GeneralImagines = ({ i }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [dispatch, imagineid.id]);
+  }, [dispatch, imagineid.id, socket]);
 
   return (
     <>
