@@ -18,6 +18,7 @@ import DelPopup from "./../../../../components/DelPopup";
 
 import just_saying from "../../../../assets/reading_book.svg";
 import moment from "moment";
+import CardUtilityThreeDots from "../../../../components/CardUtilityThreeDots";
 
 const Card = ({
   title,
@@ -106,6 +107,7 @@ const Card = ({
       </div>
       <div className="flex flex-col space-y-1 w-3/5 py-1">
         {/*********************** three dots start ******************/}
+        <CardUtilityThreeDots author imagineId={id} />
         <span className="flex items-center justify-end pr-4 space-x-1">
           {!edit && author === auth.userid && (
             <>
@@ -133,7 +135,7 @@ const Card = ({
                     <XIcon className="h-5 w-5 text-pink-500" />
                   </span>
                 </span>
-                <div className="py-1">
+                {/* <div className="py-1">
                   <div>
                     <Link
                       to={`/${id}/update`}
@@ -142,7 +144,7 @@ const Card = ({
                       Edit
                     </Link>
                   </div>
-                </div>
+                </div> */}
                 <div className="py-1">
                   <div
                     className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"

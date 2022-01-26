@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { generalImagineCreateAction } from "../../../store/apps/imagines/imagine-action";
+import {
+  generalImagineCreateAction,
+  generalImagineUpdateAction,
+} from "../../../store/apps/imagines/imagine-action";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Editor } from "react-draft-wysiwyg";
@@ -17,15 +20,6 @@ const GeneralUpdate = () => {
   const imagine = useSelector((state) => state.imagine);
 
   console.log(imagine?.singleImagine?.singleImagine);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(generalImagineSingleFetchAction(imagineid.id));
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [dispatch, imagineid.id]);
 
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const onEditorStateChange = (editorsState) => {
@@ -154,12 +148,12 @@ const GeneralUpdate = () => {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(generalImagineCreateAction(formdata));
+      dispatch(generalImagineUpdateAction(formdata, imagineid.id));
       toast.success("Updated successfully");
-      navigate("/");
+      navigate(`/${imagineid.id}`);
     },
 
-    [dispatch, formdata, navigate]
+    [dispatch, formdata, navigate, imagineid]
   );
   return (
     <div className="flex justify-center items-center flex-col font-Mulish">
