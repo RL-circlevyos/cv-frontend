@@ -18,13 +18,11 @@ const Comment = ({ username, commentText, avatar, date }) => {
             </span>
 
             <div className="text-xxs text-gray-500">
-              {" "}
               {moment(date).format("dddd, MMMM Do YYYY, h:mm a")}
             </div>
           </div>
         </div>
         <span className="text-gray-800 text-tiny lg:text-base cursor-pointer">
-          {" "}
           {commentText}
         </span>
       </div>
