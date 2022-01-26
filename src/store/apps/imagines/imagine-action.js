@@ -221,6 +221,7 @@ export const deleteImagineAction = (imagineId) => async (dispatch) => {
   }
 };
 
+
 // update imagine
 export const generalImagineUpdateAction =
   (GeneralImagineBody, imagineId) => async (dispatch) => {
@@ -248,7 +249,7 @@ export const generalImagineUpdateAction =
         throw Error("Error occured in imagine create");
       }
 
-      toast.success("posted successfully");
+      toast.success("updated successfully");
     };
 
     try {
@@ -258,6 +259,7 @@ export const generalImagineUpdateAction =
         })
       );
       await GeneralImagineUpdate();
+
     } catch (e) {
       dispatch(
         UiSliceAction.ErrorMessage({
@@ -274,6 +276,7 @@ export const generalImagineUpdateAction =
       );
     }
   };
+
 
 // post comment
 export const commentCreateAction =
@@ -330,6 +333,7 @@ export const commentCreateAction =
       );
     }
   };
+
 
 // get comments
 export const commentFetchAction = (imagineId) => async (dispatch) => {
