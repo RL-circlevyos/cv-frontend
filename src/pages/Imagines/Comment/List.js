@@ -5,11 +5,7 @@ import Comment from "./Comment";
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { commentCreateAction } from "../../../store/apps/imagines/imagine-action";
-<<<<<<< HEAD
-import Mention from "./Mention";
-=======
 //import Mentions from "./Mentions";
->>>>>>> main
 
 const CommentList = () => {
   const [newCommentInput, setNewCommentInput] = useState();
@@ -53,11 +49,7 @@ const CommentList = () => {
           </Button>
         </form>
       )}
-<<<<<<< HEAD
-      <Mention mentions={auth?.userDetails?.followers} />
-=======
       {/* <Mentions users={auth?.userDetails?.followers} /> */}
->>>>>>> main
       <div className="mt-2 space-y-3 mb-5">
         {singleImagine?.singleImagine?.comments?.length === 0 && (
           <div className="text-center text-gray-700 font-bold">
