@@ -3,6 +3,7 @@ import moment from "moment";
 import dp from "../../../assets/person.png";
 
 const Comment = ({ username, commentText, avatar, date }) => {
+  const mentionRegex = /\b(@)\b/g;
   return (
     <div className="flex flex-col items-start space-x-2 pb-2 px-4 py-1 shadow border border-gray-50 font-Mulish mb-2">
       <div className="flex-wrap">
