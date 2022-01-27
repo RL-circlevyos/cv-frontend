@@ -70,6 +70,7 @@ const List = () => {
                     appriciates={imagines.appriciates}
                     audiovoice={imagines?.audiovoice?.secure_url}
                   />
+                  <button onClick>See More</button>
                 </div>
               )}
             </>
