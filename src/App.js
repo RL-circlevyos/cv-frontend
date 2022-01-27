@@ -58,7 +58,7 @@ function App() {
 
   useEffect(() => {
     dispatch(AuthState());
-    dispatch(generalImagineFetchAction());
+    // dispatch(generalImagineFetchAction(skipCount));
     dispatch(userDetailsAction());
     dispatch(userImaginesAction());
     dispatch(myDetailsAction());

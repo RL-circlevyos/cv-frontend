@@ -15,6 +15,7 @@ const Card = ({
   openCommentBox,
 }) => {
   const ui = useSelector((state) => state.ui);
+
   return (
     <section className={`${styles}`}>
       <div class="w-full">

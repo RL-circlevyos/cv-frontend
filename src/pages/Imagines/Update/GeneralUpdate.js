@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { generalImagineCreateAction } from "../../../store/apps/imagines/imagine-action";
+import {
+  generalImagineCreateAction,
+  generalImagineUpdateAction,
+} from "../../../store/apps/imagines/imagine-action";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Editor } from "react-draft-wysiwyg";
@@ -13,17 +16,10 @@ import { generalImagineSingleFetchAction } from "./../../../store/apps/imagines/
 const GeneralUpdate = () => {
   const dispatch = useDispatch();
   const imagineid = useParams();
-  const imagineData = useSelector((state) => state.imagine.singleImagine);
 
-  console.log(imagineData);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(generalImagineSingleFetchAction(imagineid.id));
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [dispatch, imagineid.id]);
+  const imagine = useSelector((state) => state.imagine);
+
+  console.log(imagine?.singleImagine?.singleImagine);
 
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const onEditorStateChange = (editorsState) => {
@@ -33,8 +29,9 @@ const GeneralUpdate = () => {
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
     );
   };
-  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    .length;
+  const count = draftToHtml(
+    convertToRaw(editorState.getCurrentContent())
+  ).length;
   const MAX_LENGTH = 3000;
 
   const getLengthOfSelectedText = () => {
@@ -105,16 +102,16 @@ const GeneralUpdate = () => {
 
   let navigate = useNavigate();
 
-  const [titleUpdate, setTitleUpdate] = useState(
-    imagineData?.singleImagine?.title
-  );
-  const [introUpdate, setIntroUpdate] = useState(
-    imagineData?.singleImagine?.intro
-  );
+  const { title, intro, outro } = imagine?.singleImagine?.singleImagine;
 
-  const [outroUpdate, setOutroUpdate] = useState(
-    imagineData?.singleImagine?.outro
-  );
+  // test
+  // console.log(title);
+  // console.log(intro);
+  // console.log(outro);
+
+  const [titleUpdate, setTitleUpdate] = useState(title);
+  const [introUpdate, setIntroUpdate] = useState(intro);
+  const [outroUpdate, setOutroUpdate] = useState(outro);
 
   const formdata = new FormData();
 
@@ -151,12 +148,12 @@ const GeneralUpdate = () => {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(generalImagineCreateAction(formdata));
+      dispatch(generalImagineUpdateAction(formdata, imagineid.id));
       toast.success("Updated successfully");
-      navigate("/");
+      navigate(`/${imagineid.id}`);
     },
 
-    [dispatch, formdata, navigate]
+    [dispatch, formdata, navigate, imagineid]
   );
   return (
     <div className="flex justify-center items-center flex-col font-Mulish">
@@ -184,7 +181,7 @@ const GeneralUpdate = () => {
                 </span>
                 <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
                   {" "}
-                  {titleUpdate.length}/80
+                  {/* {titleUpdate.length}/80 */}
                 </p>
               </span>
             </div>
@@ -205,7 +202,7 @@ const GeneralUpdate = () => {
                 </span>
                 <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right ">
                   {" "}
-                  {introUpdate.length}/{limit}
+                  {/* {introUpdate.length}/{limit} */}
                 </p>
               </span>
             </div>
@@ -251,7 +248,7 @@ const GeneralUpdate = () => {
                 </span>
                 <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
                   {" "}
-                  {outroUpdate.length}/{limit}
+                  {/* {outroUpdate.length}/{limit} */}
                 </p>
               </span>
             </div>
