@@ -1,77 +1,55 @@
-/**import React from "react";
-// import { EditorState, convertToRaw } from "draft-js";
-// import Editor from "@draft-js-plugins/editor";
-// import createMentionPlugin, {
-//   defaultSuggestionsFilter
-// } from "@draft-js-plugins/mention";
-// import editorStyles from "./editorStyles.module.css";
-// import mentions from "./mentions";
-// import "draft-js-mention-plugin/lib/plugin.css";
+import React, { useState, useRef } from "react";
+import { EditorState } from "draft-js";
 
-// const mention = () => {
+import Editor from "@draft-js-plugins/editor";
+import createMentionPlugin, {
+  defaultSuggestionsFilter,
+} from "@draft-js-plugins/mention";
+import "draft-js/dist/Draft.css";
+import "@draft-js-plugins/mention/lib/plugin.css";
 
-//     let mentionPlugin = createMentionPlugin();
+// Draft-JS-Mentions plugin configuration
+const mentionPlugin = createMentionPlugin();
+const { MentionSuggestions } = mentionPlugin;
+const plugins = [mentionPlugin];
 
-//  const[estate, esetState]  = useState({
-//     editorState: EditorState.createEmpty(),
-//     suggestions: mentions
-//   });
+const Mention = ({ mentions }) => {
+  const [suggestions, setSuggestions] = useState(mentions);
 
-//   const onChange = editorState => {
-//     esetState({ editorState });
-//   };
+  // Draft-JS editor configuration
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+  const editor = useRef(null);
 
-//   onSearchChange = ({ value }) => {
-//     esetState({
-//       suggestions: defaultSuggestionsFilter(value, mentions)
-//     });
-//   };
+  // Check editor text for mentions
+  const onSearchChange = ({ value }) => {
+    setSuggestions(defaultSuggestionsFilter(value, mentions));
+  };
 
-//   onExtractData = () => {
-//     const contentState = this.state.editorState.getCurrentContent();
-//     const raw = convertToRaw(contentState);
-//     console.log(raw);
-//   };
+  const onAddMention = () => {};
 
-//   onExtractMentions = () => {
-//     const contentState = this.state.editorState.getCurrentContent();
-//     const raw = convertToRaw(contentState);
-//     let mentionedUsers = [];
-//     for (let key in raw.entityMap) {
-//       const ent = raw.entityMap[key];
-//       if (ent.type === "mention") {
-//         mentionedUsers.push(ent.data.mention);
-//       }
-//     }
-//     console.log(mentionedUsers);
-//   };
+  // Focus on editor window
+  const focusEditor = () => {
+    editor.current.focus();
+  };
 
-//   render() {
-//     const { MentionSuggestions } = this.mentionPlugin;
-//     const plugins = [this.mentionPlugin];
+  return (
+    <div onClick={() => focusEditor()}>
+      <Editor
+        ref={editor}
+        editorState={editorState}
+        plugins={plugins}
+        onChange={(editorsState) => setEditorState(editorsState)}
+        placeholder={"Type here..."}
+      />
+      <MentionSuggestions
+        onSearchChange={onSearchChange}
+        suggestions={suggestions}
+        onAddMention={onAddMention}
+      />
+    </div>
+  );
+};
 
-//     return (
-//       <div>
-//         <div className={editorStyles.editor}>
-//           <Editor
-//             editorState={this.state.editorState}
-//             onChange={this.onChange}
-//             plugins={plugins}
-//           />
-//           <MentionSuggestions
-//             onSearchChange={this.onSearchChange}
-//             suggestions={this.state.suggestions}
-//           />
-//         </div>
-//         <div>
-//           <button onClick={() => this.onExtractData()}>Extract data</button>
-//           <button onClick={() => this.onExtractMentions()}>
-//             Extract mentions
-//           </button>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// export default TextInput;*/
+export default Mention;
