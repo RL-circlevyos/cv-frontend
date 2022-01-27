@@ -5,7 +5,8 @@ const initialCreateImagineState = {
   singleImagine: {},
   comments: [],
   isinitiate: false,
-  appreciate: {},
+  appreciate: [],
+  skipCount: 0,
 };
 
 const imagineSlice = createSlice({
@@ -31,6 +32,13 @@ const imagineSlice = createSlice({
     getAppreciates(state, action) {
       state.appreciate = action.payload.appreciate;
       console.log(state.appreciate, "imagineSlice action");
+    },
+    skipCountNext(state, action) {
+      state.skipCount = state.skipCount + 1;
+      console.log(state.skipCount, "skip next");
+    },
+    skipCountPrev(state, action) {
+      state.skipCount = state.skipCount - 1;
     },
   },
 });

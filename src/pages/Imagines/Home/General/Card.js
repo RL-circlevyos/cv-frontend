@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   DotsHorizontalIcon,
   LightBulbIcon,
@@ -92,6 +92,8 @@ const Card = ({
   const clickEdit = useCallback(() => {
     user ? setEdit(true) : handleClickOpen();
   }, [user, handleClickOpen]);
+
+  useEffect(() => {}, []);
 
   return (
     <div
