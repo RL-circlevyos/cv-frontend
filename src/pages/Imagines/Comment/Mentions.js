@@ -29,6 +29,7 @@ const Mentions = () => {
         textcomment: comment,
       };
       dispatch(commentCreateAction(commentBody, imagineId.id));
+      setMentioned("");
       //Call to your DataBase like backendModule.saveComment(comment,  along_with_other_params);
       // setMentioned({
       //   comment: "",
