@@ -33,6 +33,10 @@ const GeneralImagines = ({ i }) => {
       socket.on("appriciate", () => {
         dispatch(generalImagineSingleFetchAction(imagineid.id));
       });
+      socket.on("update-imagine", (data) => {
+        console.log("socket call");
+        dispatch(generalImagineSingleFetchAction(imagineid.id));
+      });
     }, 500);
     return () => {
       clearTimeout(timer);
