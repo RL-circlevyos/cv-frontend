@@ -440,6 +440,49 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
   }
 };
 
+// appriciate List
+export const appriciateListAction = (imagineId) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const appriciateList = async () => {
+      console.log("followings list");
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/appriciateList`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        /**toast.error("something went wrong");*/
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+
+      return responseData.appriciates;
+    };
+
+    try {
+      const response = await appriciateList();
+      console.log(response);
+      dispatch(
+        imagineSliceAction.getAppreciateList({
+          appriciateList: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // save
 export const saveImagineAction = (imagineId) => async (dispatch) => {
   console.log(imagineId);
