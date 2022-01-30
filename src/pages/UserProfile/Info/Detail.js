@@ -31,12 +31,12 @@ const Detail = () => {
       dispatch(userFollowingAction(id.id));
 
       socket.on("follow", () => {
-        dispatch(userDetailsAction(id.id));
+        //dispatch(userDetailsAction(id.id));
         dispatch(userImaginesAction(id.id));
         dispatch(userFollowingAction(id.id));
       });
       socket.on("unfollow", () => {
-        dispatch(userDetailsAction(id.id));
+        //dispatch(userDetailsAction(id.id));
         dispatch(userImaginesAction(id.id));
         dispatch(userFollowingAction(id.id));
       });
@@ -213,7 +213,7 @@ const Detail = () => {
 
         {auth.userid === id.id ? null : (
           <span className="cursor-pointer mt-5">
-            {!auth?.userDetails?.followers?.includes(auth.userid) ? (
+            {!auth?.following?.includes(id.id) ? (
               <span
                 className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24"
                 onClick={clickFollowHandler}
