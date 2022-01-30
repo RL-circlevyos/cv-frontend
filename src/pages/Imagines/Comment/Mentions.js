@@ -13,7 +13,7 @@ const Mentions = () => {
   const imagineId = useParams();
   const [mentioned, setMentioned] = useState("");
 
-  const userMentionData = auth?.userDetails?.followers?.map((myUser) => ({
+  const userMentionData = auth?.userDetails?.following?.map((myUser) => ({
     id: myUser._id,
     display: `${myUser.name}`,
   }));
