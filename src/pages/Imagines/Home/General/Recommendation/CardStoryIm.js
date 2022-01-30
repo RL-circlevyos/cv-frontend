@@ -64,12 +64,12 @@ const CardStoryIm = ({
             )}
           </span> */}
         </div>
-        <Link to={`/${id}`}>
-          <span className=" text-gray-500 ">
-            <span className="text-base text-blackish font-medium hover:underline overflow-ellipsis truncate ...">
-              {title}
-            </span>
-          </span>
+
+        <Link
+          to={`/${id}`}
+          className="text-sm text-gray-800 font-medium hover:underline truncate"
+        >
+          {title}
         </Link>
         <span className="flex items-start space-x-4 pt-1">
           {" "}

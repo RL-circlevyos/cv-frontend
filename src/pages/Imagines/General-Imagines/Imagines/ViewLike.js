@@ -43,7 +43,7 @@ export default function ViewLike({ buttonName, viewLikes }) {
         )}
         {viewLikes?.map((view, index) => (
           <div
-            className="text-base font-Mulish text-gray-700 px-4 py-3 cursor-pointer hover:bg-gray-200 mt-5"
+            className="text-base font-Mulish text-gray-700 px-4 py-2 cursor-pointer hover:bg-gray-200 mt-2"
             key={index}
           >
             <Link to={`/profile/${view}`}>
