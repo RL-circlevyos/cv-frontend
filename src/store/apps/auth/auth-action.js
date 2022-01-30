@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { UiSliceAction } from "../ui/uiSlice";
 import { authAction } from "./auth-slice";
 
 // custom action creator function =>  thunk
@@ -235,6 +236,11 @@ export const userDetailsAction = (id) => {
     };
 
     try {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: true,
+        })
+      );
       const response = await userDetails();
       console.log(response.id);
       dispatch(
@@ -244,6 +250,12 @@ export const userDetailsAction = (id) => {
       );
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
     }
   };
 };

@@ -11,6 +11,7 @@ import { generalImagineSingleFetchAction } from "../../../../store/apps/imagines
 import { useParams } from "react-router-dom";
 import { useSocket } from "../../../../hooks/socketHook";
 import { ToastContainer } from "react-toastify";
+import { appriciateListAction } from "./../../../../store/apps/imagines/imagine-action";
 
 const GeneralImagines = ({ i }) => {
   const imagine = useSelector((state) => state.imagine);
@@ -24,6 +25,7 @@ const GeneralImagines = ({ i }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(generalImagineSingleFetchAction(imagineid.id));
+      dispatch(appriciateListAction(imagineid.id));
       socket.on("create-comment", () => {
         dispatch(generalImagineSingleFetchAction(imagineid.id));
       });
@@ -32,6 +34,9 @@ const GeneralImagines = ({ i }) => {
       });
       socket.on("appriciate", () => {
         dispatch(generalImagineSingleFetchAction(imagineid.id));
+      });
+      socket.on("appriciate", () => {
+        dispatch(appriciateListAction(imagineid.id));
       });
       socket.on("update-imagine", (data) => {
         console.log("socket call");
