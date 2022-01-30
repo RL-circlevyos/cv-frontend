@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import AlertDialogSlide from "../../../../components/Dialog";
 import { useSocket } from "../../../../hooks/socketHook";
 import { appriciateAction } from "../../../../store/apps/imagines/imagine-action";
+import ViewLike from "./ViewLike";
 
 const Footer = ({ openCommentBox }) => {
   const auth = useSelector((state) => state.auth);
@@ -39,7 +40,6 @@ const Footer = ({ openCommentBox }) => {
 
   const post = useCallback(() => {
     dispatch(appriciateAction(id.id));
-
     setLike(true);
   }, [dispatch, id.id]);
 
@@ -48,11 +48,20 @@ const Footer = ({ openCommentBox }) => {
     user ? post() : handleClickOpen();
   }, [user, handleClickOpen, post]);
 
+  console.log(singleImagine.singleImagine?.appriciates);
+
   return (
     <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
       <div className="flex w-full items-start justify-evenly space-x-3 text-gray-900 font-bold">
+        {user && (
+          <span>
+            <ViewLike
+              buttonName="View Like"
+              viewLikes={singleImagine.singleImagine?.appriciates}
+            />
+          </span>
+        )}
         <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300">
-          {" "}
           <span className="flex items-center space-x-1 text-xs">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
               {singleImagine?.singleImagine?.appriciates?.includes(

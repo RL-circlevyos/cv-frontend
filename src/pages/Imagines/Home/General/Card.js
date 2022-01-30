@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
+  AnnotationIcon,
   DotsHorizontalIcon,
   LightBulbIcon,
   XIcon,
@@ -27,7 +28,7 @@ const Card = ({
   author,
   date,
   width,
-  content,
+  comments,
   id,
   avatar,
   appriciates,
@@ -204,7 +205,7 @@ const Card = ({
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-6 w-6 text-gray-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -218,7 +219,17 @@ const Card = ({
                 </svg>
               )}
             </span>
-            <b>{appriciates.length}</b>
+            <b className="italic">{appriciates.length}</b>
+          </span>
+          <span className="flex justify-center items-start flex-col text-xxs lg:text-tiny text-gray-300">
+            <span className="flex items-center space-x-1 text-xs ">
+              <span className="">
+                <AnnotationIcon className="h-5 w-5 text-gray-500" />
+              </span>
+              <span className="text-xs lg:text-sm italic ml-1 text-gray-700">
+                <i>{comments.length}</i>
+              </span>
+            </span>
           </span>
           {/* <span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
