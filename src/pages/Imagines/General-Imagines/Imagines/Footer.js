@@ -15,6 +15,7 @@ const Footer = ({ openCommentBox }) => {
   const auth = useSelector((state) => state.auth);
   const user = auth.userid;
   const singleImagine = useSelector((state) => state.imagine.singleImagine);
+  const viewAppreciate = useSelector((state) => state.imagine);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = useCallback(() => {
@@ -48,7 +49,7 @@ const Footer = ({ openCommentBox }) => {
     user ? post() : handleClickOpen();
   }, [user, handleClickOpen, post]);
 
-  console.log(singleImagine.singleImagine?.appriciates);
+  console.log(viewAppreciate?.appriciateList);
 
   return (
     <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
@@ -57,7 +58,7 @@ const Footer = ({ openCommentBox }) => {
           <span>
             <ViewLike
               buttonName="View Like"
-              viewLikes={singleImagine.singleImagine?.appriciates}
+              viewLikes={viewAppreciate?.appriciateList}
             />
           </span>
         )}

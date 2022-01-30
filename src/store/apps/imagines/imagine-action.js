@@ -3,63 +3,64 @@ import { imagineSliceAction } from "./imagine-slice";
 import { toast } from "react-toastify";
 
 // post imagine
-export const generalImagineCreateAction =
-  (GeneralImagineBody) => async (dispatch) => {
-    console.log(GeneralImagineBody);
-    const GeneralImagineCreate = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/imagineCreate`,
-        // "http://localhost:3699/api/imagines",
-        {
-          credentials: "include",
-          method: "POST",
-          mode: "cors",
-          // headers: {
-          //   "Content-Type": "form-data",
-          // },
-          body: GeneralImagineBody,
-        }
-      );
-
-      console.log(response.json());
-
-      if (!response.ok) {
-        toast.error("something went wrong");
-
-        throw Error("Error occured in imagine create");
+export const generalImagineCreateAction = (GeneralImagineBody) => async (
+  dispatch
+) => {
+  console.log(GeneralImagineBody);
+  const GeneralImagineCreate = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/imagineCreate`,
+      // "http://localhost:3699/api/imagines",
+      {
+        credentials: "include",
+        method: "POST",
+        mode: "cors",
+        // headers: {
+        //   "Content-Type": "form-data",
+        // },
+        body: GeneralImagineBody,
       }
+    );
 
-      toast.success("posted successfully");
-    };
+    console.log(response.json());
 
-    try {
-      // dispatch(
-      //   UiSliceAction.loading({
-      //     isLoading: true,
-      //   })
-      // );
-      await GeneralImagineCreate();
-      dispatch(
-        imagineSliceAction.createPost({
-          isinitiate: true,
-        })
-      );
-    } catch (e) {
-      dispatch(
-        UiSliceAction.ErrorMessage({
-          errorMessage: e.message,
-        })
-      );
+    if (!response.ok) {
+      toast.error("something went wrong");
 
-      throw e;
-    } finally {
-      dispatch(
-        UiSliceAction.loading({
-          isLoading: false,
-        })
-      );
+      throw Error("Error occured in imagine create");
     }
+
+    toast.success("posted successfully");
   };
+
+  try {
+    // dispatch(
+    //   UiSliceAction.loading({
+    //     isLoading: true,
+    //   })
+    // );
+    await GeneralImagineCreate();
+    dispatch(
+      imagineSliceAction.createPost({
+        isinitiate: true,
+      })
+    );
+  } catch (e) {
+    dispatch(
+      UiSliceAction.ErrorMessage({
+        errorMessage: e.message,
+      })
+    );
+
+    throw e;
+  } finally {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: false,
+      })
+    );
+  }
+};
 
 // get all imagine
 export const generalImagineFetchAction = (skipCount) => async (dispatch) => {
@@ -119,63 +120,64 @@ export const generalImagineFetchAction = (skipCount) => async (dispatch) => {
 };
 
 // get imagine
-export const generalImagineSingleFetchAction =
-  (imagineId) => async (dispatch) => {
-    console.log("calling single imagine id", imagineId);
+export const generalImagineSingleFetchAction = (imagineId) => async (
+  dispatch
+) => {
+  console.log("calling single imagine id", imagineId);
 
-    const generalImagineSingleFetch = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
-        // `http://localhost:3699/api/imagines/${imagineId}`,
-        {
-          credentials: "include",
-          method: "GET",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        toast.error("something went wrong");
-
-        throw Error("Error occured in class create");
+  const generalImagineSingleFetch = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
+      // `http://localhost:3699/api/imagines/${imagineId}`,
+      {
+        credentials: "include",
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
+    );
 
-      const data = await response.json();
-      return data;
-    };
+    if (!response.ok) {
+      toast.error("something went wrong");
 
-    try {
-      dispatch(
-        UiSliceAction.loading({
-          isLoading: true,
-        })
-      );
-      const gImagine = await generalImagineSingleFetch();
-      console.log(gImagine);
-
-      dispatch(
-        imagineSliceAction.getSingleImagine({
-          singleImagine: gImagine,
-        })
-      );
-    } catch (err) {
-      console.log(err);
-      dispatch(
-        UiSliceAction.ErrorMessage({
-          errorMessage: err.message,
-        })
-      );
-    } finally {
-      dispatch(
-        UiSliceAction.loading({
-          isLoading: false,
-        })
-      );
+      throw Error("Error occured in class create");
     }
+
+    const data = await response.json();
+    return data;
   };
+
+  try {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: true,
+      })
+    );
+    const gImagine = await generalImagineSingleFetch();
+    //console.log(gImagine);
+
+    dispatch(
+      imagineSliceAction.getSingleImagine({
+        singleImagine: gImagine,
+      })
+    );
+  } catch (err) {
+    console.log(err);
+    dispatch(
+      UiSliceAction.ErrorMessage({
+        errorMessage: err.message,
+      })
+    );
+  } finally {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: false,
+      })
+    );
+  }
+};
 
 // delete imagine
 // get imagine
@@ -222,114 +224,117 @@ export const deleteImagineAction = (imagineId) => async (dispatch) => {
 };
 
 // update imagine
-export const generalImagineUpdateAction =
-  (GeneralImagineBody, imagineId) => async (dispatch) => {
-    console.log(GeneralImagineBody);
-    const GeneralImagineUpdate = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
-        // "http://localhost:3699/api/imagines",
-        {
-          credentials: "include",
-          method: "PATCH",
-          mode: "cors",
-          // headers: {
-          //   "Content-Type": "form-data",
-          // },
-          body: GeneralImagineBody,
-        }
-      );
-
-      console.log(response.json());
-
-      if (!response.ok) {
-        toast.error("something went wrong");
-
-        throw Error("Error occured in imagine create");
+export const generalImagineUpdateAction = (
+  GeneralImagineBody,
+  imagineId
+) => async (dispatch) => {
+  console.log(GeneralImagineBody);
+  const GeneralImagineUpdate = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
+      // "http://localhost:3699/api/imagines",
+      {
+        credentials: "include",
+        method: "PATCH",
+        mode: "cors",
+        // headers: {
+        //   "Content-Type": "form-data",
+        // },
+        body: GeneralImagineBody,
       }
+    );
 
-      toast.success("updated successfully");
-    };
+    console.log(response.json());
 
-    try {
-      dispatch(
-        UiSliceAction.loading({
-          isLoading: true,
-        })
-      );
-      await GeneralImagineUpdate();
-    } catch (e) {
-      dispatch(
-        UiSliceAction.ErrorMessage({
-          errorMessage: e.message,
-        })
-      );
+    if (!response.ok) {
+      toast.error("something went wrong");
 
-      throw e;
-    } finally {
-      dispatch(
-        UiSliceAction.loading({
-          isLoading: false,
-        })
-      );
+      throw Error("Error occured in imagine create");
     }
+
+    toast.success("updated successfully");
   };
+
+  try {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: true,
+      })
+    );
+    await GeneralImagineUpdate();
+  } catch (e) {
+    dispatch(
+      UiSliceAction.ErrorMessage({
+        errorMessage: e.message,
+      })
+    );
+
+    throw e;
+  } finally {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: false,
+      })
+    );
+  }
+};
 
 // post comment
-export const commentCreateAction =
-  (commentBody, imagineId) => async (dispatch) => {
-    console.log(imagineId);
-    // const auth = useSelector((state) => state.auth);
-    console.log(commentBody);
-    const commentCreate = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/comment`,
-        // `http://localhost:3699/api/imagines/${imagineId}/comments`,
-        {
-          credentials: "include",
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(commentBody),
-        }
-      );
-
-      console.log(response.json());
-
-      if (!response.ok) {
-        toast.error("something went wrong");
-
-        throw Error("Error occured in imagine create");
+export const commentCreateAction = (commentBody, imagineId) => async (
+  dispatch
+) => {
+  console.log(imagineId);
+  // const auth = useSelector((state) => state.auth);
+  console.log(commentBody);
+  const commentCreate = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/comment`,
+      // `http://localhost:3699/api/imagines/${imagineId}/comments`,
+      {
+        credentials: "include",
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(commentBody),
       }
+    );
 
-      toast.info("comment posted");
-    };
+    console.log(response.json());
 
-    try {
-      // dispatch(
-      //   UiSliceAction.loading({
-      //     isLoading: true,
-      //   })
-      // );
-      await commentCreate();
-    } catch (e) {
-      dispatch(
-        UiSliceAction.ErrorMessage({
-          errorMessage: e.message,
-        })
-      );
+    if (!response.ok) {
+      toast.error("something went wrong");
 
-      throw e;
-    } finally {
-      dispatch(
-        UiSliceAction.loading({
-          isLoading: false,
-        })
-      );
+      throw Error("Error occured in imagine create");
     }
+
+    toast.info("comment posted");
   };
+
+  try {
+    // dispatch(
+    //   UiSliceAction.loading({
+    //     isLoading: true,
+    //   })
+    // );
+    await commentCreate();
+  } catch (e) {
+    dispatch(
+      UiSliceAction.ErrorMessage({
+        errorMessage: e.message,
+      })
+    );
+
+    throw e;
+  } finally {
+    dispatch(
+      UiSliceAction.loading({
+        isLoading: false,
+      })
+    );
+  }
+};
 
 // get comments
 export const commentFetchAction = (imagineId) => async (dispatch) => {
@@ -465,7 +470,7 @@ export const appriciateListAction = (imagineId) => {
       }
 
       const responseData = await response.json();
-
+      console.log(responseData);
       return responseData.appriciates;
     };
 
