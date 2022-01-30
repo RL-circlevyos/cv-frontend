@@ -248,6 +248,49 @@ export const userDetailsAction = (id) => {
   };
 };
 
+// user follow
+export const userFollowingAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const userDetails = async () => {
+      console.log("user followings list");
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/mydetails`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        /**toast.error("something went wrong");*/
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData.user.following);
+      return responseData.user.following;
+    };
+
+    try {
+      const response = await userDetails();
+      console.log(response);
+      dispatch(
+        authAction.followingList({
+          following: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // mydetail
 export const myDetailsAction = () => {
   return async (dispatch) => {
