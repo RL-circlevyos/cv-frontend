@@ -37,6 +37,7 @@ const List = () => {
                     username={imagines?.user?.name}
                     category={imagines.category}
                     date={imagines.createdAt}
+                    comments={imagines.comments}
                     // views={imagines.views}
                     comments={imagines.comments}
                     appriciates={imagines.appriciates}
