@@ -7,7 +7,10 @@ import Navbar from "../../../../components/Navbar";
 import Card from "./Card";
 
 import { useDispatch, useSelector } from "react-redux";
-import { generalImagineSingleFetchAction } from "../../../../store/apps/imagines/imagine-action";
+import {
+  commentFetchAction,
+  generalImagineSingleFetchAction,
+} from "../../../../store/apps/imagines/imagine-action";
 import { useParams } from "react-router-dom";
 import { useSocket } from "../../../../hooks/socketHook";
 import { ToastContainer } from "react-toastify";
@@ -20,14 +23,16 @@ const GeneralImagines = ({ i }) => {
   const dispatch = useDispatch();
   const socket = useSocket();
 
-  console.log(imagine?.singleImagine?.singleImagine);
+  console.log(imagine?.comments, "all comments for individual post");
 
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(generalImagineSingleFetchAction(imagineid.id));
       dispatch(appriciateListAction(imagineid.id));
+      dispatch(commentFetchAction(imagineid.id));
       socket.on("create-comment", () => {
-        dispatch(generalImagineSingleFetchAction(imagineid.id));
+        // dispatch(generalImagineSingleFetchAction(imagineid.id));
+        dispatch(commentFetchAction(imagineid.id));
       });
       socket.on("delete-comment", () => {
         dispatch(generalImagineSingleFetchAction(imagineid.id));

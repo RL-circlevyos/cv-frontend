@@ -1,27 +1,33 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useSocket } from "../../../hooks/socketHook";
+import { commentFetchAction } from "../../../store/apps/imagines/imagine-action";
 import Comment from "./Comment";
 
 import Mentions from "./Mentions";
 
 const CommentList = () => {
-  const singleImagine = useSelector((state) => state.imagine.singleImagine);
+  const comments = useSelector((state) => state.imagine.comments);
   const auth = useSelector((state) => state.auth);
   console.log(auth?.userDetails);
   const user = auth.userid;
 
-  /**function postComment(e) {
-    e.preventDefault();
+  const id = useParams();
+  const dispatch = useDispatch();
+  console.log(comments);
+  console.log(id.id, "imagine post id");
+  const socket = useSocket();
 
-    console.log(newCommentInput, "calling COMMENT");
+  useEffect(() => {
+    dispatch(commentFetchAction(id.id));
+    socket.on("create-comment", () => {
+      dispatch(commentFetchAction(id.id));
+    });
+    dispatch(commentFetchAction(id.id));
+  }, [dispatch, id, socket]);
 
-    const commentBody = {
-      textcomment: newCommentInput,
-    };
-
-    dispatch(commentCreateAction(commentBody, imagineId.id));
-    setNewCommentInput("");
-  }*/
+  comments?.comments?.map((c) => console.log(c));
 
   return (
     <div className="w-full md:w-11/12 ">
@@ -45,12 +51,12 @@ const CommentList = () => {
       )}
 
       <div className="mt-2 space-y-3 mb-5">
-        {singleImagine?.singleImagine?.comments?.length === 0 && (
+        {comments?.comments?.length === 0 && (
           <div className="text-center text-gray-700 font-bold">
             No Comments till now
           </div>
         )}
-        {singleImagine?.singleImagine?.comments?.map((comment) => (
+        {comments?.comments?.map((comment) => (
           <>
             {console.log(comment, "comment")}
             <Comment

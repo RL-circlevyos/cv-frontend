@@ -94,7 +94,7 @@ const Card = ({
     user ? setEdit(true) : handleClickOpen();
   }, [user, handleClickOpen]);
 
-  useEffect(() => {}, []);
+  console.log(avatar, "profile pic");
 
   return (
     <div
