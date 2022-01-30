@@ -11,28 +11,28 @@
     {
       "name": "Life Events",
       "id": 4   },
+      {
+        "name": "Thoughts",
+        "id": 5   },
     {
       "name": "Fiction",
-      "id": 5    },
+      "id": 6    },
     {
       "name": "Business",
-      "id": 6   },
-    {
-      "name": "Food",
       "id": 7   },
     {
-      "name": "Entertainment",
+      "name": "Food",
       "id": 8   },
     {
-      "name": "Music",
+      "name": "Entertainment",
       "id": 9   },
     {
-      "name": "Mystery",
+      "name": "Music",
       "id": 10   },
     {
-      "name": "Horror",
-      "id": 11
-    },
+      "name": "Mystery",
+      "id": 11   },
+
     {
       "name": "Thriller",
       "id": 12
