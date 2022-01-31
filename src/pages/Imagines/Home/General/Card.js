@@ -20,6 +20,8 @@ import DelPopup from "./../../../../components/DelPopup";
 import just_saying from "../../../../assets/reading_book.svg";
 import moment from "moment";
 import CardUtilityThreeDots from "../../../../components/CardUtilityThreeDots";
+import { ShareIcon } from "@heroicons/react/outline";
+import ShareDialog from "./../../General-Imagines/Imagines/ShareDialog";
 
 const Card = ({
   title,
@@ -33,7 +35,7 @@ const Card = ({
   avatar,
   appriciates,
   category,
-  isAppriciatesAuthor,
+
   audiovoice,
 }) => {
   const auth = useSelector((state) => state.auth);
@@ -94,6 +96,15 @@ const Card = ({
     user ? setEdit(true) : handleClickOpen();
   }, [user, handleClickOpen]);
 
+  const [openShare, setOpenShare] = useState(false);
+
+  const handleClickOpenShare = useCallback(() => {
+    setOpenShare(true);
+  }, []);
+
+  const handleCloseShare = useCallback(() => {
+    setOpenShare(false);
+  }, []);
   console.log(avatar, "profile pic");
 
   return (
@@ -113,20 +124,18 @@ const Card = ({
       </div>
       <div className="flex flex-col space-y-1 w-3/5 py-1">
         {/*********************** three dots start ******************/}
-        <CardUtilityThreeDots author imagineId={id} />
+
         <span className="flex items-center justify-end pr-4 space-x-1">
-          {!edit && author === auth.userid && (
-            <>
-              {/* {userid === auth.userid && ( */}
-              <span>
-                <DotsHorizontalIcon
-                  className="h-5 w-5 cursor-pointer"
-                  onClick={clickEdit}
-                />
-              </span>
-              {/* )} */}
-            </>
-          )}
+          <>
+            {/* {userid === auth.userid && ( */}
+            <span>
+              <DotsHorizontalIcon
+                className="h-5 w-5 cursor-pointer"
+                onClick={clickEdit}
+              />
+            </span>
+            {/* )} */}
+          </>
           {edit && (
             <div className="relative inline-block text-left font-Mulish">
               <div
@@ -141,24 +150,23 @@ const Card = ({
                     <XIcon className="h-5 w-5 text-pink-500" />
                   </span>
                 </span>
-                {/* <div className="py-1">
-                  <div>
-                    <Link
-                      to={`/${id}/update`}
+                {author !== auth.userid && (
+                  <div className="py-1">
+                    <div className="bg-gray-50 text-pink-500 hover:bg-gray-200  block px-4 py-2 font-bold">
+                      Report
+                    </div>
+                  </div>
+                )}
+                {author === auth.userid && (
+                  <div className="py-1">
+                    <div
                       className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+                      onClick={handleDelOpen}
                     >
-                      Edit
-                    </Link>
+                      Delete
+                    </div>
                   </div>
-                </div> */}
-                <div className="py-1">
-                  <div
-                    className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
-                    onClick={handleDelOpen}
-                  >
-                    Delete
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           )}
@@ -196,7 +204,7 @@ const Card = ({
             </div>
           </Link>
         </span>
-        <span className="flex items-start justify-around bottom-0 sticky space-x-4 pt-1">
+        <span className="flex items-start justify-center bottom-0 sticky space-x-5 pt-1">
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
@@ -205,7 +213,7 @@ const Card = ({
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-600"
+                  className="h-6 w-6 md:h-7 md:w-7 text-gray-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -221,7 +229,7 @@ const Card = ({
             </span>
             <b className="italic">{appriciates.length}</b>
           </span>
-          <span className="flex justify-center items-start flex-col text-xxs lg:text-tiny text-gray-300">
+          <span className="flex justify-center items-start flex-col text-xxs lg:text-tiny text-gray-300 lg:mt-1">
             <span className="flex items-center space-x-1 text-xs ">
               <span className="">
                 <AnnotationIcon className="h-5 w-5 text-gray-500" />
@@ -230,6 +238,9 @@ const Card = ({
                 <i>{comments.length}</i>
               </span>
             </span>
+          </span>
+          <span className="lg:pt-1" onClick={handleClickOpenShare}>
+            <ShareIcon className="h-6 w-6 cursor-pointer text-gray-600 pb-1 ml-2" />
           </span>
           {/* <span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
@@ -267,6 +278,12 @@ const Card = ({
             content="Are you sure you want to delete the post"
             onClick={imagineDeleteHandler}
             show={true}
+          />
+          <ShareDialog
+            open={openShare}
+            handleClose={handleCloseShare}
+            title="Share this link"
+            content={`https://cv-frontend-eight.vercel.app/${id}`}
           />
         </span>
       </div>
