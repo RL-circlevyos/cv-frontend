@@ -6,13 +6,12 @@ import dp from "../../../../assets/person.png";
 
 import { Link } from "react-router-dom";
 import { LightBulbIcon } from "@heroicons/react/solid";
-import { useSelector } from "react-redux";
 
 export default function ViewLike({ buttonName, viewLikes }) {
   const [state, setState] = React.useState({
     right: false,
   });
-
+  const likes = viewLikes.length;
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -43,7 +42,7 @@ export default function ViewLike({ buttonName, viewLikes }) {
         )}
         {viewLikes?.map((view, index) => (
           <div
-            className="text-base font-Mulish text-gray-700 px-4 py-2 cursor-pointer hover:bg-gray-200 mt-2"
+            className="text-base font-Mulish text-gray-700 px-4 py-2 cursor-pointer hover:bg-gray-200"
             key={index}
           >
             <Link to={`/profile/${view._id}`}>
@@ -76,10 +75,32 @@ export default function ViewLike({ buttonName, viewLikes }) {
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <span
-            className="text-sm text-primary py-2 px-1 cursor-pointer"
+            className="text-sm text-primary px-1 flex cursor-pointer"
             onClick={toggleDrawer(anchor, true)}
           >
-            {buttonName}
+            <span className="flex">
+              {viewLikes?.slice(0, 3).map((i) => (
+                <>
+                  <div className="text-center text-sm flex items-center italic mt-5 text-gray-700 font-bold">
+                    <img
+                      src={i?.photo?.secure_url ? i.photo?.secure_url : dp}
+                      alt="dp"
+                      className="w-5 h-5 object-cover rounded-full border border-gray-400"
+                    />
+                  </div>
+                  <div></div>
+                </>
+              ))}
+              {likes != null && likes <= 3 ? (
+                <div className="text-center text-sm flex items-center italic mt-5 ml-2  font-bold">
+                  {likes} person appreciates you
+                </div>
+              ) : (
+                <div className="text-center text-sm flex items-center italic mt-5 ml-2 font-bold">
+                  and {viewLikes?.slice(3, likes).length} people appreciates you
+                </div>
+              )}
+            </span>
           </span>
           <Drawer
             anchor={anchor}
