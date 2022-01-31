@@ -204,7 +204,7 @@ const Card = ({
             </div>
           </Link>
         </span>
-        <span className="flex items-start justify-center bottom-0 sticky space-x-5 pt-1">
+        <span className="flex items-start justify-center bottom-0 sticky space-x-3 lg:space-x-5 pt-1">
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
