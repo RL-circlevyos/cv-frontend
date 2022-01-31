@@ -25,25 +25,18 @@ const Detail = () => {
   const [isInitial, setIsInitial] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(userDetailsAction(id.id));
-      dispatch(userImaginesAction(id.id));
-      dispatch(userFollowingAction(id.id));
+    dispatch(userDetailsAction(id.id));
+    dispatch(userImaginesAction(id.id));
+    dispatch(userFollowingAction(id.id));
 
-      socket.on("follow", () => {
-        //dispatch(userDetailsAction(id.id));
-        dispatch(userImaginesAction(id.id));
-        dispatch(userFollowingAction(id.id));
-      });
-      socket.on("unfollow", () => {
-        //dispatch(userDetailsAction(id.id));
-        dispatch(userImaginesAction(id.id));
-        dispatch(userFollowingAction(id.id));
-      });
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
+    socket.on("follow", () => {
+      // dispatch(userImaginesAction(id.id));
+      dispatch(userFollowingAction(id.id));
+    });
+    socket.on("unfollow", () => {
+      // dispatch(userImaginesAction(id.id));
+      dispatch(userFollowingAction(id.id));
+    });
   }, [dispatch, id, socket, isInitial]);
 
   const handleClickOpen = useCallback(() => {

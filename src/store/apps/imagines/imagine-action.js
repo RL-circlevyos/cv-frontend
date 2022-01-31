@@ -102,6 +102,12 @@ export const generalImagineFetchAction = (skipCount) => async (dispatch) => {
         generalImagines: gImagines.imaginesArray,
       })
     );
+
+    dispatch(
+      imagineSliceAction.getSingleImagine({
+        singleImagine: {},
+      })
+    );
   } catch (err) {
     console.log(err);
     dispatch(

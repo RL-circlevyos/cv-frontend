@@ -19,13 +19,13 @@ const CommentList = () => {
   console.log(id.id, "imagine post id");
   const socket = useSocket();
 
-  useEffect(() => {
-    dispatch(commentFetchAction(id.id));
-    socket.on("create-comment", () => {
-      dispatch(commentFetchAction(id.id));
-    });
-    dispatch(commentFetchAction(id.id));
-  }, [dispatch, id, socket]);
+  // useEffect(() => {
+  //   dispatch(commentFetchAction(id.id));
+  //   socket.on("create-comment", () => {
+  //     dispatch(commentFetchAction(id.id));
+  //   });
+  //   dispatch(commentFetchAction(id.id));
+  // }, [dispatch, id, socket]);
 
   comments?.comments?.map((c) => console.log(c));
 

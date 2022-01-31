@@ -16,42 +16,42 @@ import { useSocket } from "../../../../hooks/socketHook";
 import { ToastContainer } from "react-toastify";
 import { appriciateListAction } from "./../../../../store/apps/imagines/imagine-action";
 
-const GeneralImagines = ({ i }) => {
-  const imagine = useSelector((state) => state.imagine);
+const GeneralImagines = () => {
   const imagineid = useParams();
 
   const dispatch = useDispatch();
   const socket = useSocket();
 
-  console.log(imagine?.comments, "all comments for individual post");
+  // console.log(imagine?.comments, "all comments for individual post");
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(generalImagineSingleFetchAction(imagineid.id));
-      dispatch(appriciateListAction(imagineid.id));
+    dispatch(generalImagineSingleFetchAction(imagineid.id));
+    dispatch(appriciateListAction(imagineid.id));
+    dispatch(commentFetchAction(imagineid.id));
+
+    socket.on("create-comment", () => {
+      // dispatch(generalImagineSingleFetchAction(imagineid.id));
       dispatch(commentFetchAction(imagineid.id));
-      socket.on("create-comment", () => {
-        // dispatch(generalImagineSingleFetchAction(imagineid.id));
-        dispatch(commentFetchAction(imagineid.id));
-      });
-      socket.on("delete-comment", () => {
-        dispatch(generalImagineSingleFetchAction(imagineid.id));
-      });
-      socket.on("appriciate", () => {
-        dispatch(generalImagineSingleFetchAction(imagineid.id));
-      });
-      socket.on("appriciate", () => {
-        dispatch(appriciateListAction(imagineid.id));
-      });
-      socket.on("update-imagine", (data) => {
-        console.log("socket call");
-        dispatch(generalImagineSingleFetchAction(imagineid.id));
-      });
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
+    });
+
+    // socket.on("create-comment", () => {
+    //   dispatch(commentFetchAction(imagineid.id));
+    // });
+    socket.on("delete-comment", () => {
+      dispatch(generalImagineSingleFetchAction(imagineid.id));
+    });
+    socket.on("appriciate", () => {
+      dispatch(generalImagineSingleFetchAction(imagineid.id));
+    });
+    socket.on("appriciate", () => {
+      dispatch(appriciateListAction(imagineid.id));
+    });
+    socket.on("update-imagine", (data) => {
+      dispatch(generalImagineSingleFetchAction(imagineid.id));
+    });
   }, [dispatch, imagineid.id, socket]);
+
+  const imagine = useSelector((state) => state.imagine);
 
   return (
     <>
