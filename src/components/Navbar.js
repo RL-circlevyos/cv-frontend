@@ -201,13 +201,17 @@ function Navbar() {
                 ref={ref}
                 className=" px-2 pt-2 pb-3 space-y-1 sm:px-3 uppercase"
               >
-                <Link
+                <NavLink
                   to="/"
-                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                      : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                  }
                 >
                   <HeartIcon className="h-6 w-6 " />
                   <b className="sm:hidden  block text-xs">imagines</b>
-                </Link>
+                </NavLink>
                 <hr />
                 {/* <Link
                   to="/saved/general"
@@ -217,21 +221,29 @@ function Navbar() {
                   <b className="sm:hidden block text-xs">Saved</b>
                 </Link>{" "}
                 <hr /> */}
-                <Link
+                <NavLink
                   to="/series"
-                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                      : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                  }
                 >
                   <Feather />
                   <b className="sm:hidden block text-xs">Series</b>
-                </Link>{" "}
+                </NavLink>{" "}
                 <hr />
-                <Link
+                <NavLink
                   to="/marketplace"
-                  className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                      : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                  }
                 >
                   <BriefcaseIcon className="h-6 w-6" />
                   <b className="sm:hidden block text-xs">marketplace</b>
-                </Link>{" "}
+                </NavLink>{" "}
                 <hr />
                 {!user ? (
                   <div>
@@ -253,21 +265,29 @@ function Navbar() {
                   </div>
                 ) : (
                   <>
-                    <Link
+                    <NavLink
                       to={user && `/profile/${user}`}
-                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                          : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                      }
                     >
                       <UserCircleIcon className="h-6 w-6" />
                       <b className="sm:hidden block text-xs">Profile</b>
-                    </Link>{" "}
+                    </NavLink>{" "}
                     <hr />
-                    <Link
+                    <NavLink
                       to={user && `/settings/${user}`}
-                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                          : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                      }
                     >
                       <CogIcon className="h-6 w-6" />
                       <b className="sm:hidden block text-xs">Settings</b>
-                    </Link>{" "}
+                    </NavLink>{" "}
                     <hr />
                     <div
                       onClick={logout}
