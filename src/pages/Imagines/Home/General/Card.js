@@ -184,7 +184,7 @@ const Card = ({
             </div>
 
             <div className="flex flex-col">
-              <span className="text-sm ml-2 font-medium text-gray-600 truncate">
+              <span className="text-sm ml-2 font-bold  text-gray-500 truncate">
                 {username}
               </span>
               <div className="text-xxs md:text-xs text-gray-500 mt-1 ml-2">
