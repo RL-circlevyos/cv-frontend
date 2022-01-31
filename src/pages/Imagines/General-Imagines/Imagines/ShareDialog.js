@@ -51,13 +51,17 @@ export default function ShareDialog({ open, handleClose, title, content }) {
           >
             {title}
           </DialogTitle>
-          <DuplicateIcon
+          <span
+            className="flex items-center"
             onClick={handleClick({
               vertical: "top",
               horizontal: "center",
             })}
-            className="h-6 w-6 cursor-pointer"
-          />
+          >
+            {" "}
+            <DuplicateIcon className="h-6 w-6 cursor-pointer" />
+            <span className="uppercase text-xs text-gray-400">Copy</span>
+          </span>
         </div>
         <DialogContent>
           <DialogContentText
@@ -68,10 +72,9 @@ export default function ShareDialog({ open, handleClose, title, content }) {
               fontWeight: "500",
               fontFamily: "'Mulish', sans-serif",
               color: "black",
-              fontSize: "17px",
             }}
           >
-            {content}
+            <span className="text-xs md:text-base">{content}</span>
           </DialogContentText>
         </DialogContent>
       </Dialog>

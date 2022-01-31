@@ -78,27 +78,31 @@ export default function ViewLike({ buttonName, viewLikes }) {
             className="text-sm text-primary px-1 flex cursor-pointer"
             onClick={toggleDrawer(anchor, true)}
           >
-            <span className="flex">
+            <span className="flex items-start">
               {viewLikes?.slice(0, 3).map((i) => (
                 <>
                   <div className="text-center text-sm flex items-center italic mt-5 text-gray-700 font-bold">
                     <img
                       src={i?.photo?.secure_url ? i.photo?.secure_url : dp}
                       alt="dp"
-                      className="w-5 h-5 object-cover rounded-full border border-gray-400"
+                      className="w-7 h-7 object-cover rounded-full border border-gray-200"
                     />
                   </div>
-                  <div></div>
                 </>
               ))}
-              {likes != null && likes <= 3 ? (
-                <div className="text-center text-sm flex items-center italic mt-5 ml-2  font-bold">
-                  {likes} person appreciates you
+              {likes != null && likes >= 1 && likes <= 3 ? (
+                <div className="text-center text-sm flex items-center italic mt-5 ml-2 font-bold">
+                  {likes} person appreciates the imagine
                 </div>
               ) : (
-                <div className="text-center text-sm flex items-center italic mt-5 ml-2 font-bold">
-                  and {viewLikes?.slice(3, likes).length} people appreciates you
-                </div>
+                <>
+                  {likes >= 3 && (
+                    <div className="text-left text-sm italic mt-5 font-bold ml-2">
+                      +{viewLikes?.slice(3, likes).length} more people
+                      appreciates
+                    </div>
+                  )}
+                </>
               )}
             </span>
           </span>

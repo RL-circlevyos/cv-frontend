@@ -60,6 +60,7 @@ const CommentList = () => {
           <>
             {console.log(comment, "comment")}
             <Comment
+              userid={comment.user}
               username={comment.name}
               commentText={comment.textcomment}
               date={comment.createdAt}
