@@ -2,6 +2,7 @@ import {
   AnnotationIcon,
   //EyeIcon,
   LightBulbIcon,
+  ShareIcon,
 } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +10,7 @@ import { useParams } from "react-router-dom";
 import AlertDialogSlide from "../../../../components/Dialog";
 import { useSocket } from "../../../../hooks/socketHook";
 import { appriciateAction } from "../../../../store/apps/imagines/imagine-action";
+import ShareDialog from "./ShareDialog";
 import ViewLike from "./ViewLike";
 
 const Footer = ({ openCommentBox }) => {
@@ -27,9 +29,9 @@ const Footer = ({ openCommentBox }) => {
   }, []);
   const [openShare, setOpenShare] = useState(false);
 
-  /**const handleClickOpenShare = useCallback(() => {
+  const handleClickOpenShare = useCallback(() => {
     setOpenShare(true);
-  }, []);*/
+  }, []);
 
   const handleCloseShare = useCallback(() => {
     setOpenShare(false);
@@ -49,7 +51,7 @@ const Footer = ({ openCommentBox }) => {
     user ? post() : handleClickOpen();
   }, [user, handleClickOpen, post]);
 
-  console.log(viewAppreciate?.appriciateList);
+  console.log(singleImagine?.singleImagine?._id);
 
   return (
     <div className="flex flex-col">
@@ -92,12 +94,12 @@ const Footer = ({ openCommentBox }) => {
             </span>
             APPRECIATE
           </span>
-          {/* <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
-          <span className="lg:pt-1" onClick={handleClickOpenShare}>
-            <ShareIcon className="h-6 w-6 cursor-pointer text-gray-600 pb-1 ml-2" />
-            SHARE
+          <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
+            <span className="lg:pt-1" onClick={handleClickOpenShare}>
+              <ShareIcon className="h-6 w-6 cursor-pointer text-gray-600 pb-1 ml-2" />
+              SHARE
+            </span>
           </span>
-        </span> */}
 
           <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
             <span className="flex items-center space-x-1 text-xs ">
@@ -119,12 +121,11 @@ const Footer = ({ openCommentBox }) => {
           link="/login"
           show={true}
         />
-        <AlertDialogSlide
+        <ShareDialog
           open={openShare}
           handleClose={handleCloseShare}
           title="Share this link"
-          content="the link should be here"
-          show={false}
+          content={`https://cv-frontend-eight.vercel.app/${singleImagine?.singleImagine?._id}`}
         />
       </div>{" "}
       <span className="flex justify-center items-center text-primary lg:hidden">
