@@ -18,6 +18,7 @@ const Footer = ({ openCommentBox }) => {
   const user = auth.userid;
   const singleImagine = useSelector((state) => state.imagine.singleImagine);
   const viewAppreciate = useSelector((state) => state.imagine);
+  const appreciateIds = useSelector((state) => state.imagine.appreciateIds);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = useCallback(() => {
@@ -39,19 +40,14 @@ const Footer = ({ openCommentBox }) => {
 
   const dispatch = useDispatch();
   const id = useParams();
-  const socket = useSocket();
 
   const post = useCallback(() => {
     dispatch(appriciateAction(id.id));
-    setLike(true);
   }, [dispatch, id.id]);
 
-  const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
     user ? post() : handleClickOpen();
   }, [user, handleClickOpen, post]);
-
-  console.log(singleImagine?.singleImagine?._id);
 
   return (
     <div className="flex flex-col">
@@ -67,9 +63,7 @@ const Footer = ({ openCommentBox }) => {
           <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300">
             <span className="flex items-center space-x-1 text-xs">
               <span className="cursor-pointer" onClick={clickLikeHandler}>
-                {singleImagine?.singleImagine?.appriciates?.includes(
-                  auth.userid
-                ) ? (
+                {appreciateIds?.includes(auth.userid) ? (
                   <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
                 ) : (
                   <svg
@@ -89,7 +83,7 @@ const Footer = ({ openCommentBox }) => {
                 )}
               </span>
               <i className="text-xs lg:text-sm text-primary">
-                {singleImagine.singleImagine?.appriciates.length}
+                {appreciateIds?.length}
               </i>
             </span>
             APPRECIATE

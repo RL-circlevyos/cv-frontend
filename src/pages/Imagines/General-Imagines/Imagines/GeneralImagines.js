@@ -8,7 +8,10 @@ import Card from "./Card";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
+  appriciateAction,
+  appriciateIdListAction,
   commentFetchAction,
+  generalImagineAlternateSingleFetchAction,
   generalImagineSingleFetchAction,
 } from "../../../../store/apps/imagines/imagine-action";
 import { useParams } from "react-router-dom";
@@ -27,6 +30,7 @@ const GeneralImagines = () => {
   useEffect(() => {
     dispatch(generalImagineSingleFetchAction(imagineid.id));
     dispatch(appriciateListAction(imagineid.id));
+    dispatch(appriciateIdListAction(imagineid.id));
     dispatch(commentFetchAction(imagineid.id));
 
     socket.on("create-comment", () => {
@@ -34,18 +38,16 @@ const GeneralImagines = () => {
       dispatch(commentFetchAction(imagineid.id));
     });
 
-    // socket.on("create-comment", () => {
-    //   dispatch(commentFetchAction(imagineid.id));
-    // });
     socket.on("delete-comment", () => {
       dispatch(generalImagineSingleFetchAction(imagineid.id));
     });
     socket.on("appriciate", () => {
-      dispatch(generalImagineSingleFetchAction(imagineid.id));
-    });
-    socket.on("appriciate", () => {
+      dispatch(appriciateIdListAction(imagineid.id));
+      // dispatch(generalImagineAlternateSingleFetchAction(imagineid.id));
+      // dispatch(generalImagineSingleFetchAction(imagineid.id));
       dispatch(appriciateListAction(imagineid.id));
     });
+
     socket.on("update-imagine", (data) => {
       dispatch(generalImagineSingleFetchAction(imagineid.id));
     });
