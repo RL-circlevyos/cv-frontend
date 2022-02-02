@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import dp from "../assets/person.png";
 import DelPopup from "./DelPopup";
 import { logoutAction } from "../store/apps/auth/auth-action";
+import TextareaDialog from "./Feedback/TextareaDialog";
 
 export default function Example() {
   const navigate = useNavigate();
@@ -23,18 +24,29 @@ export default function Example() {
   const handleDelClose = useCallback(() => {
     setDel(false);
   }, []);
+  /******* feedback states *****/
+  const [feedback, setFeedback] = useState(false);
+  const handlefeedbackOpen = useCallback(() => {
+    setFeedback(true);
+  }, []);
+  const handlefeedbackClose = useCallback(() => {
+    setFeedback(false);
+    setShow(false);
+  }, []);
+  const [textareaValue, setTextareaValue] = useState("");
+  const submitTextareaValue = () => {
+    const feedbackContent = {
+      feedback: textareaValue,
+    };
+    console.log(feedbackContent);
+    setTextareaValue("");
+    setFeedback(false);
+    setShow(false);
+  };
+  /******* feedback states end*****/
   return (
     <div className="relative inline-block text-left font-Mulish">
       <div>
-        {/* <div
-          onClick={handleOpen}
-          className="inline-flex justify-center w-full cursor-pointer rounded-md border font-bold
-           border-gray-300 shadow-sm px-4 py-2 bg-white text-base text-primary hover:bg-primary hover:text-white focus:outline-none 
-           focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-primary"
-        >
-          Options
-          <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-        </div> */}
         <div
           onClick={handleOpen}
           className="bg-white text-primary hover:bg-primary hover:text-white rounded shadow flex items-center px-2 py-2 cursor-pointer"
@@ -78,6 +90,23 @@ export default function Example() {
               </Link>
             </div>
           </div>
+          <div className="py-1">
+            <Link
+              to="/cv/termsandcondition"
+              className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+              onClick={handlefeedbackOpen}
+            >
+              Terms & Conditions
+            </Link>
+          </div>
+          <div className="py-1">
+            <div
+              className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+              onClick={handlefeedbackOpen}
+            >
+              Feedback
+            </div>
+          </div>
 
           <div className="py-1">
             <div>
@@ -98,6 +127,16 @@ export default function Example() {
                 dispatch(logoutAction());
                 navigate("/login");
               }}
+            />
+            <TextareaDialog
+              open={feedback}
+              handleClose={handlefeedbackClose}
+              title="Your feedback about our app"
+              content={textareaValue}
+              onChange={(e) => setTextareaValue(e.target.value)}
+              onClick={submitTextareaValue}
+              show={true}
+              color="#009E82"
             />
           </div>
         </div>

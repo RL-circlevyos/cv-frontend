@@ -52,6 +52,8 @@ import GeneralUpdate from "./pages/Imagines/Update/GeneralUpdate";
 import Profile from "./pages/UserProfile/Info/Profile";
 import Settings from "./pages/UserProfile/Info/Settings";
 import NewPassword from "./pages/Authentication/NewPassword";
+import Process from "./pages/Imagines/Home/Prizes/Process";
+import TandC from "./pages/Imagines/Home/Prizes/TandC";
 
 function App() {
   const dispatch = useDispatch();
@@ -80,10 +82,13 @@ function App() {
 
         <Route path="/" element={<ImagineList />} />
         <Route path="/saved/general" element={<SavedGeneral />} />
+        <Route path="/cv/offers/detail-procedure" element={<Process />} />
+        <Route path="/cv/termsandcondition" element={<TandC />} />
 
         <Route path="/create-imagine" element={<CreateImagines />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/settings/:id" element={<Settings />} />
+        <Route path="/feedback/:id" element={<Settings />} />
         <Route path="/:id" element={<GeneralImagines />} />
         <Route path="/:id/update" element={<GeneralUpdate />} />
         <Route path="/series" element={<Upcoming />} />

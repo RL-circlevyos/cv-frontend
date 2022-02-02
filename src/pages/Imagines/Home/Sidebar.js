@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/solid";
 import { useSelector } from "react-redux";
 import AlertDialogSlide from "./../../../components/Dialog";
+import Prizes from "./Prizes/Prizes";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ const Sidebar = () => {
                   <PaperClipIcon className="w-6 h-6 mr-2" /> My Imagines
                 </span>
               </Link> */}
-              <div className="pt-4">
+              <div className="pt-2">
                 <button
                   onClick={crImagine}
                   to="/create-general-imagine"
@@ -119,6 +120,7 @@ const Sidebar = () => {
               </div> */}
             </>
           </nav>
+          <Prizes />
         </div>
         <AlertDialogSlide
           open={open}

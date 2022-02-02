@@ -119,7 +119,7 @@ const Footer = ({ openCommentBox }) => {
           open={openShare}
           handleClose={handleCloseShare}
           title="Share this link"
-          content={`https://cv-frontend-eight.vercel.app/${singleImagine?.singleImagine?._id}`}
+          content={`https://61f9942b41f3bd0007d1fcf1--focused-almeida-cad4a1.netlify.app/${singleImagine?.singleImagine?._id}`}
         />
       </div>{" "}
       <span className="flex justify-center items-center text-primary lg:hidden">

@@ -60,7 +60,7 @@ export default function ShareDialog({ open, handleClose, title, content }) {
           >
             {" "}
             <DuplicateIcon className="h-6 w-6 cursor-pointer text-primary" />
-            <span className="uppercase text-xs text-gray-400">Copy</span>
+            <span className="uppercase text-xs text-gray-500">Copy</span>
           </span>
         </div>
         <DialogContent>

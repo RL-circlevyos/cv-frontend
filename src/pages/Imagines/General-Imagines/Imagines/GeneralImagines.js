@@ -8,10 +8,8 @@ import Card from "./Card";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  appriciateAction,
   appriciateIdListAction,
   commentFetchAction,
-  generalImagineAlternateSingleFetchAction,
   generalImagineSingleFetchAction,
 } from "../../../../store/apps/imagines/imagine-action";
 import { useParams } from "react-router-dom";
@@ -25,8 +23,6 @@ const GeneralImagines = () => {
   const dispatch = useDispatch();
   const socket = useSocket();
 
-  // console.log(imagine?.comments, "all comments for individual post");
-
   useEffect(() => {
     dispatch(generalImagineSingleFetchAction(imagineid.id));
     dispatch(appriciateListAction(imagineid.id));
@@ -34,7 +30,6 @@ const GeneralImagines = () => {
     dispatch(commentFetchAction(imagineid.id));
 
     socket.on("create-comment", () => {
-      // dispatch(generalImagineSingleFetchAction(imagineid.id));
       dispatch(commentFetchAction(imagineid.id));
     });
 
@@ -43,8 +38,7 @@ const GeneralImagines = () => {
     });
     socket.on("appriciate", () => {
       dispatch(appriciateIdListAction(imagineid.id));
-      // dispatch(generalImagineAlternateSingleFetchAction(imagineid.id));
-      // dispatch(generalImagineSingleFetchAction(imagineid.id));
+
       dispatch(appriciateListAction(imagineid.id));
     });
 

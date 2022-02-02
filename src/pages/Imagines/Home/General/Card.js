@@ -19,9 +19,10 @@ import DelPopup from "./../../../../components/DelPopup";
 
 import just_saying from "../../../../assets/reading_book.svg";
 import moment from "moment";
-import CardUtilityThreeDots from "../../../../components/CardUtilityThreeDots";
+
 import { ShareIcon } from "@heroicons/react/outline";
 import ShareDialog from "./../../General-Imagines/Imagines/ShareDialog";
+import TextareaDialog from "../../../../components/Feedback/TextareaDialog";
 
 const Card = ({
   title,
@@ -67,6 +68,27 @@ const Card = ({
   const handleDelClose = useCallback(() => {
     setDel(false);
   }, []);
+
+  /******* report states *****/
+  const [report, setReport] = useState(false);
+  const handleReportOpen = useCallback(() => {
+    setReport(true);
+  }, []);
+  const handleReportClose = useCallback(() => {
+    setReport(false);
+    setEdit(false);
+  }, []);
+  const [textareaValue, setTextareaValue] = useState("");
+  const submitTextareaValue = () => {
+    const reportContent = {
+      report: textareaValue,
+    };
+    console.log(reportContent);
+    setTextareaValue("");
+    setReport(false);
+    setEdit(false);
+  };
+  /******* report states end*****/
 
   const editClose = useCallback(() => {
     setEdit(false);
@@ -152,7 +174,10 @@ const Card = ({
                 </span>
                 {author !== auth.userid && (
                   <div className="py-1">
-                    <div className="bg-gray-50 text-pink-500 hover:bg-gray-200  block px-4 py-2 font-bold">
+                    <div
+                      onClick={handleReportOpen}
+                      className="bg-gray-50 text-pink-500 hover:bg-gray-200  block px-4 py-2 font-bold"
+                    >
                       Report
                     </div>
                   </div>
@@ -204,7 +229,7 @@ const Card = ({
             </div>
           </Link>
         </span>
-        <span className="flex items-start justify-center bottom-0 sticky space-x-3 lg:space-x-5 pt-1">
+        <span className="flex items-start justify-center bottom-0 sticky space-x-3 w-full lg:space-x-4 md:ml-3 pt-1">
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
@@ -278,6 +303,16 @@ const Card = ({
             content="Are you sure you want to delete the post"
             onClick={imagineDeleteHandler}
             show={true}
+          />
+          <TextareaDialog
+            open={report}
+            handleClose={handleReportClose}
+            title="Report about the content"
+            content={textareaValue}
+            onChange={(e) => setTextareaValue(e.target.value)}
+            onClick={submitTextareaValue}
+            show={true}
+            color="#e30b5d"
           />
           <ShareDialog
             open={openShare}
