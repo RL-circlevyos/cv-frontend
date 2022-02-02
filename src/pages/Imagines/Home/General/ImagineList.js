@@ -8,8 +8,11 @@ import Sidebar from "../Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Info from "../Info";
+import Progress from "../../../../components/Progress";
+import { useSelector } from "react-redux";
 
 const ImagineList = () => {
+  const imagine = useSelector((state) => state.imagine);
   return (
     <div className="h-screen w-full font-Mulish fixed">
       <Navbar />
@@ -19,7 +22,16 @@ const ImagineList = () => {
             <Sidebar />
           </div>
           <div className="flex justify-center items-center w-full max-w-lg flex-col mt-2 md:mt-5">
-            <div className="w-full flex justify-center items-center px-4 mt-4 lg:mt-0">
+            <div className="w-full flex justify-center flex-col items-center px-4 mt-4 lg:mt-0">
+              {/* {imagine.uploadIndicator === true && (
+                <Progress
+                  amount="%"
+                  value={imagine.uploadPercentage}
+                  max={100}
+                />
+              )} */}
+
+              <Progress amount="%" value={10} max={100} />
               <Scrollbars
                 thumbSize={1}
                 autoHide

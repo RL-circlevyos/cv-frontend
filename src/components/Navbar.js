@@ -205,7 +205,7 @@ function Navbar() {
                   to="/"
                   className={({ isActive }) =>
                     isActive
-                      ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                      ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                       : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                   }
                 >
@@ -225,7 +225,7 @@ function Navbar() {
                   to="/series"
                   className={({ isActive }) =>
                     isActive
-                      ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                      ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
                       : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                   }
                 >
@@ -237,7 +237,7 @@ function Navbar() {
                   to="/marketplace"
                   className={({ isActive }) =>
                     isActive
-                      ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                      ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
                       : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                   }
                 >
@@ -269,7 +269,7 @@ function Navbar() {
                       to={user && `/profile/${user}`}
                       className={({ isActive }) =>
                         isActive
-                          ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                          ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
                           : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                       }
                     >
@@ -281,7 +281,7 @@ function Navbar() {
                       to={user && `/settings/${user}`}
                       className={({ isActive }) =>
                         isActive
-                          ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                          ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
                           : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                       }
                     >
