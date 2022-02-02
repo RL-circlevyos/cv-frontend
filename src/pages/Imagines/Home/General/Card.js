@@ -109,15 +109,15 @@ const Card = ({
 
   return (
     <div
-      className={`${width} space-x-2 flex items-start justify-center rounded-lg shadow mb-3`}
+      className={`${width} space-x-2 flex items-start justify-start rounded-lg shadow mb-3 border border-gray-100`}
     >
-      <div className="w-2/5 h-40 bg-gray-50">
-        <div className="text-sm font-medium hover:underline h-36">
-          <Link to={`/${id}`}>
+      <div className="w-2/5 h-full ">
+        <div className="text-sm font-medium hover:underline">
+          <Link className="h-48" to={`/${id}`}>
             <img
               src={!introImage ? just_saying : introImage.secure_url}
               alt="pic"
-              className="h-40 w-full object-fit rounded-md "
+              className="h-48 w-full object-fill rounded-md "
             />
           </Link>
         </div>
@@ -283,7 +283,7 @@ const Card = ({
             open={openShare}
             handleClose={handleCloseShare}
             title="Share this link"
-            content={`https://cv-frontend-eight.vercel.app/${id}`}
+            content={`https://61f9942b41f3bd0007d1fcf1--focused-almeida-cad4a1.netlify.app/${id}`}
           />
         </span>
       </div>

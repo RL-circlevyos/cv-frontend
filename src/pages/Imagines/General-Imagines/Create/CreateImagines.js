@@ -11,6 +11,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import RadioBtn from "./Radio";
+import Progress from "../../../../components/Progress";
 
 const CreateImagines = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
