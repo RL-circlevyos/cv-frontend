@@ -126,7 +126,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <span className="text-2xl font-bold mt-2">
+          <span className="text-2xl font-bold pt-4">
             {auth?.userDetails?.name}
           </span>
           {/**  {!showName ? (

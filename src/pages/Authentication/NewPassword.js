@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import resetlogo from "../../assets/secure.svg";
 import { useForm } from "react-hook-form";
-import { CheckCircle, Key, Lock } from "react-feather";
+import { CheckCircle, Key } from "react-feather";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -20,10 +20,10 @@ const validationSchema = yup.object().shape({
     .required("Password is required")
     .min(8, "Password must be at least 8 characters")
     .max(16, "Password must not exceed 16 characters"),
-  confirmPassword: yup
-    .string()
-    .required("Confirm Password is required")
-    .oneOf([yup.ref("newPassword"), null], "Passwords does not match"),
+  // confirmPassword: yup
+  //   .string()
+  //   .required("Confirm Password is required")
+  //   .oneOf([yup.ref("newPassword"), null], "Passwords does not match"),
 });
 
 const NewPassword = () => {
@@ -53,7 +53,7 @@ const NewPassword = () => {
       dispatch(changePasswordAction(passwordBody));
 
       reset();
-      navigate("/");
+      navigate(`/settings/${user}`);
     },
     [reset, dispatch, navigate]
   );
@@ -70,16 +70,16 @@ const NewPassword = () => {
     }
   };
 
-  const [confirmsPassword, setConfirmsPassword] = useState(false);
-  const confirm = () => {
-    if (!confirmsPassword) {
-      setConfirmsPassword(true);
-    }
+  /**  const [confirmsPassword, setConfirmsPassword] = useState(false);
+  // const confirm = () => {
+  //   if (!confirmsPassword) {
+  //     setConfirmsPassword(true);
+  //   }
 
-    if (confirmsPassword) {
-      setConfirmsPassword(false);
-    }
-  };
+  //   if (confirmsPassword) {
+  //     setConfirmsPassword(false);
+  //   }
+  // };*/
 
   return (
     <>
@@ -183,7 +183,7 @@ const NewPassword = () => {
                     {errors.newPassword?.message}
                   </small>
                 </span>
-                <span className="w-full pb-8">
+                {/**  <span className="w-full pb-8">
                   <span className="w-full flex items-center border rounded-xl px-4 py-2 border-gray-300 hover:border-primary bg-white">
                     <Lock />
                     <input
@@ -214,7 +214,7 @@ const NewPassword = () => {
                   <small className="text-pink-600">
                     {errors.confirmPassword?.message}
                   </small>
-                </span>
+                </span> */}
                 <button
                   type="submit"
                   className="px-6 py-3 w-full bg-gradient-to-r from-primary to-gray-700 

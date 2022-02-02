@@ -42,14 +42,14 @@ const Comment = ({ username, commentText, avatar, date, userid }) => {
                 {moment(date).format("dddd, MMMM Do YYYY, h:mm a")}
               </div>
             </div>
-            <div>
+            {/* <div>
               {user === userid ? (
                 <TrashIcon
                   className="h-4 w-4 text-pink-500 cursor-pointer"
                   onClick={handleDelOpen}
                 />
               ) : null}
-            </div>
+            </div> */}
           </div>
         </div>
         <span className="text-gray-800 text-tiny lg:text-base cursor-pointer">
