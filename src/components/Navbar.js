@@ -30,6 +30,8 @@ import Example from "./Dropdown";
 import AlertDialogSlide from "./Dialog";
 import DelPopup from "./DelPopup";
 import { logoutAction } from "../store/apps/auth/auth-action";
+import TextareaDialog from "./Feedback/TextareaDialog";
+import { DocumentTextIcon, ShieldCheckIcon } from "@heroicons/react/outline";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -62,6 +64,27 @@ function Navbar() {
   const crImagine = useCallback(() => {
     user ? navigate("/create-imagine") : handleClickOpen();
   }, [user, handleClickOpen, navigate]);
+
+  /******* feedback states *****/
+  const [feedback, setFeedback] = useState(false);
+  const handlefeedbackOpen = useCallback(() => {
+    setFeedback(true);
+  }, []);
+  const handlefeedbackClose = useCallback(() => {
+    setFeedback(false);
+    setIsOpen(false);
+  }, []);
+  const [textareaValue, setTextareaValue] = useState("");
+  const submitTextareaValue = () => {
+    const feedbackContent = {
+      feedback: textareaValue,
+    };
+    console.log(feedbackContent);
+    setTextareaValue("");
+    setFeedback(false);
+    setIsOpen(false);
+  };
+  /******* feedback states end*****/
 
   return (
     <div>
@@ -205,7 +228,7 @@ function Navbar() {
                   to="/"
                   className={({ isActive }) =>
                     isActive
-                      ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                      ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                       : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                   }
                 >
@@ -225,7 +248,7 @@ function Navbar() {
                   to="/series"
                   className={({ isActive }) =>
                     isActive
-                      ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                      ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
                       : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                   }
                 >
@@ -237,7 +260,7 @@ function Navbar() {
                   to="/marketplace"
                   className={({ isActive }) =>
                     isActive
-                      ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                      ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
                       : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                   }
                 >
@@ -269,7 +292,7 @@ function Navbar() {
                       to={user && `/profile/${user}`}
                       className={({ isActive }) =>
                         isActive
-                          ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                          ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
                           : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                       }
                     >
@@ -281,13 +304,35 @@ function Navbar() {
                       to={user && `/settings/${user}`}
                       className={({ isActive }) =>
                         isActive
-                          ? "flex items-center gap-1  bg-green-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                          ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
                           : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
                       }
                     >
                       <CogIcon className="h-6 w-6" />
                       <b className="sm:hidden block text-xs">Settings</b>
                     </NavLink>{" "}
+                    <hr />
+                    <NavLink
+                      to={`/cv/termsandcondition`}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                          : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                      }
+                    >
+                      <ShieldCheckIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">
+                        Terms and Conditions
+                      </b>
+                    </NavLink>{" "}
+                    <hr />
+                    <div
+                      onClick={handlefeedbackOpen}
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <DocumentTextIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">Feedback</b>
+                    </div>{" "}
                     <hr />
                     <div
                       onClick={logout}
@@ -321,6 +366,16 @@ function Navbar() {
           dispatch(logoutAction());
           navigate("/login");
         }}
+      />
+      <TextareaDialog
+        open={feedback}
+        handleClose={handlefeedbackClose}
+        title="Your feedback about circlevyos"
+        content={textareaValue}
+        onChange={(e) => setTextareaValue(e.target.value)}
+        onClick={submitTextareaValue}
+        show={true}
+        color="#009E82"
       />
     </div>
   );

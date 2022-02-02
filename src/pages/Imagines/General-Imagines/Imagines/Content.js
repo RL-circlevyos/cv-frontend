@@ -6,7 +6,7 @@ const Content = () => {
   const imagine = useSelector((state) => state.imagine);
 
   const checkIntroImg = imagine?.singleImagine?.singleImagine?.intro
-    ? "h-96"
+    ? "h-full"
     : "h-96 flex justify-center items-center";
 
   const checkIntro = imagine?.singleImagine?.singleImagine?.intro
@@ -14,7 +14,7 @@ const Content = () => {
     : "w-0";
 
   const checkOutroImg = imagine?.singleImagine?.singleImagine?.outro
-    ? "h-96"
+    ? "h-full"
     : "h-96 flex justify-center items-center";
 
   const checkOutro = imagine?.singleImagine?.singleImagine?.outro
@@ -43,7 +43,7 @@ const Content = () => {
         )}
       </div>
 
-      <div className="flex flex-wrap md:flex-nowrap items-start justify-center gap-2 font-medium pt-5">
+      <div className="flex flex-wrap md:flex-nowrap items-start justify-center gap-2 font-medium pt-1">
         {!imagine.singleImagine?.singleImagine?.introImage ? null : (
           <span className={`${checkIntroImg} w-full `}>
             <img
@@ -61,12 +61,12 @@ const Content = () => {
         </span>
       </div>
       <div
-        className="font-medium px-4 text-justify pt-6 font-Mulish"
+        className="font-medium px-4 text-justify pt-1 font-Mulish"
         dangerouslySetInnerHTML={{
           __html: imagine?.singleImagine?.singleImagine?.main,
         }}
       ></div>
-      <div className="flex flex-wrap md:flex-nowrap font-medium items-start justify-center gap-2  pb-4 pt-6">
+      <div className="flex flex-wrap md:flex-nowrap font-medium items-start justify-center gap-2  pb-2 pt-1">
         <span className={`${checkOutro} text-left px-4`}>
           {imagine?.singleImagine?.singleImagine?.outro}
         </span>{" "}
