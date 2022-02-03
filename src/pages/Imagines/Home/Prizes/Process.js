@@ -8,12 +8,12 @@ const Process = () => {
     <div>
       <Navbar />
       <div className="w-full flex justify-center items-center">
-        <div className="w-full max-w-2xl">
-          <Link to="/">
-            <ArrowLeftIcon className="h-6 w-6" />
+        <div className="w-full max-w-2xl mb-4">
+          <Link to="/" className="">
+            <ArrowLeftIcon className="h-6 w-6 ml-3 mt-4" />
           </Link>
-          <div className="flex flex-col justify-center items-center w-full text-primary py-2 font-medium font-Mulish">
-            <div className=" px-3  rounded-lg space-y-4 py-4 ">
+          <div className="flex flex-col justify-center items-center w-full text-primary font-medium font-Mulish">
+            <div className=" px-3 rounded-lg space-y-4 pb-4 ">
               {" "}
               <div className="font-extrabold text-3xl px-2">
                 Early Bird Registration...
