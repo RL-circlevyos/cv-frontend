@@ -175,12 +175,12 @@ const Login = () => {
                 </Link>
               </span>
 
-              <Link exact to="/forgot-password">
+              {/* <Link exact to="/forgot-password">
                 {" "}
                 <span className="text-sm text-gray-500 hover:underline lg:text-base">
                   Forgot password ?
                 </span>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

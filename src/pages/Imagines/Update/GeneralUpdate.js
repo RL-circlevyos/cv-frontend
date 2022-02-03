@@ -1,27 +1,33 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  generalImagineCreateAction,
-  generalImagineUpdateAction,
-} from "../../../store/apps/imagines/imagine-action";
+import { generalImagineUpdateAction } from "../../../store/apps/imagines/imagine-action";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { EditorState, convertToRaw } from "draft-js";
+import {
+  EditorState,
+  convertToRaw,
+  ContentState,
+  convertFromHTML,
+} from "draft-js";
 import draftToHtml from "draftjs-to-html";
-import { generalImagineSingleFetchAction } from "./../../../store/apps/imagines/imagine-action";
 
 const GeneralUpdate = () => {
   const dispatch = useDispatch();
   const imagineid = useParams();
 
   const imagine = useSelector((state) => state.imagine);
-
+  const { title, intro, outro, main } = imagine?.singleImagine?.singleImagine;
   console.log(imagine?.singleImagine?.singleImagine);
 
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(
+      ContentState.createFromBlockArray(convertFromHTML(main))
+    )
+  );
+
   const onEditorStateChange = (editorsState) => {
     setEditorState(editorsState);
 
@@ -29,9 +35,8 @@ const GeneralUpdate = () => {
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
     );
   };
-  const count = draftToHtml(
-    convertToRaw(editorState.getCurrentContent())
-  ).length;
+  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    .length;
   const MAX_LENGTH = 3000;
 
   const getLengthOfSelectedText = () => {
@@ -101,13 +106,6 @@ const GeneralUpdate = () => {
   };
 
   let navigate = useNavigate();
-
-  const { title, intro, outro } = imagine?.singleImagine?.singleImagine;
-
-  // test
-  // console.log(title);
-  // console.log(intro);
-  // console.log(outro);
 
   const [titleUpdate, setTitleUpdate] = useState(title);
   const [introUpdate, setIntroUpdate] = useState(intro);

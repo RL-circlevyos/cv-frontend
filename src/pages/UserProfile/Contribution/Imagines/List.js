@@ -22,6 +22,7 @@ const List = () => {
           )}
 
           {auth?.userImagines?.map((imagines) => {
+            console.log(imagines, "imagines user");
             return (
               <>
                 {ui.isLoading ? (
@@ -37,7 +38,9 @@ const List = () => {
                     username={imagines?.user?.name}
                     category={imagines.category}
                     date={imagines.createdAt}
+                    comments={imagines.comments}
                     // views={imagines.views}
+
                     appriciates={imagines.appriciates}
                     audiovoice={imagines?.audiovoice?.secure_url}
                   />

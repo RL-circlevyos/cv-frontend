@@ -7,14 +7,13 @@ import { useNavigate } from "react-router-dom";
 import AlertDialogSlide from "./../../../../components/Dialog";
 import CardUtilityThreeDots from "../../../../components/CardUtilityThreeDots";
 
-const Header = ({ author }) => {
+const Header = () => {
   const auth = useSelector((state) => state.auth);
   const user = auth.userid;
   const [open, setOpen] = useState(false);
   const imagine = useSelector((state) => state.imagine);
 
-  console.log(imagine?.singleImagine?.singleImagine);
-
+  const author = imagine?.singleImagine?.singleImagine?.user?._id;
   const handleClickOpen = useCallback(() => {
     setOpen(true);
   }, []);
@@ -47,10 +46,7 @@ const clickFollowHandler = useCallback(() => {
       />
       <div className=" flex justify-between items-center px-3 font-Mulish">
         <div className="flex items-center w-full space-x-2">
-          <div
-            onClick={profileHandler}
-            to={`/profile/${imagine?.singleImagine?.singleImagine?.user?._id}`}
-          >
+          <div onClick={profileHandler} className="cursor-pointer ">
             <img
               src={
                 imagine?.singleImagine?.singleImagine?.user?.photo

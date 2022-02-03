@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
+  AnnotationIcon,
   DotsHorizontalIcon,
   LightBulbIcon,
   XIcon,
@@ -18,7 +19,10 @@ import DelPopup from "./../../../../components/DelPopup";
 
 import just_saying from "../../../../assets/reading_book.svg";
 import moment from "moment";
-import CardUtilityThreeDots from "../../../../components/CardUtilityThreeDots";
+
+import { ShareIcon } from "@heroicons/react/outline";
+import ShareDialog from "./../../General-Imagines/Imagines/ShareDialog";
+import TextareaDialog from "../../../../components/Feedback/TextareaDialog";
 
 const Card = ({
   title,
@@ -27,12 +31,12 @@ const Card = ({
   author,
   date,
   width,
-  content,
+  comments,
   id,
   avatar,
   appriciates,
   category,
-  isAppriciatesAuthor,
+
   audiovoice,
 }) => {
   const auth = useSelector((state) => state.auth);
@@ -65,6 +69,27 @@ const Card = ({
     setDel(false);
   }, []);
 
+  /******* report states *****/
+  const [report, setReport] = useState(false);
+  const handleReportOpen = useCallback(() => {
+    setReport(true);
+  }, []);
+  const handleReportClose = useCallback(() => {
+    setReport(false);
+    setEdit(false);
+  }, []);
+  const [textareaValue, setTextareaValue] = useState("");
+  const submitTextareaValue = () => {
+    const reportContent = {
+      report: textareaValue,
+    };
+    console.log(reportContent);
+    setTextareaValue("");
+    setReport(false);
+    setEdit(false);
+  };
+  /******* report states end*****/
+
   const editClose = useCallback(() => {
     setEdit(false);
   }, []);
@@ -93,26 +118,87 @@ const Card = ({
     user ? setEdit(true) : handleClickOpen();
   }, [user, handleClickOpen]);
 
-  useEffect(() => {}, []);
+  const [openShare, setOpenShare] = useState(false);
+
+  const handleClickOpenShare = useCallback(() => {
+    setOpenShare(true);
+  }, []);
+
+  const handleCloseShare = useCallback(() => {
+    setOpenShare(false);
+  }, []);
+  console.log(avatar, "profile pic");
 
   return (
     <div
-      className={`${width} space-x-2 flex items-start justify-center rounded-lg shadow mb-3`}
+      className={`${width} space-x-2 flex items-start justify-start rounded-lg shadow mb-3 border border-gray-100`}
     >
-      <div className="w-2/5 h-40 bg-gray-50">
-        <div className="text-sm font-medium hover:underline h-36">
-          <Link to={`/${id}`}>
+      <div className="w-2/5 h-full ">
+        <div className="text-sm font-medium hover:underline">
+          <Link className="h-48" to={`/${id}`}>
             <img
               src={!introImage ? just_saying : introImage.secure_url}
               alt="pic"
-              className="h-40 w-full object-fit rounded-md "
+              className="h-48 w-full object-fill rounded-md "
             />
           </Link>
         </div>
       </div>
       <div className="flex flex-col space-y-1 w-3/5 py-1">
         {/*********************** three dots start ******************/}
-        <CardUtilityThreeDots author imagineId={id} />
+
+        {/* {edit &&
+          author ===
+            auth.userid(
+              <span className="flex items-center justify-end pr-4 space-x-1">
+                <>
+                  {/* {userid === auth.userid && ( 
+        <span>
+          <DotsHorizontalIcon
+            className="h-5 w-5 cursor-pointer"
+            onClick={clickEdit}
+          />
+        </span>
+        {/* )} }
+                </>
+
+                <div className="relative inline-block text-left font-Mulish">
+                  <div
+                    className="origin-center absolute z-50 font-Mulish right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black 
+                   ring-opacity-5 divide-y divide-gray-100 focus:outline-none text-base"
+                  >
+                    <span className="flex justify-end items-center mx-1 my-1">
+                      <span
+                        onClick={editClose}
+                        className="cursor-pointer font-bold"
+                      >
+                        <XIcon className="h-5 w-5 text-pink-500" />
+                      </span>
+                    </span>
+                    {/**  {author !== auth.userid && (
+                  <div className="py-1">
+                    <div
+                      onClick={handleReportOpen}
+                      className="bg-gray-50 text-pink-500 hover:bg-gray-200  block px-4 py-2 font-bold"
+                    >
+                      Report
+                    </div>
+                  </div>
+                )} 
+                    {author === auth.userid && (}
+                    <div className="py-1">
+                      <div
+                        className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+                        onClick={handleDelOpen}
+                      >
+                        Delete
+                      </div>
+                    </div>
+                    {/* )} }
+                  </div>
+                </div>
+              </span>
+            )} */}
         <span className="flex items-center justify-end pr-4 space-x-1">
           {!edit && author === auth.userid && (
             <>
@@ -175,7 +261,7 @@ const Card = ({
             </div>
 
             <div className="flex flex-col">
-              <span className="text-sm ml-2 font-medium text-gray-600 truncate">
+              <span className="text-sm ml-2 font-bold  text-gray-500 truncate">
                 {username}
               </span>
               <div className="text-xxs md:text-xs text-gray-500 mt-1 ml-2">
@@ -195,7 +281,7 @@ const Card = ({
             </div>
           </Link>
         </span>
-        <span className="flex items-start justify-around bottom-0 sticky space-x-4 pt-1">
+        <span className="flex items-center justify-center bottom-0 sticky space-x-3 w-full lg:space-x-4 ml-3 pt-1">
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
@@ -204,7 +290,7 @@ const Card = ({
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-6 w-6 md:h-7 md:w-7 text-gray-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -218,7 +304,20 @@ const Card = ({
                 </svg>
               )}
             </span>
-            <b>{appriciates.length}</b>
+            <b className="italic">{appriciates.length}</b>
+          </span>
+          <span className="flex justify-center items-start flex-col text-xxs lg:text-tiny text-gray-300 lg:mt-1">
+            <span className="flex items-center space-x-1 text-xs ">
+              <span className="">
+                <AnnotationIcon className="h-5 w-5 text-gray-500" />
+              </span>
+              <span className="text-xs lg:text-sm italic ml-1 text-gray-700">
+                <i>{comments.length}</i>
+              </span>
+            </span>
+          </span>
+          <span className="lg:pt-1" onClick={handleClickOpenShare}>
+            <ShareIcon className="h-6 w-6 cursor-pointer text-gray-600 pb-1 ml-2" />
           </span>
           {/* <span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
@@ -256,6 +355,22 @@ const Card = ({
             content="Are you sure you want to delete the post"
             onClick={imagineDeleteHandler}
             show={true}
+          />
+          <TextareaDialog
+            open={report}
+            handleClose={handleReportClose}
+            title="Report about the content"
+            content={textareaValue}
+            onChange={(e) => setTextareaValue(e.target.value)}
+            onClick={submitTextareaValue}
+            show={true}
+            color="#e30b5d"
+          />
+          <ShareDialog
+            open={openShare}
+            handleClose={handleCloseShare}
+            title="Share this link"
+            content={`https://circlevyos.com/${id}`}
           />
         </span>
       </div>

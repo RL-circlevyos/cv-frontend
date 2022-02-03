@@ -8,8 +8,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { signUpWithNameEmailAndPassword } from "../../store/apps/auth/auth-action";
+import { ToastContainer } from "react-toastify";
 
 const validationSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+
   email: yup
     .string()
     .required("Email is required")
@@ -21,13 +24,15 @@ const validationSchema = yup.object().shape({
     .string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters")
-    .max(16, "Password must not exceed 16 characters"),
+    .max(26, "Password must not exceed 26 characters"),
+  // .matches("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}))
 
   // phone: yup
   //   .string()
   //   .required("Phone number is required")
   //   .matches(phoneRegExp, "Phone number is not valid"),
-  name: yup.string(),
+
+  acceptTerms: yup.bool().oneOf([true], "Accept Ts & Cs is required"),
 });
 
 const Register = () => {
@@ -137,9 +142,9 @@ const Register = () => {
                       }}
                     />
                   </span>
-                  {errors.phone && (
+                  {errors.name && (
                     <small className="text-pink-600">
-                      {errors.phone.message}
+                      {errors.name.message}
                     </small>
                   )}
                 </span>
@@ -198,6 +203,37 @@ const Register = () => {
                     </small>
                   )}
                 </span>
+                <div className="flex items-center justify-between w-full">
+                  {" "}
+                  <div className="w-full block">
+                    <div className="flex items-center">
+                      <input
+                        name="acceptTerms"
+                        type="checkbox"
+                        {...register("acceptTerms")}
+                        id="acceptTerms"
+                        className={`form-check-input ${
+                          errors.acceptTerms ? "is-invalid" : ""
+                        }`}
+                      />
+                      <label
+                        htmlFor="acceptTerms"
+                        className="ml-2 form-check-label"
+                      >
+                        Accept Terms & Conditions
+                      </label>
+                    </div>
+                    <small className="text-pink-600">
+                      {errors.acceptTerms?.message}
+                    </small>
+                  </div>
+                  <Link
+                    to="/cv/termsandcondition"
+                    className="shadow px-1 py-1 font-bold cursor-pointer"
+                  >
+                    Details
+                  </Link>
+                </div>
                 <button
                   type="submit"
                   className="px-6 py-3 w-full bg-gradient-to-r from-primary to-gray-700 
@@ -221,6 +257,7 @@ const Register = () => {
             </div>
           </div>
         </div>
+        <ToastContainer autoClose={2000} />
       </div>
     </>
   );

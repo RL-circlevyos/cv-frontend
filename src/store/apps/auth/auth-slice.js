@@ -10,6 +10,7 @@ const initialAuthState = {
   userDetails: {},
   myDetails: {},
   userImagines: [],
+  following: [],
   isinitiate: false,
 };
 
@@ -35,6 +36,9 @@ const authSlice = createSlice({
     },
     userInitiate(state, action) {
       state.isinitiate = action.payload.isinitiate;
+    },
+    followingList(state, action) {
+      state.following = action.payload.following;
     },
   },
 });

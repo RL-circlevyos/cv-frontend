@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import {
   userDetailsAction,
   userFollowAction,
+  userFollowingAction,
   userImaginesAction,
   userUnfollowAction,
 } from "../../../store/apps/auth/auth-action";
@@ -20,25 +21,22 @@ const Detail = () => {
   const dispatch = useDispatch();
   const id = useParams();
   const socket = useSocket();
+
   const [isInitial, setIsInitial] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(userDetailsAction(id.id));
-      dispatch(userImaginesAction(id.id));
+    dispatch(userDetailsAction(id.id));
+    dispatch(userImaginesAction(id.id));
+    dispatch(userFollowingAction(id.id));
 
-      socket.on("follow", () => {
-        dispatch(userDetailsAction(id.id));
-        dispatch(userImaginesAction(id.id));
-      });
-      socket.on("unfollow", () => {
-        dispatch(userDetailsAction(id.id));
-        dispatch(userImaginesAction(id.id));
-      });
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
+    socket.on("follow", () => {
+      // dispatch(userImaginesAction(id.id));
+      dispatch(userFollowingAction(id.id));
+    });
+    socket.on("unfollow", () => {
+      // dispatch(userImaginesAction(id.id));
+      dispatch(userFollowingAction(id.id));
+    });
   }, [dispatch, id, socket, isInitial]);
 
   const handleClickOpen = useCallback(() => {
@@ -118,16 +116,16 @@ const Detail = () => {
 
         {auth.userid === id.id ? null : (
           <span className="cursor-pointer mt-5">
-            {!auth?.userDetails?.followers?.includes(auth.userid) ? (
+            {!auth?.following?.includes(id.id) ? (
               <span
-                className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24"
+                className="px-5 py-2 mt-2 ml-3 rounded-lg bg-primary text-white font-bold text-base w-24"
                 onClick={clickFollowHandler}
               >
                 Follow
               </span>
             ) : (
               <span
-                className="px-5 py-2 mt-2 ml-3 bg-cyan-700 text-white font-bold text-base w-28"
+                className="px-5 py-2 mt-2 ml-3 rounded-lg bg-cyan-700 text-white font-bold text-base w-28"
                 onClick={clickUnfollowHandler}
               >
                 Following
@@ -208,7 +206,7 @@ const Detail = () => {
 
         {auth.userid === id.id ? null : (
           <span className="cursor-pointer mt-5">
-            {!auth?.userDetails?.followers?.includes(auth.userid) ? (
+            {!auth?.following?.includes(id.id) ? (
               <span
                 className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24"
                 onClick={clickFollowHandler}

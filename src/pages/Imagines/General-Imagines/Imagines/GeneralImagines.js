@@ -7,37 +7,47 @@ import Navbar from "../../../../components/Navbar";
 import Card from "./Card";
 
 import { useDispatch, useSelector } from "react-redux";
-import { generalImagineSingleFetchAction } from "../../../../store/apps/imagines/imagine-action";
+import {
+  appriciateIdListAction,
+  commentFetchAction,
+  generalImagineSingleFetchAction,
+} from "../../../../store/apps/imagines/imagine-action";
 import { useParams } from "react-router-dom";
 import { useSocket } from "../../../../hooks/socketHook";
 import { ToastContainer } from "react-toastify";
+import { appriciateListAction } from "./../../../../store/apps/imagines/imagine-action";
 
-const GeneralImagines = ({ i }) => {
-  const imagine = useSelector((state) => state.imagine);
+const GeneralImagines = () => {
   const imagineid = useParams();
 
   const dispatch = useDispatch();
   const socket = useSocket();
 
-  console.log(imagine?.singleImagine?.singleImagine);
-
   useEffect(() => {
-    const timer = setTimeout(() => {
+    dispatch(generalImagineSingleFetchAction(imagineid.id));
+    dispatch(appriciateListAction(imagineid.id));
+    dispatch(appriciateIdListAction(imagineid.id));
+    dispatch(commentFetchAction(imagineid.id));
+
+    socket.on("create-comment", () => {
+      dispatch(commentFetchAction(imagineid.id));
+    });
+
+    socket.on("delete-comment", () => {
       dispatch(generalImagineSingleFetchAction(imagineid.id));
-      socket.on("create-comment", () => {
-        dispatch(generalImagineSingleFetchAction(imagineid.id));
-      });
-      socket.on("delete-comment", () => {
-        dispatch(generalImagineSingleFetchAction(imagineid.id));
-      });
-      socket.on("appriciate", () => {
-        dispatch(generalImagineSingleFetchAction(imagineid.id));
-      });
-    }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
+    });
+    socket.on("appriciate", () => {
+      dispatch(appriciateIdListAction(imagineid.id));
+
+      dispatch(appriciateListAction(imagineid.id));
+    });
+
+    socket.on("update-imagine", (data) => {
+      dispatch(generalImagineSingleFetchAction(imagineid.id));
+    });
   }, [dispatch, imagineid.id, socket]);
+
+  const imagine = useSelector((state) => state.imagine);
 
   return (
     <>

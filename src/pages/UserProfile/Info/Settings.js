@@ -126,6 +126,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
+
           {!showName ? (
             <div className="flex items-center mt-6">
               <span className="cursor-pointer" onClick={changeName}>

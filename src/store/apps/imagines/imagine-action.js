@@ -24,12 +24,8 @@ export const generalImagineCreateAction =
       console.log(response.json());
 
       if (!response.ok) {
-        toast.error("something went wrong");
-
         throw Error("Error occured in imagine create");
       }
-
-      toast.success("posted successfully");
     };
 
     try {
@@ -39,12 +35,14 @@ export const generalImagineCreateAction =
       //   })
       // );
       await GeneralImagineCreate();
+      toast.success("posted successfully");
       dispatch(
         imagineSliceAction.createPost({
           isinitiate: true,
         })
       );
     } catch (e) {
+      toast.error(e.message);
       dispatch(
         UiSliceAction.ErrorMessage({
           errorMessage: e.message,
@@ -78,7 +76,6 @@ export const generalImagineFetchAction = (skipCount) => async (dispatch) => {
     );
 
     if (!response.ok) {
-      toast.error("something went wrong");
       throw Error("Error occured in class create");
     }
 
@@ -104,6 +101,7 @@ export const generalImagineFetchAction = (skipCount) => async (dispatch) => {
     );
   } catch (err) {
     console.log(err);
+    toast.error(err.message);
     dispatch(
       UiSliceAction.ErrorMessage({
         errorMessage: err.message,
@@ -138,8 +136,6 @@ export const generalImagineSingleFetchAction =
       );
 
       if (!response.ok) {
-        toast.error("something went wrong");
-
         throw Error("Error occured in class create");
       }
 
@@ -154,7 +150,7 @@ export const generalImagineSingleFetchAction =
         })
       );
       const gImagine = await generalImagineSingleFetch();
-      console.log(gImagine);
+      //console.log(gImagine);
 
       dispatch(
         imagineSliceAction.getSingleImagine({
@@ -162,6 +158,60 @@ export const generalImagineSingleFetchAction =
         })
       );
     } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+      dispatch(
+        UiSliceAction.ErrorMessage({
+          errorMessage: err.message,
+        })
+      );
+    } finally {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
+    }
+  };
+
+// get alternate imagine
+export const generalImagineAlternateSingleFetchAction =
+  (imagineId) => async (dispatch) => {
+    console.log("calling single imagine id", imagineId);
+
+    const generalImagineAlternateSingleFetch = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
+        // `http://localhost:3699/api/imagines/${imagineId}`,
+        {
+          credentials: "include",
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw Error("Error occured in class create");
+      }
+
+      const data = await response.json();
+      return data;
+    };
+
+    try {
+      const gImagine = await generalImagineAlternateSingleFetch();
+      //console.log(gImagine);
+
+      dispatch(
+        imagineSliceAction.getSingleImagine({
+          singleImagine: gImagine,
+        })
+      );
+    } catch (err) {
+      toast.error(err.message);
       console.log(err);
       dispatch(
         UiSliceAction.ErrorMessage({
@@ -178,7 +228,7 @@ export const generalImagineSingleFetchAction =
   };
 
 // delete imagine
-// get imagine
+
 export const deleteImagineAction = (imagineId) => async (dispatch) => {
   const deleteImagine = async () => {
     const response = await fetch(
@@ -195,16 +245,16 @@ export const deleteImagineAction = (imagineId) => async (dispatch) => {
     );
 
     if (!response.ok) {
-      toast.error("something went wrong");
       throw Error("Error occured in class create");
     }
-    toast.info("deleted successfully");
+
     const data = await response.json();
     return data;
   };
 
   try {
     const gImagineDelete = await deleteImagine();
+    toast.info("deleted successfully");
     dispatch(
       imagineSliceAction.inititateProcess({
         isinitiate: true,
@@ -212,6 +262,7 @@ export const deleteImagineAction = (imagineId) => async (dispatch) => {
     );
     console.log(gImagineDelete);
   } catch (err) {
+    toast.error(err.message);
     console.log(err);
     dispatch(
       UiSliceAction.ErrorMessage({
@@ -243,12 +294,8 @@ export const generalImagineUpdateAction =
       console.log(response.json());
 
       if (!response.ok) {
-        toast.error("something went wrong");
-
         throw Error("Error occured in imagine create");
       }
-
-      toast.success("updated successfully");
     };
 
     try {
@@ -258,7 +305,9 @@ export const generalImagineUpdateAction =
         })
       );
       await GeneralImagineUpdate();
+      toast.success("updated successfully");
     } catch (e) {
+      toast.error(e.message);
       dispatch(
         UiSliceAction.ErrorMessage({
           errorMessage: e.message,
@@ -296,8 +345,10 @@ export const commentCreateAction =
         }
       );
 
+      console.log(response.json());
+
       if (!response.ok) {
-        throw Error("Error occured in comment create");
+        throw Error("Error occured in imagine create");
       }
     };
 
@@ -329,12 +380,11 @@ export const commentCreateAction =
 
 // get comments
 export const commentFetchAction = (imagineId) => async (dispatch) => {
-  console.log("calling");
-
+  console.log(imagineId, "comment fetch");
   const commentFetch = async () => {
     const response = await fetch(
-      // `${process.env.REACT_APP_API_BASE_URL}/blogposts`,
-      `http://localhost:3699/api/imagines/${imagineId}/comments`,
+      `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/comments`,
+      // `http://localhost:3699/api/v1/imagines/${imagineId}/comments`,
       {
         credentials: "include",
         method: "GET",
@@ -350,6 +400,7 @@ export const commentFetchAction = (imagineId) => async (dispatch) => {
     }
 
     const data = await response.json();
+    console.log(data, "comment");
     return data;
   };
 
@@ -367,6 +418,7 @@ export const commentFetchAction = (imagineId) => async (dispatch) => {
       })
     );
   } catch (err) {
+    toast.error(err.message);
     console.log(err);
     toast.error(err.message);
     dispatch(
@@ -403,7 +455,6 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
     );
 
     if (!response.ok) {
-      toast.error("something went wrong");
       throw Error("Error occured in imagine appriciate");
     }
 
@@ -413,13 +464,9 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
   };
 
   try {
-    const aprct = await appriciate();
-    dispatch(
-      imagineSliceAction.getAppreciates({
-        appriciate: aprct,
-      })
-    );
+    await appriciate();
   } catch (e) {
+    toast.error(e.message);
     dispatch(
       UiSliceAction.ErrorMessage({
         errorMessage: e.message,
@@ -434,6 +481,91 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
       })
     );
   }
+};
+
+// appriciate List
+export const appriciateListAction = (imagineId) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const appriciateList = async () => {
+      console.log("followings list");
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/appriciateList`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        /**toast.error("something went wrong");*/
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+      return responseData.appriciates;
+    };
+
+    try {
+      const response = await appriciateList();
+      console.log(response);
+      dispatch(
+        imagineSliceAction.getAppreciateList({
+          appriciateList: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// appriciate id List
+export const appriciateIdListAction = (imagineId) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const appriciateIdList = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/appriciateIdList`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        /**toast.error("something went wrong");*/
+        throw Error("appreciate failed");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+      return responseData;
+    };
+
+    try {
+      const response = await appriciateIdList();
+      console.log(response);
+      dispatch(
+        imagineSliceAction.getAppreciateIds({
+          appreciateIds: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 // save

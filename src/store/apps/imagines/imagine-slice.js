@@ -5,7 +5,8 @@ const initialCreateImagineState = {
   singleImagine: {},
   comments: [],
   isinitiate: false,
-  appreciate: [],
+  appreciateIds: [],
+  appriciateList: [],
   skipCount: 0,
 };
 
@@ -29,13 +30,14 @@ const imagineSlice = createSlice({
     getComments(state, action) {
       state.comments = action.payload.comments;
     },
-    getAppreciates(state, action) {
-      state.appreciate = action.payload.appreciate;
-      console.log(state.appreciate, "imagineSlice action");
+    getAppreciateIds(state, action) {
+      state.appreciateIds = action.payload.appreciateIds;
+    },
+    getAppreciateList(state, action) {
+      state.appriciateList = action.payload.appriciateList;
     },
     skipCountNext(state, action) {
       state.skipCount = state.skipCount + 1;
-      console.log(state.skipCount, "skip next");
     },
     skipCountPrev(state, action) {
       state.skipCount = state.skipCount - 1;

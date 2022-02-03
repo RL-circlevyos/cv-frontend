@@ -5,14 +5,12 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+
 
     <meta
     name="description"
-    content="Web site created using create-react-app"/>
+    
+    content="circlevyos a web app"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -48,7 +46,13 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+<script>if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{
+navigator.serviceWorker.register("./serviceworker.js").then((reg)=>console.log("Success: ", reg.scope)).catch((err)=>console.log("Failure: ", err))
+  })}</script>
+
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

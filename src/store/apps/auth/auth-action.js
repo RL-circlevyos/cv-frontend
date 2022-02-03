@@ -1,8 +1,9 @@
 import { toast } from "react-toastify";
+import { UiSliceAction } from "../ui/uiSlice";
 import { authAction } from "./auth-slice";
 
 // custom action creator function =>  thunk
-export const signUpWithNameEmailAndPassword = (data) => {
+export const signUpWithNameEmailAndPassword = (data, show) => {
   return async (dispatch) => {
     // 📈 send data to database
     const signupAction = async () => {
@@ -23,16 +24,16 @@ export const signUpWithNameEmailAndPassword = (data) => {
 
       // checking response status
       if (!response.ok) {
-        toast.error("something went wrong");
         throw Error("authentication failed");
       }
-      toast.success("signup successful");
+
       const responseData = await response.json();
       return responseData;
     };
 
     try {
       const response = await signupAction();
+      toast.success("signup successful");
       console.log(response.user._id);
       dispatch(
         authAction.getInfo({
@@ -40,6 +41,8 @@ export const signUpWithNameEmailAndPassword = (data) => {
         })
       );
     } catch (error) {
+      toast.error("username or email exists");
+
       console.log(error);
     }
   };
@@ -67,16 +70,16 @@ export const LoginWithNameEmailAndPassword = (data) => {
 
       // checking response status
       if (!response.ok) {
-        toast.error("something went wrong");
         throw Error("authentication failed");
       }
-      toast.success("login successful");
+
       const responseData = await response.json();
       return responseData;
     };
 
     try {
       const response = await LoginAction();
+      toast.success("login successful");
       console.log(response);
       dispatch(
         authAction.getInfo({
@@ -84,6 +87,7 @@ export const LoginWithNameEmailAndPassword = (data) => {
         })
       );
     } catch (error) {
+      toast.error(error);
       console.log(error);
     }
   };
@@ -140,7 +144,7 @@ export const logoutAction = () => {
         // "http://localhost:3699/api/v1/authstate",
         {
           method: "GET",
-          credentials: "include",
+          // credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -149,16 +153,16 @@ export const logoutAction = () => {
 
       // checking response status
       if (!response.ok) {
-        toast.error("something went wrong");
         throw Error("logout failed");
       }
-      toast.warn("you are logged out");
     };
 
     try {
       const response = await Logout();
+      toast.warn("you are logged out");
       console.log(response.id);
     } catch (error) {
+      toast.error(error);
       console.log(error);
     }
   };
@@ -186,23 +190,23 @@ export const userDetailsUpdateAction = (updateBody) => {
 
       // checking response status
       if (!response.ok) {
-        toast.error("something went wrong");
         throw Error("user update failed");
       }
-      toast.info("updated successfully");
+
       const responseData = await response.json();
       return responseData.user;
     };
 
     try {
       const response = await userDetailsUpdate();
-
+      toast.info("updated successfully");
       dispatch(
         authAction.userDetails({
           userDetails: response,
         })
       );
     } catch (error) {
+      toast.error(error);
       console.log(error);
     }
   };
@@ -235,11 +239,65 @@ export const userDetailsAction = (id) => {
     };
 
     try {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: true,
+        })
+      );
       const response = await userDetails();
       console.log(response.id);
       dispatch(
         authAction.userDetails({
           userDetails: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
+    }
+  };
+};
+
+// user follow
+export const userFollowingAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const userDetails = async () => {
+      console.log("user followings list");
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/mydetails`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        /**toast.error("something went wrong");*/
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData.user.following);
+      return responseData.user.following;
+    };
+
+    try {
+      const response = await userDetails();
+      console.log(response);
+      dispatch(
+        authAction.followingList({
+          following: response,
         })
       );
     } catch (error) {
@@ -424,17 +482,18 @@ export const changePasswordAction = (passwordBody) => {
 
       // checking response status
       if (!response.ok) {
-        toast.error("something went wrong");
         throw Error("authentication failed");
       }
-      toast.info("password changed successfully");
+
       const responseData = await response.json();
       return responseData.user;
     };
 
     try {
       await userDetails();
+      toast.info("password changed successfully");
     } catch (error) {
+      toast.error(error);
       console.log(error);
     }
   };
