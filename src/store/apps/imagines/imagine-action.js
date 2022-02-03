@@ -296,15 +296,9 @@ export const commentCreateAction =
         }
       );
 
-      console.log(response.json());
-
       if (!response.ok) {
-        toast.error("something went wrong");
-
-        throw Error("Error occured in imagine create");
+        throw Error("Error occured in comment create");
       }
-
-      toast.info("comment posted");
     };
 
     try {
@@ -314,7 +308,9 @@ export const commentCreateAction =
       //   })
       // );
       await commentCreate();
+      toast.info("comment posted");
     } catch (e) {
+      toast.error(e.message);
       dispatch(
         UiSliceAction.ErrorMessage({
           errorMessage: e.message,
@@ -350,8 +346,7 @@ export const commentFetchAction = (imagineId) => async (dispatch) => {
     );
 
     if (!response.ok) {
-      toast.error("something went wrong");
-      throw Error("Error occured in class create");
+      throw Error("Error occured in comment ");
     }
 
     const data = await response.json();
@@ -373,6 +368,7 @@ export const commentFetchAction = (imagineId) => async (dispatch) => {
     );
   } catch (err) {
     console.log(err);
+    toast.error(err.message);
     dispatch(
       UiSliceAction.ErrorMessage({
         errorMessage: err.message,
