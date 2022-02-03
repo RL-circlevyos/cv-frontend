@@ -24,7 +24,7 @@ const validationSchema = yup.object().shape({
     .string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters")
-    .max(16, "Password must not exceed 16 characters"),
+    .max(26, "Password must not exceed 26 characters"),
   // .matches("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}))
 
   // phone: yup
