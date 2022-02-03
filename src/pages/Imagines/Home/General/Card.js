@@ -370,7 +370,7 @@ const Card = ({
             open={openShare}
             handleClose={handleCloseShare}
             title="Share this link"
-            content={`https://61f9942b41f3bd0007d1fcf1--focused-almeida-cad4a1.netlify.app/${id}`}
+            content={`https://circlevyos.com/${id}`}
           />
         </span>
       </div>
