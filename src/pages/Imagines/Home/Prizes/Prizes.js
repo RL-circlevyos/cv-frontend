@@ -21,7 +21,9 @@ const Prizes = () => {
         >
           Click to know more
         </Link>
-        <small>details and queries will be send to verified emails</small>
+        <small className="text-base">
+          details and queries will be send to verified emails
+        </small>
       </div>
 
       {/* <div className="bg-cyan-700 px-3 mt-1.5 rounded-lg space-y-1 pt-1 pb-3">

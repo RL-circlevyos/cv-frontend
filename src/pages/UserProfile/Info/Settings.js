@@ -126,10 +126,8 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <span className="text-2xl font-bold pt-4">
-            {auth?.userDetails?.name}
-          </span>
-          {/**  {!showName ? (
+
+          {!showName ? (
             <div className="flex items-center mt-6">
               <span className="cursor-pointer" onClick={changeName}>
                 <PencilIcon className="h-6 w-6 mr-2 " />
@@ -159,7 +157,7 @@ const Settings = () => {
                 />
               </span>
             </span>
-          )} */}
+          )}
 
           {showBio ? (
             <span className="w-full px-7 mt-6">
