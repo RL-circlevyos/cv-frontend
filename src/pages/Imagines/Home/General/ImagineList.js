@@ -21,17 +21,6 @@ const ImagineList = () => {
           </div>
           <div className="flex justify-center items-center w-full max-w-lg flex-col ">
             <div className="w-full flex justify-center flex-col items-center px-4 mt-4 lg:mt-0">
-              <div className=" md:hidden bg-primary text-white py-2 w-full flex justify-center items-start">
-                <div className="font-bold text-base md:text-lg px-1">
-                  Early Bird Registration...
-                </div>
-                <Link
-                  to="/cv/offers/detail-procedure"
-                  className="bg-teal-800 flex justify-center py-1 rounded-lg px-1"
-                >
-                  Click to know more
-                </Link>
-              </div>
               {/**  {imagine.uploadIndicator === true && (
                 <Progress
                   amount="%"
@@ -47,6 +36,17 @@ const ImagineList = () => {
                 autoHide
                 style={{ width: "100%", height: "92vh" }}
               >
+                <div className=" md:hidden bg-primary text-white py-2 w-full flex justify-center items-start px-2 rounded-md">
+                  <div className="font-bold text-base md:text-lg px-3">
+                    Early Bird Registration...
+                  </div>
+                  <Link
+                    to="/cv/offers/detail-procedure"
+                    className="bg-teal-800 flex justify-center py-1 rounded-lg mx-2 px-2"
+                  >
+                    Click to know more
+                  </Link>
+                </div>
                 <div className="w-full flex justify-center px-2 lg:0 items-center md:mt-5 mt-3">
                   <List />
                 </div>

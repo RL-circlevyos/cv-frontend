@@ -147,17 +147,71 @@ const Card = ({
       <div className="flex flex-col space-y-1 w-3/5 py-1">
         {/*********************** three dots start ******************/}
 
+        {/* {edit &&
+          author ===
+            auth.userid(
+              <span className="flex items-center justify-end pr-4 space-x-1">
+                <>
+                  {/* {userid === auth.userid && ( 
+        <span>
+          <DotsHorizontalIcon
+            className="h-5 w-5 cursor-pointer"
+            onClick={clickEdit}
+          />
+        </span>
+        {/* )} }
+                </>
+
+                <div className="relative inline-block text-left font-Mulish">
+                  <div
+                    className="origin-center absolute z-50 font-Mulish right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black 
+                   ring-opacity-5 divide-y divide-gray-100 focus:outline-none text-base"
+                  >
+                    <span className="flex justify-end items-center mx-1 my-1">
+                      <span
+                        onClick={editClose}
+                        className="cursor-pointer font-bold"
+                      >
+                        <XIcon className="h-5 w-5 text-pink-500" />
+                      </span>
+                    </span>
+                    {/**  {author !== auth.userid && (
+                  <div className="py-1">
+                    <div
+                      onClick={handleReportOpen}
+                      className="bg-gray-50 text-pink-500 hover:bg-gray-200  block px-4 py-2 font-bold"
+                    >
+                      Report
+                    </div>
+                  </div>
+                )} 
+                    {author === auth.userid && (}
+                    <div className="py-1">
+                      <div
+                        className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+                        onClick={handleDelOpen}
+                      >
+                        Delete
+                      </div>
+                    </div>
+                    {/* )} }
+                  </div>
+                </div>
+              </span>
+            )} */}
         <span className="flex items-center justify-end pr-4 space-x-1">
-          <>
-            {/* {userid === auth.userid && ( */}
-            <span>
-              <DotsHorizontalIcon
-                className="h-5 w-5 cursor-pointer"
-                onClick={clickEdit}
-              />
-            </span>
-            {/* )} */}
-          </>
+          {!edit && author === auth.userid && (
+            <>
+              {/* {userid === auth.userid && ( */}
+              <span>
+                <DotsHorizontalIcon
+                  className="h-5 w-5 cursor-pointer"
+                  onClick={clickEdit}
+                />
+              </span>
+              {/* )} */}
+            </>
+          )}
           {edit && (
             <div className="relative inline-block text-left font-Mulish">
               <div
@@ -172,26 +226,24 @@ const Card = ({
                     <XIcon className="h-5 w-5 text-pink-500" />
                   </span>
                 </span>
-                {author !== auth.userid && (
-                  <div className="py-1">
-                    <div
-                      onClick={handleReportOpen}
-                      className="bg-gray-50 text-pink-500 hover:bg-gray-200  block px-4 py-2 font-bold"
-                    >
-                      Report
-                    </div>
-                  </div>
-                )}
-                {author === auth.userid && (
-                  <div className="py-1">
-                    <div
+                {/* <div className="py-1">
+                  <div>
+                    <Link
+                      to={`/${id}/update`}
                       className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
-                      onClick={handleDelOpen}
                     >
-                      Delete
-                    </div>
+                      Edit
+                    </Link>
                   </div>
-                )}
+                </div> */}
+                <div className="py-1">
+                  <div
+                    className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+                    onClick={handleDelOpen}
+                  >
+                    Delete
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -229,7 +281,7 @@ const Card = ({
             </div>
           </Link>
         </span>
-        <span className="flex items-start justify-center bottom-0 sticky space-x-3 w-full lg:space-x-4 md:ml-3 pt-1">
+        <span className="flex items-center justify-center bottom-0 sticky space-x-3 w-full lg:space-x-4 ml-3 pt-1">
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
@@ -318,7 +370,7 @@ const Card = ({
             open={openShare}
             handleClose={handleCloseShare}
             title="Share this link"
-            content={`https://61f9942b41f3bd0007d1fcf1--focused-almeida-cad4a1.netlify.app/${id}`}
+            content={`https://circlevyos.com/${id}`}
           />
         </span>
       </div>
