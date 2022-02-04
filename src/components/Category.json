@@ -53,6 +53,13 @@
   {
     "name": "Fantasy",
     "id": 16
+  },
+  {
+    "name": "Creativity",
+    "id": 17
+  }, {
+    "name": "Drawing",
+    "id": 18
   }
 
 ]
