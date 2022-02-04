@@ -94,6 +94,7 @@ const clickFollowHandler = useCallback(() => {
                   imagine.singleImagine?.singleImagine?.audiovoice?.secure_url
                 }
                 controls
+                controlsList="nodownload"
               />
             )}
           </div>
