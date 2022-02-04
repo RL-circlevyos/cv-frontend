@@ -39,6 +39,7 @@ const Content = () => {
           <audio
             src={imagine.singleImagine?.singleImagine?.audiovoice?.secure_url}
             controls
+            controlsList="nodownload"
           />
         )}
       </div>
