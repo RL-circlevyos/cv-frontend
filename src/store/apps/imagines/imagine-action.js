@@ -35,7 +35,17 @@ export const generalImagineCreateAction =
       //     isLoading: true,
       //   })
       // );
+      dispatch(
+        imagineSliceAction.uploading({
+          isUploading: true,
+        })
+      );
       await GeneralImagineCreate();
+      dispatch(
+        imagineSliceAction.uploading({
+          isUploading: false,
+        })
+      );
       toast.success("posted successfully");
       dispatch(
         imagineSliceAction.createPost({
