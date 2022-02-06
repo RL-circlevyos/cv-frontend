@@ -119,7 +119,8 @@ const Footer = ({ openCommentBox }) => {
           open={openShare}
           handleClose={handleCloseShare}
           title="Share this link"
-          content={`https://circlevyos.com/${singleImagine?.singleImagine?._id}`}
+          //content={`https://circlevyos.com/${singleImagine?.singleImagine?._id}`}
+          content={`http://localhost:3000/${singleImagine?.singleImagine?._id}`}
         />
       </div>{" "}
       <span className="flex justify-center items-center text-primary lg:hidden">

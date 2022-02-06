@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
 import Navbar from "../../../components/Navbar";
 import List from "../Contribution/Imagines/List";
 import Intro from "./Intro";
@@ -16,6 +17,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <ToastContainer autoClose={2000} />
     </div>
   );
 };
