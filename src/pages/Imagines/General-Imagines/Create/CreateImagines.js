@@ -3,7 +3,10 @@ import React, { useCallback, useState } from "react";
 import Header from "./Header";
 
 import { useDispatch } from "react-redux";
-import { generalImagineCreateAction } from "../../../../store/apps/imagines/imagine-action";
+import {
+  generalImagineCreateAction,
+  imaginePostAction,
+} from "../../../../store/apps/imagines/imagine-action";
 import { useNavigate } from "react-router-dom";
 
 import { Editor } from "react-draft-wysiwyg";
@@ -26,8 +29,9 @@ const CreateImagines = () => {
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
     );
   };
-  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    .length;
+  const count = draftToHtml(
+    convertToRaw(editorState.getCurrentContent())
+  ).length;
   const MAX_LENGTH = 3000;
 
   const getLengthOfSelectedText = () => {
