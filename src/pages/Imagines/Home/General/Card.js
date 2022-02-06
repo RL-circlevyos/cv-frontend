@@ -370,8 +370,8 @@ const Card = ({
             open={openShare}
             handleClose={handleCloseShare}
             title="Share this link"
-            //content={`https://circlevyos.com/${id}`}
-            content={`http://localhost:3000/${id}`}
+            content={`https://circlevyos.com/${id}`}
+            // content={`http://localhost:3000/${id}`}
           />
         </span>
       </div>
