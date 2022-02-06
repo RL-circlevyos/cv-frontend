@@ -5,6 +5,7 @@ const initialCreateImagineState = {
   singleImagine: {},
   comments: [],
   isinitiate: false,
+  isUploading: false,
   appreciateIds: [],
   appriciateList: [],
   skipCount: 0,
@@ -41,6 +42,9 @@ const imagineSlice = createSlice({
     },
     skipCountPrev(state, action) {
       state.skipCount = state.skipCount - 1;
+    },
+    uploading(state, action) {
+      state.isUploading = action.payload.isUploading;
     },
   },
 });
