@@ -114,8 +114,8 @@ const GeneralUpdate = () => {
   const formdata = new FormData();
 
   formdata.append("title", titleUpdate);
-  formdata.append("intro", introUpdate);
-  formdata.append("outro", outroUpdate);
+  /** formdata.append("intro", introUpdate);
+  formdata.append("outro", outroUpdate);*/
 
   formdata.append(
     "main",
@@ -161,11 +161,14 @@ const GeneralUpdate = () => {
             onSubmit={handleSubmit}
             className="px-3 lg:px-6 py-2 space-y-1 text-base font-Mulish pb-6 "
           >
+            <div className="px-4 py-2 text-xl text-primary flex font-bold pb-6 justify-center">
+              Edit your imagine
+            </div>
             <div>
               {" "}
               <span className="w-full ">
-                <label className="ml-4 text-xs uppercase font-bold">
-                  title
+                <label className="ml-4 text-xs uppercase font-bold text-pink-500 flex items-center">
+                  title <p className="ml-3 text-xxs lowercase">required*</p>
                 </label>
                 <span className=" w-full text-sm flex items-center border rounded-xl lg:px-4 py-2 hover:border-primary border-gray-300 bg-white ">
                   <input
@@ -184,7 +187,7 @@ const GeneralUpdate = () => {
               </span>
             </div>
             <div className="flex items-start justify-start w-full flex-wrap lg:flex-nowrap pt-2 lg:pt-0 space-y-4 lg:space-y-0 lg:space-x-5">
-              <span className="w-full">
+              {/* <span className="w-full">
                 <label className="ml-4 text-xs uppercase font-bold">
                   intro
                 </label>
@@ -200,11 +203,14 @@ const GeneralUpdate = () => {
                 </span>
                 <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right ">
                   {" "}
-                  {/* {introUpdate.length}/{limit} */}
+                  {/* {introUpdate.length}/{limit} /}
                 </p>
-              </span>
+              </span> */}
             </div>
             <div>
+              <label className="ml-4 text-xs uppercase font-bold">
+                Content
+              </label>
               <Editor
                 editorState={editorState}
                 toolbarClassName="flex justify-center mx-auto w-full"
@@ -229,7 +235,7 @@ const GeneralUpdate = () => {
                 {count - 8}
               </p>
             </div>
-            <div className="flex items-start justify-center flex-wrap lg:flex-nowrap w-full pb-2 lg:space-x-4">
+            {/* <div className="flex items-start justify-center flex-wrap lg:flex-nowrap w-full pb-2 lg:space-x-4">
               <span className="w-full ">
                 <label className="ml-4 text-xs uppercase font-bold">
                   outro
@@ -246,16 +252,16 @@ const GeneralUpdate = () => {
                 </span>
                 <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
                   {" "}
-                  {/* {outroUpdate.length}/{limit} */}
+                  {/* {outroUpdate.length}/{limit} /}
                 </p>
               </span>
-            </div>
+            </div> */}
 
-            <div className="flex justify-end items-center pt-2 mb-4 ">
+            <div className="flex justify-end items-center pt-8 mb-4 ">
               <div className="flex items-center space-x-2 ">
                 <Link
                   to="/"
-                  className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 bg-gray-300 text-white "
+                  className="py-1.5 lg:py-2 lg:px-3 px-2 font-bold rounded-sm text-sm lg:text-base transition duration-200 bg-gray-200 text-gray-700 "
                 >
                   Cancel
                 </Link>

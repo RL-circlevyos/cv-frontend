@@ -3,15 +3,22 @@ import React, { useCallback, useState } from "react";
 import Header from "./Header";
 
 import { useDispatch } from "react-redux";
-import { generalImagineCreateAction } from "../../../../store/apps/imagines/imagine-action";
+import {
+  generalImagineCreateAction,
+  imaginePostAction,
+} from "../../../../store/apps/imagines/imagine-action";
 import { useNavigate } from "react-router-dom";
 
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
-import RadioBtn from "./Radio";
-import Progress from "../../../../components/Progress";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import data from "../../../../components/Category.json";
 
 const CreateImagines = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -22,8 +29,9 @@ const CreateImagines = () => {
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
     );
   };
-  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    .length;
+  const count = draftToHtml(
+    convertToRaw(editorState.getCurrentContent())
+  ).length;
   const MAX_LENGTH = 3000;
 
   const getLengthOfSelectedText = () => {
@@ -92,6 +100,12 @@ const CreateImagines = () => {
     }
   };
 
+  const [category, setCategory] = React.useState("");
+
+  const handleChangeSelect = (event) => {
+    setCategory(event.target.value);
+  };
+
   let navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [introImage, setIntroImage] = useState();
@@ -105,17 +119,16 @@ const CreateImagines = () => {
   const formdata = new FormData();
 
   formdata.append("title", title);
-  formdata.append("intro", intro);
-  formdata.append("outro", outro);
+  /**formdata.append("intro", intro);
+  formdata.append("outro", outro);*/
   formdata.append("introImage", introImage);
   formdata.append("outroImage", outroImage);
-  formdata.append("category", value);
+  formdata.append("category", category);
   formdata.append(
     "main",
     draftToHtml(convertToRaw(editorState.getCurrentContent()))
   );
   formdata.append("audiovoice", audio);
-  console.log(value);
 
   const introImageChange = useCallback((e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -184,17 +197,17 @@ const CreateImagines = () => {
         className="flex justify-center items-center flex-col"
         onSubmit={handleSubmit}
       >
-        <div className="w-full">
+        <div className="w-full pb-5">
           <Header title={title} />
         </div>
-        <div className="max-w-4xl w-full flex justify-center items-center flex-col mt-14 mx-3 lg:mx-0">
+        <div className="max-w-4xl w-full flex justify-center items-center flex-col  mx-3 lg:mx-0">
           <div className="w-full">
-            <div className="px-3 lg:px-6 py-2 space-y-1 text-base font-Mulish pb-6 ">
+            <div className="px-3 lg:px-6 py-2 space-y-1 text-base font-Mulish pb-6 pt-14">
               <div>
                 {" "}
                 <span className="w-full ">
-                  <label className="ml-4 text-xs uppercase font-bold">
-                    title
+                  <label className="ml-4 text-xs uppercase font-bold text-pink-500 flex items-center">
+                    title <p className="text-xss lowercase ml-3">*required</p>
                   </label>
                   <span className=" w-full text-sm flex items-center border rounded-xl lg:px-4 py-2 hover:border-primary border-gray-300 bg-white ">
                     <input
@@ -211,7 +224,7 @@ const CreateImagines = () => {
                   </p>
                 </span>
               </div>
-              <div className="flex items-start justify-start w-full flex-wrap lg:flex-nowrap pt-2 lg:pt-0 space-y-4 lg:space-y-0 lg:space-x-5">
+              <div className="flex items-start justify-center w-full flex-wrap lg:flex-nowrap pt-2 lg:pt-0 space-y-4 lg:space-y-0 lg:space-x-5 pb-7">
                 <div className="grid place-items-center">
                   <label
                     className={`${
@@ -252,7 +265,7 @@ const CreateImagines = () => {
                   )}
                 </div>
 
-                <span className="w-full">
+                {/* <span className="w-full">
                   <label className="ml-4 text-xs uppercase font-bold">
                     intro
                   </label>
@@ -269,7 +282,7 @@ const CreateImagines = () => {
                   <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right ">
                     {intro.length}/{limit}
                   </p>
-                </span>
+                </span> */}
               </div>
               <div>
                 <Editor
@@ -298,7 +311,7 @@ const CreateImagines = () => {
                 </p>
               </div>
               <div className="flex items-start justify-center flex-wrap lg:flex-nowrap w-full pb-2 lg:space-x-4">
-                <span className="w-full ">
+                {/* <span className="w-full ">
                   <label className="ml-4 text-xs uppercase font-bold">
                     outro
                   </label>
@@ -315,7 +328,7 @@ const CreateImagines = () => {
                   <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
                     {outro.length}/{limit}
                   </p>
-                </span>
+                </span> */}
                 <div>
                   <label
                     className={`${
@@ -360,9 +373,33 @@ const CreateImagines = () => {
                 className="flex items-center flex-col justify-center w-full flex-wrap lg:flex-nowrap pt-10 
           space-y-4 lg:space-y-0 lg:space-x-5"
               >
-                <div className="flex flex-wrap items-start justify-center gap-x-3 lg:gap-x-6 px-3">
+                {/* <div className="flex flex-wrap items-start justify-center gap-x-3 lg:gap-x-6 px-3">
                   <RadioBtn value={value} handleChange={handleChange} />
-                </div>
+                </div> */}
+                <label className="ml-4 text-xs uppercase font-bold">
+                  Imagine Category
+                </label>
+
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Category
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={category}
+                    label="Category"
+                    onChange={handleChangeSelect}
+                  >
+                    {data.map((categories) => {
+                      return (
+                        <MenuItem key={categories.id} value={categories.name}>
+                          {categories.name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
               </div>
               <div className="w-full max-2xl">
                 <label
@@ -374,7 +411,7 @@ const CreateImagines = () => {
                   {!audio && (
                     <>
                       <span className="text-sm font-bold lg:text-base uppercase">
-                        Imagine audio or voice
+                        audio or voice
                       </span>
                       <UploadIcon className="w-7 h-7 ml-2" />
                     </>

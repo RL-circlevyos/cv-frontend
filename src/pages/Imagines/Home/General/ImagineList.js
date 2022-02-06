@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Info from "../Info";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const ImagineList = () => {
   return (
@@ -79,6 +80,13 @@ const ImagineList = () => {
             </Scrollbars> */}
           </div>
         </div>
+        <Helmet>
+          <title> circlevyos</title>
+          <meta
+            name="description"
+            content="a social media platform for creative minds dedicated to readers, writers, voice artists and sound creators"
+          />
+        </Helmet>
         <ToastContainer autoClose={3000} />
       </div>
     </div>
