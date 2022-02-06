@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import CommentList from "../../Comment/List";
 import Recommendation from "../../Home/General/Recommendation/Recommendation";
@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import { useSocket } from "../../../../hooks/socketHook";
 import { ToastContainer } from "react-toastify";
 import { appriciateListAction } from "./../../../../store/apps/imagines/imagine-action";
+import { Helmet } from "react-helmet";
 
 const GeneralImagines = () => {
   const imagineid = useParams();
@@ -48,10 +49,20 @@ const GeneralImagines = () => {
   }, [dispatch, imagineid.id, socket]);
 
   const imagine = useSelector((state) => state.imagine);
+  const title = imagine?.singleImagine?.singleImagine?.title;
+  const mains = imagine?.singleImagine?.singleImagine?.main;
 
   return (
     <>
       <div className="w-full lg:flex flex-col justify-content items-start h-screen hidden lg:fixed">
+        <Helmet>
+          <title>{title}</title>
+          <meta
+            name="description"
+            //dangerouslySetInnerHTML={{ __html: `<strong>${mains}</strong>` }}
+            content={mains ? mains : "no description"}
+          />
+        </Helmet>
         <Nav />
         <div className="grid place-items-center w-full">
           <div className="flex justify-center items-start w-full">

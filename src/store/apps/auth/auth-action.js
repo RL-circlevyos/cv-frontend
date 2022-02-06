@@ -3,7 +3,7 @@ import { UiSliceAction } from "../ui/uiSlice";
 import { authAction } from "./auth-slice";
 
 // custom action creator function =>  thunk
-export const signUpWithNameEmailAndPassword = (data, show) => {
+export const signUpWithNameEmailAndPassword = (data) => {
   return async (dispatch) => {
     // 📈 send data to database
     const signupAction = async () => {
@@ -13,7 +13,7 @@ export const signUpWithNameEmailAndPassword = (data, show) => {
         // `http://localhost:3699/api/v1/signup`,
         {
           method: "POST",
-          credentials: "include",
+          // credentials: "include",
           headers: {
             "Content-Type": "application/json",
             mode: "cors",
@@ -158,9 +158,10 @@ export const logoutAction = () => {
     };
 
     try {
-      const response = await Logout();
+      await Logout();
       toast.warn("you are logged out");
-      console.log(response.id);
+
+      //console.log(response.id);
     } catch (error) {
       toast.error(error);
       console.log(error);

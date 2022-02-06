@@ -1,5 +1,6 @@
 import { Divider } from "@mui/material";
 import React from "react";
+
 import { useSelector } from "react-redux";
 
 const Content = () => {
@@ -22,7 +23,7 @@ const Content = () => {
     : "w-0";
   return (
     <div className="mt-3 space-y-2 block text-base md:text-sl flex-initial text-gray-900 font-Mulish leading-relaxed">
-      <div className="text-lg md:text-3xl font-bold px-5 flex items-center ">
+      <div className="text-lg md:text-3xl font-bold px-1 flex items-center ">
         {imagine?.singleImagine?.singleImagine?.category ? (
           <label className="text-tiny md:text-base bg-primary rounded-md text-white py-1 px-2 mr-4">
             {" "}
@@ -44,7 +45,7 @@ const Content = () => {
         )}
       </div>
 
-      <div className="flex flex-wrap md:flex-nowrap items-start justify-center gap-2 font-medium pt-1">
+      <div className="flex flex-wrap md:flex-nowrap items-start justify-center w-full gap-2 font-medium pt-1">
         {!imagine.singleImagine?.singleImagine?.introImage ? null : (
           <span className={`${checkIntroImg} w-full `}>
             <img
@@ -67,7 +68,7 @@ const Content = () => {
           __html: imagine?.singleImagine?.singleImagine?.main,
         }}
       ></div>
-      <div className="flex flex-wrap md:flex-nowrap font-medium items-start justify-center gap-2  pb-2 pt-1">
+      <div className="flex flex-wrap md:flex-nowrap font-medium items-start justify-center gap-2 w-full pb-2 pt-1">
         <span className={`${checkOutro} text-left px-4`}>
           {imagine?.singleImagine?.singleImagine?.outro}
         </span>{" "}
