@@ -35,7 +35,7 @@ const Content = () => {
         {/**  {post?.generalImagines?.title} */}
       </div>
       <Divider />
-      <div className="w-full lg:hidden block">
+      <div className="w-full lg:hidden flex justify-center items-center">
         {imagine.singleImagine?.singleImagine?.audiovoice && (
           <audio
             src={imagine.singleImagine?.singleImagine?.audiovoice?.secure_url}
