@@ -11,14 +11,18 @@ import { signUpWithNameEmailAndPassword } from "../../store/apps/auth/auth-actio
 import { ToastContainer } from "react-toastify";
 
 const validationSchema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-
+  name: yup
+    .string()
+    .required("Name is required")
+    .matches(/^[A-Za-z0-9_@./#&+-]+$/, "(name should not contain any space)")
+    .min(2, "Name must be at least 2 characters")
+    .max(26, "Name must not exceed 20 characters"),
   email: yup
     .string()
     .required("Email is required")
     .matches(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      "Invalid Email"
+      "email should be like this example@something.com"
     ),
   password: yup
     .string()
@@ -26,7 +30,6 @@ const validationSchema = yup.object().shape({
     .min(8, "Password must be at least 8 characters")
     .max(26, "Password must not exceed 26 characters"),
   // .matches("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}))
-
   // phone: yup
   //   .string()
   //   .required("Phone number is required")
