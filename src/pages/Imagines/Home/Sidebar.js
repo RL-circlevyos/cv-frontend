@@ -120,7 +120,7 @@ const Sidebar = () => {
               </div> */}
             </>
           </nav>
-          <Prizes />
+          {/* <Prizes /> */}
         </div>
         <AlertDialogSlide
           open={open}
