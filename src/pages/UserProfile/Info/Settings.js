@@ -154,6 +154,7 @@ const Settings = () => {
                   className="font-medium w-full lg:px-4 px-1 ml-2 py-2 focus:outline-none form-control "
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
+                  pattern="/^[A-Za-z_@./#&+-]+$/"
                 />
               </span>
             </span>

@@ -84,7 +84,7 @@ const ImagineList = () => {
           <title> circlevyos</title>
           <meta
             name="description"
-            content="a social media platform for creative minds dedicated to readers, writers, voice artists and sound creators"
+            content="a social media platform for creative minds dedicated to readers, writers, painters, singers, voice artists and sound creators"
           />
         </Helmet>
         <ToastContainer autoClose={3000} />
