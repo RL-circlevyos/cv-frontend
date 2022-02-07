@@ -131,20 +131,20 @@ const Card = ({
 
   return (
     <div
-      className={`${width} space-x-2 flex items-start justify-start rounded-lg shadow mb-4 border border-gray-100 h-40 md:h-44 lg:h-48`}
+      className={`${width} space-x-2 flex items-center justify-start rounded-lg shadow mb-4 border border-gray-100 h-48`}
     >
-      <div className="w-7/12 h-full ">
+      <div className="w-7/12 h-full hidden xs:block">
         <div className="text-sm font-medium hover:underline">
-          <Link className="h-40 md:h-44 lg:h-48" to={`/${id}`}>
+          <Link className="h-48" to={`/${id}`}>
             <img
               src={!introImage ? just_saying : introImage.secure_url}
               alt="pic"
-              className="h-40 md:h-44 lg:h-48 w-full object-cover rounded-l-md "
+              className="h-48 w-full object-cover rounded-l-md "
             />
           </Link>
         </div>
       </div>
-      <div className="flex flex-col space-y-1 w-5/12 py-1">
+      <div className="flex flex-col space-y-1 w-full xs:w-5/12 py-1">
         {/*********************** three dots start ******************/}
 
         {/* {edit &&
@@ -250,22 +250,22 @@ const Card = ({
         </span>
         {/*********************** three dots end ******************/}
         <div className="flex items-start space-x-2 px-1.5">
-          <div className="flex flex-1 w-1/4">
-            <div className="w-full rounded-full" onClick={profileHandler}>
+          <div className="flex flex-1">
+            <div className="w-8 rounded-full" onClick={profileHandler}>
               {" "}
               <img
                 src={avatar ? avatar : dp}
                 alt="dp"
-                className=" w-full h-8 xs:h-9 xsm:h-10 sm:h-11 rounded-full object-cover border border-gray-300 cursor-pointer"
+                className=" w-7 h-7  rounded-full object-cover border border-gray-300 cursor-pointer"
               />
             </div>
 
-            <div className="flex flex-col w-3/4">
+            <div className="flex flex-col w-9/12">
               <span className="text-sm ml-2 font-bold  text-gray-500 truncate">
                 {username}
               </span>
               <div className="text-xxs md:text-xs text-gray-500 mt-1 ml-2 truncate">
-                {moment(date).format(" MMMM Do YYYY, h:mm a")}
+                {moment(date).format("DD-MM-YYYY")}
               </div>
             </div>
           </div>
@@ -276,22 +276,22 @@ const Card = ({
               {title}
             </div>
 
-            <div className="bg-cyan-700 w-1/2 rounded text-xs text-white flex justify-center mt-4 mb-2">
+            <div className="bg-cyan-700 xsm:w-3/4 w-full truncate rounded text-xs text-white flex justify-center mt-4 mb-2">
               {category}
             </div>
           </Link>
         </span>
 
-        <span className="flex lg:items-start items-center justify-center bottom-0 sticky space-x-2 w-full lg:space-x-4 lg:ml-5 pb-3 ml-1">
+        <span className="flex lg:items-start items-center flex-wrap justify-around bottom-0 sticky space-x-1 xsm:space-x-2 sm:space-x-3 w-full lg:space-x-4 pb-3 px-1">
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
-          <span className="flex items-center text-xs ">
+          <span className="flex items-center text-xxs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
               {appriciates.includes(auth.userid) ? (
-                <LightBulbIcon className="h-4 w-4 md:h-5 md:w-5 text-yellow-400" />
+                <LightBulbIcon className="h-6 w-6 text-yellow-400 mt-1" />
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 md:h-7 md:w-7 text-gray-600"
+                  className="h-6 w-6 text-gray-600 mt-1"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -317,8 +317,11 @@ const Card = ({
               </span>
             </span>
           </span>
-          <span className="lg:pt-1" onClick={handleClickOpenShare}>
-            <ShareIcon className="h-5 w-5 cursor-pointer text-gray-600 pb-1 ml-2 mt-1" />
+          <span
+            className="lg:pt-1 hidden xs:block"
+            onClick={handleClickOpenShare}
+          >
+            <ShareIcon className="h-5 w-5 cursor-pointer text-gray-600 pb-1 mt-1" />
           </span>
           {/* <span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
