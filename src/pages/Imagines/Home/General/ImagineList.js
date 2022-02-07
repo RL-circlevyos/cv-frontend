@@ -10,8 +10,10 @@ import "react-toastify/dist/ReactToastify.css";
 import Info from "../Info";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 const ImagineList = () => {
+  const isUploading = useSelector((state) => state.imagine.isUploading);
   return (
     <div className="h-screen w-full font-Mulish fixed">
       <Navbar />
@@ -30,8 +32,10 @@ const ImagineList = () => {
                 />
               )} 
 
-              <Progress amount="%" value={10} max={100} />*/}
-
+              // <Progress amount="%" value={10} max={100} />*/}
+              {isUploading && (
+                <span className="text-lg text-primary "> Uploading... </span>
+              )}
               <Scrollbars
                 thumbSize={1}
                 autoHide
