@@ -38,8 +38,8 @@ const Header = ({ title }) => {
         </Link> */}
         </div>
       </div>
-      <div className="block lg:hidden fixed w-full bg-gray-50 shadow z-50 pb-3 mt-14">
-        <div className="text-lg font-bold uppercase text-primary flex justify-between items-start px-3 mt-4 ">
+      <div className="block lg:hidden fixed w-full bg-gray-50 shadow z-50 pb-3 ">
+        <div className="text-lg font-bold uppercase text-primary flex justify-between items-start px-3 mt-4 pt-14">
           <Link to="/">
             <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
           </Link>

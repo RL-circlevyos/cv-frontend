@@ -29,9 +29,8 @@ const CreateImagines = () => {
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
     );
   };
-  const count = draftToHtml(
-    convertToRaw(editorState.getCurrentContent())
-  ).length;
+  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    .length;
   const MAX_LENGTH = 3000;
 
   const getLengthOfSelectedText = () => {
@@ -299,10 +298,10 @@ const CreateImagines = () => {
                       // "blockType",
                       "emoji",
                       "colorPicker",
-                      "list",
+                      // "list",
                       "link",
-                      "textAlign",
-                      "history",
+                      // "textAlign",
+                      //"history",
                     ],
                   }}
                 />

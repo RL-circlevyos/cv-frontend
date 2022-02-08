@@ -1,5 +1,12 @@
-const CACHE_NAME = "version-1";
-const urlsToCache = ["index.html", "offline.html"];
+const CACHE_NAME = "circlevyos";
+const urlsToCache = [
+  "/index.html",
+  "/static/js/main.chunk.js",
+  "/static/js/0.chunk.js",
+  "/static/js/.bundle.js",
+  "/",
+  "/offline.tml",
+];
 const self = this;
 //Install SW
 

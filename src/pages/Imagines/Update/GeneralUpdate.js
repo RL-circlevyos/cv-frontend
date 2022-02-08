@@ -224,10 +224,10 @@ const GeneralUpdate = () => {
                     // "blockType",
                     "emoji",
                     "colorPicker",
-                    "list",
+                    //"list",
                     "link",
-                    "textAlign",
-                    "history",
+                    //"textAlign",
+                    //"history",
                   ],
                 }}
               />
