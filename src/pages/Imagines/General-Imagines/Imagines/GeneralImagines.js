@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import CommentList from "../../Comment/List";
 import Recommendation from "../../Home/General/Recommendation/Recommendation";
@@ -51,7 +51,11 @@ const GeneralImagines = () => {
   const imagine = useSelector((state) => state.imagine);
   const title = imagine?.singleImagine?.singleImagine?.title;
   const mains = imagine?.singleImagine?.singleImagine?.main;
-
+  const img = imagine?.singleImagine?.singleImagine?.introImage.secure_url;
+  const imgContent = img
+    ? img
+    : "https://www.risingleafs.com/img/circlevyos%20logo.svg";
+  console.log(imgContent);
   return (
     <>
       <div className="w-full lg:flex flex-col justify-content items-start h-screen hidden lg:fixed">
@@ -62,6 +66,7 @@ const GeneralImagines = () => {
             //dangerouslySetInnerHTML={{ __html: `<strong>${mains}</strong>` }}
             content={mains ? mains : "no description"}
           />
+          <meta property="og:image" content={imgContent} />
         </Helmet>
         <Nav />
         <div className="grid place-items-center w-full">
@@ -124,7 +129,6 @@ const GeneralImagines = () => {
                 <Card post={imagine} styles="max-w-base px-4 mt-2" />
               </div>
               <div className="w-full px-3 py-1 mt-3">
-                {" "}
                 <CommentList />
               </div>
             </div>
