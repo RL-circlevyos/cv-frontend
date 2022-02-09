@@ -18,7 +18,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import data from "../../../../components/Category.json";
+import data from "./Categories.json";
 
 const CreateImagines = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -31,7 +31,7 @@ const CreateImagines = () => {
   };
   const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
     .length;
-  const MAX_LENGTH = 3000;
+  const MAX_LENGTH = 20000;
 
   const getLengthOfSelectedText = () => {
     const currentSelection = editorState.getSelection();
@@ -193,16 +193,16 @@ const CreateImagines = () => {
   return (
     <div className="flex justify-center items-center flex-col font-Mulish">
       <form
-        className="flex justify-center items-center flex-col"
+        className="flex justify-center items-center flex-col w-full"
         onSubmit={handleSubmit}
       >
         <div className="w-full pb-5">
-          <Header title={title} />
+          <Header name="Big blocks" title={title} />
         </div>
         <div className="max-w-4xl w-full flex justify-center items-center flex-col  mx-3 lg:mx-0">
           <div className="w-full">
-            <div className="px-3 lg:px-6 py-2 space-y-1 text-base font-Mulish pb-6 pt-14">
-              <div>
+            <div className="px-3 lg:px-6 py-2 space-y-1 text-base font-Mulish pb-6 pt-14 w-full">
+              <div className="w-full">
                 {" "}
                 <span className="w-full ">
                   <label className="ml-4 text-xs uppercase font-bold text-pink-500 flex items-center">
@@ -223,66 +223,7 @@ const CreateImagines = () => {
                   </p>
                 </span>
               </div>
-              <div className="flex items-start justify-center w-full flex-wrap lg:flex-nowrap pt-2 lg:pt-0 space-y-4 lg:space-y-0 lg:space-x-5 pb-7">
-                <div className="grid place-items-center">
-                  <label
-                    className={`${
-                      !introImage &&
-                      "border border-gray-300 rounded-md w-full mt-6 px-8 py-8 flex items-center cursor-pointer"
-                    } p-2`}
-                  >
-                    {!introImage && (
-                      <>
-                        <span className="text-xs font-bold lg:text-base">
-                          intro image
-                        </span>
-                        <UploadIcon className="w-7 h-7" />
-                      </>
-                    )}
-                    <input
-                      accept="image/*"
-                      type="file"
-                      onChange={introImageChange}
-                      className="invisible hidden"
-                    />
-                  </label>
 
-                  {introImage && (
-                    <div className="w-full h-56 pb-3">
-                      <img
-                        src={URL.createObjectURL(introImage)}
-                        alt="Thumb"
-                        className="w-full h-full object-contain border border-gray-400"
-                      />
-                      <button
-                        className="text-xs font-bold"
-                        onClick={removeIntroImage}
-                      >
-                        Remove This Image
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {/* <span className="w-full">
-                  <label className="ml-4 text-xs uppercase font-bold">
-                    intro
-                  </label>
-                  <span className="w-full flex items-center border rounded-xl px-2 py-1 hover:border-primary border-gray-300 bg-white ">
-                    <textarea
-                      rows="4"
-                      type="text"
-                      placeholder="intro of Imagine"
-                      className="font-medium w-full lg:px-4 ml-2 py-1 lg:text-base text-sm focus:outline-none "
-                      value={intro}
-                      onChange={(e) => setIntroContent(e.target.value)}
-                    />
-                  </span>
-                  <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right ">
-                    {intro.length}/{limit}
-                  </p>
-                </span> */}
-              </div>
               <div>
                 <Editor
                   editorState={editorState}
@@ -305,29 +246,50 @@ const CreateImagines = () => {
                     ],
                   }}
                 />
-                <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
+                {/* <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
                   {count - 8}
-                </p>
+                </p> */}
               </div>
-              <div className="flex items-start justify-center flex-wrap lg:flex-nowrap w-full pb-2 lg:space-x-4">
-                {/* <span className="w-full ">
-                  <label className="ml-4 text-xs uppercase font-bold">
-                    outro
-                  </label>
-                  <span className="w-full flex items-center border rounded-xl px-2 py-2 hover:border-primary border-gray-300 bg-white ">
-                    <textarea
-                      rows="3"
-                      type="text"
-                      placeholder="outro of Imagine"
-                      className="font-medium w-full lg:px-4 px-1 ml-2 lg:py-2 lg:text-base text-sm focus:outline-none "
-                      value={outro}
-                      onChange={(e) => setOutroContent(e.target.value)}
+              <div className="flex items-start justify-center flex-wrap lg:flex-nowrap w-full pb-2 space-x-2 lg:space-x-4">
+                <div className="grid place-items-center">
+                  <label
+                    className={`${
+                      !introImage &&
+                      "border border-gray-300 rounded-md w-full mt-6 px-8 py-8 flex items-center cursor-pointer"
+                    } p-2`}
+                  >
+                    {!introImage && (
+                      <>
+                        <span className="text-xs font-bold lg:text-base">
+                          first image
+                        </span>
+                        <UploadIcon className="w-7 h-7" />
+                      </>
+                    )}
+                    <input
+                      accept="image/*"
+                      type="file"
+                      onChange={introImageChange}
+                      className="invisible hidden"
                     />
-                  </span>
-                  <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
-                    {outro.length}/{limit}
-                  </p>
-                </span> */}
+                  </label>
+
+                  {introImage && (
+                    <div className="w-full h-56 pb-4">
+                      <img
+                        src={URL.createObjectURL(introImage)}
+                        alt="Thumb"
+                        className="w-full h-full object-contain border border-gray-400"
+                      />
+                      <button
+                        className="text-xs font-bold"
+                        onClick={removeIntroImage}
+                      >
+                        Remove This Image
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <div>
                   <label
                     className={`${
@@ -338,7 +300,7 @@ const CreateImagines = () => {
                     {!outroImage && (
                       <>
                         <span className="text-xs font-bold lg:text-base">
-                          outro image
+                          last image
                         </span>
                         <UploadIcon className="w-7 h-7" />
                       </>
@@ -352,7 +314,7 @@ const CreateImagines = () => {
                   </label>
 
                   {outroImage && (
-                    <div className="w-full h-56 pb-3 mt-6">
+                    <div className="w-full h-56 pb-4 mt-6">
                       <img
                         src={URL.createObjectURL(outroImage)}
                         alt="Thumb"
