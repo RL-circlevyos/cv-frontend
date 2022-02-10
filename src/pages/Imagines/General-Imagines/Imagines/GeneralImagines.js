@@ -62,7 +62,9 @@ const GeneralImagines = () => {
   );
   return (
     <>
+      {/* web mode */}
       <div className="w-full lg:flex flex-col justify-content items-start h-screen hidden lg:fixed">
+        {/* meta tags */}
         <Helmet>
           <title>{title}</title>
           <meta
@@ -79,6 +81,8 @@ const GeneralImagines = () => {
             }
           />
         </Helmet>
+        {/* meta tags */}
+
         <Nav />
         <div className="grid place-items-center w-full">
           <div className="flex justify-center items-start w-full">
@@ -129,6 +133,9 @@ const GeneralImagines = () => {
           </div>
         </div>
       </div>
+      {/* web mode */}
+
+      {/* mobile mode */}
       <div className="w-full h-screen lg:hidden">
         <Navbar />
         <div className="w-full flex flex-col justify-content items-start">
@@ -148,6 +155,7 @@ const GeneralImagines = () => {
         </div>
         <ToastContainer autoClose={2000} />
       </div>
+      {/* mobile mode */}
     </>
   );
 };

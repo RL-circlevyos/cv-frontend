@@ -55,6 +55,7 @@ import NewPassword from "./pages/Authentication/NewPassword";
 import Process from "./pages/Imagines/Home/Prizes/Process";
 import TandC from "./pages/Imagines/Home/Prizes/TandC";
 import CreateShorts from "./pages/Imagines/General-Imagines/Create/CreateShorts";
+import Account from "./pages/UserProfile/Info/Account";
 
 function App() {
   const dispatch = useDispatch();
@@ -96,6 +97,9 @@ function App() {
         <Route path="/series" element={<Upcoming />} />
         <Route path="/marketplace" element={<Marketplace />} />
         {/* <Route path="/trendings" element={<Trending />} /> */}
+
+        {/* account details */}
+        <Route path="/ac/:id" element={<Account />} />
 
         <Route path="*" element={<PageNotFound />} />
 

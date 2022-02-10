@@ -86,14 +86,16 @@ const List = () => {
                     avatar={imagines?.user?.photo?.secure_url}
                     id={imagines._id}
                     title={imagines.title}
+                    maincontent={imagines?.main}
                     introImage={imagines.introImage}
                     username={imagines?.user?.name}
                     category={imagines.category}
                     date={imagines.createdAt}
                     comments={imagines.comments}
-                    // views={imagines.views}
+                    views={imagines.views}
                     appriciates={imagines.appriciates}
                     audiovoice={imagines?.audiovoice?.secure_url}
+                    imaginetype={imagines?.imaginetype}
                   />
                 </div>
               )}

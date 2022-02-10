@@ -58,7 +58,7 @@ export default function DropdownImagine() {
                 onClick={crShorts}
                 className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold cursor-pointer"
               >
-                Short Blocks
+                Nano
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@ export default function DropdownImagine() {
                 onClick={crImagine}
                 className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold cursor-pointer"
               >
-                Big Blocks
+                Mega
               </div>
             </div>
           </div>
