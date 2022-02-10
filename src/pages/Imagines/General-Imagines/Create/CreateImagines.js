@@ -19,6 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import data from "./Categories.json";
+import Navbar from "../../../../components/Navbar";
 
 const CreateImagines = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -29,8 +30,9 @@ const CreateImagines = () => {
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
     );
   };
-  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    .length;
+  const count = draftToHtml(
+    convertToRaw(editorState.getCurrentContent())
+  ).length;
   const MAX_LENGTH = 20000;
 
   const getLengthOfSelectedText = () => {
@@ -128,6 +130,7 @@ const CreateImagines = () => {
     draftToHtml(convertToRaw(editorState.getCurrentContent()))
   );
   formdata.append("audiovoice", audio);
+  formdata.append("imaginetype", "mega");
 
   const introImageChange = useCallback((e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -197,7 +200,7 @@ const CreateImagines = () => {
         onSubmit={handleSubmit}
       >
         <div className="w-full pb-5">
-          <Header name="Big blocks" title={title} />
+          <Header name="Mega" title={title} />
         </div>
         <div className="max-w-4xl w-full flex justify-center items-center flex-col  mx-3 lg:mx-0">
           <div className="w-full">

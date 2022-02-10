@@ -1,6 +1,6 @@
 import {
   AnnotationIcon,
-  //EyeIcon,
+  EyeIcon,
   LightBulbIcon,
   ShareIcon,
 } from "@heroicons/react/solid";
@@ -49,6 +49,8 @@ const Footer = ({ openCommentBox }) => {
     user ? post() : handleClickOpen();
   }, [user, handleClickOpen, post]);
 
+  console.log(singleImagine);
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
@@ -60,7 +62,7 @@ const Footer = ({ openCommentBox }) => {
               </span>
             )}
           </span>
-          <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300">
+          <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-400">
             <span className="flex items-center space-x-1 text-xs">
               <span className="cursor-pointer" onClick={clickLikeHandler}>
                 {appreciateIds?.includes(auth.userid) ? (
@@ -86,16 +88,22 @@ const Footer = ({ openCommentBox }) => {
                 {appreciateIds?.length}
               </i>
             </span>
-            APPRECIATE
-          </span>
-          <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
-            <span className="lg:pt-1" onClick={handleClickOpenShare}>
-              <ShareIcon className="h-6 w-6 cursor-pointer text-gray-600 pb-1 ml-2" />
-              SHARE
-            </span>
+            Appreciates
           </span>
 
-          <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-300 mt-1">
+          <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-400">
+            <span className="flex items-center space-x-1 text-xs">
+              <span className="cursor-pointer" onClick={clickLikeHandler}>
+                <EyeIcon className="h-6 w-6 md:h-7 md:w-7 text-grey-500" />
+              </span>
+              <i className="text-xs lg:text-sm text-primary">
+                {singleImagine?.singleImagine?.views}
+              </i>
+            </span>
+            Views
+          </span>
+
+          <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-400 mt-1">
             <span className="flex items-center space-x-1 text-xs ">
               <span className="" onClick={openCommentBox}>
                 <AnnotationIcon className="h-6 w-6 text-gray-500" />
@@ -104,7 +112,13 @@ const Footer = ({ openCommentBox }) => {
                 <i>{singleImagine.singleImagine?.comments.length}</i>
               </span>
             </span>
-            COMMENTS
+            Comments
+          </span>
+          <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-400 mt-1">
+            <span className="lg:pt-1" onClick={handleClickOpenShare}>
+              <ShareIcon className="h-6 w-6 cursor-pointer text-gray-600 pb-1 ml-2" />
+              Share
+            </span>
           </span>
         </div>
         <AlertDialogSlide

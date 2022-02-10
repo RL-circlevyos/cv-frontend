@@ -91,8 +91,8 @@ export default function ViewLike({ buttonName, viewLikes }) {
                 </>
               ))}
               {likes != null && likes >= 1 && likes <= 3 ? (
-                <div className="text-center text-sm flex items-center italic mt-5 ml-2 font-bold">
-                  {likes} person appreciates the imagine
+                <div className="text-center text-sm flex items-center  mt-5 ml-2 font-bold">
+                  {likes} appreciates
                 </div>
               ) : (
                 <>

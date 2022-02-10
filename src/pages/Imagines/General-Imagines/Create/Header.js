@@ -12,9 +12,9 @@ const Header = ({ title, name, content }) => {
               <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
             </Link>
           </div>
-          <div className="text-xl flex items-center font-medium uppercase text-gray-800">
+          <div className="text-2xl font-semibold text flex items-center font-medium  text-gray-800">
             Create Imagines
-            <span className="uppercase text-base font-semibold ml-3 text-cyan-700">
+            <span className="text-base font-semibold ml-3 text-cyan-700">
               ({name})
             </span>
           </div>

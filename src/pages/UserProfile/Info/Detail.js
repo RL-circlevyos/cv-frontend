@@ -13,6 +13,8 @@ import dp from "../../../assets/person.png";
 import { useSocket } from "../../../hooks/socketHook";
 import Followers from "./Followers";
 import Following from "./Following";
+import { ShareIcon } from "@heroicons/react/solid";
+import ShareDialog from "../../Imagines/General-Imagines/Imagines/ShareDialog";
 
 const Detail = () => {
   const auth = useSelector((state) => state.auth);
@@ -54,6 +56,15 @@ const Detail = () => {
     user ? dispatch(userUnfollowAction(id.id)) : handleClickOpen();
   }, [handleClickOpen, user, id.id, dispatch]);
 
+  const [openShare, setOpenShare] = useState(false);
+
+  const handleClickOpenShare = useCallback(() => {
+    setOpenShare(true);
+  }, []);
+
+  const handleCloseShare = useCallback(() => {
+    setOpenShare(false);
+  }, []);
   // tesing
   console.log(auth?.userDetails);
 
@@ -74,43 +85,61 @@ const Detail = () => {
               />
             </span>
           </div>
-          <div className="flex items-start flex-col space-y-2 w-full font-bold">
-            <span className="text-2xl">{auth?.userDetails?.name}</span>
-            <span className="text-base text-gray-400">
-              {auth?.userDetails?.email}{" "}
-            </span>
+          <div className="flex">
+            <div className="flex items-start flex-col space-y-2 w-full font-bold">
+              <span className="text-2xl">{auth?.userDetails?.name}</span>
+              <span className="text-lg text-gray-400">
+                {auth?.userDetails?.email}{" "}
+              </span>
 
-            <span className="flex justify-center flex-wrap items-center space-x-4">
-              <span className="flex justify-center flex-wrap items-center space-x-1 shadow py-1 px-1">
-                <span className="text-base text-primary">
-                  <Followers
-                    buttonName="Followers"
-                    followers={auth?.userDetails?.followers}
-                  />
+              <span className="flex justify-center flex-wrap items-center space-x-4">
+                <span className="flex justify-center flex-wrap items-center space-x-1 shadow py-1 px-1">
+                  <span className="text-base text-primary">
+                    <Followers
+                      buttonName="Followers"
+                      followers={auth?.userDetails?.followers}
+                    />
+                  </span>
+                  <span className="text-base text-gray-700">
+                    {auth?.userDetails?.followers?.length}
+                  </span>
                 </span>
-                <span className="text-base text-gray-700">
-                  {auth?.userDetails?.followers?.length}
+                <span className="flex justify-center flex-wrap items-center space-x-1 shadow py-1 px-1">
+                  <span className="text-base text-primary ">
+                    {" "}
+                    <Following
+                      buttonName="Following"
+                      followings={auth?.userDetails?.following}
+                    />
+                  </span>
+                  <span className="text-base text-gray-700">
+                    {auth?.userDetails?.following?.length}
+                  </span>
                 </span>
               </span>
-              <span className="flex justify-center flex-wrap items-center space-x-1 shadow py-1 px-1">
-                <span className="text-base text-primary ">
-                  {" "}
-                  <Following
-                    buttonName="Following"
-                    followings={auth?.userDetails?.following}
-                  />
-                </span>
+              <span className="flex justify-center flex-wrap items-start space-x-2">
+                <span className="text-base text-primary ">Imagines:</span>
                 <span className="text-base text-gray-700">
-                  {auth?.userDetails?.following?.length}
+                  {auth?.userImagines?.length}
                 </span>
+              </span>
+            </div>
+            {/* <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-400 mt-1"> */}
+            <span className="lg:pt-1" onClick={handleClickOpenShare}>
+              <ShareIcon className="h-6 w-6 cursor-pointer text-gray-500 pb-1 ml-2" />
+              <span className="text-sm text-greyish-400 cursor-pointer">
+                Share
               </span>
             </span>
-            <span className="flex justify-center flex-wrap items-start space-x-2">
-              <span className="text-base text-primary ">Imagines:</span>
-              <span className="text-base text-gray-700">
-                {auth?.userImagines?.length}
-              </span>
-            </span>
+            {/* </span> */}
+
+            <ShareDialog
+              open={openShare}
+              handleClose={handleCloseShare}
+              title="Share this link"
+              content={`https://circlevyos.com/ac/${id.id}`}
+              // content={`http://localhost:3000/${singleImagine?.singleImagine?._id}`}
+            />
           </div>
         </div>
 
@@ -137,8 +166,8 @@ const Detail = () => {
         <div className="mt-3 space-x-2 px-4">
           <span className="text-lg text-gray-700 font-bold">Bio:</span>
           <span className="text-base text-gray-700">
-            {auth?.userDetails?.bio === "undefined"
-              ? "Hello, I am a newbie in circlevyos"
+            {auth?.userDetails?.bio === undefined
+              ? "Hello, nice to meet you"
               : auth?.userDetails?.bio}
           </span>
         </div>
@@ -157,6 +186,27 @@ const Detail = () => {
                 alt="dp"
                 className="xsm:w-16 xsm:h-16 xs:w-12 xs:h-12 w-8 h-8 object-cover rounded-full "
               />
+              <span className="flex ">
+                {/* todo: */}
+                <span className="flex">
+                  <span className="lg:pt-1" onClick={handleClickOpenShare}>
+                    <ShareIcon className="h-6 w-6 cursor-pointer text-gray-500 pb-1 ml-2" />
+                    <span className="text-sm text-greyish-400 cursor-pointer">
+                      Share
+                    </span>
+                  </span>
+                  {/* </span> */}
+
+                  <ShareDialog
+                    open={openShare}
+                    handleClose={handleCloseShare}
+                    title="Share this link"
+                    // content={`https://circlevyos.com/ac/${id.id}`}
+                    content={`http://localhost:3000/ac/${id.id}`}
+                    // content={`http://localhost:3000/${singleImagine?.singleImagine?._id}`}
+                  />
+                </span>
+              </span>
             </span>
           </div>
           <div className="flex items-start flex-col space-y-2  font-bold">
@@ -227,7 +277,7 @@ const Detail = () => {
           <span className="text-base text-gray-700 font-bold">Bio:</span>
           <span className="text-sm text-gray-700 italic">
             {auth?.userDetails?.bio === "undefined"
-              ? "Hello, I am a newbie in circlevyos"
+              ? "Hello, nice to meet you"
               : auth?.userDetails?.bio}
           </span>
         </div>

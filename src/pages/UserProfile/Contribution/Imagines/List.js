@@ -39,8 +39,7 @@ const List = () => {
                     category={imagines.category}
                     date={imagines.createdAt}
                     comments={imagines.comments}
-                    // views={imagines.views}
-
+                    views={imagines.views}
                     appriciates={imagines.appriciates}
                     audiovoice={imagines?.audiovoice?.secure_url}
                   />
