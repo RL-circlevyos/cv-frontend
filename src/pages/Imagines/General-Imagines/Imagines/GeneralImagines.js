@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import CommentList from "../../Comment/List";
 import Recommendation from "../../Home/General/Recommendation/Recommendation";
@@ -51,10 +51,20 @@ const GeneralImagines = () => {
   const imagine = useSelector((state) => state.imagine);
   const title = imagine?.singleImagine?.singleImagine?.title;
   const mains = imagine?.singleImagine?.singleImagine?.main;
-
+  // const img = imagine?.singleImagine?.singleImagine?.introImage.secure_url;
+  // const imgContent = img
+  //   ? img
+  //   : "https://www.risingleafs.com/img/circlevyos%20logo.svg";
+  console.log(
+    imagine?.singleImagine?.singleImagine?.introImage
+      ? imagine?.singleImagine?.singleImagine?.introImage
+      : ""
+  );
   return (
     <>
+      {/* web mode */}
       <div className="w-full lg:flex flex-col justify-content items-start h-screen hidden lg:fixed">
+        {/* meta tags */}
         <Helmet>
           <title>{title}</title>
           <meta
@@ -62,7 +72,17 @@ const GeneralImagines = () => {
             //dangerouslySetInnerHTML={{ __html: `<strong>${mains}</strong>` }}
             content={mains ? mains : "no description"}
           />
+          <meta
+            property="og:image"
+            content={
+              imagine?.singleImagine?.singleImagine?.introImage
+                ? imagine?.singleImagine?.singleImagine?.introImage
+                : ""
+            }
+          />
         </Helmet>
+        {/* meta tags */}
+
         <Nav />
         <div className="grid place-items-center w-full">
           <div className="flex justify-center items-start w-full">
@@ -113,6 +133,9 @@ const GeneralImagines = () => {
           </div>
         </div>
       </div>
+      {/* web mode */}
+
+      {/* mobile mode */}
       <div className="w-full h-screen lg:hidden">
         <Navbar />
         <div className="w-full flex flex-col justify-content items-start">
@@ -124,7 +147,6 @@ const GeneralImagines = () => {
                 <Card post={imagine} styles="max-w-base px-4 mt-2" />
               </div>
               <div className="w-full px-3 py-1 mt-3">
-                {" "}
                 <CommentList />
               </div>
             </div>
@@ -133,6 +155,7 @@ const GeneralImagines = () => {
         </div>
         <ToastContainer autoClose={2000} />
       </div>
+      {/* mobile mode */}
     </>
   );
 };

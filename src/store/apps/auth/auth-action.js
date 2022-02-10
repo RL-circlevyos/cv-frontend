@@ -264,6 +264,58 @@ export const userDetailsAction = (id) => {
   };
 };
 
+// account details
+export const accountDetailsAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const accountDetails = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/ac/${id}`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        /**toast.error("something went wrong");*/
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: true,
+        })
+      );
+      const response = await accountDetails();
+      console.log(response.id);
+      dispatch(
+        authAction.getAccountDetails({
+          accountDetails: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
+    }
+  };
+};
+
 // user follow
 export const userFollowingAction = (id) => {
   return async (dispatch) => {
@@ -378,6 +430,46 @@ export const userImaginesAction = (id) => {
       dispatch(
         authAction.getImagines({
           userImagines: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// account imagines
+export const accountImaginesAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const accountImagines = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/ac/imagines/${id}`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.imagine;
+    };
+
+    try {
+      const response = await accountImagines();
+      console.log(response);
+      dispatch(
+        authAction.getAccountImagines({
+          accountImagines: response,
         })
       );
     } catch (error) {

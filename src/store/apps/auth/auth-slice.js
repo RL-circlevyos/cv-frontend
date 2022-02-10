@@ -9,6 +9,9 @@ const initialAuthState = {
   password: "",
   userDetails: {},
   myDetails: {},
+  accountDetails: {},
+  accountImagines: [],
+  accountId: "",
   userImagines: [],
   following: [],
   isinitiate: false,
@@ -30,6 +33,15 @@ const authSlice = createSlice({
     },
     myDetails(state, action) {
       state.myDetails = action.payload.myDetails;
+    },
+    getAccountId(state, action) {
+      state.accountId = action.payload.accountId;
+    },
+    getAccountDetails(state, action) {
+      state.accountDetails = action.payload.accountDetails;
+    },
+    getAccountImagines(state, action) {
+      state.accountImagines = action.payload.accountImagines;
     },
     getImagines(state, action) {
       state.userImagines = action.payload.userImagines;

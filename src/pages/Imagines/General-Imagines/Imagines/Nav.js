@@ -27,9 +27,19 @@ const Nav = () => {
       <div className="lg:flex max-w-5xl items-center space-x-2 hidden w-full justify-between px-3 py-2">
         <div>
           {" "}
-          <Link to="/">
-            <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
-          </Link>
+          {auth.accountId ? (
+            <>
+              <Link to={`/ac/${auth.accountId}`}>
+                <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/">
+                <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
+              </Link>
+            </>
+          )}
         </div>
 
         <div className="w-6/12 flex items-center">
@@ -63,9 +73,19 @@ const Nav = () => {
       {/*****************mobile view *******************/}
       <div className="block w-full lg:hidden">
         <div className="flex items-center justify-start space-x-3 mt-5 lg:hidden w-full px-5">
-          <Link to="/">
-            <ArrowLeftIcon className="h-5 w-5 mr-4 text-gray-800" />{" "}
-          </Link>
+          {auth.accountId ? (
+            <>
+              <Link to={`/ac/${auth.accountId}`}>
+                <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/">
+                <ArrowLeftIcon className="h-5 w-5 mr-4" />{" "}
+              </Link>
+            </>
+          )}
 
           {/*<Link
             to="/"

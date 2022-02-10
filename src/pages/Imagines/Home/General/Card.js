@@ -20,7 +20,7 @@ import DelPopup from "./../../../../components/DelPopup";
 import just_saying from "../../../../assets/reading_book.svg";
 import moment from "moment";
 
-import { ShareIcon } from "@heroicons/react/outline";
+import { ShareIcon, EyeIcon } from "@heroicons/react/outline";
 import ShareDialog from "./../../General-Imagines/Imagines/ShareDialog";
 import TextareaDialog from "../../../../components/Feedback/TextareaDialog";
 
@@ -36,8 +36,10 @@ const Card = ({
   avatar,
   appriciates,
   category,
-
+  views,
   audiovoice,
+  imaginetype,
+  maincontent,
 }) => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -127,14 +129,23 @@ const Card = ({
   const handleCloseShare = useCallback(() => {
     setOpenShare(false);
   }, []);
-  console.log(avatar, "profile pic");
 
   return (
     <div
       className={`${width} space-x-2 flex items-center justify-start rounded-lg shadow mb-4 border border-gray-100 h-48`}
     >
       <div className="w-7/12 h-full hidden xs:block">
-        <div className="text-sm font-medium hover:underline">
+        <div className="text-sm font-medium relative hover:underline">
+          {imaginetype === "mega" && (
+            <span class="inline-flex  items-center absolute justify-center px-2 py-1.5 text-sm font-extrabold shadow-yellow-400 leading-none text-white bg-teal-600 rounded">
+              Mega
+            </span>
+          )}
+          {/* {imaginetype === "nano" && (
+            <span class="inline-flex  items-center absolute justify-center px-2 py-1.5 text-sm font-extrabold shadow-yellow-400 leading-none text-white bg-teal-600 rounded">
+              Nano
+            </span>
+          )} */}
           <Link className="h-48" to={`/${id}`}>
             <img
               src={!introImage ? just_saying : introImage.secure_url}
@@ -249,6 +260,7 @@ const Card = ({
           )}
         </span>
         {/*********************** three dots end ******************/}
+
         <div className="flex items-start space-x-2 px-1.5">
           <div className="flex flex-1">
             <div className="w-8 rounded-full" onClick={profileHandler}>
@@ -271,15 +283,27 @@ const Card = ({
           </div>
         </div>
         <span className=" text-gray-500 ml-3 pt-2">
-          <Link to={`/${id}`} className="text-sm font-medium hover:underline">
-            <div className="lg:text-base text-tiny text-blackish font-semibold truncate">
-              {title}
-            </div>
+          {imaginetype !== "nano" ? (
+            <Link to={`/${id}`} className="text-sm font-medium hover:underline">
+              <div className="lg:text-base text-tiny text-blackish font-semibold truncate">
+                {title}
+              </div>
 
-            <div className="bg-cyan-700 xsm:w-3/4 w-full truncate rounded text-xs text-white flex justify-center mt-4 mb-2">
-              {category}
-            </div>
-          </Link>
+              <div className="bg-cyan-700 xsm:w-3/4 w-full truncate rounded text-xs text-white flex justify-center mt-4 mb-2">
+                {category}
+              </div>
+            </Link>
+          ) : (
+            <Link to={`/${id}`} className="text-sm font-medium hover:underline">
+              <div className="lg:text-base text-tiny text-blackish font-semibold truncate">
+                {maincontent}
+              </div>
+
+              <div className="bg-cyan-700 xsm:w-3/4 w-full truncate rounded text-xs text-white flex justify-center mt-4 mb-2">
+                {category}
+              </div>
+            </Link>
+          )}
         </span>
 
         <span className="flex lg:items-start items-center flex-wrap justify-around bottom-0 sticky space-x-1 xsm:space-x-2 sm:space-x-3 w-full lg:space-x-4 pb-3 px-1">
@@ -317,12 +341,22 @@ const Card = ({
               </span>
             </span>
           </span>
-          <span
+          <span className="flex justify-center items-start flex-col text-xxs lg:text-tiny text-gray-300 lg:mt-1">
+            <span className="flex items-center space-x-1 text-xs ">
+              <span className="">
+                <EyeIcon className="h-4 w-4 md:h-5 md:w-5 text-gray-500" />
+              </span>
+              <span className="text-xs lg:text-sm italic ml-1 text-gray-700">
+                <i>{views}</i>
+              </span>
+            </span>
+          </span>
+          {/* <span
             className="lg:pt-1 hidden xs:block"
             onClick={handleClickOpenShare}
           >
             <ShareIcon className="h-5 w-5 cursor-pointer text-gray-600 pb-1 mt-1" />
-          </span>
+          </span> */}
           {/* <span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
               <BookmarkIcon className="h-6 w-6 text-blue-800 pt-1" />
