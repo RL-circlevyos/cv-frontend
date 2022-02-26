@@ -49,9 +49,9 @@ function App() {
   useEffect(() => {
     dispatch(AuthState(token));
     // dispatch(generalImagineFetchAction(skipCount));
-    dispatch(userDetailsAction());
-    dispatch(userImaginesAction());
-    dispatch(myDetailsAction());
+    // dispatch(userDetailsAction());
+    // dispatch(userImaginesAction());
+    // dispatch(myDetailsAction());
   }, [dispatch, token]);
 
   useEffect(() => {

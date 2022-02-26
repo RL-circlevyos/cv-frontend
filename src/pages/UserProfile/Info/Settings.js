@@ -40,11 +40,11 @@ const Settings = () => {
   formdata.append("photo", userImage);
 
   const profileUpdateHandler = useCallback(() => {
-    dispatch(userDetailsUpdateAction(formdata));
+    dispatch(userDetailsUpdateAction(formdata, auth.token));
     setShowBio(false);
     setShowName(false);
     setuserImage();
-  }, [dispatch, formdata]);
+  }, [dispatch, formdata, auth.token]);
 
   return (
     <>

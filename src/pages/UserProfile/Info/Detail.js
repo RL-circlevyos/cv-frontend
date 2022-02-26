@@ -23,23 +23,23 @@ const Detail = () => {
   const dispatch = useDispatch();
   const id = useParams();
   const socket = useSocket();
-
+  const { token } = auth;
   const [isInitial, setIsInitial] = useState(true);
 
   useEffect(() => {
-    dispatch(userDetailsAction(id.id));
-    dispatch(userImaginesAction(id.id));
-    dispatch(userFollowingAction(id.id));
+    // dispatch(userDetailsAction(id.id, token));
+    // dispatch(userImaginesAction(id.id, token));
+    // dispatch(userFollowingAction(id.id, token));
 
     socket.on("follow", () => {
       // dispatch(userImaginesAction(id.id));
-      dispatch(userFollowingAction(id.id));
+      dispatch(userFollowingAction(id.id, token));
     });
     socket.on("unfollow", () => {
       // dispatch(userImaginesAction(id.id));
-      dispatch(userFollowingAction(id.id));
+      dispatch(userFollowingAction(id.id, token));
     });
-  }, [dispatch, id, isInitial]);
+  }, [dispatch, id, isInitial, token, socket]);
 
   const handleClickOpen = useCallback(() => {
     setOpen(true);
@@ -50,11 +50,11 @@ const Detail = () => {
   }, []);
 
   const clickFollowHandler = useCallback(() => {
-    user ? dispatch(userFollowAction(id.id)) : handleClickOpen();
-  }, [handleClickOpen, user, id.id, dispatch]);
+    user ? dispatch(userFollowAction(id.id, token)) : handleClickOpen();
+  }, [handleClickOpen, user, id.id, dispatch, token]);
   const clickUnfollowHandler = useCallback(() => {
-    user ? dispatch(userUnfollowAction(id.id)) : handleClickOpen();
-  }, [handleClickOpen, user, id.id, dispatch]);
+    user ? dispatch(userUnfollowAction(id.id, token)) : handleClickOpen();
+  }, [handleClickOpen, user, id.id, dispatch, token]);
 
   const [openShare, setOpenShare] = useState(false);
 
@@ -65,8 +65,6 @@ const Detail = () => {
   const handleCloseShare = useCallback(() => {
     setOpenShare(false);
   }, []);
-  // tesing
-  console.log(auth?.userDetails);
 
   return (
     <div className="w-full font-Mulish">
@@ -137,13 +135,14 @@ const Detail = () => {
               open={openShare}
               handleClose={handleCloseShare}
               title="Share this link"
-              content={`https://circlevyos.com/ac/${id.id}`}
+              // content={`https://circlevyos.com/ac/${id.id}`}
+              content={`http://localhost:3000/ac/${id.id}`}
               // content={`http://localhost:3000/${singleImagine?.singleImagine?._id}`}
             />
           </div>
         </div>
 
-        {auth.userid === id.id ? null : (
+        {auth.userDetails._id === id.id ? null : (
           <span className="cursor-pointer mt-5">
             {!auth?.following?.includes(id.id) ? (
               <span
@@ -254,7 +253,7 @@ const Detail = () => {
           </div>
         </div>
 
-        {auth.userid === id.id ? null : (
+        {auth.userDetails._id === id.id ? null : (
           <span className="cursor-pointer mt-5">
             {!auth?.following?.includes(id.id) ? (
               <span

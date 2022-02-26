@@ -19,6 +19,7 @@ function Account() {
   const accountImagines = useSelector((state) => state.auth.accountImagines);
   const ui = useSelector((state) => state.ui);
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const id = useParams();
 
   useEffect(() => {
@@ -30,7 +31,6 @@ function Account() {
       })
     );
   }, [dispatch, id]);
-  console.log(accountImagines);
 
   return (
     <div className="w-full">

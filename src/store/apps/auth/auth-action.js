@@ -168,7 +168,7 @@ export const logoutAction = () => {
   };
 };
 
-export const userDetailsUpdateAction = (updateBody) => {
+export const userDetailsUpdateAction = (updateBody, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetailsUpdate = async () => {
@@ -179,9 +179,10 @@ export const userDetailsUpdateAction = (updateBody) => {
         {
           method: "PATCH",
           credentials: "include",
-          // headers: {
-          //   "Content-Type": "formdata",
-          // },
+          headers: {
+            // "Content-Type": "formdata",
+            Authorization: token,
+          },
           body: updateBody,
         }
       );
@@ -212,7 +213,7 @@ export const userDetailsUpdateAction = (updateBody) => {
   };
 };
 
-export const userDetailsAction = (id) => {
+export const userDetailsAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -224,6 +225,7 @@ export const userDetailsAction = (id) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -316,7 +318,7 @@ export const accountDetailsAction = (id) => {
 };
 
 // user follow
-export const userFollowingAction = (id) => {
+export const userFollowingAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -329,6 +331,7 @@ export const userFollowingAction = (id) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -398,7 +401,7 @@ export const myDetailsAction = () => {
   };
 };
 
-export const userImaginesAction = (id) => {
+export const userImaginesAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userImagines = async () => {
@@ -410,6 +413,7 @@ export const userImaginesAction = (id) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );

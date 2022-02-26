@@ -49,7 +49,7 @@ export default function Example() {
     try {
       await axios.get("/api/v1/logout");
       localStorage.removeItem("firstlogin");
-      window.location.href = "/";
+      window.location.href = "/login";
     } catch (err) {
       window.location.href = "/";
     }
@@ -85,7 +85,7 @@ export default function Example() {
           <div className="py-1">
             <div>
               <Link
-                to={`/profile/${user}`}
+                to={`/profile/${auth.userDetails._id}`}
                 className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
               >
                 Profile
@@ -95,7 +95,7 @@ export default function Example() {
           <div className="py-1">
             <div>
               <Link
-                to={`/settings/${user}`}
+                to={`/settings/${auth.userDetails._id}`}
                 className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
               >
                 Settings
