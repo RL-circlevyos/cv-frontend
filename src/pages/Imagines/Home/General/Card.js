@@ -85,7 +85,7 @@ const Card = ({
     const reportContent = {
       report: textareaValue,
     };
-    console.log(reportContent);
+
     setTextareaValue("");
     setReport(false);
     setEdit(false);
@@ -98,16 +98,16 @@ const Card = ({
 
   const navigate = useNavigate();
   const profileHandler = useCallback(() => {
-    user ? navigate(`/profile/${author}`) : handleClickOpen();
-  }, [navigate, author, user, handleClickOpen]);
+    auth.isLogged ? navigate(`/profile/${author}`) : handleClickOpen();
+  }, [navigate, author, auth.isLogged, handleClickOpen]);
 
   const appreciate = useCallback(() => {
     dispatch(appriciateAction(id));
   }, [dispatch, id]);
 
   const clickLikeHandler = useCallback(() => {
-    user ? appreciate() : handleClickOpen();
-  }, [appreciate, user, handleClickOpen]);
+    auth.isLogged ? appreciate() : handleClickOpen();
+  }, [appreciate, auth.isLogged, handleClickOpen]);
 
   const imagineDeleteHandler = useCallback(() => {
     dispatch(deleteImagineAction(id));
@@ -117,8 +117,8 @@ const Card = ({
 
   const [edit, setEdit] = useState(false);
   const clickEdit = useCallback(() => {
-    user ? setEdit(true) : handleClickOpen();
-  }, [user, handleClickOpen]);
+    auth.isLogged ? setEdit(true) : handleClickOpen();
+  }, [auth.isLogged, handleClickOpen]);
 
   const [openShare, setOpenShare] = useState(false);
 

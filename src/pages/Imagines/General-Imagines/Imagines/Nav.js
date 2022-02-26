@@ -19,8 +19,8 @@ const Nav = () => {
   }, []);
 
   const createImagines = useCallback(() => {
-    user ? navigate("/create-imagine") : handleClickOpen();
-  }, [handleClickOpen, user, navigate]);
+    auth.isLogged ? navigate("/create-imagine") : handleClickOpen();
+  }, [handleClickOpen, auth.isLogged, navigate]);
 
   return (
     <div className=" w-full flex justify-center items-start font-Mulish text-sm text-gray-800 pb-1">

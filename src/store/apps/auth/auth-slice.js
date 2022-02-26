@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialAuthState = {
   token: "",
-  isLoggedin: false,
+  isLoggedin: false, // TODO:needs to be deleted
   userid: "",
   username: "",
   email: "",
@@ -15,6 +15,9 @@ const initialAuthState = {
   userImagines: [],
   following: [],
   isinitiate: false,
+  isLogged: false,
+  errMsg: "",
+  successMsg: "",
 };
 
 const authSlice = createSlice({
@@ -51,6 +54,18 @@ const authSlice = createSlice({
     },
     followingList(state, action) {
       state.following = action.payload.following;
+    },
+
+    // ****** new add **********
+    login(state, action) {
+      state.isLogged = true;
+    },
+    getTokenAdd(state, action) {
+      state.token = action.payload.token;
+    },
+    getMessage(state, action) {
+      state.errMsg = action.payload.errMsg;
+      state.successMsg = action.payload.successMsg;
     },
   },
 });

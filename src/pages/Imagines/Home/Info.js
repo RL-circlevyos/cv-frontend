@@ -21,7 +21,7 @@ const Info = () => {
 
   return (
     <Link
-      to={user && `/profile/${user}`}
+      to={auth.isLogged && `/profile/${user}`}
       className="w-full bg-white mt-2 py-8 shadow rounded-xl mb-3 lg:flex justify-center px-6
        flex-col items-center hidden font-Mulish text-gray-600 border border-gray-100"
     >
@@ -36,7 +36,7 @@ const Info = () => {
           alt="dp"
         />
       </div>
-      {!user && (
+      {!auth.isLogged && (
         <div className="text-xl italic font-bold mt-4">
           You are not logged in.
         </div>

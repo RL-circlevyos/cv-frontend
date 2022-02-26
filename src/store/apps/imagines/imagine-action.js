@@ -5,19 +5,21 @@ import axios from "axios";
 
 // post imagine
 export const generalImagineCreateAction =
-  (GeneralImagineBody) => async (dispatch) => {
+  (GeneralImagineBody, token) => async (dispatch) => {
     console.log(GeneralImagineBody);
     const GeneralImagineCreate = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/imagineCreate`,
+        `api/v1/imagineCreate`,
         // "http://localhost:3699/api/imagines",
         {
           credentials: "include",
           method: "POST",
           mode: "cors",
-          // headers: {
-          //   "Content-Type": "form-data",
-          // },
+
+          headers: {
+            "Content-Type": "form-data",
+            Authorization: token,
+          },
           body: GeneralImagineBody,
         }
       );
@@ -91,7 +93,7 @@ export const generalImagineFetchAction = (skipCount) => async (dispatch) => {
     }
 
     const data = await response.json();
-    console.log(data, "imagines");
+
     return data;
   };
 
@@ -103,7 +105,6 @@ export const generalImagineFetchAction = (skipCount) => async (dispatch) => {
     // );
 
     const gImagines = await generalImagineFetch();
-    console.log(gImagines.imaginesArray);
 
     dispatch(
       imagineSliceAction.getImagine({

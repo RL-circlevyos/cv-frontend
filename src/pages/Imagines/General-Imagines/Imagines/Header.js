@@ -20,8 +20,8 @@ const Header = () => {
 
   const navigate = useNavigate();
   const profileHandler = useCallback(() => {
-    user ? navigate(`/profile/${author}`) : handleClickOpen();
-  }, [navigate, author, user, handleClickOpen]);
+    auth.isLogged ? navigate(`/profile/${author}`) : handleClickOpen();
+  }, [navigate, author, auth.isLogged, handleClickOpen]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -36,7 +36,7 @@ const Header = () => {
 const clickFollowHandler = useCallback(() => {
     user ? setFollow(!follow) : handleClickOpen();
   }, [follow, handleClickOpen, user]);*/
-  // console.log(singleImagine.singleImagine.user._id);
+
   return (
     <>
       <CardUtilityThreeDots

@@ -31,7 +31,7 @@ const CommentList = () => {
 
   return (
     <div className="w-full md:w-11/12 ">
-      {user && (
+      {auth.isLogged && (
         // <form
         //   className="w-full  mt-3 rounded-3xl font-bold text-gray-900 bg-white border
         // border-primary flex items-center px-3 py-1"

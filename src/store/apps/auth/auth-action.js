@@ -34,12 +34,13 @@ export const signUpWithNameEmailAndPassword = (data) => {
     try {
       const response = await signupAction();
       toast.success("signup successful");
-      console.log(response.user._id);
-      dispatch(
-        authAction.getInfo({
-          userid: response.user._id,
-        })
-      );
+      console.log(response);
+      // dispatch(
+      //   authAction.getMessage({
+      //     errMsg: "",
+
+      //   })
+      // );
     } catch (error) {
       toast.error("username or email exists");
 
@@ -140,14 +141,10 @@ export const logoutAction = () => {
     // 📈 send data to database
     const Logout = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/logout`,
-        // "http://localhost:3699/api/v1/authstate",
+        `/logout`,
+
         {
           method: "GET",
-          // credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
         }
       );
 

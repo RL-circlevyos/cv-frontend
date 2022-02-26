@@ -39,7 +39,7 @@ const Detail = () => {
       // dispatch(userImaginesAction(id.id));
       dispatch(userFollowingAction(id.id));
     });
-  }, [dispatch, id, socket, isInitial]);
+  }, [dispatch, id, isInitial]);
 
   const handleClickOpen = useCallback(() => {
     setOpen(true);

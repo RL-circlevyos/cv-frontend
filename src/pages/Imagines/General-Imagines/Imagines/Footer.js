@@ -46,8 +46,8 @@ const Footer = ({ openCommentBox }) => {
   }, [dispatch, id.id]);
 
   const clickLikeHandler = useCallback(() => {
-    user ? post() : handleClickOpen();
-  }, [user, handleClickOpen, post]);
+    auth.isLogged ? post() : handleClickOpen();
+  }, [auth.isLogged, handleClickOpen, post]);
 
   console.log(singleImagine);
 
@@ -56,7 +56,7 @@ const Footer = ({ openCommentBox }) => {
       <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
         <div className="flex w-full items-start justify-evenly space-x-3 text-gray-900 font-bold">
           <span className="lg:flex justify-center items-center text-primary hidden ">
-            {user && (
+            {auth.isLogged && (
               <span>
                 <ViewLike viewLikes={viewAppreciate?.appriciateList} />
               </span>
@@ -138,7 +138,7 @@ const Footer = ({ openCommentBox }) => {
         />
       </div>{" "}
       <span className="flex justify-center items-center text-primary lg:hidden">
-        {user && (
+        {auth.isLogged && (
           <span>
             <ViewLike viewLikes={viewAppreciate?.appriciateList} />
           </span>

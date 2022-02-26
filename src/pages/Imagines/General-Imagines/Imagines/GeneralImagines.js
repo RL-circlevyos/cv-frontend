@@ -55,11 +55,7 @@ const GeneralImagines = () => {
   // const imgContent = img
   //   ? img
   //   : "https://www.risingleafs.com/img/circlevyos%20logo.svg";
-  console.log(
-    imagine?.singleImagine?.singleImagine?.introImage
-      ? imagine?.singleImagine?.singleImagine?.introImage
-      : ""
-  );
+
   return (
     <>
       {/* web mode */}

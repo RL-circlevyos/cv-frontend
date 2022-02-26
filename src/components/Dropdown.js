@@ -6,6 +6,7 @@ import dp from "../assets/person.png";
 import DelPopup from "./DelPopup";
 import { logoutAction } from "../store/apps/auth/auth-action";
 import TextareaDialog from "./Feedback/TextareaDialog";
+import axios from "axios";
 
 export default function Example() {
   const navigate = useNavigate();
@@ -43,6 +44,16 @@ export default function Example() {
     setFeedback(false);
     setShow(false);
   };
+
+  const handleLogout = async () => {
+    try {
+      await axios.get("/api/v1/logout");
+      localStorage.removeItem("firstlogin");
+      window.location.href = "/";
+    } catch (err) {
+      window.location.href = "/";
+    }
+  };
   /******* feedback states end*****/
   return (
     <div className="relative inline-block text-left font-Mulish">
@@ -52,6 +63,7 @@ export default function Example() {
           className="bg-white text-primary hover:bg-primary hover:text-white rounded shadow flex items-center px-2 py-2 cursor-pointer"
         >
           <img
+            // TODO: NEED USER DETAILS
             src={
               user === auth?.userDetails?._id &&
               auth?.userDetails?.photo?.secure_url
@@ -101,7 +113,7 @@ export default function Example() {
           </div>
           <div className="py-1">
             <div
-              className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+              className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold cursor-pointer"
               onClick={handlefeedbackOpen}
             >
               Feedback
@@ -109,10 +121,18 @@ export default function Example() {
           </div>
 
           <div className="py-1">
-            <div>
+            {/* <div>
               <div
                 onClick={logout}
                 className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
+              >
+                Logout
+              </div>
+            </div> */}
+            <div>
+              <div
+                onClick={handleLogout}
+                className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold cursor-pointer"
               >
                 Logout
               </div>

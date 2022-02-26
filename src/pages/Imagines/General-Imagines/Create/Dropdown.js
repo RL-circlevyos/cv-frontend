@@ -27,11 +27,11 @@ export default function DropdownImagine() {
   const auth = useSelector((state) => state.auth);
   const user = auth.userid;
   const crImagine = useCallback(() => {
-    user ? navigate("/create-imagine") : handleClickOpen();
-  }, [user, navigate, handleClickOpen]);
+    auth.isLogged ? navigate("/create-imagine") : handleClickOpen();
+  }, [auth.isLogged, navigate, handleClickOpen]);
   const crShorts = useCallback(() => {
-    user ? navigate("/create-shorts") : handleClickOpen();
-  }, [user, navigate, handleClickOpen]);
+    auth.isLogged ? navigate("/create-shorts") : handleClickOpen();
+  }, [auth.isLogged, navigate, handleClickOpen]);
 
   return (
     <div className="relative inline-block text-left font-Mulish w-full">

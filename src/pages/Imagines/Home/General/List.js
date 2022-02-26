@@ -11,14 +11,11 @@ const List = () => {
   const ui = useSelector((state) => state.ui);
   const imagine = useSelector((state) => state.imagine);
   const dispatch = useDispatch();
-  const socket = useSocket();
+  // const socket = useSocket();
   const [isInitial, setisInitial] = useState(true);
   const skipCount = useSelector((state) => state.imagine.skipCount);
 
-  console.log(skipCount, "skip count");
-
   function seeMore() {
-    console.log("calling");
     dispatch(imagineSliceAction.skipCountNext());
   }
 
@@ -42,24 +39,24 @@ const List = () => {
       // }*/
 
       dispatch(generalImagineFetchAction(skipCount));
-      socket.on("create-imagine", (data) => {
-        console.log("socket call");
-        dispatch(generalImagineFetchAction(skipCount));
-      });
-      socket.on("appriciate", (data) => {
-        console.log("socket call");
-        dispatch(generalImagineFetchAction(skipCount));
-      });
-      socket.on("delete-imagine", (data) => {
-        console.log("socket call");
-        dispatch(generalImagineFetchAction(skipCount));
-      });
+      // socket.on("create-imagine", (data) => {
+
+      //   dispatch(generalImagineFetchAction(skipCount));
+      // });
+      // socket.on("appriciate", (data) => {
+
+      //   dispatch(generalImagineFetchAction(skipCount));
+      // });
+      // socket.on("delete-imagine", (data) => {
+
+      //   dispatch(generalImagineFetchAction(skipCount));
+      // });
       setisInitial(false);
     }, 500);
     return () => {
       clearTimeout(timer);
     };
-  }, [dispatch, imagine.isinitiate, socket, skipCount]);
+  }, [dispatch, imagine.isinitiate, skipCount]);
 
   return (
     <>
@@ -73,7 +70,6 @@ const List = () => {
           </button>
         )}
         {imagine?.generalImagines?.map((imagines) => {
-          console.log(imagines);
           return (
             <>
               {isInitial ? (
@@ -85,6 +81,7 @@ const List = () => {
                     author={imagines?.user?._id}
                     avatar={imagines?.user?.photo?.secure_url}
                     id={imagines._id}
+                    key={imagines._id}
                     title={imagines.title}
                     maincontent={imagines?.main}
                     introImage={imagines.introImage}
