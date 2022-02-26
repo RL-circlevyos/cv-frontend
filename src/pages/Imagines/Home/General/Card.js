@@ -102,18 +102,18 @@ const Card = ({
   }, [navigate, author, auth.isLogged, handleClickOpen]);
 
   const appreciate = useCallback(() => {
-    dispatch(appriciateAction(id));
-  }, [dispatch, id]);
+    dispatch(appriciateAction(id, auth.token));
+  }, [dispatch, id, auth.token]);
 
   const clickLikeHandler = useCallback(() => {
     auth.isLogged ? appreciate() : handleClickOpen();
   }, [appreciate, auth.isLogged, handleClickOpen]);
 
   const imagineDeleteHandler = useCallback(() => {
-    dispatch(deleteImagineAction(id));
+    dispatch(deleteImagineAction(id, auth.token));
     handleDelClose();
     editClose();
-  }, [dispatch, id, handleDelClose, editClose]);
+  }, [dispatch, id, handleDelClose, editClose, auth.token]);
 
   const [edit, setEdit] = useState(false);
   const clickEdit = useCallback(() => {
@@ -211,7 +211,7 @@ const Card = ({
               </span>
             )} */}
         <span className="flex items-center justify-end pr-4 space-x-1">
-          {!edit && author === auth.userid && (
+          {!edit && author === auth.userDetails._id && (
             <>
               {/* {userid === auth.userid && ( */}
               <span>
@@ -310,7 +310,7 @@ const Card = ({
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xxs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
-              {appriciates.includes(auth.userid) ? (
+              {appriciates.includes(auth.userDetails._id) ? (
                 <LightBulbIcon className="h-6 w-6 text-yellow-400 mt-1" />
               ) : (
                 <svg

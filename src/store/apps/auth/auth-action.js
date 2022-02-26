@@ -96,10 +96,11 @@ export const LoginWithNameEmailAndPassword = (data) => {
 
 //   auth state
 // custom action creator function =>  thunk
-export const AuthState = () => {
+export const AuthState = (token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const LoginAction = async () => {
+      console.log("auth state calling");
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/authstate`,
         // "http://localhost:3699/api/v1/authstate",
@@ -108,6 +109,7 @@ export const AuthState = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -123,10 +125,10 @@ export const AuthState = () => {
 
     try {
       const response = await LoginAction();
-      console.log(response.id);
+      console.log(response, "User details");
       dispatch(
         authAction.getInfo({
-          userid: response._id,
+          userDetails: response,
         })
       );
     } catch (error) {

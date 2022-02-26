@@ -42,14 +42,12 @@ const Footer = ({ openCommentBox }) => {
   const id = useParams();
 
   const post = useCallback(() => {
-    dispatch(appriciateAction(id.id));
-  }, [dispatch, id.id]);
+    dispatch(appriciateAction(id.id, auth.token));
+  }, [dispatch, id.id, auth.token]);
 
   const clickLikeHandler = useCallback(() => {
     auth.isLogged ? post() : handleClickOpen();
   }, [auth.isLogged, handleClickOpen, post]);
-
-  console.log(singleImagine);
 
   return (
     <div className="flex flex-col">
@@ -65,7 +63,7 @@ const Footer = ({ openCommentBox }) => {
           <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-400">
             <span className="flex items-center space-x-1 text-xs">
               <span className="cursor-pointer" onClick={clickLikeHandler}>
-                {appreciateIds?.includes(auth.userid) ? (
+                {appreciateIds?.includes(auth.userDetails._id) ? (
                   <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
                 ) : (
                   <svg

@@ -47,12 +47,12 @@ function App() {
   const { isLogged, token } = auth;
 
   useEffect(() => {
-    // dispatch(AuthState());
+    dispatch(AuthState(token));
     // dispatch(generalImagineFetchAction(skipCount));
     dispatch(userDetailsAction());
     dispatch(userImaginesAction());
     dispatch(myDetailsAction());
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstlogin");

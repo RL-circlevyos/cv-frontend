@@ -185,7 +185,6 @@ const CreateImagines = () => {
     setValue(event.target.value);
   }, []);
 
-  console.log(auth.token, "token");
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();

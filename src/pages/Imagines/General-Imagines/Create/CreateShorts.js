@@ -2,7 +2,7 @@ import { UploadIcon } from "@heroicons/react/solid";
 import React, { useCallback, useState } from "react";
 import Header from "./Header";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   generalImagineCreateAction,
   imaginePostAction,
@@ -21,6 +21,7 @@ const CreateShorts = () => {
   const [color, setColor] = useState();
   const [colorText, setColorText] = useState();
   const [show, setShow] = useState(true);
+  const auth = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const formdata = new FormData();
@@ -92,12 +93,12 @@ const CreateShorts = () => {
     (e) => {
       e.preventDefault();
 
-      dispatch(generalImagineCreateAction(formdata));
+      dispatch(generalImagineCreateAction(formdata, auth.token));
 
       navigate("/");
     },
 
-    [dispatch, formdata, navigate]
+    [dispatch, formdata, navigate, auth.token]
   );
 
   return (

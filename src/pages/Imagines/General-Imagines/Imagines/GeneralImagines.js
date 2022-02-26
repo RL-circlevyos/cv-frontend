@@ -20,33 +20,34 @@ import { Helmet } from "react-helmet";
 
 const GeneralImagines = () => {
   const imagineid = useParams();
+  const auth = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const socket = useSocket();
 
   useEffect(() => {
-    dispatch(generalImagineSingleFetchAction(imagineid.id));
-    dispatch(appriciateListAction(imagineid.id));
-    dispatch(appriciateIdListAction(imagineid.id));
-    dispatch(commentFetchAction(imagineid.id));
+    dispatch(generalImagineSingleFetchAction(imagineid.id, auth.token));
+    dispatch(appriciateListAction(imagineid.id, auth.token));
+    dispatch(appriciateIdListAction(imagineid.id, auth.token));
+    dispatch(commentFetchAction(imagineid.id, auth.token));
 
     socket.on("create-comment", () => {
-      dispatch(commentFetchAction(imagineid.id));
+      dispatch(commentFetchAction(imagineid.id, auth.token));
     });
 
     socket.on("delete-comment", () => {
-      dispatch(generalImagineSingleFetchAction(imagineid.id));
+      dispatch(generalImagineSingleFetchAction(imagineid.id, auth.token));
     });
     socket.on("appriciate", () => {
-      dispatch(appriciateIdListAction(imagineid.id));
+      dispatch(appriciateIdListAction(imagineid.id, auth.token));
 
-      dispatch(appriciateListAction(imagineid.id));
+      dispatch(appriciateListAction(imagineid.id, auth.token));
     });
 
     socket.on("update-imagine", (data) => {
-      dispatch(generalImagineSingleFetchAction(imagineid.id));
+      dispatch(generalImagineSingleFetchAction(imagineid.id, auth.token));
     });
-  }, [dispatch, imagineid.id, socket]);
+  }, [dispatch, imagineid.id, socket, auth.token]);
 
   const imagine = useSelector((state) => state.imagine);
   const title = imagine?.singleImagine?.singleImagine?.title;

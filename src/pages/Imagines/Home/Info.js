@@ -21,7 +21,7 @@ const Info = () => {
 
   return (
     <Link
-      to={auth.isLogged && `/profile/${user}`}
+      to={auth.isLogged && `/profile/${auth.userDetails._id}`}
       className="w-full bg-white mt-2 py-8 shadow rounded-xl mb-3 lg:flex justify-center px-6
        flex-col items-center hidden font-Mulish text-gray-600 border border-gray-100"
     >

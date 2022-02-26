@@ -15,17 +15,16 @@ const CommentList = () => {
 
   const id = useParams();
   const dispatch = useDispatch();
-  console.log(comments);
-  console.log(id.id, "imagine post id");
+
   const socket = useSocket();
 
-  // useEffect(() => {
-  //   dispatch(commentFetchAction(id.id));
-  //   socket.on("create-comment", () => {
-  //     dispatch(commentFetchAction(id.id));
-  //   });
-  //   dispatch(commentFetchAction(id.id));
-  // }, [dispatch, id, socket]);
+  useEffect(() => {
+    dispatch(commentFetchAction(id.id, auth.token));
+    socket.on("create-comment", () => {
+      dispatch(commentFetchAction(id.id, auth.token));
+    });
+    dispatch(commentFetchAction(id.id, auth.token));
+  }, [dispatch, id, socket, auth.token]);
 
   comments?.comments?.map((c) => console.log(c));
 

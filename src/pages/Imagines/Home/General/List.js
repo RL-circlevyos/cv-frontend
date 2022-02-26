@@ -11,9 +11,10 @@ const List = () => {
   const ui = useSelector((state) => state.ui);
   const imagine = useSelector((state) => state.imagine);
   const dispatch = useDispatch();
-  // const socket = useSocket();
+  const socket = useSocket();
   const [isInitial, setisInitial] = useState(true);
   const skipCount = useSelector((state) => state.imagine.skipCount);
+  const auth = useSelector((state) => state.auth);
 
   function seeMore() {
     dispatch(imagineSliceAction.skipCountNext());
@@ -38,25 +39,22 @@ const List = () => {
       //   dispatch(generalImagineFetchAction());
       // }*/
 
-      dispatch(generalImagineFetchAction(skipCount));
-      // socket.on("create-imagine", (data) => {
-
-      //   dispatch(generalImagineFetchAction(skipCount));
-      // });
-      // socket.on("appriciate", (data) => {
-
-      //   dispatch(generalImagineFetchAction(skipCount));
-      // });
-      // socket.on("delete-imagine", (data) => {
-
-      //   dispatch(generalImagineFetchAction(skipCount));
-      // });
+      dispatch(generalImagineFetchAction(skipCount, auth.token));
+      socket.on("create-imagine", (data) => {
+        dispatch(generalImagineFetchAction(skipCount, auth.token));
+      });
+      socket.on("appriciate", (data) => {
+        dispatch(generalImagineFetchAction(skipCount, auth.token));
+      });
+      socket.on("delete-imagine", (data) => {
+        dispatch(generalImagineFetchAction(skipCount, auth.token));
+      });
       setisInitial(false);
     }, 500);
     return () => {
       clearTimeout(timer);
     };
-  }, [dispatch, imagine.isinitiate, skipCount]);
+  }, [dispatch, imagine.isinitiate, skipCount, socket, auth.token]);
 
   return (
     <>
