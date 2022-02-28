@@ -34,12 +34,13 @@ export const signUpWithNameEmailAndPassword = (data) => {
     try {
       const response = await signupAction();
       toast.success("signup successful");
-      console.log(response.user._id);
-      dispatch(
-        authAction.getInfo({
-          userid: response.user._id,
-        })
-      );
+      console.log(response);
+      // dispatch(
+      //   authAction.getMessage({
+      //     errMsg: "",
+
+      //   })
+      // );
     } catch (error) {
       toast.error("username or email exists");
 
@@ -95,10 +96,11 @@ export const LoginWithNameEmailAndPassword = (data) => {
 
 //   auth state
 // custom action creator function =>  thunk
-export const AuthState = () => {
+export const AuthState = (token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const LoginAction = async () => {
+      console.log("auth state calling");
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/authstate`,
         // "http://localhost:3699/api/v1/authstate",
@@ -107,6 +109,7 @@ export const AuthState = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -122,10 +125,10 @@ export const AuthState = () => {
 
     try {
       const response = await LoginAction();
-      console.log(response.id);
+      console.log(response, "User details");
       dispatch(
         authAction.getInfo({
-          userid: response._id,
+          userDetails: response,
         })
       );
     } catch (error) {
@@ -140,14 +143,10 @@ export const logoutAction = () => {
     // 📈 send data to database
     const Logout = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/logout`,
-        // "http://localhost:3699/api/v1/authstate",
+        `/logout`,
+
         {
           method: "GET",
-          // credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
         }
       );
 
@@ -169,7 +168,7 @@ export const logoutAction = () => {
   };
 };
 
-export const userDetailsUpdateAction = (updateBody) => {
+export const userDetailsUpdateAction = (updateBody, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetailsUpdate = async () => {
@@ -180,9 +179,10 @@ export const userDetailsUpdateAction = (updateBody) => {
         {
           method: "PATCH",
           credentials: "include",
-          // headers: {
-          //   "Content-Type": "formdata",
-          // },
+          headers: {
+            // "Content-Type": "formdata",
+            Authorization: token,
+          },
           body: updateBody,
         }
       );
@@ -213,7 +213,7 @@ export const userDetailsUpdateAction = (updateBody) => {
   };
 };
 
-export const userDetailsAction = (id) => {
+export const userDetailsAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -225,6 +225,7 @@ export const userDetailsAction = (id) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -292,13 +293,8 @@ export const accountDetailsAction = (id) => {
     };
 
     try {
-      dispatch(
-        UiSliceAction.loading({
-          isLoading: true,
-        })
-      );
       const response = await accountDetails();
-      console.log(response.id);
+
       dispatch(
         authAction.getAccountDetails({
           accountDetails: response,
@@ -306,18 +302,18 @@ export const accountDetailsAction = (id) => {
       );
     } catch (error) {
       console.log(error);
-    } finally {
       dispatch(
         UiSliceAction.loading({
           isLoading: false,
         })
       );
+    } finally {
     }
   };
 };
 
 // user follow
-export const userFollowingAction = (id) => {
+export const userFollowingAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -330,6 +326,7 @@ export const userFollowingAction = (id) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -360,7 +357,7 @@ export const userFollowingAction = (id) => {
 };
 
 // mydetail
-export const myDetailsAction = () => {
+export const myDetailsAction = (token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -372,6 +369,7 @@ export const myDetailsAction = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -399,7 +397,7 @@ export const myDetailsAction = () => {
   };
 };
 
-export const userImaginesAction = (id) => {
+export const userImaginesAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userImagines = async () => {
@@ -411,6 +409,7 @@ export const userImaginesAction = (id) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -465,11 +464,21 @@ export const accountImaginesAction = (id) => {
     };
 
     try {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: true,
+        })
+      );
       const response = await accountImagines();
-      console.log(response);
+
       dispatch(
         authAction.getAccountImagines({
           accountImagines: response,
+        })
+      );
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
         })
       );
     } catch (error) {

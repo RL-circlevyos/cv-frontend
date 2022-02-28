@@ -9,45 +9,65 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { LoginWithNameEmailAndPassword } from "../../store/apps/auth/auth-action";
 import { ToastContainer } from "react-toastify";
+import axios from "axios";
+import { authAction } from "../../store/apps/auth/auth-slice";
+import {
+  showErrMsg,
+  showSuccessMsg,
+} from "../../utility/notification/Notification";
+import { GoogleLogin } from "react-google-login";
 
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .required("Email is required")
-    .matches(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      "Invalid Email"
-    ),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters"),
-});
+const initialState = {
+  email: "",
+  password: "",
+  err: "",
+  success: "",
+};
 
 const Login = () => {
+  const [user, setUser] = useState(initialState);
   const dispatch = useDispatch();
   let navigate = useNavigate();
+  const { email, password, err, success } = user;
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    trigger,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
-
-  const onSubmit = useCallback(
-    (data) => {
-      console.log(data);
-      dispatch(LoginWithNameEmailAndPassword(data));
-      reset();
-      navigate("/");
-    },
-    [reset, dispatch, navigate]
-  );
+  const handlChangeInput = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value, err: "", success: "" });
+  };
   /**  console.log(errors);*/
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(`api/v1/login`, { email, password });
+
+      setUser({ ...user, err: "", success: res.data.msg });
+
+      localStorage.setItem("firstlogin", true);
+      dispatch(authAction.login());
+      // history.push("/");
+      navigate("/");
+    } catch (err) {
+      err.response.data.msg &&
+        setUser({ ...user, err: err.response.data.msg, success: "" });
+    }
+  };
+
+  const responseGoogle = async (response) => {
+    
+    try {
+      const res = await axios.post("/api/v1/google_login", {
+        tokenId: response.tokenId,
+      });
+
+      setUser({ ...user, error: "", success: res.data.msg });
+      localStorage.setItem("firstlogin", true);
+      dispatch(authAction.login());
+      navigate("/");
+    } catch (err) {
+      err.response.data.msg &&
+        setUser({ ...user, err: err.response.data.msg, success: "" });
+    }
+  };
 
   const [passwordShown, setPasswordShown] = useState(false);
   const view = useCallback(() => {
@@ -95,46 +115,35 @@ const Login = () => {
               <span className="text-2xl font-bold md:text-4xl tracking-normal pb-10">
                 Login To Your Account
               </span>
+              {err && showErrMsg(err)}
+              {success && showSuccessMsg(success)}
               <form
                 className="flex flex-col md:w-9/12 text-base items-center w-full space-y-4 lg:space-y-6"
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit}
               >
                 <span className="w-full">
                   <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
                     <Mail />
                     <input
-                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none  form-control ${
-                        errors.email && "invalid"
-                      }`}
+                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none  form-control ${"invalid"}`}
                       type="email"
                       name="email"
                       placeholder="Email"
-                      {...register("email")}
-                      onKeyUp={() => {
-                        trigger("email");
-                      }}
+                      id="email"
+                      onChange={handlChangeInput}
                     />
                   </span>
-                  {errors.email && (
-                    <small className="text-pink-600">
-                      {errors.email.message}
-                    </small>
-                  )}
                 </span>{" "}
                 <span className="w-full pb-8">
                   <span className="w-full flex items-center border rounded-xl px-4 py-2 border-gray-300 hover:border-primary bg-white">
                     <Key />
                     <input
-                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none form-control ${
-                        errors.password && "invalid"
-                      }`}
+                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none form-control ${"invalid"}`}
                       type={passwordShown ? "text" : "password"}
                       name="password"
                       placeholder="Password"
-                      {...register("password")}
-                      onKeyUp={() => {
-                        trigger("password");
-                      }}
+                      id="password"
+                      onChange={handlChangeInput}
                     />
                     {passwordShown ? (
                       <EyeIcon
@@ -148,11 +157,6 @@ const Login = () => {
                       />
                     )}
                   </span>
-                  {errors.password && (
-                    <small className="text-pink-600">
-                      {errors.password.message}
-                    </small>
-                  )}
                 </span>
                 <button
                   type="submit"
@@ -175,12 +179,20 @@ const Login = () => {
                 </Link>
               </span>
 
-              {/* <Link exact to="/forgot-password">
+              <Link exact to="/forgot-password">
                 {" "}
                 <span className="text-sm text-gray-500 hover:underline lg:text-base">
                   Forgot password ?
                 </span>
-              </Link> */}
+              </Link>
+
+              <GoogleLogin
+                clientId="1047426319195-6dndogses33r7jku9k87gkhf9esmagee.apps.googleusercontent.com"
+                buttonText="Login With google"
+                onSuccess={responseGoogle}
+                // onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
             </div>
           </div>
         </div>

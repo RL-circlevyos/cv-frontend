@@ -27,6 +27,7 @@ import { logoutAction } from "../store/apps/auth/auth-action";
 import TextareaDialog from "./Feedback/TextareaDialog";
 import { DocumentTextIcon, ShieldCheckIcon } from "@heroicons/react/outline";
 import { Fragment } from "react";
+import axios from "axios";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -34,7 +35,6 @@ function Navbar() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const auth = useSelector((state) => state.auth);
   /**const [openModal, setOpenModal] = useState(false);**/
-  const user = auth.userid;
 
   /***const [colorTheme, setTheme] = useDarkMode();*/
 
@@ -64,8 +64,8 @@ function Navbar() {
   }, []);
 
   const crImagine = useCallback(() => {
-    user ? navigate("/create-imagine") : handleClickOpen();
-  }, [user, handleClickOpen, navigate]);
+    auth.isLogged ? navigate("/create-imagine") : handleClickOpen();
+  }, [auth.isLogged, handleClickOpen, navigate]);
 
   /******* feedback states *****/
   const [feedback, setFeedback] = useState(false);
@@ -85,6 +85,16 @@ function Navbar() {
     setTextareaValue("");
     setFeedback(false);
     setIsOpen(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.get("api/v1/logout");
+      localStorage.removeItem("firstlogin");
+      window.location.href = "/login";
+    } catch (err) {
+      window.location.href = "/login";
+    }
   };
 
   /******* feedback states end*****/
@@ -162,7 +172,7 @@ function Navbar() {
                 </div>
               </div>
               <div className="hidden space-x-2 items-baseline justify-end md:flex">
-                {user ? (
+                {auth.isLogged ? (
                   <Example />
                 ) : (
                   <>
@@ -221,14 +231,14 @@ function Navbar() {
                 </button>
               </div>
 
-              {user && (
+              {auth.isLogged && (
                 <Link
-                  to={user && `/profile/${user}`}
+                  to={auth.isLogged && `/profile/${auth?.userDetails?._id}`}
                   className="flex-shrink-0 py-1 px-1.5 rounded-full flex"
                 >
                   <img
                     src={
-                      user === auth?.userDetails?._id &&
+                      auth?.userDetails?._id &&
                       auth?.userDetails?.photo?.secure_url
                         ? auth?.userDetails?.photo?.secure_url
                         : dp
@@ -258,7 +268,7 @@ function Navbar() {
                 ref={ref}
                 className=" px-2 pt-2 pb-3 space-y-1 sm:px-3 uppercase"
               >
-                {!user ? (
+                {!auth.isLogged ? (
                   <div>
                     <Link
                       to="/login"
@@ -276,7 +286,7 @@ function Navbar() {
                     </b>
                     <hr />
                     <NavLink
-                      to={user && `/create-shorts`}
+                      to={auth.isLogged && `/create-shorts`}
                       className={({ isActive }) =>
                         isActive
                           ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
@@ -288,7 +298,7 @@ function Navbar() {
                     </NavLink>{" "}
                     <hr />
                     <NavLink
-                      to={user && `/create-imagine`}
+                      to={auth.isLogged && `/create-imagine`}
                       className={({ isActive }) =>
                         isActive
                           ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
@@ -365,7 +375,7 @@ function Navbar() {
                   <b className="sm:hidden block text-xs">marketplace</b>
                 </NavLink>{" "}
                 <hr />
-                {!user ? (
+                {!auth.isLogged ? (
                   <div>
                     <Link
                       to="/login"
@@ -386,7 +396,7 @@ function Navbar() {
                 ) : (
                   <>
                     <NavLink
-                      to={user && `/profile/${user}`}
+                      to={auth.isLogged && `/profile/${auth?.userDetails?._id}`}
                       className={({ isActive }) =>
                         isActive
                           ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
@@ -398,7 +408,9 @@ function Navbar() {
                     </NavLink>{" "}
                     <hr />
                     <NavLink
-                      to={user && `/settings/${user}`}
+                      to={
+                        auth.isLogged && `/settings/${auth?.userDetails?._id}`
+                      }
                       className={({ isActive }) =>
                         isActive
                           ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
@@ -431,8 +443,15 @@ function Navbar() {
                       <b className="sm:hidden block text-xs">Feedback</b>
                     </div>{" "}
                     <hr />
-                    <div
+                    {/* <div
                       onClick={logout}
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <Power />
+                      <b className="sm:hidden block text-xs">logout</b>
+                    </div> */}
+                    <div
+                      onClick={handleLogout}
                       className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                     >
                       <Power />
@@ -461,7 +480,8 @@ function Navbar() {
         show={true}
         onClick={() => {
           dispatch(logoutAction());
-          navigate("/login");
+          localStorage.removeItem("firstlogin");
+          // navigate("/login");
         }}
       />
       <TextareaDialog

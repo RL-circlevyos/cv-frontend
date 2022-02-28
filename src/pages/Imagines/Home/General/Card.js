@@ -85,7 +85,7 @@ const Card = ({
     const reportContent = {
       report: textareaValue,
     };
-    console.log(reportContent);
+
     setTextareaValue("");
     setReport(false);
     setEdit(false);
@@ -98,27 +98,27 @@ const Card = ({
 
   const navigate = useNavigate();
   const profileHandler = useCallback(() => {
-    user ? navigate(`/profile/${author}`) : handleClickOpen();
-  }, [navigate, author, user, handleClickOpen]);
+    auth.isLogged ? navigate(`/profile/${author}`) : handleClickOpen();
+  }, [navigate, author, auth.isLogged, handleClickOpen]);
 
   const appreciate = useCallback(() => {
-    dispatch(appriciateAction(id));
-  }, [dispatch, id]);
+    dispatch(appriciateAction(id, auth.token));
+  }, [dispatch, id, auth.token]);
 
   const clickLikeHandler = useCallback(() => {
-    user ? appreciate() : handleClickOpen();
-  }, [appreciate, user, handleClickOpen]);
+    auth.isLogged ? appreciate() : handleClickOpen();
+  }, [appreciate, auth.isLogged, handleClickOpen]);
 
   const imagineDeleteHandler = useCallback(() => {
-    dispatch(deleteImagineAction(id));
+    dispatch(deleteImagineAction(id, auth.token));
     handleDelClose();
     editClose();
-  }, [dispatch, id, handleDelClose, editClose]);
+  }, [dispatch, id, handleDelClose, editClose, auth.token]);
 
   const [edit, setEdit] = useState(false);
   const clickEdit = useCallback(() => {
-    user ? setEdit(true) : handleClickOpen();
-  }, [user, handleClickOpen]);
+    auth.isLogged ? setEdit(true) : handleClickOpen();
+  }, [auth.isLogged, handleClickOpen]);
 
   const [openShare, setOpenShare] = useState(false);
 
@@ -211,7 +211,7 @@ const Card = ({
               </span>
             )} */}
         <span className="flex items-center justify-end pr-4 space-x-1">
-          {!edit && author === auth.userid && (
+          {!edit && author === auth.userDetails._id && (
             <>
               {/* {userid === auth.userid && ( */}
               <span>
@@ -237,7 +237,7 @@ const Card = ({
                     <XIcon className="lg:h-5 h-3 lg:w-5 w-3 text-pink-500" />
                   </span>
                 </span>
-                {/* <div className="py-1">
+                <div className="py-1">
                   <div>
                     <Link
                       to={`/${id}/update`}
@@ -246,7 +246,7 @@ const Card = ({
                       Edit
                     </Link>
                   </div>
-                </div> */}
+                </div>
                 <div className="py-1">
                   <div
                     className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
@@ -310,7 +310,7 @@ const Card = ({
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
           <span className="flex items-center text-xxs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
-              {appriciates.includes(auth.userid) ? (
+              {appriciates.includes(auth.userDetails._id) ? (
                 <LightBulbIcon className="h-6 w-6 text-yellow-400 mt-1" />
               ) : (
                 <svg

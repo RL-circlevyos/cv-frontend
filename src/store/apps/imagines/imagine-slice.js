@@ -28,6 +28,9 @@ const imagineSlice = createSlice({
     getSingleImagine(state, action) {
       state.singleImagine = action.payload.singleImagine;
     },
+    clearSingleImagine(state, action) {
+      state.singleImagine = {};
+    },
     getComments(state, action) {
       state.comments = action.payload.comments;
     },

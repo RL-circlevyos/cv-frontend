@@ -7,48 +7,66 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { changePasswordAction } from "../../store/apps/auth/auth-action";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { isLength, isMatch } from "../../utility/validation/Validation";
+import axios from "axios";
+import {
+  showErrMsg,
+  showSuccessMsg,
+} from "../../utility/notification/Notification";
 
-const validationSchema = yup.object().shape({
-  newPassword: yup
-    .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters")
-    .max(16, "Password must not exceed 16 characters"),
-  confirmPassword: yup
-    .string()
-    .required("Confirm Password is required")
-    .oneOf([yup.ref("newPassword"), null], "Passwords does not match"),
-});
+const initialState = {
+  password: "",
+  cf_password: "",
+  err: "",
+  success: "",
+};
 
 const ResetPassword = () => {
+  const { resetToken } = useParams();
+  const [data, setData] = useState(initialState);
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    trigger,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
+  const { password, cf_password, err, success } = data;
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value, err: "", success: "" });
+  };
+
+  const handleResetPass = async (e) => {
+    e.preventDefault();
+    if (isLength(password))
+      return setData({
+        ...data,
+        err: "Password must be atleast 6",
+        success: "",
+      });
+
+    if (!isMatch(password, cf_password))
+      return setData({
+        ...data,
+        err: "Password didn't match",
+        success: "",
+      });
+
+    try {
+      const res = await axios.post(
+        "/api/v1/reset",
+        { password },
+        {
+          headers: { Authorization: resetToken },
+        }
+      );
+
+      return setData({ ...data, err: "", success: res.data.msg });
+    } catch (err) {
+      err.response.data.msg &&
+        setData({ ...data, err: err.response.data.msg, success: "" });
+    }
+  };
 
   const dispatch = useDispatch();
 
-  const onSubmit = useCallback(
-    (data) => {
-      const passwordBody = {
-        oldPassword: data.confirmPassword,
-        password: data.newPassword,
-      };
-
-      dispatch(changePasswordAction(passwordBody));
-
-      reset();
-      navigate("/");
-    },
-    [reset, dispatch, navigate]
-  );
   /**  console.log(errors);*/
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -106,24 +124,21 @@ const ResetPassword = () => {
               <span className="text-2xl font-bold md:text-4xl tracking-normal pb-10">
                 Reset Your Password
               </span>
-              <form
-                className="flex flex-col md:w-9/12 text-base items-center w-full space-y-6 "
-                onSubmit={handleSubmit(onSubmit)}
-              >
+              {err && showErrMsg(err)}
+              {success && showSuccessMsg(success)}
+
+              <form className="flex flex-col md:w-9/12 text-base items-center w-full space-y-6 ">
                 <span className="w-full ">
                   <span className="w-full flex items-center border rounded-xl px-4 py-2 border-gray-300 hover:border-primary bg-white">
                     <Key />
                     <input
-                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none form-control ${
-                        errors.newPassword && "invalid"
-                      }`}
+                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none form-control `}
                       type={passwordShown ? "text" : "password"}
-                      name="newPassword"
-                      placeholder="new password"
-                      {...register("newPassword")}
-                      onKeyUp={() => {
-                        trigger("newPassword");
-                      }}
+                      name="password"
+                      id="password"
+                      placeholder="New password"
+                      value={password}
+                      onChange={handleChangeInput}
                     />
                     {passwordShown ? (
                       <EyeIcon
@@ -137,25 +152,18 @@ const ResetPassword = () => {
                       />
                     )}
                   </span>
-
-                  <small className="text-pink-600">
-                    {errors.newPassword?.message}
-                  </small>
                 </span>
                 <span className="w-full pb-8">
                   <span className="w-full flex items-center border rounded-xl px-4 py-2 border-gray-300 hover:border-primary bg-white">
                     <Lock />
                     <input
-                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none form-control ${
-                        errors.confirmPassword && "invalid"
-                      }`}
+                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none form-control ${"invalid"}`}
                       type={confirmsPassword ? "text" : "password"}
-                      name="confirmPassword"
-                      placeholder="confirm password"
-                      {...register("confirmPassword")}
-                      onKeyUp={() => {
-                        trigger("confirmPassword");
-                      }}
+                      name="cf_password"
+                      id="cf_password"
+                      placeholder="Confirm password"
+                      value={cf_password}
+                      onChange={handleChangeInput}
                     />
                     {confirmsPassword ? (
                       <EyeIcon
@@ -169,18 +177,25 @@ const ResetPassword = () => {
                       />
                     )}
                   </span>
-
-                  <small className="text-pink-600">
-                    {errors.confirmPassword?.message}
-                  </small>
                 </span>
-                <button
-                  type="submit"
-                  className="px-6 py-3 w-full bg-gradient-to-r from-primary to-gray-700 
+                {!success ? (
+                  <button
+                    onClick={handleResetPass}
+                    type="submit"
+                    className="px-6 py-3 w-full bg-gradient-to-r from-primary to-gray-700 
                    font-bold rounded-xl text-grey-200 text-base lg:text-xl hover:bg-gradient-to-r hover:from-gray-700 hover:to-primary "
-                >
-                  Update Password
-                </button>
+                  >
+                    Update Password
+                  </button>
+                ) : (
+                  <span
+                    className="px-6 py-3 w-full bg-gradient-to-r from-primary to-gray-700 
+                  font-bold rounded-xl text-grey-200 text-base text-center lg:text-xl hover:bg-gradient-to-r hover:from-gray-700 hover:to-primary "
+                  >
+                    {" "}
+                    <Link to="/login">Login Now</Link>
+                  </span>
+                )}
               </form>
             </span>
           </div>

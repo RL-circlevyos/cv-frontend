@@ -1,10 +1,18 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import Navbar from "../../../components/Navbar";
+import { authAction } from "../../../store/apps/auth/auth-slice";
 import List from "../Contribution/Imagines/List";
 import Intro from "./Intro";
 
-const Profile = () => {
+const Profile = ({ token, isLogged }) => {
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
+  console.log(auth.isLogged, "checking logged in profile");
+
   return (
     <div className="w-full">
       <Navbar />

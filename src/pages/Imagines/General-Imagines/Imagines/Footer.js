@@ -42,21 +42,19 @@ const Footer = ({ openCommentBox }) => {
   const id = useParams();
 
   const post = useCallback(() => {
-    dispatch(appriciateAction(id.id));
-  }, [dispatch, id.id]);
+    dispatch(appriciateAction(id.id, auth.token));
+  }, [dispatch, id.id, auth.token]);
 
   const clickLikeHandler = useCallback(() => {
-    user ? post() : handleClickOpen();
-  }, [user, handleClickOpen, post]);
-
-  console.log(singleImagine);
+    auth.isLogged ? post() : handleClickOpen();
+  }, [auth.isLogged, handleClickOpen, post]);
 
   return (
     <div className="flex flex-col">
       <div className="flex flex-wrap space-y-5 lg:space-y-0 lg:flex-nowrap items-start justify-evenly space-x-3 text-gray-900 font-bold font-Mulish">
         <div className="flex w-full items-start justify-evenly space-x-3 text-gray-900 font-bold">
           <span className="lg:flex justify-center items-center text-primary hidden ">
-            {user && (
+            {auth.isLogged && (
               <span>
                 <ViewLike viewLikes={viewAppreciate?.appriciateList} />
               </span>
@@ -65,7 +63,7 @@ const Footer = ({ openCommentBox }) => {
           <span className="flex justify-center items-center flex-col text-xxs lg:text-tiny text-gray-400">
             <span className="flex items-center space-x-1 text-xs">
               <span className="cursor-pointer" onClick={clickLikeHandler}>
-                {appreciateIds?.includes(auth.userid) ? (
+                {appreciateIds?.includes(auth.userDetails._id) ? (
                   <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
                 ) : (
                   <svg
@@ -138,7 +136,7 @@ const Footer = ({ openCommentBox }) => {
         />
       </div>{" "}
       <span className="flex justify-center items-center text-primary lg:hidden">
-        {user && (
+        {auth.isLogged && (
           <span>
             <ViewLike viewLikes={viewAppreciate?.appriciateList} />
           </span>

@@ -20,8 +20,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import data from "./Categories.json";
 import Navbar from "../../../../components/Navbar";
+import { useSelector } from "react-redux";
 
 const CreateImagines = () => {
+  const auth = useSelector((state) => state.auth);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const onEditorStateChange = (editorsState) => {
     setEditorState(editorsState);
@@ -186,12 +188,12 @@ const CreateImagines = () => {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(generalImagineCreateAction(formdata));
+      dispatch(generalImagineCreateAction(formdata, auth.token));
 
       navigate("/");
     },
 
-    [dispatch, formdata, navigate]
+    [dispatch, formdata, navigate, auth.token]
   );
   return (
     <div className="flex justify-center items-center flex-col font-Mulish">
