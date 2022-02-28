@@ -40,19 +40,12 @@ import Account from "./pages/UserProfile/Info/Account";
 import ActivationEmail from "./pages/Authentication/ActivateEmail";
 import axios from "axios";
 import { authAction } from "./store/apps/auth/auth-slice";
+import Navbar from "./components/Navbar";
 
 function App() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const { isLogged, token } = auth;
-
-  useEffect(() => {
-    dispatch(AuthState(token));
-    // dispatch(generalImagineFetchAction(skipCount));
-    // dispatch(userDetailsAction());
-    // dispatch(userImaginesAction());
-    // dispatch(myDetailsAction());
-  }, [dispatch, token]);
 
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstlogin");
@@ -78,6 +71,14 @@ function App() {
       };
       getUser();
     }
+  }, [dispatch, token]);
+
+  useEffect(() => {
+    dispatch(AuthState(token));
+    // dispatch(generalImagineFetchAction(skipCount));
+    // dispatch(userDetailsAction(token));
+    // dispatch(userImaginesAction());
+    // dispatch(myDetailsAction());
   }, [dispatch, token]);
 
   /**const auth = useSelector((state) => state.auth);*/
@@ -115,7 +116,7 @@ function App() {
         {/* <Route path="/trendings" element={<Trending />} /> */}
 
         {/* account details */}
-        <Route path="/ac/:id" element={<Account />} />
+        <Route path="/ac/:acid" element={<Account />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

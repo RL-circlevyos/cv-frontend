@@ -19,18 +19,24 @@ function Account() {
   const accountImagines = useSelector((state) => state.auth.accountImagines);
   const ui = useSelector((state) => state.ui);
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-  const id = useParams();
+  const { acid } = useParams();
+
+  console.log(acid);
 
   useEffect(() => {
-    dispatch(accountDetailsAction(id.id));
-    dispatch(accountImaginesAction(id.id));
+    // const timer = setTimeout(() => {
+    dispatch(accountDetailsAction(acid));
+    dispatch(accountImaginesAction(acid));
     dispatch(
       authAction.getAccountId({
-        accountId: id.id,
+        accountId: acid,
       })
     );
-  }, [dispatch, id]);
+    // }, 500);
+
+    // clearTimeout(timer);
+  }, [dispatch, acid]);
+  console.log(accountImagines);
 
   return (
     <div className="w-full">
@@ -199,7 +205,13 @@ function Account() {
                 {accountImagines.length === 0 && (
                   <span className="mt-4 font-bold flex flex-col items-center justify-center italic text-lg w-full space-y-5 px-4">
                     <span className="">
-                      You have not posted any imagine yet
+                      {ui.isLoading ? (
+                        <SkeletonImagines />
+                      ) : (
+                        <>
+                          <p>No posts yet</p>
+                        </>
+                      )}
                     </span>
                     <span className="w-full h-96">
                       {/* <img src={profile} className="w-full h-80" alt="" /> */}

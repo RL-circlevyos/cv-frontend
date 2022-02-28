@@ -293,13 +293,8 @@ export const accountDetailsAction = (id) => {
     };
 
     try {
-      dispatch(
-        UiSliceAction.loading({
-          isLoading: true,
-        })
-      );
       const response = await accountDetails();
-      console.log(response.id);
+
       dispatch(
         authAction.getAccountDetails({
           accountDetails: response,
@@ -307,12 +302,12 @@ export const accountDetailsAction = (id) => {
       );
     } catch (error) {
       console.log(error);
-    } finally {
       dispatch(
         UiSliceAction.loading({
           isLoading: false,
         })
       );
+    } finally {
     }
   };
 };
@@ -362,7 +357,7 @@ export const userFollowingAction = (id, token) => {
 };
 
 // mydetail
-export const myDetailsAction = () => {
+export const myDetailsAction = (token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -374,6 +369,7 @@ export const myDetailsAction = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -468,11 +464,21 @@ export const accountImaginesAction = (id) => {
     };
 
     try {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: true,
+        })
+      );
       const response = await accountImagines();
-      console.log(response);
+
       dispatch(
         authAction.getAccountImagines({
           accountImagines: response,
+        })
+      );
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
         })
       );
     } catch (error) {

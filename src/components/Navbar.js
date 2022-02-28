@@ -35,7 +35,6 @@ function Navbar() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const auth = useSelector((state) => state.auth);
   /**const [openModal, setOpenModal] = useState(false);**/
-  const user = auth.userid;
 
   /***const [colorTheme, setTheme] = useDarkMode();*/
 
@@ -234,13 +233,12 @@ function Navbar() {
 
               {auth.isLogged && (
                 <Link
-                  to={auth.isLogged && `/profile/${user}`}
+                  to={auth.isLogged && `/profile/${auth?.userDetails?._id}`}
                   className="flex-shrink-0 py-1 px-1.5 rounded-full flex"
                 >
                   <img
-                    // TODO: NEED TO ADD USER DETAILS HERE
                     src={
-                      user === auth?.userDetails?._id &&
+                      auth?.userDetails?._id &&
                       auth?.userDetails?.photo?.secure_url
                         ? auth?.userDetails?.photo?.secure_url
                         : dp
@@ -288,7 +286,7 @@ function Navbar() {
                     </b>
                     <hr />
                     <NavLink
-                      to={user && `/create-shorts`}
+                      to={auth.isLogged && `/create-shorts`}
                       className={({ isActive }) =>
                         isActive
                           ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
@@ -300,7 +298,7 @@ function Navbar() {
                     </NavLink>{" "}
                     <hr />
                     <NavLink
-                      to={user && `/create-imagine`}
+                      to={auth.isLogged && `/create-imagine`}
                       className={({ isActive }) =>
                         isActive
                           ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
@@ -398,7 +396,7 @@ function Navbar() {
                 ) : (
                   <>
                     <NavLink
-                      to={auth.isLogged && `/profile/${user}`}
+                      to={auth.isLogged && `/profile/${auth?.userDetails?._id}`}
                       className={({ isActive }) =>
                         isActive
                           ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
@@ -410,7 +408,9 @@ function Navbar() {
                     </NavLink>{" "}
                     <hr />
                     <NavLink
-                      to={auth.isLogged && `/settings/${user}`}
+                      to={
+                        auth.isLogged && `/settings/${auth?.userDetails?._id}`
+                      }
                       className={({ isActive }) =>
                         isActive
                           ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"

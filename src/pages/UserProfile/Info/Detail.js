@@ -15,17 +15,20 @@ import Followers from "./Followers";
 import Following from "./Following";
 import { ShareIcon } from "@heroicons/react/solid";
 import ShareDialog from "../../Imagines/General-Imagines/Imagines/ShareDialog";
+import { authAction } from "../../../store/apps/auth/auth-slice";
+import axios from "axios";
 
 const Detail = () => {
   const auth = useSelector((state) => state.auth);
-  const user = auth.userid;
+
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const id = useParams();
   const socket = useSocket();
-  const { token } = auth;
+  const { token, isLogged } = auth;
   const [isInitial, setIsInitial] = useState(true);
 
+  console.log(auth.isLogged, "is logged ");
   useEffect(() => {
     // dispatch(userDetailsAction(id.id, token));
     // dispatch(userImaginesAction(id.id, token));
@@ -41,6 +44,14 @@ const Detail = () => {
     });
   }, [dispatch, id, isInitial, token, socket]);
 
+  useEffect(() => {
+    dispatch(userDetailsAction(id.id, token));
+    dispatch(userImaginesAction(id.id, token));
+    dispatch(userFollowingAction(id.id, token));
+  }, [id.id, token, dispatch]);
+
+  console.log(auth, "user details");
+
   const handleClickOpen = useCallback(() => {
     setOpen(true);
   }, []);
@@ -50,11 +61,11 @@ const Detail = () => {
   }, []);
 
   const clickFollowHandler = useCallback(() => {
-    user ? dispatch(userFollowAction(id.id, token)) : handleClickOpen();
-  }, [handleClickOpen, user, id.id, dispatch, token]);
+    isLogged ? dispatch(userFollowAction(id.id, token)) : handleClickOpen();
+  }, [handleClickOpen, isLogged, id.id, dispatch, token]);
   const clickUnfollowHandler = useCallback(() => {
-    user ? dispatch(userUnfollowAction(id.id, token)) : handleClickOpen();
-  }, [handleClickOpen, user, id.id, dispatch, token]);
+    isLogged ? dispatch(userUnfollowAction(id.id, token)) : handleClickOpen();
+  }, [handleClickOpen, isLogged, id.id, dispatch, token]);
 
   const [openShare, setOpenShare] = useState(false);
 
@@ -200,8 +211,8 @@ const Detail = () => {
                     open={openShare}
                     handleClose={handleCloseShare}
                     title="Share this link"
-                    content={`https://circlevyos.com/ac/${id.id}`}
-                    // content={`http://localhost:3000/ac/${id.id}`}
+                    // content={`https://circlevyos.com/ac/${id.id}`}
+                    content={`http://localhost:3000/ac/${id.id}`}
                     // content={`http://localhost:3000/${singleImagine?.singleImagine?._id}`}
                   />
                 </span>
@@ -255,7 +266,7 @@ const Detail = () => {
 
         {auth.userDetails._id === id.id ? null : (
           <span className="cursor-pointer mt-5">
-            {!auth?.following?.includes(id.id) ? (
+            {!auth?.userDetails?.following?.includes(id.id) ? (
               <span
                 className="px-5 py-2 mt-2 ml-3 bg-primary text-white font-bold text-base w-24"
                 onClick={clickFollowHandler}
