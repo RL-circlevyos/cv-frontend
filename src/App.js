@@ -94,6 +94,7 @@ function App() {
         <Route path="/select" element={<Select />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/user/reset/:resetToken" element={<ResetPassword />} />
         <Route path="/new-password/:id" element={<NewPassword />} />
 
         <Route path="/" element={<ImagineList />} />
@@ -108,6 +109,7 @@ function App() {
         <Route path="/feedback/:id" element={<Settings />} />
         <Route path="/:id" element={<GeneralImagines />} />
         <Route path="/:id/update" element={<GeneralUpdate />} />
+
         <Route path="/series" element={<Upcoming />} />
         <Route path="/marketplace" element={<Marketplace />} />
         {/* <Route path="/trendings" element={<Trending />} /> */}

@@ -1,7 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { generalImagineUpdateAction } from "../../../store/apps/imagines/imagine-action";
+import {
+  appriciateIdListAction,
+  appriciateListAction,
+  commentFetchAction,
+  generalImagineSingleFetchAction,
+  generalImagineUpdateAction,
+} from "../../../store/apps/imagines/imagine-action";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Editor } from "react-draft-wysiwyg";
@@ -13,13 +19,21 @@ import {
   convertFromHTML,
 } from "draft-js";
 import draftToHtml from "draftjs-to-html";
+import { imagineSliceAction } from "../../../store/apps/imagines/imagine-slice";
 
 const GeneralUpdate = () => {
   const dispatch = useDispatch();
-  const imagineid = useParams();
-
+  const id = useParams();
+  const auth = useSelector((state) => state.auth);
   const imagine = useSelector((state) => state.imagine);
-  const { title, intro, outro, main } = imagine?.singleImagine?.singleImagine;
+
+  useEffect(() => {
+    dispatch(generalImagineSingleFetchAction(id.id, auth.token));
+  }, [dispatch, id.id, auth.token]);
+
+  console.log(imagine.singleImagine);
+  const { title, intro, outro, main, imaginetype } =
+    imagine?.singleImagine?.singleImagine;
   console.log(imagine?.singleImagine?.singleImagine);
 
   const [editorState, setEditorState] = useState(
@@ -35,8 +49,9 @@ const GeneralUpdate = () => {
       draftToHtml(convertToRaw(editorState.getCurrentContent())).length
     );
   };
-  const count = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    .length;
+  const count = draftToHtml(
+    convertToRaw(editorState.getCurrentContent())
+  ).length;
   const MAX_LENGTH = 3000;
 
   const getLengthOfSelectedText = () => {
@@ -110,8 +125,15 @@ const GeneralUpdate = () => {
   const [titleUpdate, setTitleUpdate] = useState(title);
   const [introUpdate, setIntroUpdate] = useState(intro);
   const [outroUpdate, setOutroUpdate] = useState(outro);
-
+  const [content, setContent] = useState(main);
+  const setBodyContent = useCallback(
+    (text) => {
+      setContent(text.slice(0, limit));
+    },
+    [setContent]
+  );
   const formdata = new FormData();
+  const formdataNano = new FormData();
 
   formdata.append("title", titleUpdate);
   /** formdata.append("intro", introUpdate);
@@ -121,6 +143,8 @@ const GeneralUpdate = () => {
     "main",
     draftToHtml(convertToRaw(editorState.getCurrentContent()))
   );
+
+  formdataNano.append("main", content);
 
   const limit = 300;
   const setTitleContent = useCallback(
@@ -146,19 +170,32 @@ const GeneralUpdate = () => {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(generalImagineUpdateAction(formdata, imagineid.id));
+
+      dispatch(generalImagineUpdateAction(formdata, id.id, auth.token));
       toast.success("Updated successfully");
-      navigate(`/${imagineid.id}`);
+      navigate(`/${id.id}`);
     },
 
-    [dispatch, formdata, navigate, imagineid]
+    [dispatch, formdata, navigate, id, auth.token]
+  );
+
+  const handleSubmitNano = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      dispatch(generalImagineUpdateAction(formdataNano, id.id, auth.token));
+      toast.success("Updated successfully");
+      navigate(`/${id.id}`);
+    },
+
+    [dispatch, formdataNano, navigate, id, auth.token]
   );
   return (
     <div className="flex justify-center items-center flex-col font-Mulish">
       <div className="max-w-4xl w-full flex justify-center items-center flex-col mx-3 lg:mx-0">
         <div className="w-full">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={imaginetype === "nano" ? handleSubmitNano : handleSubmit}
             className="px-3 lg:px-6 py-2 space-y-1 text-base font-Mulish pb-6 "
           >
             <div className="px-4 py-2 text-xl text-primary flex font-bold pb-6 justify-center">
@@ -166,25 +203,26 @@ const GeneralUpdate = () => {
             </div>
             <div>
               {" "}
-              <span className="w-full ">
-                <label className="ml-4 text-xs uppercase font-bold text-pink-500 flex items-center">
-                  title <p className="ml-3 text-xxs lowercase">required*</p>
-                </label>
-                <span className=" w-full text-sm flex items-center border rounded-xl lg:px-4 py-2 hover:border-primary border-gray-300 bg-white ">
-                  <input
-                    type="text"
-                    required
-                    placeholder="Title of Imagine"
-                    className="font-medium w-full lg:px-4 px-1 ml-2 py-2 focus:outline-none form-control "
-                    value={titleUpdate}
-                    onChange={(e) => setTitleContent(e.target.value)}
-                  />
+              {imaginetype === "mega" && (
+                <span className="w-full ">
+                  <label className="ml-4 text-xs uppercase font-bold text-pink-500 flex items-center">
+                    title <p className="ml-3 text-xxs lowercase">required*</p>
+                  </label>
+                  <span className=" w-full text-sm flex items-center border rounded-xl lg:px-4 py-2 hover:border-primary border-gray-300 bg-white ">
+                    <input
+                      type="text"
+                      placeholder="Title of Imagine"
+                      className="font-medium w-full lg:px-4 px-1 ml-2 py-2 focus:outline-none form-control "
+                      value={titleUpdate}
+                      onChange={(e) => setTitleContent(e.target.value)}
+                    />
+                  </span>
+                  <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
+                    {" "}
+                    {/* {titleUpdate.length}/80 */}
+                  </p>
                 </span>
-                <p className="mr-4 text-sm uppercase font-bold text-blue-700 float-right">
-                  {" "}
-                  {/* {titleUpdate.length}/80 */}
-                </p>
-              </span>
+              )}
             </div>
             <div className="flex items-start justify-start w-full flex-wrap lg:flex-nowrap pt-2 lg:pt-0 space-y-4 lg:space-y-0 lg:space-x-5">
               {/* <span className="w-full">
@@ -211,29 +249,53 @@ const GeneralUpdate = () => {
               <label className="ml-4 text-xs uppercase font-bold">
                 Content
               </label>
-              <Editor
-                editorState={editorState}
-                toolbarClassName="flex justify-center mx-auto w-full"
-                editorClassName="mt-6 bg-white shadow py-6 px-3"
-                onEditorStateChange={onEditorStateChange}
-                handleBeforeInput={handleBeforeInput}
-                handlePastedText={handlePastedText}
-                toolbar={{
-                  options: [
-                    "inline",
-                    // "blockType",
-                    "emoji",
-                    "colorPicker",
-                    //"list",
-                    "link",
-                    //"textAlign",
-                    //"history",
-                  ],
-                }}
-              />
-              <p className="mr-4 text-sm uppercase font-bold text-teal-700 float-right">
-                {count - 8}
-              </p>
+              {imaginetype === "mega" && (
+                <Editor
+                  editorState={editorState}
+                  toolbarClassName="flex justify-center mx-auto w-full"
+                  editorClassName="mt-6 bg-white shadow py-6 px-3"
+                  onEditorStateChange={onEditorStateChange}
+                  handleBeforeInput={handleBeforeInput}
+                  handlePastedText={handlePastedText}
+                  toolbar={{
+                    options: [
+                      "inline",
+                      // "blockType",
+                      "emoji",
+                      "colorPicker",
+                      //"list",
+                      "link",
+                      //"textAlign",
+                      //"history",
+                    ],
+                  }}
+                />
+              )}
+              {imaginetype === "mega" && (
+                <p className="mr-4 text-sm uppercase font-bold text-teal-700 float-right">
+                  {count - 8}
+                </p>
+              )}
+              {imaginetype === "nano" && (
+                <span
+                  className="w-full flex items-center text-gray-900 border rounded-xl hover:border-primary 
+               border-gray-300 "
+                >
+                  <textarea
+                    style={{
+                      padding: "1rem",
+
+                      fontSize: "1.5rem",
+                    }}
+                    rows="7"
+                    type="text"
+                    placeholder="type your content here"
+                    className={` font-medium w-full px-4 py-1 lg:text-base text-sm focus:outline-none rounded-xl`}
+                    value={content}
+                    onChange={(e) => setBodyContent(e.target.value)}
+                  />
+                </span>
+              )}
             </div>
             {/* <div className="flex items-start justify-center flex-wrap lg:flex-nowrap w-full pb-2 lg:space-x-4">
               <span className="w-full ">

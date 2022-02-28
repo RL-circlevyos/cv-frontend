@@ -12,6 +12,7 @@ function CardUtilityThreeDots({
   author,
   imagineId,
   singlePage = formControlLabelClasses,
+  imagineNano,
 }) {
   const auth = useSelector((state) => state.auth);
 
@@ -29,8 +30,8 @@ function CardUtilityThreeDots({
 
   const [edit, setEdit] = useState(false);
   const clickEdit = useCallback(() => {
-    auth.userid ? setEdit(true) : handleClickOpen();
-  }, [auth.userid, handleClickOpen]);
+    auth.userDetails._id ? setEdit(true) : handleClickOpen();
+  }, [auth.userDetails._id, handleClickOpen]);
 
   const handleDelClose = useCallback(() => {
     setDel(false);
@@ -50,20 +51,25 @@ function CardUtilityThreeDots({
   const navigate = useNavigate();
 
   const imagineDeleteHandler = useCallback(() => {
-    dispatch(deleteImagineAction(imagineId));
+    dispatch(deleteImagineAction(imagineId, auth.token));
     handleDelClose();
     editClose();
     singlePage && navigate("/");
-  }, [dispatch, imagineId, handleDelClose, editClose, singlePage, navigate]);
-  console.log(author, "three dots");
-  console.log(auth.userid);
+  }, [
+    dispatch,
+    imagineId,
+    handleDelClose,
+    editClose,
+    singlePage,
+    auth.token,
+    navigate,
+  ]);
+
   return (
     <div>
       <span className="flex items-center justify-end pr-4 space-x-1">
-        {!edit && author === auth.userid && (
+        {!edit && author === auth.userDetails._id && (
           <>
-            {/* {userid === auth.userid && ( */}
-            {console.log("dots calling")}
             <span>
               <DotsHorizontalIcon
                 className="h-5 w-5 cursor-pointer"
@@ -87,7 +93,11 @@ function CardUtilityThreeDots({
               <div className="py-1">
                 <div>
                   <Link
-                    to={`/${imagineId}/update`}
+                    to={
+                      !imagineNano
+                        ? `/${imagineId}/update`
+                        : `/${imagineId}/update`
+                    }
                     className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
                   >
                     Edit

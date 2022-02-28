@@ -42,6 +42,7 @@ const clickFollowHandler = useCallback(() => {
       <CardUtilityThreeDots
         author={singleImagine?.singleImagine?.user?._id}
         imagineId={singleImagine?.singleImagine?._id}
+        imagineNano={singleImagine?.singleImagine?.imaginetype}
         singlePage={true}
       />
       <div className=" flex justify-between items-center px-3 font-Mulish">

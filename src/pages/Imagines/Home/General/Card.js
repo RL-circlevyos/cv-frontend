@@ -237,7 +237,7 @@ const Card = ({
                     <XIcon className="lg:h-5 h-3 lg:w-5 w-3 text-pink-500" />
                   </span>
                 </span>
-                {/* <div className="py-1">
+                <div className="py-1">
                   <div>
                     <Link
                       to={`/${id}/update`}
@@ -246,7 +246,7 @@ const Card = ({
                       Edit
                     </Link>
                   </div>
-                </div> */}
+                </div>
                 <div className="py-1">
                   <div
                     className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"

@@ -15,6 +15,7 @@ import {
   showErrMsg,
   showSuccessMsg,
 } from "../../utility/notification/Notification";
+import { GoogleLogin } from "react-google-login";
 
 const initialState = {
   email: "",
@@ -44,6 +45,23 @@ const Login = () => {
       localStorage.setItem("firstlogin", true);
       dispatch(authAction.login());
       // history.push("/");
+      navigate("/");
+    } catch (err) {
+      err.response.data.msg &&
+        setUser({ ...user, err: err.response.data.msg, success: "" });
+    }
+  };
+
+  const responseGoogle = async (response) => {
+    
+    try {
+      const res = await axios.post("/api/v1/google_login", {
+        tokenId: response.tokenId,
+      });
+
+      setUser({ ...user, error: "", success: res.data.msg });
+      localStorage.setItem("firstlogin", true);
+      dispatch(authAction.login());
       navigate("/");
     } catch (err) {
       err.response.data.msg &&
@@ -161,12 +179,20 @@ const Login = () => {
                 </Link>
               </span>
 
-              {/* <Link exact to="/forgot-password">
+              <Link exact to="/forgot-password">
                 {" "}
                 <span className="text-sm text-gray-500 hover:underline lg:text-base">
                   Forgot password ?
                 </span>
-              </Link> */}
+              </Link>
+
+              <GoogleLogin
+                clientId="1047426319195-6dndogses33r7jku9k87gkhf9esmagee.apps.googleusercontent.com"
+                buttonText="Login With google"
+                onSuccess={responseGoogle}
+                // onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
             </div>
           </div>
         </div>
