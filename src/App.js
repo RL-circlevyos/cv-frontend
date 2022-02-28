@@ -52,10 +52,7 @@ function App() {
     if (firstLogin) {
       // `${process.env.REACT_APP_API_BASE_URL}/refresh_token`,
       const getToken = async () => {
-        const res = await axios.post(
-          `${process.env.REACT_APP_API_BASE_URL}/refresh_token`,
-          null
-        );
+        const res = await axios.post(`/api/v1/refresh_token`, null);
 
         dispatch(
           authAction.getTokenAdd({
