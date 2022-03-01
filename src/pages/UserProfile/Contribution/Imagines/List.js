@@ -1,12 +1,26 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImagines";
 import Card from "../../../Imagines/Home/General/Card";
 import profile from "../../../../assets/profile.svg";
+import {
+  userDetailsAction,
+  userFollowingAction,
+  userImaginesAction,
+} from "../../../../store/apps/auth/auth-action";
+import { useParams } from "react-router-dom";
 
 const List = () => {
   const auth = useSelector((state) => state.auth);
   const ui = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
+  const id = useParams();
+
+  useEffect(() => {
+    dispatch(userImaginesAction(id.id, auth.token));
+    dispatch(userFollowingAction(id.id, auth.token));
+    dispatch(userDetailsAction(id.id, auth.token));
+  }, [id.id, dispatch, auth.token]);
 
   return (
     <>
@@ -39,8 +53,7 @@ const List = () => {
                     category={imagines.category}
                     date={imagines.createdAt}
                     comments={imagines.comments}
-                    // views={imagines.views}
-
+                    views={imagines.views}
                     appriciates={imagines.appriciates}
                     audiovoice={imagines?.audiovoice?.secure_url}
                   />

@@ -9,7 +9,7 @@ module.exports = {
       },
     },
     screens: {
-      xs: "350px",
+      xs: "300px",
       xsm: "460px",
       sm: "640px",
       md: "768px",
@@ -44,8 +44,8 @@ module.exports = {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      gray: colors.blueGray,
-      greyish: colors.coolGray,
+      gray: colors.slate,
+      greyish: colors.zinc,
       grey: colors.gray,
       red: colors.red,
       sky: colors.sky,
@@ -62,6 +62,7 @@ module.exports = {
       green: colors.green,
       purple: colors.purple,
       indigo: colors.indigo,
+      orange: colors.orange,
       primary: "#009E82",
       glass: "rgb(230, 228, 231, 0.8)",
       blackish: "rgb(0, 0, 0, 0.7)",

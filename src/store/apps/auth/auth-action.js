@@ -3,7 +3,7 @@ import { UiSliceAction } from "../ui/uiSlice";
 import { authAction } from "./auth-slice";
 
 // custom action creator function =>  thunk
-export const signUpWithNameEmailAndPassword = (data, show) => {
+export const signUpWithNameEmailAndPassword = (data) => {
   return async (dispatch) => {
     // 📈 send data to database
     const signupAction = async () => {
@@ -13,7 +13,7 @@ export const signUpWithNameEmailAndPassword = (data, show) => {
         // `http://localhost:3699/api/v1/signup`,
         {
           method: "POST",
-          credentials: "include",
+          // credentials: "include",
           headers: {
             "Content-Type": "application/json",
             mode: "cors",
@@ -34,12 +34,13 @@ export const signUpWithNameEmailAndPassword = (data, show) => {
     try {
       const response = await signupAction();
       toast.success("signup successful");
-      console.log(response.user._id);
-      dispatch(
-        authAction.getInfo({
-          userid: response.user._id,
-        })
-      );
+      console.log(response);
+      // dispatch(
+      //   authAction.getMessage({
+      //     errMsg: "",
+
+      //   })
+      // );
     } catch (error) {
       toast.error("username or email exists");
 
@@ -95,18 +96,20 @@ export const LoginWithNameEmailAndPassword = (data) => {
 
 //   auth state
 // custom action creator function =>  thunk
-export const AuthState = () => {
+export const AuthState = (token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const LoginAction = async () => {
+      console.log("auth state calling");
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/authstate`,
         // "http://localhost:3699/api/v1/authstate",
         {
           method: "GET",
-          credentials: "include",
+          // credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -122,10 +125,10 @@ export const AuthState = () => {
 
     try {
       const response = await LoginAction();
-      console.log(response.id);
+      console.log(response, "User details");
       dispatch(
         authAction.getInfo({
-          userid: response._id,
+          userDetails: response,
         })
       );
     } catch (error) {
@@ -140,14 +143,10 @@ export const logoutAction = () => {
     // 📈 send data to database
     const Logout = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/logout`,
-        // "http://localhost:3699/api/v1/authstate",
+        `/logout`,
+
         {
           method: "GET",
-          // credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
         }
       );
 
@@ -158,9 +157,10 @@ export const logoutAction = () => {
     };
 
     try {
-      const response = await Logout();
+      await Logout();
       toast.warn("you are logged out");
-      console.log(response.id);
+
+      //console.log(response.id);
     } catch (error) {
       toast.error(error);
       console.log(error);
@@ -168,7 +168,7 @@ export const logoutAction = () => {
   };
 };
 
-export const userDetailsUpdateAction = (updateBody) => {
+export const userDetailsUpdateAction = (updateBody, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetailsUpdate = async () => {
@@ -179,9 +179,10 @@ export const userDetailsUpdateAction = (updateBody) => {
         {
           method: "PATCH",
           credentials: "include",
-          // headers: {
-          //   "Content-Type": "formdata",
-          // },
+          headers: {
+            // "Content-Type": "formdata",
+            Authorization: token,
+          },
           body: updateBody,
         }
       );
@@ -212,7 +213,7 @@ export const userDetailsUpdateAction = (updateBody) => {
   };
 };
 
-export const userDetailsAction = (id) => {
+export const userDetailsAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -224,6 +225,7 @@ export const userDetailsAction = (id) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -263,8 +265,55 @@ export const userDetailsAction = (id) => {
   };
 };
 
+// account details
+export const accountDetailsAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const accountDetails = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/ac/${id}`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        /**toast.error("something went wrong");*/
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      const response = await accountDetails();
+
+      dispatch(
+        authAction.getAccountDetails({
+          accountDetails: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
+    } finally {
+    }
+  };
+};
+
 // user follow
-export const userFollowingAction = (id) => {
+export const userFollowingAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -277,6 +326,7 @@ export const userFollowingAction = (id) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -307,7 +357,7 @@ export const userFollowingAction = (id) => {
 };
 
 // mydetail
-export const myDetailsAction = () => {
+export const myDetailsAction = (token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -319,6 +369,7 @@ export const myDetailsAction = () => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -346,12 +397,53 @@ export const myDetailsAction = () => {
   };
 };
 
-export const userImaginesAction = (id) => {
+export const userImaginesAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userImagines = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/userimagines/${id}`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData.imagine;
+    };
+
+    try {
+      const response = await userImagines();
+      console.log(response);
+      dispatch(
+        authAction.getImagines({
+          userImagines: response,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// account imagines
+export const accountImaginesAction = (id) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const accountImagines = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/ac/imagines/${id}`,
         // "http://localhost:3699/api/v1/authstate",
         {
           method: "GET",
@@ -372,11 +464,21 @@ export const userImaginesAction = (id) => {
     };
 
     try {
-      const response = await userImagines();
-      console.log(response);
       dispatch(
-        authAction.getImagines({
-          userImagines: response,
+        UiSliceAction.loading({
+          isLoading: true,
+        })
+      );
+      const response = await accountImagines();
+
+      dispatch(
+        authAction.getAccountImagines({
+          accountImagines: response,
+        })
+      );
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
         })
       );
     } catch (error) {

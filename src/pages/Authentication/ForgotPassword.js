@@ -1,39 +1,52 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import loginlogo from "../../assets/forgot.svg";
 import { useForm } from "react-hook-form";
 import { Mail } from "react-feather";
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { isEmail } from "../../utility/validation/Validation";
+import axios from "axios";
+import {
+  showErrMsg,
+  showSuccessMsg,
+} from "../../utility/notification/Notification";
 
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .required("Email is required")
-    .matches(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      "Invalid Email"
-    ),
-});
+const initialState = {
+  email: "",
+  err: "",
+  success: "",
+};
 
 const ForgetPassword = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    trigger,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
+  const [data, setData] = useState(initialState);
 
-  const onSubmit = useCallback(
-    (data) => {
-      console.log(data);
-      reset();
-    },
-    [reset]
-  );
+  const { email, err, success } = data;
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value, err: "", success: "" });
+  };
+
+  const forgotPassword = async (e) => {
+    e.preventDefault();
+    if (!isEmail(email)) {
+      return setData({ ...data, err: "Email is not Valid", success: "" });
+    }
+
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/forgotPassword`,
+        { email }
+      );
+
+      return setData({ ...data, err: "", success: res.data.msg });
+    } catch (err) {
+      err.response.data.msg &&
+        setData({ ...data, err: err.response.data.msg, success: "" });
+    }
+  };
+
   /**  console.log(errors);*/
   return (
     <>
@@ -69,33 +82,25 @@ const ForgetPassword = () => {
               <span className="text-2xl font-bold md:text-4xl tracking-normal pb-10">
                 Forgot Password ?
               </span>
-              <form
-                className="flex flex-col md:w-9/12 text-base items-center w-full space-y-4 lg:space-y-6"
-                onSubmit={handleSubmit(onSubmit)}
-              >
+              {err && showErrMsg(err)}
+              {success && showSuccessMsg(success)}
+              <form className="flex flex-col md:w-9/12 text-base items-center w-full space-y-4 lg:space-y-6">
                 <span className="w-full">
                   <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
                     <Mail />
                     <input
-                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none  form-control ${
-                        errors.email && "invalid"
-                      }`}
+                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none  form-control ${"invalid"}`}
                       type="email"
                       name="email"
                       placeholder="Email"
-                      {...register("email")}
-                      onKeyUp={() => {
-                        trigger("email");
-                      }}
+                      id="email"
+                      value={email}
+                      onChange={handleChangeInput}
                     />
                   </span>
-                  {errors.email && (
-                    <small className="text-pink-600">
-                      {errors.email.message}
-                    </small>
-                  )}
                 </span>{" "}
                 <button
+                  onClick={forgotPassword}
                   type="submit"
                   className="px-6 py-3 w-full bg-gradient-to-r from-primary to-gray-700 
                    font-bold rounded-xl text-grey-200 text-base lg:text-xl hover:bg-gradient-to-r hover:from-gray-700 hover:to-primary "

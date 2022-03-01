@@ -20,7 +20,7 @@ import DelPopup from "./../../../../components/DelPopup";
 import just_saying from "../../../../assets/reading_book.svg";
 import moment from "moment";
 
-import { ShareIcon } from "@heroicons/react/outline";
+import { ShareIcon, EyeIcon } from "@heroicons/react/outline";
 import ShareDialog from "./../../General-Imagines/Imagines/ShareDialog";
 import TextareaDialog from "../../../../components/Feedback/TextareaDialog";
 
@@ -36,8 +36,10 @@ const Card = ({
   avatar,
   appriciates,
   category,
-
+  views,
   audiovoice,
+  imaginetype,
+  maincontent,
 }) => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -83,7 +85,7 @@ const Card = ({
     const reportContent = {
       report: textareaValue,
     };
-    console.log(reportContent);
+
     setTextareaValue("");
     setReport(false);
     setEdit(false);
@@ -96,27 +98,27 @@ const Card = ({
 
   const navigate = useNavigate();
   const profileHandler = useCallback(() => {
-    user ? navigate(`/profile/${author}`) : handleClickOpen();
-  }, [navigate, author, user, handleClickOpen]);
+    auth.isLogged ? navigate(`/profile/${author}`) : handleClickOpen();
+  }, [navigate, author, auth.isLogged, handleClickOpen]);
 
   const appreciate = useCallback(() => {
-    dispatch(appriciateAction(id));
-  }, [dispatch, id]);
+    dispatch(appriciateAction(id, auth.token));
+  }, [dispatch, id, auth.token]);
 
   const clickLikeHandler = useCallback(() => {
-    user ? appreciate() : handleClickOpen();
-  }, [appreciate, user, handleClickOpen]);
+    auth.isLogged ? appreciate() : handleClickOpen();
+  }, [appreciate, auth.isLogged, handleClickOpen]);
 
   const imagineDeleteHandler = useCallback(() => {
-    dispatch(deleteImagineAction(id));
+    dispatch(deleteImagineAction(id, auth.token));
     handleDelClose();
     editClose();
-  }, [dispatch, id, handleDelClose, editClose]);
+  }, [dispatch, id, handleDelClose, editClose, auth.token]);
 
   const [edit, setEdit] = useState(false);
   const clickEdit = useCallback(() => {
-    user ? setEdit(true) : handleClickOpen();
-  }, [user, handleClickOpen]);
+    auth.isLogged ? setEdit(true) : handleClickOpen();
+  }, [auth.isLogged, handleClickOpen]);
 
   const [openShare, setOpenShare] = useState(false);
 
@@ -127,24 +129,33 @@ const Card = ({
   const handleCloseShare = useCallback(() => {
     setOpenShare(false);
   }, []);
-  console.log(avatar, "profile pic");
 
   return (
     <div
-      className={`${width} space-x-2 flex items-start justify-start rounded-lg shadow mb-3 border border-gray-100`}
+      className={`${width} space-x-2 flex items-center justify-start rounded-lg shadow mb-4 border border-gray-100 h-48`}
     >
-      <div className="w-2/5 h-full ">
-        <div className="text-sm font-medium hover:underline">
+      <div className="w-7/12 h-full hidden xs:block">
+        <div className="text-sm font-medium relative hover:underline">
+          {imaginetype === "mega" && (
+            <span class="inline-flex  items-center absolute justify-center px-2 py-1.5 text-sm font-extrabold shadow-yellow-400 leading-none text-white bg-teal-600 rounded">
+              Mega
+            </span>
+          )}
+          {/* {imaginetype === "nano" && (
+            <span class="inline-flex  items-center absolute justify-center px-2 py-1.5 text-sm font-extrabold shadow-yellow-400 leading-none text-white bg-teal-600 rounded">
+              Nano
+            </span>
+          )} */}
           <Link className="h-48" to={`/${id}`}>
             <img
               src={!introImage ? just_saying : introImage.secure_url}
               alt="pic"
-              className="h-48 w-full object-fill rounded-md "
+              className="h-48 w-full object-cover rounded-l-md "
             />
           </Link>
         </div>
       </div>
-      <div className="flex flex-col space-y-1 w-3/5 py-1">
+      <div className="flex flex-col space-y-1 w-full xs:w-5/12 py-1">
         {/*********************** three dots start ******************/}
 
         {/* {edit &&
@@ -200,12 +211,12 @@ const Card = ({
               </span>
             )} */}
         <span className="flex items-center justify-end pr-4 space-x-1">
-          {!edit && author === auth.userid && (
+          {!edit && author === auth.userDetails._id && (
             <>
               {/* {userid === auth.userid && ( */}
               <span>
                 <DotsHorizontalIcon
-                  className="h-5 w-5 cursor-pointer"
+                  className="lg:h-5 h-3 lg:w-5 w-3 cursor-pointer"
                   onClick={clickEdit}
                 />
               </span>
@@ -223,10 +234,10 @@ const Card = ({
                     onClick={editClose}
                     className="cursor-pointer font-bold"
                   >
-                    <XIcon className="h-5 w-5 text-pink-500" />
+                    <XIcon className="lg:h-5 h-3 lg:w-5 w-3 text-pink-500" />
                   </span>
                 </span>
-                {/* <div className="py-1">
+                <div className="py-1">
                   <div>
                     <Link
                       to={`/${id}/update`}
@@ -235,7 +246,7 @@ const Card = ({
                       Edit
                     </Link>
                   </div>
-                </div> */}
+                </div>
                 <div className="py-1">
                   <div
                     className="bg-gray-50 text-primary hover:bg-primary hover:text-white block px-4 py-2 font-bold"
@@ -249,48 +260,62 @@ const Card = ({
           )}
         </span>
         {/*********************** three dots end ******************/}
+
         <div className="flex items-start space-x-2 px-1.5">
-          <div className="flex flex-1 w-full">
-            <div onClick={profileHandler}>
+          <div className="flex flex-1">
+            <div className="w-8 rounded-full" onClick={profileHandler}>
               {" "}
               <img
                 src={avatar ? avatar : dp}
                 alt="dp"
-                className="w-10 xs:w-7 h-7 rounded-full object-cover border border-gray-300 cursor-pointer"
+                className=" w-7 h-7  rounded-full object-cover border border-gray-300 cursor-pointer"
               />
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col w-9/12">
               <span className="text-sm ml-2 font-bold  text-gray-500 truncate">
                 {username}
               </span>
-              <div className="text-xxs md:text-xs text-gray-500 mt-1 ml-2">
-                {moment(date).format(" MMMM Do YYYY, h:mm a")}
+              <div className="text-xxs md:text-xs text-gray-500 mt-1 ml-2 truncate">
+                {moment(date).format("DD-MM-YYYY")}
               </div>
             </div>
           </div>
         </div>
         <span className=" text-gray-500 ml-3 pt-2">
-          <Link to={`/${id}`} className="text-sm font-medium hover:underline">
-            <div className="text-base text-blackish font-semibold truncate">
-              {title}
-            </div>
+          {imaginetype !== "nano" ? (
+            <Link to={`/${id}`} className="text-sm font-medium hover:underline">
+              <div className="lg:text-base text-tiny text-blackish font-semibold truncate">
+                {title}
+              </div>
 
-            <div className="bg-cyan-700 w-1/2 rounded text-xs text-white flex justify-center mt-4 mb-2">
-              {category}
-            </div>
-          </Link>
+              <div className="bg-cyan-700 xsm:w-3/4 w-full truncate rounded text-xs text-white flex justify-center mt-4 mb-2">
+                {category}
+              </div>
+            </Link>
+          ) : (
+            <Link to={`/${id}`} className="text-sm font-medium hover:underline">
+              <div className="lg:text-base text-tiny text-blackish font-semibold truncate">
+                {maincontent}
+              </div>
+
+              <div className="bg-cyan-700 xsm:w-3/4 w-full truncate rounded text-xs text-white flex justify-center mt-4 mb-2">
+                {category}
+              </div>
+            </Link>
+          )}
         </span>
-        <span className="flex items-center justify-center bottom-0 sticky space-x-3 w-full lg:space-x-4 ml-3 pt-1">
+
+        <span className="flex lg:items-start items-center flex-wrap justify-around bottom-0 sticky space-x-1 xsm:space-x-2 sm:space-x-3 w-full lg:space-x-4 pb-3 px-1">
           <span>{audiovoice && <Sound audiovoice={audiovoice} />}</span>
-          <span className="flex items-center text-xs ">
+          <span className="flex items-center text-xxs ">
             <span className="cursor-pointer" onClick={clickLikeHandler}>
-              {appriciates.includes(auth.userid) ? (
-                <LightBulbIcon className="h-6 w-6 md:h-7 md:w-7 text-yellow-400" />
+              {appriciates.includes(auth.userDetails._id) ? (
+                <LightBulbIcon className="h-6 w-6 text-yellow-400 mt-1" />
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 md:h-7 md:w-7 text-gray-600"
+                  className="h-6 w-6 text-gray-600 mt-1"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -309,16 +334,29 @@ const Card = ({
           <span className="flex justify-center items-start flex-col text-xxs lg:text-tiny text-gray-300 lg:mt-1">
             <span className="flex items-center space-x-1 text-xs ">
               <span className="">
-                <AnnotationIcon className="h-5 w-5 text-gray-500" />
+                <AnnotationIcon className="h-4 w-4 md:h-5 md:w-5 text-gray-500" />
               </span>
               <span className="text-xs lg:text-sm italic ml-1 text-gray-700">
                 <i>{comments.length}</i>
               </span>
             </span>
           </span>
-          <span className="lg:pt-1" onClick={handleClickOpenShare}>
-            <ShareIcon className="h-6 w-6 cursor-pointer text-gray-600 pb-1 ml-2" />
+          <span className="flex justify-center items-start flex-col text-xxs lg:text-tiny text-gray-300 lg:mt-1">
+            <span className="flex items-center space-x-1 text-xs ">
+              <span className="">
+                <EyeIcon className="h-4 w-4 md:h-5 md:w-5 text-gray-500" />
+              </span>
+              <span className="text-xs lg:text-sm italic ml-1 text-gray-700">
+                <i>{views}</i>
+              </span>
+            </span>
           </span>
+          {/* <span
+            className="lg:pt-1 hidden xs:block"
+            onClick={handleClickOpenShare}
+          >
+            <ShareIcon className="h-5 w-5 cursor-pointer text-gray-600 pb-1 mt-1" />
+          </span> */}
           {/* <span className="cursor-pointer " onClick={clickBookmarkHandler}>
             {bookmark ? (
               <BookmarkIcon className="h-6 w-6 text-blue-800 pt-1" />
@@ -371,6 +409,7 @@ const Card = ({
             handleClose={handleCloseShare}
             title="Share this link"
             content={`https://circlevyos.com/${id}`}
+            // content={`http://localhost:3000/${id}`}
           />
         </span>
       </div>

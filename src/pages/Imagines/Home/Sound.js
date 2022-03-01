@@ -47,14 +47,14 @@ function Sound({ audiovoice }) {
   };*/
 
   return (
-    <div className="app-container">
-      <div className="flex justify-center items-center space-x-3">
+    <div className="">
+      <div className=" ">
         {isPlaying ? (
           <div className="flex space-x-2">
             <div onClick={play}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 md:h-6 md:w-6 cursor-pointer text-gray-500"
+                className="h-5 w-5 md:h-7 md:w-7cursor-pointer text-gray-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -71,7 +71,7 @@ function Sound({ audiovoice }) {
         ) : (
           <PlayIcon
             onClick={play}
-            className="h-6 w-6 md:h-7 md:w-7 text-primary cursor-pointer"
+            className="h-5 w-5 md:h-7 md:w-7 text-primary cursor-pointer"
           />
         )}
       </div>

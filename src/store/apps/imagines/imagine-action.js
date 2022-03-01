@@ -1,22 +1,24 @@
 import { UiSliceAction } from "../ui/uiSlice";
 import { imagineSliceAction } from "./imagine-slice";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 // post imagine
 export const generalImagineCreateAction =
-  (GeneralImagineBody) => async (dispatch) => {
-    console.log(GeneralImagineBody);
+  (GeneralImagineBody, token) => async (dispatch) => {
     const GeneralImagineCreate = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/imagineCreate`,
+        // `api/v1/imagineCreate`,
         // "http://localhost:3699/api/imagines",
         {
           credentials: "include",
           method: "POST",
           mode: "cors",
-          // headers: {
-          //   "Content-Type": "form-data",
-          // },
+
+          headers: {
+            Authorization: token,
+          },
           body: GeneralImagineBody,
         }
       );
@@ -29,12 +31,17 @@ export const generalImagineCreateAction =
     };
 
     try {
-      // dispatch(
-      //   UiSliceAction.loading({
-      //     isLoading: true,
-      //   })
-      // );
+      dispatch(
+        imagineSliceAction.uploading({
+          isUploading: true,
+        })
+      );
       await GeneralImagineCreate();
+      dispatch(
+        imagineSliceAction.uploading({
+          isUploading: false,
+        })
+      );
       toast.success("posted successfully");
       dispatch(
         imagineSliceAction.createPost({
@@ -60,65 +67,72 @@ export const generalImagineCreateAction =
   };
 
 // get all imagine
-export const generalImagineFetchAction = (skipCount) => async (dispatch) => {
-  const generalImagineFetch = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/imagines?skipCount=${skipCount}`,
-      // "http://localhost:3699/api/imagines",
-      {
-        credentials: "include",
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
+export const generalImagineFetchAction =
+  (skipCount, token) => async (dispatch) => {
+    const generalImagineFetch = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagines?skipCount=${skipCount}`,
+        // "http://localhost:3699/api/imagines",
+        {
+          // credentials: "include",
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw Error("Error occured in class create");
       }
-    );
 
-    if (!response.ok) {
-      throw Error("Error occured in class create");
+      const data = await response.json();
+
+      return data;
+    };
+
+    try {
+      // dispatch(
+      //   UiSliceAction.loading({
+      //     isLoading: true,
+      //   })
+      // );
+
+      const gImagines = await generalImagineFetch();
+
+      dispatch(
+        imagineSliceAction.getImagine({
+          generalImagines: gImagines.imaginesArray,
+        })
+      );
+    } catch (err) {
+      console.log(err);
+
+      dispatch(
+        UiSliceAction.ErrorMessage({
+          errorMessage: err.message,
+        })
+      );
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
+    } finally {
+      dispatch(
+        UiSliceAction.loading({
+          isLoading: false,
+        })
+      );
     }
-
-    const data = await response.json();
-    console.log(data, "imagines");
-    return data;
   };
 
-  try {
-    // dispatch(
-    //   UiSliceAction.loading({
-    //     isLoading: true,
-    //   })
-    // );
-
-    const gImagines = await generalImagineFetch();
-    console.log(gImagines.imaginesArray);
-
-    dispatch(
-      imagineSliceAction.getImagine({
-        generalImagines: gImagines.imaginesArray,
-      })
-    );
-  } catch (err) {
-    console.log(err);
-    toast.error(err.message);
-    dispatch(
-      UiSliceAction.ErrorMessage({
-        errorMessage: err.message,
-      })
-    );
-  } finally {
-    dispatch(
-      UiSliceAction.loading({
-        isLoading: false,
-      })
-    );
-  }
-};
-
+// ************************** TODO: ADD token
 // get imagine
 export const generalImagineSingleFetchAction =
-  (imagineId) => async (dispatch) => {
+  (imagineId, token) => async (dispatch) => {
     console.log("calling single imagine id", imagineId);
 
     const generalImagineSingleFetch = async () => {
@@ -131,6 +145,7 @@ export const generalImagineSingleFetchAction =
           mode: "cors",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -158,7 +173,6 @@ export const generalImagineSingleFetchAction =
         })
       );
     } catch (err) {
-      toast.error(err.message);
       console.log(err);
       dispatch(
         UiSliceAction.ErrorMessage({
@@ -175,61 +189,61 @@ export const generalImagineSingleFetchAction =
   };
 
 // get alternate imagine
-export const generalImagineAlternateSingleFetchAction =
-  (imagineId) => async (dispatch) => {
-    console.log("calling single imagine id", imagineId);
+// export const generalImagineAlternateSingleFetchAction =
+//   (imagineId) => async (dispatch) => {
+//     console.log("calling single imagine id", imagineId);
 
-    const generalImagineAlternateSingleFetch = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
-        // `http://localhost:3699/api/imagines/${imagineId}`,
-        {
-          credentials: "include",
-          method: "GET",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+/**     const generalImagineAlternateSingleFetch = async () => {
+//       const response = await fetch(
+//         `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
+//         // `http://localhost:3699/api/imagines/${imagineId}`,
+//         {
+//           credentials: "include",
+//           method: "GET",
+//           mode: "cors",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
 
-      if (!response.ok) {
-        throw Error("Error occured in class create");
-      }
+//       if (!response.ok) {
+//         throw Error("Error occured in class create");
+//       }
 
-      const data = await response.json();
-      return data;
-    };
+//       const data = await response.json();
+//       return data;
+//     };
 
-    try {
-      const gImagine = await generalImagineAlternateSingleFetch();
-      //console.log(gImagine);
+//     try {
+//       const gImagine = await generalImagineAlternateSingleFetch();
+//       //console.log(gImagine);
 
-      dispatch(
-        imagineSliceAction.getSingleImagine({
-          singleImagine: gImagine,
-        })
-      );
-    } catch (err) {
-      toast.error(err.message);
-      console.log(err);
-      dispatch(
-        UiSliceAction.ErrorMessage({
-          errorMessage: err.message,
-        })
-      );
-    } finally {
-      dispatch(
-        UiSliceAction.loading({
-          isLoading: false,
-        })
-      );
-    }
-  };
+//       dispatch(
+//         imagineSliceAction.getSingleImagine({
+//           singleImagine: gImagine,
+//         })
+//       );
+//     } catch (err) {
+//       toast.error(err.message);
+//       console.log(err);
+//       dispatch(
+//         UiSliceAction.ErrorMessage({
+//           errorMessage: err.message,
+//         })
+//       );
+//     } finally {
+//       dispatch(
+//         UiSliceAction.loading({
+//           isLoading: false,
+//         })
+//       );
+//     }
+//   };*/
 
 // delete imagine
 
-export const deleteImagineAction = (imagineId) => async (dispatch) => {
+export const deleteImagineAction = (imagineId, token) => async (dispatch) => {
   const deleteImagine = async () => {
     const response = await fetch(
       `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}`,
@@ -240,6 +254,7 @@ export const deleteImagineAction = (imagineId) => async (dispatch) => {
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
       }
     );
@@ -274,7 +289,7 @@ export const deleteImagineAction = (imagineId) => async (dispatch) => {
 
 // update imagine
 export const generalImagineUpdateAction =
-  (GeneralImagineBody, imagineId) => async (dispatch) => {
+  (GeneralImagineBody, imagineId, token) => async (dispatch) => {
     console.log(GeneralImagineBody);
     const GeneralImagineUpdate = async () => {
       const response = await fetch(
@@ -284,9 +299,10 @@ export const generalImagineUpdateAction =
           credentials: "include",
           method: "PATCH",
           mode: "cors",
-          // headers: {
-          //   "Content-Type": "form-data",
-          // },
+          headers: {
+            // "Content-Type": "form-data",
+            Authorization: token,
+          },
           body: GeneralImagineBody,
         }
       );
@@ -326,7 +342,7 @@ export const generalImagineUpdateAction =
 
 // post comment
 export const commentCreateAction =
-  (commentBody, imagineId) => async (dispatch) => {
+  (commentBody, imagineId, token) => async (dispatch) => {
     console.log(imagineId);
     // const auth = useSelector((state) => state.auth);
     console.log(commentBody);
@@ -340,6 +356,7 @@ export const commentCreateAction =
           mode: "cors",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
           body: JSON.stringify(commentBody),
         }
@@ -379,7 +396,7 @@ export const commentCreateAction =
   };
 
 // get comments
-export const commentFetchAction = (imagineId) => async (dispatch) => {
+export const commentFetchAction = (imagineId, token) => async (dispatch) => {
   console.log(imagineId, "comment fetch");
   const commentFetch = async () => {
     const response = await fetch(
@@ -391,6 +408,7 @@ export const commentFetchAction = (imagineId) => async (dispatch) => {
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
       }
     );
@@ -418,9 +436,8 @@ export const commentFetchAction = (imagineId) => async (dispatch) => {
       })
     );
   } catch (err) {
-    toast.error(err.message);
     console.log(err);
-    toast.error(err.message);
+
     dispatch(
       UiSliceAction.ErrorMessage({
         errorMessage: err.message,
@@ -436,7 +453,7 @@ export const commentFetchAction = (imagineId) => async (dispatch) => {
 };
 
 // appriciate
-export const appriciateAction = (imagineId) => async (dispatch) => {
+export const appriciateAction = (imagineId, token) => async (dispatch) => {
   console.log(imagineId);
   // const auth = useSelector((state) => state.auth);
 
@@ -450,6 +467,7 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
       }
     );
@@ -466,7 +484,6 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
   try {
     await appriciate();
   } catch (e) {
-    toast.error(e.message);
     dispatch(
       UiSliceAction.ErrorMessage({
         errorMessage: e.message,
@@ -484,7 +501,7 @@ export const appriciateAction = (imagineId) => async (dispatch) => {
 };
 
 // appriciate List
-export const appriciateListAction = (imagineId) => {
+export const appriciateListAction = (imagineId, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const appriciateList = async () => {
@@ -497,6 +514,7 @@ export const appriciateListAction = (imagineId) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -527,7 +545,7 @@ export const appriciateListAction = (imagineId) => {
 };
 
 // appriciate id List
-export const appriciateIdListAction = (imagineId) => {
+export const appriciateIdListAction = (imagineId, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const appriciateIdList = async () => {
@@ -539,6 +557,7 @@ export const appriciateIdListAction = (imagineId) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
         }
       );
@@ -569,7 +588,7 @@ export const appriciateIdListAction = (imagineId) => {
 };
 
 // save
-export const saveImagineAction = (imagineId) => async (dispatch) => {
+export const saveImagineAction = (imagineId, token) => async (dispatch) => {
   console.log(imagineId);
   // const auth = useSelector((state) => state.auth);
 
@@ -583,12 +602,12 @@ export const saveImagineAction = (imagineId) => async (dispatch) => {
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
       }
     );
 
     if (!response.ok) {
-      toast.error("something went wrong");
       throw Error("Error occured in imagine appriciate");
     }
   };

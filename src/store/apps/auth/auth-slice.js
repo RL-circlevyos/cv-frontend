@@ -2,16 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialAuthState = {
   token: "",
-  isLoggedin: false,
+  isLoggedin: false, // TODO:needs to be deleted
   userid: "",
   username: "",
   email: "",
   password: "",
   userDetails: {},
   myDetails: {},
+  accountDetails: {},
+  accountImagines: [],
+  accountId: "",
   userImagines: [],
   following: [],
   isinitiate: false,
+  isLogged: false,
+  errMsg: "",
+  successMsg: "",
 };
 
 const authSlice = createSlice({
@@ -19,8 +25,7 @@ const authSlice = createSlice({
   initialState: initialAuthState,
   reducers: {
     getInfo(state, action) {
-      state.userid = action.payload.userid;
-      state.token = action.payload.token;
+      state.userDetails = action.payload.userDetails;
     },
     logout: (state) => {
       state.isLoggedin = false;
@@ -31,6 +36,15 @@ const authSlice = createSlice({
     myDetails(state, action) {
       state.myDetails = action.payload.myDetails;
     },
+    getAccountId(state, action) {
+      state.accountId = action.payload.accountId;
+    },
+    getAccountDetails(state, action) {
+      state.accountDetails = action.payload.accountDetails;
+    },
+    getAccountImagines(state, action) {
+      state.accountImagines = action.payload.accountImagines;
+    },
     getImagines(state, action) {
       state.userImagines = action.payload.userImagines;
     },
@@ -39,6 +53,18 @@ const authSlice = createSlice({
     },
     followingList(state, action) {
       state.following = action.payload.following;
+    },
+
+    // ****** new add **********
+    login(state, action) {
+      state.isLogged = true;
+    },
+    getTokenAdd(state, action) {
+      state.token = action.payload.token;
+    },
+    getMessage(state, action) {
+      state.errMsg = action.payload.errMsg;
+      state.successMsg = action.payload.successMsg;
     },
   },
 });

@@ -20,8 +20,8 @@ const Header = () => {
 
   const navigate = useNavigate();
   const profileHandler = useCallback(() => {
-    user ? navigate(`/profile/${author}`) : handleClickOpen();
-  }, [navigate, author, user, handleClickOpen]);
+    auth.isLogged ? navigate(`/profile/${author}`) : handleClickOpen();
+  }, [navigate, author, auth.isLogged, handleClickOpen]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -36,12 +36,13 @@ const Header = () => {
 const clickFollowHandler = useCallback(() => {
     user ? setFollow(!follow) : handleClickOpen();
   }, [follow, handleClickOpen, user]);*/
-  // console.log(singleImagine.singleImagine.user._id);
+
   return (
     <>
       <CardUtilityThreeDots
         author={singleImagine?.singleImagine?.user?._id}
         imagineId={singleImagine?.singleImagine?._id}
+        imagineNano={singleImagine?.singleImagine?.imaginetype}
         singlePage={true}
       />
       <div className=" flex justify-between items-center px-3 font-Mulish">
@@ -94,6 +95,7 @@ const clickFollowHandler = useCallback(() => {
                   imagine.singleImagine?.singleImagine?.audiovoice?.secure_url
                 }
                 controls
+                controlsList="nodownload"
               />
             )}
           </div>

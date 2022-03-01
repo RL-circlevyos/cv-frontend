@@ -11,6 +11,9 @@ import {
 import { useSelector } from "react-redux";
 import AlertDialogSlide from "./../../../components/Dialog";
 import Prizes from "./Prizes/Prizes";
+import MenuPopupState from "../../../components/Menu";
+import PositionedMenu from "../../../components/Menu";
+import DropdownImagine from "../General-Imagines/Create/Dropdown";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -27,10 +30,6 @@ const Sidebar = () => {
   const auth = useSelector((state) => state.auth);
 
   const user = auth.userid;
-
-  const crImagine = useCallback(() => {
-    user ? navigate("/create-imagine") : handleClickOpen();
-  }, [user, navigate, handleClickOpen]);
 
   /**  const crStory = useCallback(() => {
      user ? navigate("/series/start") : handleClickOpen();
@@ -99,15 +98,9 @@ const Sidebar = () => {
                   <PaperClipIcon className="w-6 h-6 mr-2" /> My Imagines
                 </span>
               </Link> */}
-              <div className="pt-2">
-                <button
-                  onClick={crImagine}
-                  to="/create-general-imagine"
-                  className="block py-2 px-10 w-full font-bold mt-1 rounded-2xl transition duration-200 bg-primary 
-                  text-gray-100 focus:bg-cyan-900 dark:hover:bg-cyan-900 hover:bg-teal-800 hover:text-gray-100"
-                >
-                  <div className=" text-center">Create Imagine</div>
-                </button>
+              <div className="pt-2"></div>
+              <div>
+                <DropdownImagine />
               </div>
               {/* <div className="pt-4">
                 <button
@@ -120,16 +113,8 @@ const Sidebar = () => {
               </div> */}
             </>
           </nav>
-          <Prizes />
+          {/* <Prizes /> */}
         </div>
-        <AlertDialogSlide
-          open={open}
-          handleClose={handleClose}
-          title="Login to Circlevyos"
-          content="To get your own access on different contents you should signin first"
-          link="/login"
-          show={true}
-        />
       </div>
     </>
   );

@@ -20,18 +20,18 @@ const Card = ({ title, introImage, username, author, content, id }) => {
 
   const [bookmark, setBookmark] = useState(false);
   const clickBookmarkHandler = useCallback(() => {
-    user ? setBookmark(!bookmark) : setOpenModal(true);
-  }, [user, bookmark]);
+    auth.isLogged ? setBookmark(!bookmark) : setOpenModal(true);
+  }, [auth.isLogged, bookmark]);
 
   const [like, setLike] = useState(false);
   const clickLikeHandler = useCallback(() => {
-    user ? setLike(!like) : setOpenModal(true);
-  }, [like, user]);
+    auth.isLogged ? setLike(!like) : setOpenModal(true);
+  }, [like, auth.isLogged]);
 
   const [edit, setEdit] = useState(false);
   const clickEdit = useCallback(() => {
-    user ? setEdit(true) : setOpenModal(true);
-  }, [user]);
+    auth.isLogged ? setEdit(true) : setOpenModal(true);
+  }, [auth.isLogged]);
 
   const editClose = () => {
     setEdit(false);

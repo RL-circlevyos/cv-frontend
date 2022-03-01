@@ -2,15 +2,18 @@ import React from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 
 import Navbar from "../../../../components/Navbar";
-
+import LinearProgress from "@mui/material/LinearProgress";
 import List from "./List";
 import Sidebar from "../Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Info from "../Info";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 const ImagineList = () => {
+  const isUploading = useSelector((state) => state.imagine.isUploading);
   return (
     <div className="h-screen w-full font-Mulish fixed">
       <Navbar />
@@ -29,14 +32,22 @@ const ImagineList = () => {
                 />
               )} 
 
-              <Progress amount="%" value={10} max={100} />*/}
-
+              // <Progress amount="%" value={10} max={100} />*/}
+              {isUploading && (
+                <span className="text-lg text-primary block mt-4 mb-4 w-full">
+                  {" "}
+                  <LinearProgress color="success" />
+                  <span className="text-base leading-relaxed italic font-semibold flex justify-center items-center">
+                    Uploading...
+                  </span>
+                </span>
+              )}
               <Scrollbars
                 thumbSize={1}
                 autoHide
                 style={{ width: "100%", height: "92vh" }}
               >
-                <div className=" md:hidden bg-primary text-white py-2 w-full flex justify-center items-start px-2 rounded-md">
+                {/* <div className=" md:hidden bg-primary text-white py-2 w-full flex justify-center items-start px-2 rounded-md">
                   <div className="font-bold text-base md:text-lg px-3">
                     Early Bird Registration...
                   </div>
@@ -46,7 +57,7 @@ const ImagineList = () => {
                   >
                     Click to know more
                   </Link>
-                </div>
+                </div> */}
                 <div className="w-full flex justify-center px-2 lg:0 items-center md:mt-5 mt-3">
                   <List />
                 </div>
@@ -79,7 +90,14 @@ const ImagineList = () => {
             </Scrollbars> */}
           </div>
         </div>
-        <ToastContainer autoClose={3000} />
+        <Helmet>
+          <title> circlevyos</title>
+          <meta
+            name="description"
+            content="a social media platform for creative minds dedicated to readers, writers, painters, singers, voice artists and sound creators"
+          />
+        </Helmet>
+        <ToastContainer autoClose={2000} />
       </div>
     </div>
   );

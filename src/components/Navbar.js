@@ -1,26 +1,20 @@
 import React, { useCallback, useState } from "react";
-import { Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import logo from "../assets/circlevyos.svg";
 /***import useDarkMode from "./../hooks/useDarkMode";*/
 import { Feather, Power } from "react-feather";
+
+import { ChevronDownIcon } from "@heroicons/react/solid";
 import dp from "../assets/person.png";
 import {
-  //BellIcon,
   BriefcaseIcon,
   CogIcon,
-  // ChevronDoubleUpIcon,
-  // CogIcon,
-  // CurrencyRupeeIcon,
   HeartIcon,
-
-  // HomeIcon,
-  // MoonIcon,
-  // PencilAltIcon,
-  // PresentationChartLineIcon,
-  // SunIcon,
   UserCircleIcon,
   PlusIcon,
   CheckCircleIcon,
+  PencilIcon,
+  PencilAltIcon,
   MenuAlt2Icon,
   XIcon,
 } from "@heroicons/react/solid";
@@ -32,13 +26,15 @@ import DelPopup from "./DelPopup";
 import { logoutAction } from "../store/apps/auth/auth-action";
 import TextareaDialog from "./Feedback/TextareaDialog";
 import { DocumentTextIcon, ShieldCheckIcon } from "@heroicons/react/outline";
+import { Fragment } from "react";
+import axios from "axios";
 
 function Navbar() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
   const auth = useSelector((state) => state.auth);
   /**const [openModal, setOpenModal] = useState(false);**/
-  const user = auth.userid;
 
   /***const [colorTheme, setTheme] = useDarkMode();*/
 
@@ -47,9 +43,14 @@ function Navbar() {
   const handleClickOpen = useCallback(() => {
     setOpen(true);
   }, []);
-
+  const handleClickCreateOpen = useCallback(() => {
+    setIsCreateOpen(true);
+  }, []);
   const handleClose = useCallback(() => {
     setOpen(false);
+  }, []);
+  const handleCreateClose = useCallback(() => {
+    setIsCreateOpen(false);
   }, []);
 
   const [del, setDel] = useState(false);
@@ -61,9 +62,10 @@ function Navbar() {
   const handleDelClose = useCallback(() => {
     setDel(false);
   }, []);
+
   const crImagine = useCallback(() => {
-    user ? navigate("/create-imagine") : handleClickOpen();
-  }, [user, handleClickOpen, navigate]);
+    auth.isLogged ? navigate("/create-imagine") : handleClickOpen();
+  }, [auth.isLogged, handleClickOpen, navigate]);
 
   /******* feedback states *****/
   const [feedback, setFeedback] = useState(false);
@@ -84,6 +86,17 @@ function Navbar() {
     setFeedback(false);
     setIsOpen(false);
   };
+
+  const handleLogout = async () => {
+    try {
+      await axios.get("api/v1/logout");
+      localStorage.removeItem("firstlogin");
+      window.location.href = "/login";
+    } catch (err) {
+      window.location.href = "/login";
+    }
+  };
+
   /******* feedback states end*****/
 
   return (
@@ -95,7 +108,10 @@ function Navbar() {
               {/**********************************mobile view name start *******************************/}
               <div className="-mr-2 flex justify-center items-center gap-x-8 md:hidden">
                 <button
-                  onClick={() => setIsOpen(!isOpen)}
+                  onClick={() => {
+                    setIsOpen(!isOpen);
+                    setIsCreateOpen(false);
+                  }}
                   type="button"
                   className=" inline-flex items-center justify-center p-2 rounded-md text-cyan-800 hover:text-teal-800
                   focus:outline-none"
@@ -156,7 +172,7 @@ function Navbar() {
                 </div>
               </div>
               <div className="hidden space-x-2 items-baseline justify-end md:flex">
-                {user ? (
+                {auth.isLogged ? (
                   <Example />
                 ) : (
                   <>
@@ -182,20 +198,47 @@ function Navbar() {
             </div>
             {/**********************************mobile view options *******************************/}
             <div className="mx-2 flex justify-center items-center gap-x-1 md:hidden">
-              <div
+              {/* <div
                 onClick={crImagine}
                 className="flex-shrink-0 bg-cyan-700 text-white py-1 px-1.5 rounded-full shadow flex font-bold text-tiny mr-2"
               >
                 <PlusIcon className="h-6 w-5" />
+              </div> */}
+
+              <div className="-mr-2 flex justify-center items-center gap-x-8 md:hidden">
+                <button
+                  onClick={() => {
+                    setIsCreateOpen(!isCreateOpen);
+                    setIsOpen(false);
+                  }}
+                  type="button"
+                  className=" inline-flex items-center justify-center p-2 rounded-md text-cyan-800 hover:text-teal-800
+                  focus:outline-none"
+                  aria-controls="mobile-menu"
+                  aria-expanded="false"
+                >
+                  <span className="sr-only">Open main menu</span>
+                  {!isCreateOpen ? (
+                    <div
+                      // onClick={crImagine}
+                      className="flex-shrink-0 bg-cyan-700 text-white py-1 px-1.5 rounded-full shadow flex font-bold text-tiny mr-2"
+                    >
+                      <PlusIcon className="h-6 w-5" />
+                    </div>
+                  ) : (
+                    <XIcon className="w-6 h-6" />
+                  )}
+                </button>
               </div>
-              {user && (
+
+              {auth.isLogged && (
                 <Link
-                  to={user && `/profile/${user}`}
+                  to={auth.isLogged && `/profile/${auth?.userDetails?._id}`}
                   className="flex-shrink-0 py-1 px-1.5 rounded-full flex"
                 >
                   <img
                     src={
-                      user === auth?.userDetails?._id &&
+                      auth?.userDetails?._id &&
                       auth?.userDetails?.photo?.secure_url
                         ? auth?.userDetails?.photo?.secure_url
                         : dp
@@ -209,6 +252,70 @@ function Navbar() {
           </div>
         </div>
         {/**********************************mobile view menu *******************************/}
+        {/* test  */}
+        <Transition
+          show={isCreateOpen}
+          enter="transition ease-out duration-300 transform"
+          enterFrom="opacity-0 scale-95"
+          enterTo="opacity-100 scale-100"
+          leave="transition ease-in duration-150 transform"
+          leaveFrom="opacity-100 scale-100"
+          leaveTo="opacity-0 scale-95"
+        >
+          {(ref) => (
+            <div className="md:hidden text-teal-700 " id="mobile-menu">
+              <div
+                ref={ref}
+                className=" px-2 pt-2 pb-3 space-y-1 sm:px-3 uppercase"
+              >
+                {!auth.isLogged ? (
+                  <div>
+                    <Link
+                      to="/login"
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <b className="sm:hidden block text-xs">
+                        Login first, then you can create post{" "}
+                      </b>
+                    </Link>{" "}
+                  </div>
+                ) : (
+                  <>
+                    <b className="sm:hidden block text-center text-base font-bold">
+                      Create Imagines
+                    </b>
+                    <hr />
+                    <NavLink
+                      to={auth.isLogged && `/create-shorts`}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                          : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                      }
+                    >
+                      <PencilIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">Nano</b>
+                    </NavLink>{" "}
+                    <hr />
+                    <NavLink
+                      to={auth.isLogged && `/create-imagine`}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                          : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                      }
+                    >
+                      <PencilAltIcon className="h-6 w-6" />
+                      <b className="sm:hidden block text-xs">Mega</b>
+                    </NavLink>{" "}
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+        </Transition>
+
+        {/* test  */}
         <Transition
           show={isOpen}
           enter="transition ease-out duration-300 transform"
@@ -268,7 +375,7 @@ function Navbar() {
                   <b className="sm:hidden block text-xs">marketplace</b>
                 </NavLink>{" "}
                 <hr />
-                {!user ? (
+                {!auth.isLogged ? (
                   <div>
                     <Link
                       to="/login"
@@ -289,7 +396,7 @@ function Navbar() {
                 ) : (
                   <>
                     <NavLink
-                      to={user && `/profile/${user}`}
+                      to={auth.isLogged && `/profile/${auth?.userDetails?._id}`}
                       className={({ isActive }) =>
                         isActive
                           ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
@@ -301,7 +408,9 @@ function Navbar() {
                     </NavLink>{" "}
                     <hr />
                     <NavLink
-                      to={user && `/settings/${user}`}
+                      to={
+                        auth.isLogged && `/settings/${auth?.userDetails?._id}`
+                      }
                       className={({ isActive }) =>
                         isActive
                           ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
@@ -334,8 +443,15 @@ function Navbar() {
                       <b className="sm:hidden block text-xs">Feedback</b>
                     </div>{" "}
                     <hr />
-                    <div
+                    {/* <div
                       onClick={logout}
+                      className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
+                    >
+                      <Power />
+                      <b className="sm:hidden block text-xs">logout</b>
+                    </div> */}
+                    <div
+                      onClick={handleLogout}
                       className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                     >
                       <Power />
@@ -364,7 +480,8 @@ function Navbar() {
         show={true}
         onClick={() => {
           dispatch(logoutAction());
-          navigate("/login");
+          localStorage.removeItem("firstlogin");
+          // navigate("/login");
         }}
       />
       <TextareaDialog

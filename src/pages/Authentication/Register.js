@@ -9,55 +9,82 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { signUpWithNameEmailAndPassword } from "../../store/apps/auth/auth-action";
 import { ToastContainer } from "react-toastify";
+import {
+  isEmail,
+  isEmpty,
+  isLength,
+  isMatch,
+} from "../../utility/validation/Validation";
+import {
+  showErrMsg,
+  showSuccessMsg,
+} from "../../utility/notification/Notification";
+import axios from "axios";
 
-const validationSchema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-
-  email: yup
-    .string()
-    .required("Email is required")
-    .matches(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      "Invalid Email"
-    ),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters")
-    .max(26, "Password must not exceed 26 characters"),
-  // .matches("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}))
-
-  // phone: yup
-  //   .string()
-  //   .required("Phone number is required")
-  //   .matches(phoneRegExp, "Phone number is not valid"),
-
-  acceptTerms: yup.bool().oneOf([true], "Accept Ts & Cs is required"),
-});
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+  cf_password: "",
+  err: "",
+  success: "",
+};
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    trigger,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
 
-  const onSubmit = useCallback(
-    (data) => {
-      console.log(data);
-      dispatch(signUpWithNameEmailAndPassword(data));
-      reset();
-      navigate("/");
-    },
-    [reset, dispatch, navigate]
-  );
-  /**  console.log(errors);*/
+  const [user, setUser] = useState(initialState);
+
+  const { name, email, password, cf_password, err, success } = user;
+
+  const handlChangeInput = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value, err: "", success: "" });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (isEmpty(name) || isEmpty(password))
+      return setUser({
+        ...user,
+        err: "Please fill in all fields.",
+        success: "",
+      });
+
+    if (!isEmail(email))
+      return setUser({ ...user, err: "Invalid emails.", success: "" });
+
+    if (isLength(password))
+      return setUser({
+        ...user,
+        err: "Password must be at least 6 characters.",
+        success: "",
+      });
+
+    if (!isMatch(password, cf_password))
+      return setUser({ ...user, err: "Password did not match.", success: "" });
+
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/signup`,
+        {
+          name,
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      setUser({ ...user, err: "", success: res.data.msg });
+    } catch (err) {
+      err.response.data.msg &&
+        setUser({ ...user, err: err.response.data.msg, success: "" });
+    }
+  };
 
   const [passwordShown, setPasswordShown] = useState(false);
   const view = () => {
@@ -106,84 +133,53 @@ const Register = () => {
               <span className="text-2xl font-bold md:text-4xl tracking-normal pb-10">
                 Registration
               </span>
+              {err && showErrMsg(err)}
+              {success && showSuccessMsg(success)}
+
               <form
                 className="flex flex-col md:w-9/12 text-base items-center w-full space-y-4 lg:space-y-6"
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit}
               >
                 <span className="w-full ">
-                  {/**  <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
-                    {" "}
-                    <PhoneCall />
-                    <input
-                      type="text"
-                      placeholder="Phone number"
-                      maxLength="10"
-                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none  form-control ${
-                        errors.phone && "invalid"
-                      }`}
-                      {...register("phone")}
-                      onKeyUp={() => {
-                        trigger("phone");
-                      }}
-                    />
-                  </span> */}
                   <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
                     {" "}
                     <UserIcon className="h-6 w-6" />
                     <input
                       type="text"
                       placeholder="User Name"
-                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none  form-control ${
-                        errors.name && "invalid"
-                      }`}
-                      {...register("name")}
-                      onKeyUp={() => {
-                        trigger("name");
-                      }}
+                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none  form-control ${"invalid"}`}
+                      id="name"
+                      value={name}
+                      name="name"
+                      onChange={handlChangeInput}
                     />
                   </span>
-                  {errors.name && (
-                    <small className="text-pink-600">
-                      {errors.name.message}
-                    </small>
-                  )}
                 </span>
                 <span className="w-full">
                   <span className="w-full flex items-center border rounded-xl px-4 py-2 hover:border-primary border-gray-300 bg-white ">
                     <Mail />
                     <input
-                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none  form-control ${
-                        errors.email && "invalid"
-                      }`}
+                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none  form-control ${"invalid"}`}
                       type="email"
                       name="email"
                       placeholder="Email"
-                      {...register("email")}
-                      onKeyUp={() => {
-                        trigger("email");
-                      }}
+                      id="email"
+                      value={email}
+                      onChange={handlChangeInput}
                     />
                   </span>
-                  {errors.email && (
-                    <small className="text-pink-600">
-                      {errors.email.message}
-                    </small>
-                  )}
                 </span>{" "}
-                <span className="w-full pb-3 md:pb-8">
+                <span className="w-full pb-3 pt-3 md:pb-8 ">
                   <span className="w-full flex items-center border rounded-xl px-4 py-2 border-gray-300 hover:border-primary bg-white">
                     <Key />
                     <input
-                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none form-control ${
-                        errors.password && "invalid"
-                      }`}
+                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none form-control ${"invalid"}`}
                       type={passwordShown ? "text" : "password"}
                       name="password"
                       placeholder="Password"
-                      {...register("password")}
-                      onKeyUp={() => {
-                        trigger("password");
-                      }}
+                      id="password"
+                      value={password}
+                      onChange={handlChangeInput}
                     />
                     {passwordShown ? (
                       <EyeIcon
@@ -197,11 +193,29 @@ const Register = () => {
                       />
                     )}
                   </span>
-                  {errors.password && (
-                    <small className="text-pink-600">
-                      {errors.password.message}
-                    </small>
-                  )}
+                  <span className="w-full flex items-center border rounded-xl px-4 py-2 mt-3 border-gray-300 hover:border-primary bg-white">
+                    <Key />
+                    <input
+                      className={`font-medium w-full px-4 ml-2 py-2 focus:outline-none form-control ${"invalid"}`}
+                      type={passwordShown ? "text" : "password"}
+                      name="cf_password"
+                      placeholder="confirm password"
+                      id="cf_password"
+                      value={cf_password}
+                      onChange={handlChangeInput}
+                    />
+                    {passwordShown ? (
+                      <EyeIcon
+                        onClick={view}
+                        className="h-7 w-7 cursor-pointer"
+                      />
+                    ) : (
+                      <EyeOffIcon
+                        onClick={view}
+                        className="h-7 w-7 cursor-pointer"
+                      />
+                    )}
+                  </span>
                 </span>
                 <div className="flex items-center justify-between w-full">
                   {" "}
@@ -210,11 +224,7 @@ const Register = () => {
                       <input
                         name="acceptTerms"
                         type="checkbox"
-                        {...register("acceptTerms")}
                         id="acceptTerms"
-                        className={`form-check-input ${
-                          errors.acceptTerms ? "is-invalid" : ""
-                        }`}
                       />
                       <label
                         htmlFor="acceptTerms"
@@ -223,9 +233,6 @@ const Register = () => {
                         Accept Terms & Conditions
                       </label>
                     </div>
-                    <small className="text-pink-600">
-                      {errors.acceptTerms?.message}
-                    </small>
                   </div>
                   <Link
                     to="/cv/termsandcondition"

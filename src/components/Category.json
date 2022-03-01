@@ -1,41 +1,41 @@
 
 [
   {
-    "name": "Science",
+    "name": "Creativity",
     "id": 1    },
   {
-    "name": "Technology",
+    "name": "Thoughts",
     "id": 2    },
     {
-      "name": "Code",
+      "name": "Fiction",
       "id": 3    },
   {
     "name": "Life Events",
     "id": 4   },
     {
-      "name": "Thoughts",
+      "name": "Celebration",
       "id": 5   },
   {
-    "name": "Fiction",
+    "name": "Music",
     "id": 6    },
   {
-    "name": "Business",
+    "name": "Entertainment",
     "id": 7   },
   {
     "name": "Food",
     "id": 8   },
   {
-    "name": "Entertainment",
+    "name": "Business",
     "id": 9   },
   {
-    "name": "Music",
+    "name": "Code",
     "id": 10   },
   {
-    "name": "Mystery",
+    "name": "Technology",
     "id": 11   },
 
   {
-    "name": "Thriller",
+    "name": "Mystery",
     "id": 12
   },
   {
@@ -53,6 +53,13 @@
   {
     "name": "Fantasy",
     "id": 16
+  },
+  {
+    "name": "Science",
+    "id": 17
+  }, {
+    "name": "Drawing",
+    "id": 18
   }
 
 ]

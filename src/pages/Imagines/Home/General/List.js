@@ -14,11 +14,9 @@ const List = () => {
   const socket = useSocket();
   const [isInitial, setisInitial] = useState(true);
   const skipCount = useSelector((state) => state.imagine.skipCount);
-
-  console.log(skipCount, "skip count");
+  const auth = useSelector((state) => state.auth);
 
   function seeMore() {
-    console.log("calling");
     dispatch(imagineSliceAction.skipCountNext());
   }
 
@@ -41,25 +39,22 @@ const List = () => {
       //   dispatch(generalImagineFetchAction());
       // }*/
 
-      dispatch(generalImagineFetchAction(skipCount));
+      dispatch(generalImagineFetchAction(skipCount, auth.token));
       socket.on("create-imagine", (data) => {
-        console.log("socket call");
-        dispatch(generalImagineFetchAction(skipCount));
+        dispatch(generalImagineFetchAction(skipCount, auth.token));
       });
       socket.on("appriciate", (data) => {
-        console.log("socket call");
-        dispatch(generalImagineFetchAction(skipCount));
+        dispatch(generalImagineFetchAction(skipCount, auth.token));
       });
       socket.on("delete-imagine", (data) => {
-        console.log("socket call");
-        dispatch(generalImagineFetchAction(skipCount));
+        dispatch(generalImagineFetchAction(skipCount, auth.token));
       });
       setisInitial(false);
     }, 500);
     return () => {
       clearTimeout(timer);
     };
-  }, [dispatch, imagine.isinitiate, socket, skipCount]);
+  }, [dispatch, imagine.isinitiate, skipCount, socket, auth.token]);
 
   return (
     <>
@@ -73,7 +68,6 @@ const List = () => {
           </button>
         )}
         {imagine?.generalImagines?.map((imagines) => {
-          console.log(imagines);
           return (
             <>
               {isInitial ? (
@@ -85,15 +79,18 @@ const List = () => {
                     author={imagines?.user?._id}
                     avatar={imagines?.user?.photo?.secure_url}
                     id={imagines._id}
+                    key={imagines._id}
                     title={imagines.title}
+                    maincontent={imagines?.main}
                     introImage={imagines.introImage}
                     username={imagines?.user?.name}
                     category={imagines.category}
                     date={imagines.createdAt}
                     comments={imagines.comments}
-                    // views={imagines.views}
+                    views={imagines.views}
                     appriciates={imagines.appriciates}
                     audiovoice={imagines?.audiovoice?.secure_url}
+                    imaginetype={imagines?.imaginetype}
                   />
                 </div>
               )}
