@@ -9,6 +9,7 @@ export const generalImagineCreateAction =
     const GeneralImagineCreate = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/imagineCreate`,
+        // `api/v1/imagineCreate`,
         // "http://localhost:3699/api/imagines",
         {
           credentials: "include",
@@ -73,7 +74,7 @@ export const generalImagineFetchAction =
         `${process.env.REACT_APP_API_BASE_URL}/imagines?skipCount=${skipCount}`,
         // "http://localhost:3699/api/imagines",
         {
-          credentials: "include",
+          // credentials: "include",
           method: "GET",
           mode: "cors",
           headers: {
