@@ -41,10 +41,7 @@ const Login = () => {
       const res = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/login`,
         // `api/v1/login`,
-        { email, password },
-        {
-          withCredentials: true,
-        }
+        { email, password }
       );
 
       setUser({ ...user, err: "", success: res.data.msg });
@@ -62,13 +59,10 @@ const Login = () => {
   const responseGoogle = async (response) => {
     try {
       const res = await axios.post(
-        // `${process.env.REACT_APP_API_BASE_URL}/google_login`,
-        `api/v1/google_login`,
+        `${process.env.REACT_APP_API_BASE_URL}/google_login`,
+        // `api/v1/google_login`,
         {
           tokenId: response.tokenId,
-        },
-        {
-          withCredentials: true,
         }
       );
 
