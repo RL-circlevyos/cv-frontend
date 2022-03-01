@@ -106,7 +106,7 @@ export const AuthState = (token) => {
         // "http://localhost:3699/api/v1/authstate",
         {
           method: "GET",
-          credentials: "include",
+          // credentials: "include",
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
