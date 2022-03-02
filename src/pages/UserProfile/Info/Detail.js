@@ -28,21 +28,7 @@ const Detail = () => {
   const { token, isLogged } = auth;
   const [isInitial, setIsInitial] = useState(true);
 
-  console.log(auth.isLogged, "is logged ");
-  useEffect(() => {
-    // dispatch(userDetailsAction(id.id, token));
-    // dispatch(userImaginesAction(id.id, token));
-    // dispatch(userFollowingAction(id.id, token));
-
-    socket.on("follow", () => {
-      // dispatch(userImaginesAction(id.id));
-      dispatch(userFollowingAction(id.id, token));
-    });
-    socket.on("unfollow", () => {
-      // dispatch(userImaginesAction(id.id));
-      dispatch(userFollowingAction(id.id, token));
-    });
-  }, [dispatch, id, isInitial, token, socket]);
+  console.log(id.id, "user id");
 
   useEffect(() => {
     dispatch(userDetailsAction(id.id, token));
@@ -50,7 +36,14 @@ const Detail = () => {
     dispatch(userFollowingAction(id.id, token));
   }, [id.id, token, dispatch]);
 
-  console.log(auth, "user details");
+  useEffect(() => {
+    socket.on("follow", () => {
+      dispatch(userFollowingAction(id.id, token));
+    });
+    socket.on("unfollow", () => {
+      dispatch(userFollowingAction(id.id, token));
+    });
+  }, [dispatch, id, isInitial, token, socket]);
 
   const handleClickOpen = useCallback(() => {
     setOpen(true);

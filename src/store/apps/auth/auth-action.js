@@ -143,7 +143,7 @@ export const logoutAction = () => {
     // 📈 send data to database
     const Logout = async () => {
       const response = await fetch(
-        `/logout`,
+        `${process.env.REACT_APP_API_BASE_URL}/logout`,
 
         {
           method: "GET",
@@ -247,14 +247,14 @@ export const userDetailsAction = (id, token) => {
         })
       );
       const response = await userDetails();
-      console.log(response.id);
+
       dispatch(
         authAction.userDetails({
           userDetails: response,
         })
       );
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     } finally {
       dispatch(
         UiSliceAction.loading({

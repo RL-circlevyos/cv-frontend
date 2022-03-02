@@ -89,7 +89,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get("api/v1/logout");
+      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/logout`);
       localStorage.removeItem("firstlogin");
       window.location.href = "/login";
     } catch (err) {
@@ -455,7 +455,7 @@ function Navbar() {
                       className="flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-xs font-medium"
                     >
                       <Power />
-                      <b className="sm:hidden block text-xs">logout</b>
+                      <b className="sm:hidden block text-xs">Logout</b>
                     </div>
                   </>
                 )}
@@ -478,11 +478,7 @@ function Navbar() {
         title="Logout"
         content="Do you want to logout ?"
         show={true}
-        onClick={() => {
-          dispatch(logoutAction());
-          localStorage.removeItem("firstlogin");
-          // navigate("/login");
-        }}
+        onClick={handleLogout}
       />
       <TextareaDialog
         open={feedback}
