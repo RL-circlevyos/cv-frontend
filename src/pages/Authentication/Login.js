@@ -45,6 +45,7 @@ const Login = () => {
         {
           withCredentials: true,
         }
+
       );
 
       setUser({ ...user, err: "", success: res.data.msg });
@@ -65,11 +66,9 @@ const Login = () => {
       const res = await axios.post(
         // `${process.env.REACT_APP_API_BASE_URL}/google_login`,
         `${process.env.REACT_APP_API_BASE_URL}/google_login`,
+
         {
           tokenId: response.tokenId,
-        },
-        {
-          withCredentials: true,
         }
       );
 

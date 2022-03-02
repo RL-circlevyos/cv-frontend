@@ -57,7 +57,7 @@ const CommentList = () => {
         )}
         {comments?.comments?.map((comment) => (
           <>
-            {console.log(comment, "comment")}
+           
             <Comment
               userid={comment.user}
               username={comment.name}
