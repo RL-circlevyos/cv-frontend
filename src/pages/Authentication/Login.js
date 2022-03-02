@@ -40,7 +40,7 @@ const Login = () => {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/login`,
-        // `api/v1/login`,
+        // `/api/v1/login`,
         { email, password },
         {
           withCredentials: true,
@@ -51,6 +51,7 @@ const Login = () => {
 
       localStorage.setItem("firstlogin", true);
       dispatch(authAction.login());
+
       // history.push("/");
       navigate("/");
     } catch (err) {
@@ -63,7 +64,7 @@ const Login = () => {
     try {
       const res = await axios.post(
         // `${process.env.REACT_APP_API_BASE_URL}/google_login`,
-        `api/v1/google_login`,
+        `${process.env.REACT_APP_API_BASE_URL}/google_login`,
         {
           tokenId: response.tokenId,
         },

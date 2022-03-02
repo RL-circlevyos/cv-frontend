@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
+// import "./App.css";
 
 import ForgotPassword from "./pages/Authentication/ForgotPassword";
 import Login from "./pages/Authentication/Login";
@@ -9,7 +9,7 @@ import ResetPassword from "./pages/Authentication/Reset-Password";
 import PageNotFound from "./components/PageNotFound";
 
 import GeneralImagines from "./pages/Imagines/General-Imagines/Imagines/GeneralImagines";
-/***import StoryImagines from "./pages/Imagines/Story-Imagines/Imagines/StoryImagines";*/
+
 import CreateImagines from "./pages/Imagines/General-Imagines/Create/CreateImagines";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -53,8 +53,8 @@ function App() {
       // `${process.env.REACT_APP_API_BASE_URL}/refresh_token`,
       const getToken = async () => {
         const res = await axios.post(
+          // `/api/v1/refresh_token`,
           `${process.env.REACT_APP_API_BASE_URL}/refresh_token`,
-          // `api/v1/refresh_token`,
           null,
           {
             withCredentials: true,
@@ -82,13 +82,7 @@ function App() {
 
   useEffect(() => {
     dispatch(AuthState(token));
-    // dispatch(generalImagineFetchAction(skipCount));
-    // dispatch(userDetailsAction(token));
-    // dispatch(userImaginesAction());
-    // dispatch(myDetailsAction());
   }, [dispatch, token]);
-
-  /**const auth = useSelector((state) => state.auth);*/
 
   return (
     <BrowserRouter>
@@ -99,7 +93,7 @@ function App() {
           path="/user/activate/:activation_token"
           element={<ActivationEmail />}
         />
-        <Route path="/select" element={<Select />} />
+
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/user/reset/:resetToken" element={<ResetPassword />} />

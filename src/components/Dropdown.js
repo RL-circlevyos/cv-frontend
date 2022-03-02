@@ -47,11 +47,11 @@ export default function Example() {
 
   const handleLogout = async () => {
     try {
-      await axios.get("/api/v1/logout");
+      await axios.get(`${process.env.REACT_APP_API_BASE_URL}/logout`);
       localStorage.removeItem("firstlogin");
       window.location.href = "/login";
     } catch (err) {
-      window.location.href = "/";
+      window.location.href = "/login";
     }
   };
   /******* feedback states end*****/
