@@ -201,13 +201,13 @@ const Login = () => {
                 </span>
               </Link>
 
-              <GoogleLogin
+              {/* <GoogleLogin
                 clientId="1047426319195-6dndogses33r7jku9k87gkhf9esmagee.apps.googleusercontent.com"
                 buttonText="Login With google"
                 onSuccess={responseGoogle}
                 // onFailure={responseGoogle}
                 cookiePolicy={"single_host_origin"}
-              />
+              /> */}
             </div>
           </div>
         </div>
