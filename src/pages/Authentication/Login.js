@@ -45,7 +45,6 @@ const Login = () => {
         {
           withCredentials: true,
         }
-
       );
 
       setUser({ ...user, err: "", success: res.data.msg });
@@ -69,6 +68,9 @@ const Login = () => {
 
         {
           tokenId: response.tokenId,
+        },
+        {
+          withCredentials: true,
         }
       );
 
