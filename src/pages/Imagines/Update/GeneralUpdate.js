@@ -217,7 +217,7 @@ const GeneralUpdate = () => {
       e.preventDefault();
 
       dispatch(generalImagineUpdateAction(formdata, id.id, auth.token));
-      toast.success("Updated successfully");
+
       !ui.isLoading && navigate(`/${id.id}`);
     },
 
