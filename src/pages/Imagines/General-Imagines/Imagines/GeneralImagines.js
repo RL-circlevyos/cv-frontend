@@ -145,6 +145,15 @@ const GeneralImagines = () => {
       {/* mobile mode */}
       <div className="w-full h-screen lg:hidden">
         <Navbar />
+        {imagine.isUploading && (
+          <span className="text-lg text-primary block mt-4 mb-4 w-full">
+            {" "}
+            <LinearProgress color="success" />
+            <span className="text-base leading-relaxed italic font-semibold flex justify-center items-center">
+              Updading...
+            </span>
+          </span>
+        )}
         <div className="w-full flex flex-col justify-content items-start">
           <Nav />
           <div className={`md:max-w-5xl w-full`}>
