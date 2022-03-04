@@ -199,7 +199,17 @@ export const userDetailsUpdateAction = (updateBody, token) => {
     };
 
     try {
+      dispatch(
+        authAction.isUploading({
+          isUploading: true,
+        })
+      );
       const response = await userDetailsUpdate();
+      dispatch(
+        authAction.isUploading({
+          isUploading: false,
+        })
+      );
       toast.info("updated successfully");
       dispatch(
         authAction.userDetails({

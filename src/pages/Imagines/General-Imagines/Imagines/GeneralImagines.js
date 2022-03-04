@@ -17,6 +17,7 @@ import { useSocket } from "../../../../hooks/socketHook";
 import { ToastContainer } from "react-toastify";
 import { appriciateListAction } from "./../../../../store/apps/imagines/imagine-action";
 import { Helmet } from "react-helmet";
+import { LinearProgress } from "@mui/material";
 
 const GeneralImagines = () => {
   const imagineid = useParams();
@@ -81,6 +82,15 @@ const GeneralImagines = () => {
         {/* meta tags */}
 
         <Nav />
+        {imagine.isUploading && (
+          <span className="text-lg text-primary block mt-4 mb-4 w-full">
+            {" "}
+            <LinearProgress color="success" />
+            <span className="text-base leading-relaxed italic font-semibold flex justify-center items-center">
+              Updading...
+            </span>
+          </span>
+        )}
         <div className="grid place-items-center w-full">
           <div className="flex justify-center items-start w-full">
             {" "}
