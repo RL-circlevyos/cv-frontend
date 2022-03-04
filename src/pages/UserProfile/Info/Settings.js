@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userDetailsUpdateAction } from "../../../store/apps/auth/auth-action";
 import Navbar from "../../../components/Navbar";
 import { ToastContainer } from "react-toastify";
+import { LinearProgress } from "@mui/material";
 
 const Settings = () => {
   const auth = useSelector((state) => state.auth);
@@ -49,6 +50,15 @@ const Settings = () => {
   return (
     <>
       <Navbar />
+      {auth.isUploading && (
+        <span className="text-lg text-primary block mt-4 mb-4 w-full">
+          {" "}
+          <LinearProgress color="success" />
+          <span className="text-base leading-relaxed italic font-semibold flex justify-center items-center">
+            Updading...
+          </span>
+        </span>
+      )}
       <div className="w-full flex flex-col justify-center items-center">
         <div
           className="w-full max-w-4xl bg-white mt-4 py-4 shadow rounded-xl mb-3 flex justify-center flex-col 

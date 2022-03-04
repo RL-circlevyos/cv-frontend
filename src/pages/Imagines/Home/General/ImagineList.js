@@ -91,7 +91,7 @@ const ImagineList = () => {
           </div>
         </div>
         <Helmet>
-          <title> circlevyos</title>
+          <title>circlevyos</title>
           <meta
             name="description"
             content="a social media platform for creative minds dedicated to readers, writers, painters, singers, voice artists and sound creators"

@@ -13,6 +13,7 @@ const initialAuthState = {
   accountImagines: [],
   accountId: "",
   userImagines: [],
+  isUploading: false,
   following: [],
   isinitiate: false,
   isLogged: false,
@@ -32,6 +33,9 @@ const authSlice = createSlice({
     },
     userDetails(state, action) {
       state.userDetails = action.payload.userDetails;
+    },
+    isUploading(state, action) {
+      state.isUploading = action.payload.isUploading;
     },
     visitUserDetails(state, action) {
       state.visitUserDetails = action.payload.visitUserDetails;

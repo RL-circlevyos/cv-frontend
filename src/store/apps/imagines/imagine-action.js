@@ -320,7 +320,17 @@ export const generalImagineUpdateAction =
           isLoading: true,
         })
       );
+      dispatch(
+        imagineSliceAction.uploading({
+          isUploading: true,
+        })
+      );
       await GeneralImagineUpdate();
+      dispatch(
+        imagineSliceAction.uploading({
+          isUploading: false,
+        })
+      );
       toast.success("updated successfully");
     } catch (e) {
       toast.error(e.message);
