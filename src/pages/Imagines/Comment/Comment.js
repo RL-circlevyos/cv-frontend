@@ -2,12 +2,22 @@ import React, { useCallback, useState } from "react";
 import moment from "moment";
 import dp from "../../../assets/person.png";
 import { TrashIcon } from "@heroicons/react/solid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DelPopup from "../../../components/DelPopup";
+import { commentDeleteAction } from "../../../store/apps/imagines/imagine-action";
+import { useParams } from "react-router-dom";
 
-const Comment = ({ username, commentText, avatar, date, userid }) => {
+const Comment = ({
+  username,
+  commentText,
+  avatar,
+  date,
+  userid,
+  commentid,
+}) => {
   const auth = useSelector((state) => state.auth);
-
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const user = auth.userid;
   console.log(user);
 
@@ -19,7 +29,8 @@ const Comment = ({ username, commentText, avatar, date, userid }) => {
   const handleDelClose = useCallback(() => {
     setDel(false);
   }, []);
-  const imagineDeleteHandler = useCallback(() => {
+  const imagineCommentDeleteHandler = useCallback(() => {
+    dispatch(commentDeleteAction(id, commentid, auth.token));
     handleDelClose();
   }, [handleDelClose]);
   /**const mentionRegex = /\b(@)\b/g;*/
@@ -42,14 +53,14 @@ const Comment = ({ username, commentText, avatar, date, userid }) => {
                 {moment(date).format("dddd, MMMM Do YYYY, h:mm a")}
               </div>
             </div>
-            {/* <div>
-              {user === userid ? (
+            <div>
+              {auth.userDetails._id === userid ? (
                 <TrashIcon
                   className="h-4 w-4 text-pink-500 cursor-pointer"
                   onClick={handleDelOpen}
                 />
               ) : null}
-            </div> */}
+            </div>
           </div>
         </div>
         <span className="text-gray-800 text-tiny lg:text-base cursor-pointer">
@@ -61,7 +72,7 @@ const Comment = ({ username, commentText, avatar, date, userid }) => {
         handleClose={handleDelClose}
         title="Delete"
         content="Are you sure you want to delete this comment"
-        onClick={imagineDeleteHandler}
+        onClick={imagineCommentDeleteHandler}
         show={true}
       />
     </div>

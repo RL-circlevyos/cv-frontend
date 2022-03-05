@@ -462,6 +462,48 @@ export const commentFetchAction = (imagineId, token) => async (dispatch) => {
   }
 };
 
+// delete comment
+export const commentDeleteAction =
+  (imagineId, commentId, token) => async (dispatch) => {
+    console.log(imagineId);
+
+    const commentDelete = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/imagines/${imagineId}/comment/${commentId}`,
+        // `http://localhost:3699/api/imagines/${imagineId}/comments`,
+        {
+          credentials: "include",
+          method: "DELETE",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      console.log(response.json());
+
+      if (!response.ok) {
+        throw Error("Error occured in imagine create");
+      }
+    };
+
+    try {
+      await commentDelete();
+      toast.info("comment deleted");
+    } catch (e) {
+      toast.error(e.message);
+      dispatch(
+        UiSliceAction.ErrorMessage({
+          errorMessage: e.message,
+        })
+      );
+
+      throw e;
+    }
+  };
+
 // appriciate
 export const appriciateAction = (imagineId, token) => async (dispatch) => {
   console.log(imagineId);
