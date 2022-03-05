@@ -204,8 +204,8 @@ const Detail = () => {
                     open={openShare}
                     handleClose={handleCloseShare}
                     title="Share this link"
-                    // content={`https://circlevyos.com/ac/${id.id}`}
-                    content={`http://localhost:3000/ac/${id.id}`}
+                    content={`https://circlevyos.com/ac/${id.id}`}
+                    // content={`http://localhost:3000/ac/${id.id}`}
                     // content={`http://localhost:3000/${singleImagine?.singleImagine?._id}`}
                   />
                 </span>

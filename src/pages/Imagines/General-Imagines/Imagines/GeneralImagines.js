@@ -36,9 +36,6 @@ const GeneralImagines = () => {
       dispatch(commentFetchAction(imagineid.id, auth.token));
     });
 
-    socket.on("delete-comment", () => {
-      dispatch(generalImagineSingleFetchAction(imagineid.id, auth.token));
-    });
     socket.on("appriciate", () => {
       dispatch(appriciateIdListAction(imagineid.id, auth.token));
 
