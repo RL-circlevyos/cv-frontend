@@ -20,6 +20,8 @@ import axios from "axios";
 
 const Detail = () => {
   const auth = useSelector((state) => state.auth);
+  const visitUserDetails = useSelector((state) => state.auth.visitUserDetails);
+  const userImagines = useSelector((state) => state.auth.userImagines);
 
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -70,6 +72,7 @@ const Detail = () => {
     setOpenShare(false);
   }, []);
 
+  console.log(auth.following, "following");
   return (
     <div className="w-full font-Mulish">
       <div className="lg:flex flex-col hidden">
@@ -78,8 +81,8 @@ const Detail = () => {
             <span className="w-24 h-24">
               <img
                 src={
-                  auth?.userDetails?.photo?.secure_url
-                    ? auth?.userDetails?.photo?.secure_url
+                  visitUserDetails?.photo?.secure_url
+                    ? visitUserDetails?.photo?.secure_url
                     : dp
                 }
                 alt="dp"
@@ -89,7 +92,7 @@ const Detail = () => {
           </div>
           <div className="flex">
             <div className="flex items-start flex-col space-y-2 w-full font-bold">
-              <span className="text-2xl">{auth?.userDetails?.name}</span>
+              <span className="text-2xl">{visitUserDetails?.name}</span>
               <span className="text-lg text-gray-400">
                 {auth?.userDetails?.email}{" "}
               </span>
@@ -99,11 +102,11 @@ const Detail = () => {
                   <span className="text-base text-primary">
                     <Followers
                       buttonName="Followers"
-                      followers={auth?.userDetails?.followers}
+                      followers={visitUserDetails?.followers}
                     />
                   </span>
                   <span className="text-base text-gray-700">
-                    {auth?.userDetails?.followers?.length}
+                    {visitUserDetails?.followers?.length}
                   </span>
                 </span>
                 <span className="flex justify-center flex-wrap items-center space-x-1 shadow py-1 px-1">
@@ -111,18 +114,18 @@ const Detail = () => {
                     {" "}
                     <Following
                       buttonName="Following"
-                      followings={auth?.userDetails?.following}
+                      followings={visitUserDetails?.following}
                     />
                   </span>
                   <span className="text-base text-gray-700">
-                    {auth?.userDetails?.following?.length}
+                    {visitUserDetails?.following?.length}
                   </span>
                 </span>
               </span>
               <span className="flex justify-center flex-wrap items-start space-x-2">
                 <span className="text-base text-primary ">Imagines:</span>
                 <span className="text-base text-gray-700">
-                  {auth?.userImagines?.length}
+                  {userImagines?.length}
                 </span>
               </span>
             </div>
@@ -169,9 +172,9 @@ const Detail = () => {
         <div className="mt-3 space-x-2 px-4">
           <span className="text-lg text-gray-700 font-bold">Bio:</span>
           <span className="text-base text-gray-700">
-            {auth?.userDetails?.bio === undefined
+            {visitUserDetails?.bio === undefined
               ? "Hello, nice to meet you"
-              : auth?.userDetails?.bio}
+              : visitUserDetails?.bio}
           </span>
         </div>
       </div>
@@ -182,8 +185,8 @@ const Detail = () => {
             <span className="xsm:w-16 xsm:h-16 xs:w-12 xs:h-12 w-8 h-8 ">
               <img
                 src={
-                  auth?.userDetails?.photo?.secure_url
-                    ? auth?.userDetails?.photo?.secure_url
+                  visitUserDetails?.photo?.secure_url
+                    ? visitUserDetails?.photo?.secure_url
                     : dp
                 }
                 alt="dp"
@@ -213,9 +216,9 @@ const Detail = () => {
             </span>
           </div>
           <div className="flex items-start flex-col space-y-2  font-bold">
-            <span className="text-lg">{auth?.userDetails?.name}</span>
+            <span className="text-lg">{visitUserDetails?.name}</span>
             <span className="text-sm text-gray-400">
-              {auth?.userDetails?.email}{" "}
+              {visitUserDetails?.email}{" "}
             </span>
             <span className="flex justify-center flex-wrap items-center space-x-2">
               <span className="flex justify-center flex-wrap items-center space-x-1 shadow py-1 px-1">
@@ -223,22 +226,22 @@ const Detail = () => {
                   {" "}
                   <Followers
                     buttonName="Followers"
-                    followers={auth?.userDetails?.followers}
+                    followers={visitUserDetails?.followers}
                   />
                 </span>
                 <span className="text-sm text-gray-700 pr-1">
-                  {auth?.userDetails?.followers?.length}
+                  {visitUserDetails?.followers?.length}
                 </span>
               </span>
               <span className="flex justify-center flex-wrap items-center space-x-1 shadow py-1 px-1">
                 <span className="text-sm text-primary ">
                   <Following
                     buttonName="Following"
-                    followings={auth?.userDetails?.following}
+                    followings={visitUserDetails?.following}
                   />
                 </span>
                 <span className="text-sm text-gray-700">
-                  {auth?.userDetails?.following?.length}
+                  {visitUserDetails?.following?.length}
                 </span>
               </span>
             </span>
@@ -249,9 +252,7 @@ const Detail = () => {
               </span> */}
               <span className="flex justify-center text-sm items-start space-x-1">
                 <span className=" text-primary ">Imagines:</span>
-                <span className=" text-gray-700">
-                  {auth?.userImagines?.length}
-                </span>
+                <span className=" text-gray-700">{userImagines?.length}</span>
               </span>
             </span>
           </div>
@@ -279,9 +280,9 @@ const Detail = () => {
         <div className="mt-3 space-x-2 px-4">
           <span className="text-base text-gray-700 font-bold">Bio:</span>
           <span className="text-sm text-gray-700 italic">
-            {auth?.userDetails?.bio === "undefined"
+            {visitUserDetails?.bio === "undefined"
               ? "Hello, nice to meet you"
-              : auth?.userDetails?.bio}
+              : visitUserDetails?.bio}
           </span>
         </div>
       </div>
