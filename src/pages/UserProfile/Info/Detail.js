@@ -230,7 +230,6 @@ const Detail = () => {
                   />
                 </span>
                 <span className="text-sm text-gray-700 pr-1">
-                  {console.log(visitUserDetails?.followers)}
                   {visitUserDetails?.followers?.length}
                 </span>
               </span>

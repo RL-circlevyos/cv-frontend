@@ -23,6 +23,9 @@ const CommentList = () => {
     socket.on("create-comment", () => {
       dispatch(commentFetchAction(id.id, auth.token));
     });
+    socket.on("delete-comment", () => {
+      dispatch(commentFetchAction(id.id, auth.token));
+    });
     dispatch(commentFetchAction(id.id, auth.token));
   }, [dispatch, id, socket, auth.token]);
 
@@ -57,13 +60,13 @@ const CommentList = () => {
         )}
         {comments?.comments?.map((comment) => (
           <>
-           
             <Comment
               userid={comment.user}
               username={comment.name}
               commentText={comment.textcomment}
               date={comment.createdAt}
               key={comment._id}
+              commentid={comment._id}
             />
           </>
         ))}

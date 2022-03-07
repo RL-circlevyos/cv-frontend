@@ -28,6 +28,7 @@ import TextareaDialog from "./Feedback/TextareaDialog";
 import { DocumentTextIcon, ShieldCheckIcon } from "@heroicons/react/outline";
 import { Fragment } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -77,11 +78,36 @@ function Navbar() {
     setIsOpen(false);
   }, []);
   const [textareaValue, setTextareaValue] = useState("");
-  const submitTextareaValue = () => {
+  const submitTextareaValue = async (e) => {
+    e.preventDefault();
     const feedbackContent = {
       feedback: textareaValue,
     };
     console.log(feedbackContent);
+
+    await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/feedback`,
+      // `http://localhost:3699/api/v1/signup`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: auth.token,
+          mode: "cors",
+        },
+        body: JSON.stringify({
+          feedbacktext: textareaValue,
+        }),
+      }
+    )
+      .then((data) => {
+        toast.success("Thank you for your feedback");
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+
     setTextareaValue("");
     setFeedback(false);
     setIsOpen(false);

@@ -20,12 +20,15 @@ import {
 } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import { imagineSliceAction } from "../../../store/apps/imagines/imagine-slice";
+import { UploadIcon } from "@heroicons/react/solid";
+import { LinearProgress } from "@mui/material";
 
 const GeneralUpdate = () => {
   const dispatch = useDispatch();
   const id = useParams();
   const auth = useSelector((state) => state.auth);
   const imagine = useSelector((state) => state.imagine);
+  const ui = useSelector((state) => state.ui);
 
   useEffect(() => {
     dispatch(generalImagineSingleFetchAction(id.id, auth.token));
@@ -120,6 +123,40 @@ const GeneralUpdate = () => {
     }
   };
 
+  // image
+  const [introImage, setIntroImage] = useState(
+    imagine?.singleImagine?.singleImagine.introImage
+  );
+  const [outroImage, setOutroImage] = useState(
+    imagine?.singleImagine?.singleImagine.outroImage
+  );
+
+  const [isintroImageUpdate, setisintroImageUpdate] = useState(false);
+  const [isOutroImageUpdate, setisOutroImageUpdate] = useState(false);
+
+  const introImageChange = useCallback((e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setIntroImage(e.target.files[0]);
+      setisintroImageUpdate(true);
+    }
+  }, []);
+
+  const removeIntroImage = useCallback(() => {
+    setIntroImage();
+  }, []);
+
+  // for outro image
+  const outroImageChange = useCallback((e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setOutroImage(e.target.files[0]);
+      setisOutroImageUpdate(true);
+    }
+  }, []);
+
+  const removeOutroImage = useCallback(() => {
+    setOutroImage();
+  }, []);
+
   let navigate = useNavigate();
 
   const [titleUpdate, setTitleUpdate] = useState(title);
@@ -144,7 +181,15 @@ const GeneralUpdate = () => {
     draftToHtml(convertToRaw(editorState.getCurrentContent()))
   );
 
+  isintroImageUpdate && formdata.append("introImage", introImage);
+
+  isOutroImageUpdate && formdata.append("outroImage", outroImage);
+
   formdataNano.append("main", content);
+
+  isintroImageUpdate && formdataNano.append("introImage", introImage);
+
+  isOutroImageUpdate && formdataNano.append("outroImage", outroImage);
 
   const limit = 300;
   const setTitleContent = useCallback(
@@ -172,11 +217,11 @@ const GeneralUpdate = () => {
       e.preventDefault();
 
       dispatch(generalImagineUpdateAction(formdata, id.id, auth.token));
-      toast.success("Updated successfully");
-      navigate(`/${id.id}`);
+
+      !ui.isLoading && navigate(`/${id.id}`);
     },
 
-    [dispatch, formdata, navigate, id, auth.token]
+    [dispatch, formdata, navigate, id, auth.token, ui.isLoading]
   );
 
   const handleSubmitNano = useCallback(
@@ -193,6 +238,15 @@ const GeneralUpdate = () => {
   return (
     <div className="flex justify-center items-center flex-col font-Mulish">
       <div className="max-w-4xl w-full flex justify-center items-center flex-col mx-3 lg:mx-0">
+        {ui.isLoading && (
+          <span className="text-lg text-primary block mt-4 mb-4 w-full">
+            {" "}
+            <LinearProgress color="success" />
+            <span className="text-base leading-relaxed italic font-semibold flex justify-center items-center">
+              Updading...
+            </span>
+          </span>
+        )}
         <div className="w-full">
           <form
             onSubmit={imaginetype === "nano" ? handleSubmitNano : handleSubmit}
@@ -295,6 +349,102 @@ const GeneralUpdate = () => {
                     onChange={(e) => setBodyContent(e.target.value)}
                   />
                 </span>
+              )}
+            </div>
+
+            <div className="flex items-start justify-center flex-wrap lg:flex-nowrap w-full pb-2 space-x-2 lg:space-x-4">
+              {imagine?.singleImagine?.singleImagine.introImage && (
+                <div className="grid place-items-center">
+                  <label
+                    className={`${
+                      !introImage &&
+                      "border border-gray-300 rounded-md w-full mt-6 px-8 py-8 flex items-center cursor-pointer"
+                    } p-2`}
+                  >
+                    {!introImage && (
+                      <>
+                        <span className="text-xs font-bold lg:text-base">
+                          first image
+                        </span>
+                        <UploadIcon className="w-7 h-7" />
+                      </>
+                    )}
+                    <input
+                      accept="image/*"
+                      type="file"
+                      onChange={introImageChange}
+                      className="invisible hidden"
+                    />
+                  </label>
+
+                  {introImage && (
+                    <div className="w-full h-56 pb-4">
+                      <img
+                        // src={URL.createObjectURL(introImage)}
+                        src={
+                          introImage.secure_url
+                            ? introImage.secure_url
+                            : URL.createObjectURL(introImage)
+                        }
+                        alt="Thumb"
+                        className="w-full h-full object-contain border border-gray-400"
+                      />
+                      <button
+                        className="text-xs font-bold"
+                        onClick={removeIntroImage}
+                      >
+                        Remove This Image
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* for outro image */}
+              {imagine?.singleImagine?.singleImagine.outroImage && (
+                <div>
+                  <label
+                    className={`${
+                      !outroImage &&
+                      "border border-gray-300 rounded-md w-full mt-6 px-8 py-8 flex items-center cursor-pointer"
+                    }p-2`}
+                  >
+                    {!outroImage && (
+                      <>
+                        <span className="text-xs font-bold lg:text-base">
+                          last image
+                        </span>
+                        <UploadIcon className="w-7 h-7" />
+                      </>
+                    )}
+                    <input
+                      accept="image/*"
+                      type="file"
+                      onChange={outroImageChange}
+                      className="invisible hidden"
+                    />
+                  </label>
+
+                  {outroImage && (
+                    <div className="w-full h-56 pb-4 mt-6">
+                      <img
+                        src={
+                          outroImage.secure_url
+                            ? outroImage.secure_url
+                            : URL.createObjectURL(outroImage)
+                        }
+                        alt="Thumb"
+                        className="w-full h-full object-cover border border-gray-400"
+                      />
+                      <button
+                        className="text-xs font-bold"
+                        onClick={removeOutroImage}
+                      >
+                        Remove This Image
+                      </button>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
             {/* <div className="flex items-start justify-center flex-wrap lg:flex-nowrap w-full pb-2 lg:space-x-4">
