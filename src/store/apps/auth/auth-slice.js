@@ -10,9 +10,11 @@ const initialAuthState = {
   userDetails: {},
   visitUserDetails: {},
   accountDetails: {},
+  myDetails: {},
   accountImagines: [],
   accountId: "",
   userImagines: [],
+  isUploading: false,
   following: [],
   isinitiate: false,
   isLogged: false,
@@ -30,12 +32,25 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isLoggedin = false;
     },
+    ///**** DO not change */
     userDetails(state, action) {
       state.userDetails = action.payload.userDetails;
+    }, ///**** DO not change */
+
+    isUploading(state, action) {
+      state.isUploading = action.payload.isUploading;
     },
+    myDetails(state, action) {
+      state.myDetails = action.payload.myDetails;
+    },
+
+    // ******need to be deleted *****
     visitUserDetails(state, action) {
       state.visitUserDetails = action.payload.visitUserDetails;
     },
+    // ******need to be deleted *****
+
+    //**********shareable account details********************/ shareable account details
     getAccountId(state, action) {
       state.accountId = action.payload.accountId;
     },
@@ -45,6 +60,8 @@ const authSlice = createSlice({
     getAccountImagines(state, action) {
       state.accountImagines = action.payload.accountImagines;
     },
+    //**********shareable account details********************/
+
     getImagines(state, action) {
       state.userImagines = action.payload.userImagines;
     },

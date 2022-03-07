@@ -199,7 +199,17 @@ export const userDetailsUpdateAction = (updateBody, token) => {
     };
 
     try {
+      dispatch(
+        authAction.isUploading({
+          isUploading: true,
+        })
+      );
       const response = await userDetailsUpdate();
+      dispatch(
+        authAction.isUploading({
+          isUploading: false,
+        })
+      );
       toast.info("updated successfully");
       dispatch(
         authAction.userDetails({
@@ -247,10 +257,11 @@ export const userDetailsAction = (id, token) => {
         })
       );
       const response = await userDetails();
+      console.log(response, "useer details ");
 
       dispatch(
-        authAction.userDetails({
-          userDetails: response,
+        authAction.visitUserDetails({
+          visitUserDetails: response,
         })
       );
     } catch (error) {
@@ -385,9 +396,9 @@ export const myDetailsAction = (token) => {
 
     try {
       const response = await userDetails();
-      console.log(response.id);
+
       dispatch(
-        authAction.userDetails({
+        authAction.myDetails({
           myDetails: response,
         })
       );
@@ -488,7 +499,7 @@ export const accountImaginesAction = (id) => {
 };
 
 // follow
-export const userFollowAction = (id) => {
+export const userFollowAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -500,6 +511,7 @@ export const userFollowAction = (id) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
           body: JSON.stringify({
             id: id,
@@ -528,7 +540,7 @@ export const userFollowAction = (id) => {
 };
 
 // unfollow
-export const userUnfollowAction = (id) => {
+export const userUnfollowAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
     const userDetails = async () => {
@@ -540,6 +552,7 @@ export const userUnfollowAction = (id) => {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            Authorization: token,
           },
           body: JSON.stringify({
             id: id,
