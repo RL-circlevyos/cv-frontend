@@ -4,7 +4,11 @@ import logo from "../assets/circlevyos.svg";
 /***import useDarkMode from "./../hooks/useDarkMode";*/
 import { Feather, Power } from "react-feather";
 
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import {
+  AcademicCapIcon,
+  ChevronDownIcon,
+  NewspaperIcon,
+} from "@heroicons/react/solid";
 import dp from "../assets/person.png";
 import {
   BriefcaseIcon,
@@ -180,7 +184,19 @@ function Navbar() {
                     }
                   >
                     <span className="flex items-center space-x-2">
-                      <HeartIcon className="w-6 h-6 mr-2" /> Imagines
+                      <NewspaperIcon className="w-6 h-6 mr-2" /> Imagines
+                    </span>
+                  </NavLink>
+                  <NavLink
+                    to="/career-guide/qna"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "flex items-center gap-1 mt-1 text-sm bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md uppercase font-extrabold"
+                        : "flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm uppercase font-extrabold"
+                    }
+                  >
+                    <span className="flex items-center space-x-2">
+                      <AcademicCapIcon className="w-6 h-6 mr-2" /> Career Guide
                     </span>
                   </NavLink>
                   <NavLink
@@ -188,7 +204,7 @@ function Navbar() {
                     className={({ isActive }) =>
                       isActive
                         ? "flex items-center gap-1 mt-1 text-sm bg-greyish-200 cursor-pointer transition linear px-3 py-2 rounded-md uppercase font-extrabold"
-                        : "flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm uppercase font-extrabold"
+                        : "flex items-center gap-1 mt-1  hover:bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm uppercase font-extrabold"
                     }
                   >
                     <span className="flex items-center space-x-2">
@@ -387,6 +403,18 @@ function Navbar() {
                 >
                   <Feather />
                   <b className="sm:hidden block text-xs">Series</b>
+                </NavLink>{" "}
+                <hr />
+                <NavLink
+                  to="/career-guide"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-1  bg-greyish-200  cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-bold"
+                      : "flex items-center gap-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm font-medium"
+                  }
+                >
+                  <AcademicCapIcon className="h-6 w-6" />
+                  <b className="sm:hidden block text-xs">Career Guide</b>
                 </NavLink>{" "}
                 <hr />
                 <NavLink
