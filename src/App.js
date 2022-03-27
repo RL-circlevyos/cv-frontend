@@ -53,6 +53,11 @@ import RequestQuestionDetail from "./pages/career/qna/RequestQuestionDetail";
 import MyQna from "./pages/career/qna/MyQna";
 import MyQnaAnsDetail from "./pages/career/qna/MyQnaAnsDetail";
 import MyQnaSingleQDetail from "./components/career/qna/MyQnaSingleQDetail";
+import Counselling from "./pages/career/Counselling";
+import MyJobs from "./pages/career/Work/MyJobs";
+import SingleQuestionDetail from "./components/career/singleQuestionDetail/SingleQuestionDetail";
+import SingleJobDetail from "./components/career/ReadyForWork/SingleJobDetail";
+import JobPost from "./pages/career/Work/JobPost";
 
 function App() {
   const dispatch = useDispatch();
@@ -138,6 +143,9 @@ function App() {
         />
 
         <Route path="/career-guide/work" element={<Work />} />
+        <Route path="/career-guide/work/jobpost" element={<JobPost />} />
+        <Route path="/career-guide/work/:id" element={<SingleJobDetail />} />
+        <Route path="/career-guide/myjobs" element={<MyJobs />} />
 
         {/*  user requests  */}
         <Route
@@ -149,15 +157,14 @@ function App() {
           element={<JobProviderRequests />}
         />
         <Route path="/career-guide/qna/request" element={<Requests />} />
+
         <Route path="/career-guide/qna/myqna" element={<MyQna />} />
         <Route
           path="/career-guide/qna/request/:id"
           element={<RequestQuestionDetail />}
         />
-        <Route
-          path="/career-guide/qna/myqna/:id"
-          element={<MyQnaSingleQDetail />}
-        />
+        <Route path="/counselling" element={<Counselling />} />
+        <Route path="/" element={<MyQnaSingleQDetail />} />
 
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/settings/:id" element={<Settings />} />

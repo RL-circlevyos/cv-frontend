@@ -1,5 +1,5 @@
 import React from "react";
-import { ChatAlt2Icon } from "@heroicons/react/outline";
+import { AcademicCapIcon, ChatAlt2Icon } from "@heroicons/react/outline";
 import CareerSidebarItem from "./CareerSidebarItem";
 import {
   BriefcaseIcon,
@@ -11,8 +11,8 @@ import {
 function CareerSidebar() {
   return (
     <div>
-      <div className="px-10 mt-6 w max-w-sm xl:min-w-[300px]  space-y-44 ">
-        <div>
+      <div className="px-10 mt-6 w max-w-sm xl:min-w-[300px]  space-y-32 ">
+        <div className="space-y-3">
           <CareerSidebarItem
             Icon={ChatAlt2Icon}
             title="Q&A"
@@ -27,6 +27,12 @@ function CareerSidebar() {
             Icon={BriefcaseIcon}
             title="Ready For Work"
             route="/career-guide/work"
+          />
+          <div className="py-2"></div>
+          <CareerSidebarItem
+            Icon={AcademicCapIcon}
+            title="Quick Counselling"
+            route="/counselling"
           />
         </div>
 

@@ -1,9 +1,11 @@
 import { SearchIcon } from "@heroicons/react/solid";
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import CareerNavbarItem from "./CareerNavbarItem";
 
-function CareerNavbar({ isQna, isMyresources }) {
+function CareerNavbar({ isQna, isMyresources, isWork }) {
+  const { userDetails } = useSelector((state) => state.auth);
   return (
     <div>
       <div className="py-3 px-10 flex  ">
@@ -54,18 +56,20 @@ function CareerNavbar({ isQna, isMyresources }) {
                   : "rounded-full  hover:bg-gray-100 "
               }
             >
-              <button
-                id="menu-button"
-                aria-expanded="true"
-                aria-haspopup="true"
-                type="button"
-                className=" text-primary text-xl font-semibold hover:shadow-md hover:shadow-green-100 hover:bg-teal-700 hover:text-white px-5 py-1.5 rounded-lg  cursor-pointer "
-              >
-                Requests
-                <span className="text-sm items-start pl-2 pb-2 font-bold ">
-                  10
-                </span>
-              </button>
+              {userDetails.mentorStatus && (
+                <button
+                  id="menu-button"
+                  aria-expanded="true"
+                  aria-haspopup="true"
+                  type="button"
+                  className=" text-primary text-xl font-semibold hover:shadow-md hover:shadow-green-100 hover:bg-teal-700 hover:text-white px-5 py-1.5 rounded-lg  cursor-pointer "
+                >
+                  Requests
+                  <span className="text-sm items-start pl-2 pb-2 font-bold ">
+                    10
+                  </span>
+                </button>
+              )}
             </NavLink>
 
             <NavLink
@@ -104,6 +108,33 @@ function CareerNavbar({ isQna, isMyresources }) {
               navTitle="Study Materials"
               route="/career-guide/myresources/materials"
             />
+          </div>
+        )}
+        {isWork && (
+          <div className="justify-end space-x-3">
+            {userDetails.jobProviderStatus && (
+              <CareerNavbarItem navTitle="All" route="/career-guide/work" />
+            )}
+            {userDetails.jobProviderStatus && (
+              <CareerNavbarItem
+                navTitle="My jobs "
+                route="/career-guide/myjobs"
+              />
+            )}
+
+            {userDetails.jobProviderStatus && (
+              <Link to="/career-guide/work/jobpost">
+                <button
+                  id="menu-button"
+                  aria-expanded="true"
+                  aria-haspopup="true"
+                  type="button"
+                  className="bg-purple-600 text-white font-semibold text-base px-5 py-0.5 rounded-3xl hover:bg-purple-700 "
+                >
+                  Post a job
+                </button>
+              </Link>
+            )}
           </div>
         )}
       </div>

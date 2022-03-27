@@ -1,6 +1,12 @@
 import React from "react";
 
-function FormItem({ label, inputType, inputPlaceholder, buttonRequired }) {
+function FormItem({
+  label,
+  inputType,
+  inputPlaceholder,
+  buttonRequired,
+  onInputChange,
+}) {
   return (
     <div className="space-y-5">
       <label
@@ -13,13 +19,14 @@ function FormItem({ label, inputType, inputPlaceholder, buttonRequired }) {
         <input
           type={inputType}
           placeholder={inputPlaceholder}
+          onChange={onInputChange}
           className="border-b-2 focus:outline-none w-72 text-lg"
         />
-        {buttonRequired && (
+        {/* {buttonRequired && (
           <button className="rounded-full bg-primary hover:bg-teal-800 text-white font-semibold px-7 py-1 ">
             Add{" "}
           </button>
-        )}
+        )} */}
       </div>
     </div>
   );

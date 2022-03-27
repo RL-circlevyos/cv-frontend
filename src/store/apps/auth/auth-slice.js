@@ -32,6 +32,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isLoggedin = false;
     },
+
     ///**** DO not change */
     userDetails(state, action) {
       state.userDetails = action.payload.userDetails;

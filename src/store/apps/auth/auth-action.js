@@ -613,3 +613,39 @@ export const changePasswordAction = (passwordBody) => {
     }
   };
 };
+
+// * job provider request
+export const userJobProviderReqAction = (reqQuestionBody, token) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const jobProviderReq = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/jobproviderrequest`,
+
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            Authorization: token,
+          },
+          body: reqQuestionBody,
+        }
+      );
+
+      /**console.log(response);*/
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      return response;
+    };
+
+    try {
+      await jobProviderReq();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

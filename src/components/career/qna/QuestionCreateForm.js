@@ -1,10 +1,15 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowCircleLeftIcon } from "@heroicons/react/solid";
 import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import "draft-js/dist/Draft.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createPrivateQuestionAction,
+  questionCreateAction,
+} from "../../../store/apps/qna/qna-action";
 
 function QuestionCreateForm({ isPrivate, isPublic }) {
   // * text edditor config
@@ -61,6 +66,7 @@ function QuestionCreateForm({ isPrivate, isPublic }) {
 
     return length;
   };
+  const { allMentors } = useSelector((state) => state.user);
 
   const handleBeforeInput = () => {
     const currentContent = editorState.getCurrentContent();
@@ -89,17 +95,35 @@ function QuestionCreateForm({ isPrivate, isPublic }) {
 
   // * text edditor config end
 
-  const questionTitleRef = useRef();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  const { token } = auth;
+  const formdata = new FormData();
+
+  const [title, setTitle] = useState("");
+  const [mentorId, setMentorId] = useState();
+
+  let navigate = useNavigate();
+
+  formdata.append("title", title);
+  formdata.append("selectedMentor", mentorId);
+  formdata.append(
+    "body",
+    draftToHtml(convertToRaw(editorState.getCurrentContent()))
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newQuestion = {
-      title: questionTitleRef.current.value,
-      body: editorState,
-    };
+    dispatch(questionCreateAction(formdata, token));
 
-    console.log(newQuestion);
+    navigate("/career-guide/qna");
+  };
+
+  const handleSubmitPrivate = (e) => {
+    e.preventDefault();
+
+    dispatch(createPrivateQuestionAction(formdata, token));
   };
 
   return (
@@ -118,7 +142,7 @@ function QuestionCreateForm({ isPrivate, isPublic }) {
         )}
         {isPrivate && (
           <div
-            onClick={handleSubmit}
+            onClick={handleSubmitPrivate}
             className="bg-primary px-5 py-2 rounded-lg text-white font-semibold w-min cursor-pointer hover:bg-teal-700"
           >
             Pay&nbsp;&&nbsp;Post
@@ -129,7 +153,7 @@ function QuestionCreateForm({ isPrivate, isPublic }) {
       <div className="space-y-2 text-left items-start align-">
         <div className="px-2 text-base font-semibold text-gray-600">Title</div>
         <input
-          ref={questionTitleRef}
+          onChange={(e) => setTitle(e.target.value)}
           placeholder="Write Question title"
           className="bg-gray-200 px-5 py-3 w-full rounded-full focus:outline-none"
         />
@@ -159,6 +183,21 @@ function QuestionCreateForm({ isPrivate, isPublic }) {
             ],
           }}
         />
+        <select
+          name="current_status"
+          id="current_status"
+          className="w-80 bg-gray-100 px-2 py-2 my-4 shadow-md rounded-full "
+          onChange={(e) => {
+            setMentorId(e.target.value);
+          }}
+        >
+          <option value="select">selete mentors</option>
+          {allMentors?.mentors?.map((mentor) => (
+            <>
+              <option value={mentor?._id}>{mentor?.name}</option>
+            </>
+          ))}
+        </select>
       </div>
     </form>
   );

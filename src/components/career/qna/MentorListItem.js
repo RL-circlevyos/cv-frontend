@@ -2,16 +2,20 @@ import { AcademicCapIcon } from "@heroicons/react/solid";
 import personImage from "../../../assets/person.png";
 import React from "react";
 
-function MentorListItem() {
+function MentorListItem({ username, userprofile }) {
   return (
     <div
       className="bg-gray-200 flex items-start space-x-2 px-2 py-1 rounded-lg cursor-pointer
     "
     >
       <div className="flex space-x-2">
-        <img src={personImage} alt="Profile" className="h-8 w-8" />
+        <img
+          src={userprofile ? userprofile : personImage}
+          alt="Profile"
+          className="h-8 w-8 rounded-full"
+        />
         <div>
-          <div className="text-sm font-semibold text-gray-700">User Name</div>
+          <div className="text-sm font-semibold text-gray-700">{username}</div>
           <div className="flex space-x-4">
             <div className="text-xs  text-gray-700">Designation</div>
           </div>
