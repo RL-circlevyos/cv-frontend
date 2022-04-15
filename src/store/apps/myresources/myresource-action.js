@@ -114,6 +114,48 @@ export const getAllNotesAction = (token) => async (dispatch) => {
   }
 };
 
+// get single note
+export const getSingleNoteAction = (token, id) => async (dispatch) => {
+  const getSingleNote = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/materials/${id}`,
+      {
+        credentials: "include",
+        method: "GET",
+        mode: "cors",
+
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw Error("Error occured in single mock paper fetch");
+    }
+
+    const data = await response.json();
+
+    return data;
+  };
+
+  try {
+    const singleMaterial = await getSingleNote();
+
+    dispatch(
+      myResourceAction.getSingleMaterial({
+        singleMaterial,
+      })
+    );
+  } catch (error) {
+    dispatch(
+      UiSliceAction.ErrorMessage({
+        errorMessage: error.message,
+      })
+    );
+  }
+};
+
 // get all mock papers
 export const getAllMockPaperAction = (token) => async (dispatch) => {
   const getAllMockPaper = async () => {
