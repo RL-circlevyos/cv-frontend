@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowCircleLeftIcon } from "@heroicons/react/solid";
 import { EditorState, convertToRaw } from "draft-js";
@@ -11,7 +11,67 @@ import {
   questionCreateAction,
 } from "../../../store/apps/qna/qna-action";
 
+function loadScript(src) {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = () => {
+      resolve(true);
+    };
+    script.onerror = () => {
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
+}
+
+const __DEV__ = document.domain === "localhost";
+
 function QuestionCreateForm({ isPrivate, isPublic }) {
+  // * razorpay start
+  const [name, setName] = useState("Mehul");
+
+  async function displayRazorpay() {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const data = await fetch(`http://localhost:3699/api/v1/razorpay`, {
+      method: "POST",
+    }).then((t) => t.json());
+
+    console.log(data);
+
+    const options = {
+      key: __DEV__ ? "rzp_test_Z6BZ0kXlJJphbP" : "PRODUCTION_KEY",
+      currency: data.currency,
+      amount: data.amount.toString(),
+      order_id: data.id,
+      name: "Private Qiestion",
+      description: "Thank you ",
+      // image: 'http://localhost:1337/logo.svg',
+      handler: function (response) {
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+      },
+      prefill: {
+        name,
+        email: "sdfdsjfh2@ndsfdf.com",
+        phone_number: "9899999999",
+      },
+    };
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  }
+
+  // * razorpay end
+
   // * text edditor config
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const onEditorStateChange = (editorsState) => {
@@ -99,6 +159,7 @@ function QuestionCreateForm({ isPrivate, isPublic }) {
   const auth = useSelector((state) => state.auth);
   const { token } = auth;
   const formdata = new FormData();
+  const privateformdata = new FormData();
 
   const [title, setTitle] = useState("");
   const [mentorId, setMentorId] = useState();
@@ -106,11 +167,18 @@ function QuestionCreateForm({ isPrivate, isPublic }) {
   let navigate = useNavigate();
 
   formdata.append("title", title);
-  formdata.append("selectedMentor", mentorId);
+  // formdata.append("selectedMentor", mentorId);
   formdata.append(
     "body",
     draftToHtml(convertToRaw(editorState.getCurrentContent()))
   );
+
+  privateformdata.append("title", title);
+  privateformdata.append(
+    "body",
+    draftToHtml(convertToRaw(editorState.getCurrentContent()))
+  );
+  privateformdata.append("selectedMentor", mentorId);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -122,8 +190,8 @@ function QuestionCreateForm({ isPrivate, isPublic }) {
 
   const handleSubmitPrivate = (e) => {
     e.preventDefault();
-
-    dispatch(createPrivateQuestionAction(formdata, token));
+    displayRazorpay();
+    dispatch(createPrivateQuestionAction(privateformdata, token));
   };
 
   return (
@@ -183,21 +251,23 @@ function QuestionCreateForm({ isPrivate, isPublic }) {
             ],
           }}
         />
-        <select
-          name="current_status"
-          id="current_status"
-          className="w-80 bg-gray-100 px-2 py-2 my-4 shadow-md rounded-full "
-          onChange={(e) => {
-            setMentorId(e.target.value);
-          }}
-        >
-          <option value="select">selete mentors</option>
-          {allMentors?.mentors?.map((mentor) => (
-            <>
-              <option value={mentor?._id}>{mentor?.name}</option>
-            </>
-          ))}
-        </select>
+        {isPrivate && (
+          <select
+            name="current_status"
+            id="current_status"
+            className="w-80 bg-gray-100 px-2 py-2 my-4 shadow-md rounded-full "
+            onChange={(e) => {
+              setMentorId(e.target.value);
+            }}
+          >
+            <option value="select">selete mentors</option>
+            {allMentors?.mentors?.map((mentor) => (
+              <>
+                <option value={mentor?._id}>{mentor?.name}</option>
+              </>
+            ))}
+          </select>
+        )}
       </div>
     </form>
   );

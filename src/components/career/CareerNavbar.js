@@ -4,11 +4,17 @@ import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import CareerNavbarItem from "./CareerNavbarItem";
 
-function CareerNavbar({ isQna, isMyresources, isWork }) {
+function CareerNavbar({
+  isQna,
+  isMyresources,
+  isWork,
+  isCareerDashBoard,
+  isMentorDashBoard,
+}) {
   const { userDetails } = useSelector((state) => state.auth);
   return (
     <div>
-      <div className="py-3 px-10 flex  ">
+      <div className="py-3 px-10 flex">
         {/* left */}
         <div className="flex justify-start flex-grow ">
           <div className="bg-gray-100  flex px-3 py-1 border-2 rounded-full items-center shadow-sm">
@@ -97,6 +103,10 @@ function CareerNavbar({ isQna, isMyresources, isWork }) {
               route="/career-guide/myresources/courses"
             />
             <CareerNavbarItem
+              navTitle="Mock Papers & Ans"
+              route="/career-guide/myresources/mockpapers&ans"
+            />
+            <CareerNavbarItem
               navTitle="Exams"
               route="/career-guide/myresources/exams"
             />
@@ -114,6 +124,12 @@ function CareerNavbar({ isQna, isMyresources, isWork }) {
           <div className="justify-end space-x-3">
             {userDetails.jobProviderStatus && (
               <CareerNavbarItem navTitle="All" route="/career-guide/work" />
+            )}
+            {userDetails.jobProviderStatus && (
+              <CareerNavbarItem
+                navTitle="job seekers"
+                route="/career-guide/jobseekers"
+              />
             )}
             {userDetails.jobProviderStatus && (
               <CareerNavbarItem
@@ -135,6 +151,43 @@ function CareerNavbar({ isQna, isMyresources, isWork }) {
                 </button>
               </Link>
             )}
+          </div>
+        )}
+        {isCareerDashBoard && (
+          <div className="justify-end space-x-3">
+            <CareerNavbarItem navTitle="My Career" route="/dashboard/career" />
+
+            <CareerNavbarItem navTitle="Tests & Records" route="*" />
+
+            <CareerNavbarItem navTitle="My Bucket List" route="*" />
+
+            <Link to="/career-guide/work/jobpost">
+              <button
+                id="menu-button"
+                aria-expanded="true"
+                aria-haspopup="true"
+                type="button"
+                className="bg-purple-600 text-white font-semibold text-base px-5 py-0.5 rounded-3xl hover:bg-purple-700 "
+              >
+                Be a instructor
+              </button>
+            </Link>
+          </div>
+        )}
+        {isMentorDashBoard && (
+          <div className="justify-end space-x-3">
+            <CareerNavbarItem
+              navTitle="My Notes"
+              route="/dashboard/mentor/mynotes"
+            />
+
+            <CareerNavbarItem
+              navTitle="Mock Papers & Answers"
+              route="/dashboard/mentor/papers&ans"
+            />
+
+            <CareerNavbarItem navTitle="My Courses" route="*" />
+            <CareerNavbarItem navTitle="My Bucket List" route="*" />
           </div>
         )}
       </div>

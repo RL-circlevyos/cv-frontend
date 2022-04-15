@@ -3,7 +3,6 @@ import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import "draft-js/dist/Draft.css";
-import CareerNavbar from "../../../components/career/CareerNavbar";
 import CareerSidebar from "../../../components/career/CareerSidebar";
 import Navbar from "../../../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";

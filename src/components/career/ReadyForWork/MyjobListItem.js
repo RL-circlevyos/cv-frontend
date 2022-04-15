@@ -2,7 +2,6 @@ import {
   BriefcaseIcon,
   CogIcon,
   CreditCardIcon,
-  DocumentAddIcon,
   DocumentIcon,
 } from "@heroicons/react/solid";
 import React from "react";

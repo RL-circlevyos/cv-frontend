@@ -9,10 +9,7 @@ import {
   // PaperClipIcon,
 } from "@heroicons/react/solid";
 import { useSelector } from "react-redux";
-import AlertDialogSlide from "./../../../components/Dialog";
-import Prizes from "./Prizes/Prizes";
-import MenuPopupState from "../../../components/Menu";
-import PositionedMenu from "../../../components/Menu";
+
 import DropdownImagine from "../General-Imagines/Create/Dropdown";
 
 const Sidebar = () => {

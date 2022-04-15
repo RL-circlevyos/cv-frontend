@@ -1,18 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../../components/Navbar";
 import CareerNavbar from "../../../components/career/CareerNavbar";
 import CareerSidebar from "../../../components/career/CareerSidebar";
-import BestForYouSection from "../../../components/career/myresources/BestForYouSection";
-import PersonImage from "../../../assets/person.png";
 import CourseItem from "../../../components/career/myresources/courseItem";
-import { Link } from "react-router-dom";
+
 import SectionHeaders from "../../../components/career/myresources/SectionHeaders";
-import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
+
 import ExamItem from "../../../components/career/myresources/ExamItem";
 import BookItem from "../../../components/career/myresources/BookItem";
 import StudyMaterialItem from "../../../components/career/myresources/StudyMaterialItem";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {
+  getAllCourseAction,
+  getAllNotesAction,
+} from "../../../store/apps/myresources/myresource-action";
+import CareerStatus from "../../../components/career/myresources/CareerStatus";
 
 function MyResources() {
+  const { allCourses, allMaterials } = useSelector((state) => state.myresource);
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getAllCourseAction(auth.token));
+      dispatch(getAllNotesAction(auth.token));
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dispatch, auth.token]);
+
+  const slicedArrayCourses = allCourses?.courses?.slice(0, 4);
+  const slicedArrayMaterials = allMaterials?.materials?.slice(0, 4);
   return (
     <div className="h-screen w-screen font-Mulish fixed">
       <Navbar />
@@ -24,7 +45,7 @@ function MyResources() {
           {/* career rources list */}
           <div className="bg-gray-50 px-3 h-screen w-screen overflow-y-auto no-scrollbar ">
             {/* section 1 */}
-            <BestForYouSection />
+            <CareerStatus />
 
             {/* section 2 */}
             <div className="py-4">
@@ -38,10 +59,20 @@ function MyResources() {
                 className="grid grid-cols-4 px-5 py-5 space-x-6"
                 // id="style-8"
               >
+                {slicedArrayCourses?.map((course) => (
+                  <>
+                    <CourseItem
+                      coursename={course?.name}
+                      thumbail={course?.thumbnail?.secure_url}
+                      username={course?.user?.name}
+                      userprofile={course?.user?.photo?.secure_url}
+                    />
+                  </>
+                ))}
+                {/* <CourseItem />
                 <CourseItem />
                 <CourseItem />
-                <CourseItem />
-                <CourseItem />
+                <CourseItem /> */}
               </div>
             </div>
 
@@ -85,12 +116,17 @@ function MyResources() {
               />
               <div className="grid grid-cols-6 grid-rows-2 gap-2 x-5 py-5 space-x-6">
                 {/* book item */}
-                <StudyMaterialItem />
-                <StudyMaterialItem />
-                <StudyMaterialItem />
-                <StudyMaterialItem />
-                <StudyMaterialItem />
-                <StudyMaterialItem />
+                {slicedArrayMaterials?.map((material) => (
+                  <>
+                    <StudyMaterialItem
+                      key={material?._id}
+                      id={material?._id}
+                      username={material?.user?.name}
+                      thumbnail={material?.thumbnail?.secure_url}
+                      name={material?.name}
+                    />
+                  </>
+                ))}
               </div>
             </div>
           </div>

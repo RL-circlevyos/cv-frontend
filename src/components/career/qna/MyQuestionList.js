@@ -1,6 +1,5 @@
 import React from "react";
 import MyQuestionListItem from "./MyQuestionListItem";
-import QuestionRequestListItem from "./QuestionRequestListItem";
 
 function MyQuestionList() {
   return (

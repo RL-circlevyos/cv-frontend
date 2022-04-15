@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import PersonImage from "../../../assets/person.png";
-import { ArrowCircleLeftIcon } from "@heroicons/react/solid";
+
 import QuesDetailUserAction from "./QuesDetailUserAction";
-import { ThumbDownIcon, ThumbUpIcon } from "@heroicons/react/outline";
+
 import QuesTitleDescription from "./QuesTitleDescription";
 import AnswerList from "./AnswerList";
 import { useParams } from "react-router-dom";
@@ -16,7 +15,7 @@ import { useSelector } from "react-redux";
 function SingleQuestionDetail() {
   const { id } = useParams();
   const auth = useSelector((state) => state.auth);
-  const { isLogged, token } = auth;
+  const { token } = auth;
 
   const dispatch = useDispatch();
 

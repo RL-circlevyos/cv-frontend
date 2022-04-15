@@ -18,9 +18,6 @@ export default function Example() {
   const user = auth.userid;
   const [del, setDel] = useState(false);
   const dispatch = useDispatch();
-  const logout = useCallback(() => {
-    setDel(true);
-  }, []);
 
   const handleDelClose = useCallback(() => {
     setDel(false);

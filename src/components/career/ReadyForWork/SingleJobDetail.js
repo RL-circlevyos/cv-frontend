@@ -9,4 +9,4 @@ function SingleJobDetail() {
   );
 }
 
-export default SingleJobDetail;
+export default React.memo(SingleJobDetail);

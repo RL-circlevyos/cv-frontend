@@ -6,7 +6,7 @@ function RecommendedJobs() {
   const { allJobs } = useSelector((state) => state.job);
   console.log(allJobs);
   return (
-    <div className="">
+    <div className=" flex-1 ">
       <div className="text-2 xl font-bold p-2 bg-gray-50 text-purple-700">
         Recommended Jobs
       </div>

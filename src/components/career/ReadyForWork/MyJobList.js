@@ -1,6 +1,5 @@
 import React from "react";
 import MyjobListItem from "./MyjobListItem";
-import WorkItem from "./WorkItem";
 
 function MyJobList() {
   return (

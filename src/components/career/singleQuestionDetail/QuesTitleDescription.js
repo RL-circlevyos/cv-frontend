@@ -1,4 +1,4 @@
-import { ThumbDownIcon, ThumbUpIcon } from "@heroicons/react/outline";
+import { ThumbUpIcon } from "@heroicons/react/outline";
 import React from "react";
 import { useSelector } from "react-redux";
 

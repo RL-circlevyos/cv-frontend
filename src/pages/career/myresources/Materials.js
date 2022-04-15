@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CareerNavbar from "../../../components/career/CareerNavbar";
 import CareerSidebar from "../../../components/career/CareerSidebar";
 import SectionHeaders from "../../../components/career/myresources/SectionHeaders";
 import StudyMaterialItem from "../../../components/career/myresources/StudyMaterialItem";
 import Navbar from "../../../components/Navbar";
+import { getAllNotesAction } from "../../../store/apps/myresources/myresource-action";
 
 function Materials() {
+  const { token } = useSelector((state) => state.auth);
+  const { allMaterials } = useSelector((state) => state.myresource);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllNotesAction(token));
+  }, [dispatch, token]);
+
   return (
     <div className="h-screen w-screen font-Mulish fixed">
       <Navbar />
@@ -25,10 +36,17 @@ function Materials() {
                 // id="style-8"
               >
                 {/* 8 items */}
-                <StudyMaterialItem />
-                <StudyMaterialItem />
-                <StudyMaterialItem />
-                <StudyMaterialItem />
+                {allMaterials?.materials?.map((material) => (
+                  <>
+                    <StudyMaterialItem
+                      key={material?._id}
+                      id={material?._id}
+                      username={material?.user?.name}
+                      thumbnail={material?.thumbnail?.secure_url}
+                      name={material?.name}
+                    />
+                  </>
+                ))}
               </div>
 
               <div className="py-3">

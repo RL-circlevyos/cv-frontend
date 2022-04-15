@@ -1,14 +1,10 @@
 import React, { useCallback, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import { Transition } from "@headlessui/react";
 import logo from "../assets/circlevyos.svg";
 /***import useDarkMode from "./../hooks/useDarkMode";*/
 import { Feather, Power } from "react-feather";
 
-import {
-  AcademicCapIcon,
-  ChevronDownIcon,
-  NewspaperIcon,
-} from "@heroicons/react/solid";
+import { AcademicCapIcon, NewspaperIcon } from "@heroicons/react/solid";
 import dp from "../assets/person.png";
 import {
   BriefcaseIcon,
@@ -27,10 +23,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Example from "./Dropdown";
 import AlertDialogSlide from "./Dialog";
 import DelPopup from "./DelPopup";
-import { logoutAction } from "../store/apps/auth/auth-action";
+
 import TextareaDialog from "./Feedback/TextareaDialog";
 import { DocumentTextIcon, ShieldCheckIcon } from "@heroicons/react/outline";
-import { Fragment } from "react";
+
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -48,29 +44,29 @@ function Navbar() {
   const handleClickOpen = useCallback(() => {
     setOpen(true);
   }, []);
-  const handleClickCreateOpen = useCallback(() => {
-    setIsCreateOpen(true);
-  }, []);
+  // const handleClickCreateOpen = useCallback(() => {
+  //   setIsCreateOpen(true);
+  // }, []);
   const handleClose = useCallback(() => {
     setOpen(false);
   }, []);
-  const handleCreateClose = useCallback(() => {
-    setIsCreateOpen(false);
-  }, []);
+  // const handleCreateClose = useCallback(() => {
+  //   setIsCreateOpen(false);
+  // }, []);
 
   const [del, setDel] = useState(false);
-  const dispatch = useDispatch();
-  const logout = useCallback(() => {
-    setDel(true);
-  }, []);
+  // const dispatch = useDispatch();
+  // const logout = useCallback(() => {
+  //   setDel(true);
+  // }, []);
 
   const handleDelClose = useCallback(() => {
     setDel(false);
   }, []);
 
-  const crImagine = useCallback(() => {
-    auth.isLogged ? navigate("/create-imagine") : handleClickOpen();
-  }, [auth.isLogged, handleClickOpen, navigate]);
+  // const crImagine = useCallback(() => {
+  //   auth.isLogged ? navigate("/create-imagine") : handleClickOpen();
+  // }, [auth.isLogged, handleClickOpen, navigate]);
 
   /******* feedback states *****/
   const [feedback, setFeedback] = useState(false);
@@ -176,18 +172,6 @@ function Navbar() {
               <div className="hidden  md:block ">
                 <div className="flex items-center gap-2 justify-center">
                   <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "flex items-center gap-1 mt-1 text-sm bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md uppercase font-extrabold"
-                        : "flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm uppercase font-extrabold"
-                    }
-                  >
-                    <span className="flex items-center space-x-2">
-                      <NewspaperIcon className="w-6 h-6 mr-2" /> Imagines
-                    </span>
-                  </NavLink>
-                  <NavLink
                     to="/career-guide/qna"
                     className={({ isActive }) =>
                       isActive
@@ -200,6 +184,19 @@ function Navbar() {
                     </span>
                   </NavLink>
                   <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "flex items-center gap-1 mt-1 text-sm bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md uppercase font-extrabold"
+                        : "flex items-center gap-1 mt-1  hover:bg-greyish-200 cursor-pointer transition duration-500 linear px-3 py-2 rounded-md text-sm uppercase font-extrabold"
+                    }
+                  >
+                    <span className="flex items-center space-x-2">
+                      <NewspaperIcon className="w-6 h-6 mr-2" /> Imagines
+                    </span>
+                  </NavLink>
+
+                  {/* <NavLink
                     to="/marketplace"
                     className={({ isActive }) =>
                       isActive
@@ -210,7 +207,7 @@ function Navbar() {
                     <span className="flex items-center space-x-2">
                       <BriefcaseIcon className="w-6 h-6 mr-2" /> Marketplace
                     </span>
-                  </NavLink>
+                  </NavLink> */}
                 </div>
               </div>
               <div className="hidden space-x-2 items-baseline justify-end md:flex">

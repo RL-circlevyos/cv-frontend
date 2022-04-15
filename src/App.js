@@ -17,10 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AuthState } from "./store/apps/auth/auth-action";
 import { useEffect } from "react";
 
-import { generalImagineFetchAction } from "./store/apps/imagines/imagine-action";
 import ImagineList from "./pages/Imagines/Home/General/ImagineList";
 import Marketplace from "./pages/Marketplace/Marketplace";
-import Select from "./pages/Authentication/Select/Select";
 
 import SavedGeneral from "./pages/Imagines/Home/Saved/SavedGeneral";
 import Upcoming from "./pages/Imagines/Home/Story/Upcoming";
@@ -35,7 +33,7 @@ import Account from "./pages/UserProfile/Info/Account";
 import ActivationEmail from "./pages/Authentication/ActivateEmail";
 import axios from "axios";
 import { authAction } from "./store/apps/auth/auth-slice";
-import Navbar from "./components/Navbar";
+
 import Career from "./pages/career/Career";
 import QuestionDetail from "./pages/career/QuestionDetail";
 import CreatePublicQuestion from "./pages/career/qna/CreatePublicQuestion";
@@ -51,13 +49,24 @@ import JobProviderRequests from "./pages/career/userRequest/JobProviderRequests"
 import Requests from "./pages/career/qna/Requests";
 import RequestQuestionDetail from "./pages/career/qna/RequestQuestionDetail";
 import MyQna from "./pages/career/qna/MyQna";
-import MyQnaAnsDetail from "./pages/career/qna/MyQnaAnsDetail";
+
 import MyQnaSingleQDetail from "./components/career/qna/MyQnaSingleQDetail";
 import Counselling from "./pages/career/Counselling";
 import MyJobs from "./pages/career/Work/MyJobs";
-import SingleQuestionDetail from "./components/career/singleQuestionDetail/SingleQuestionDetail";
+
 import SingleJobDetail from "./components/career/ReadyForWork/SingleJobDetail";
 import JobPost from "./pages/career/Work/JobPost";
+import JobSeekers from "./pages/career/Work/JobSeekers";
+import CareerDashboard from "./pages/career/dashboard/CareerDashboard";
+import MentorDashboard from "./pages/career/dashboard/MentorDashboard";
+import JobProviderDashboard from "./pages/career/dashboard/JobProviderDashboard";
+import ExamPaperAndAns from "./pages/career/dashboard/ExamPaperAndAns";
+import MockPapersAndAns from "./pages/career/myresources/MockPapersAndAns";
+import CreateNote from "./pages/career/dashboard/CreateNote";
+import CreateMockPaper from "./pages/career/dashboard/CreateMockPaper";
+import SingleCourse from "./pages/career/myresources/SingleCourse";
+import SingleMockPapersndAns from "./pages/career/myresources/SingleMockPapersndAns";
+import SingleStudyMaterial from "./pages/career/myresources/SingleStudyMaterial";
 
 function App() {
   const dispatch = useDispatch();
@@ -135,17 +144,48 @@ function App() {
 
         <Route path="/career-guide/myresources/all" element={<MyResources />} />
         <Route path="/career-guide/myresources/courses" element={<Course />} />
+        <Route
+          path="/career-guide/myresources/courses/:id"
+          element={<SingleCourse />}
+        />
         <Route path="/career-guide/myresources/exams" element={<Exams />} />
         <Route path="/career-guide/myresources/books" element={<Books />} />
+        <Route
+          path="/career-guide/myresources/mockpapers&ans"
+          element={<MockPapersAndAns />}
+        />
+        <Route
+          path="/career-guide/myresources/mockpapers&ans/:id"
+          element={<SingleMockPapersndAns />}
+        />
         <Route
           path="/career-guide/myresources/materials"
           element={<Materials />}
         />
+        <Route
+          path="/career-guide/myresources/materials/:id"
+          element={<SingleStudyMaterial />}
+        />
 
         <Route path="/career-guide/work" element={<Work />} />
         <Route path="/career-guide/work/jobpost" element={<JobPost />} />
+        <Route path="/career-guide/jobseekers" element={<JobSeekers />} />
         <Route path="/career-guide/work/:id" element={<SingleJobDetail />} />
         <Route path="/career-guide/myjobs" element={<MyJobs />} />
+
+        {/* Dashboards */}
+        <Route path="/dashboard/career" element={<CareerDashboard />} />
+        <Route path="/dashboard/mentor/mynotes" element={<MentorDashboard />} />
+        <Route path="/dashboard/mentor/create-note" element={<CreateNote />} />
+        <Route
+          path="/dashboard/mentor/create-mockpaper"
+          element={<CreateMockPaper />}
+        />
+        <Route path="/dashboard/job" element={<JobProviderDashboard />} />
+        <Route
+          path="/dashboard/mentor/papers&ans"
+          element={<ExamPaperAndAns />}
+        />
 
         {/*  user requests  */}
         <Route

@@ -4,7 +4,7 @@ import SkeletonImagines from "../../../../components/SkeletonLoader/SkeletonImag
 import { useSocket } from "../../../../hooks/socketHook";
 import { generalImagineFetchAction } from "../../../../store/apps/imagines/imagine-action";
 import { imagineSliceAction } from "../../../../store/apps/imagines/imagine-slice";
-import { UiSliceAction } from "../../../../store/apps/ui/uiSlice";
+
 import Card from "./Card";
 
 const List = () => {

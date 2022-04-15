@@ -18,7 +18,7 @@ function WorkItem({
   userprofileimg,
 }) {
   return (
-    <div className="bg-white shadow-md max-w-lg p-2 rounded-lg cursor-pointer">
+    <div className="bg-white shadow-md max-w-full p-2 rounded-lg cursor-pointer">
       {/* upper */}
       <div>
         <div className="text-lg text-teal-800 font-bold">{jobtitle}</div>

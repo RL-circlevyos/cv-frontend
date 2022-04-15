@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CareerNavbar from "../../../components/career/CareerNavbar";
 import CareerSidebar from "../../../components/career/CareerSidebar";
 import CourseItem from "../../../components/career/myresources/courseItem";
 import SectionHeaders from "../../../components/career/myresources/SectionHeaders";
 import Navbar from "../../../components/Navbar";
+import { getAllCourseAction } from "../../../store/apps/myresources/myresource-action";
 
 function Course() {
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  const { allCourses } = useSelector((state) => state.myresource);
+
+  useEffect(() => {
+    dispatch(getAllCourseAction(auth.token));
+  }, [dispatch, auth.token]);
+
   return (
     <div className="h-screen w-screen font-Mulish fixed">
       <Navbar />
@@ -27,15 +37,16 @@ function Course() {
                 className="grid grid-cols-4 px-5 py-5 gap-6"
                 // id="style-8"
               >
-                {/* 8 items */}
-                <CourseItem />
-                <CourseItem />
-                <CourseItem />
-                <CourseItem />
-                <CourseItem />
-                <CourseItem />
-                <CourseItem />
-                <CourseItem />
+                {allCourses?.courses?.map((course) => (
+                  <>
+                    <CourseItem
+                      coursename={course?.name}
+                      thumbail={course?.thumbnail?.secure_url}
+                      username={course?.user?.name}
+                      userprofile={course?.user?.photo?.secure_url}
+                    />
+                  </>
+                ))}
               </div>
 
               <div className="py-3">

@@ -1,5 +1,5 @@
 import React from "react";
-import { ThumbDownIcon, ThumbUpIcon } from "@heroicons/react/outline";
+import { ThumbUpIcon } from "@heroicons/react/outline";
 import PersonImage from "../../assets/person.png";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -14,7 +14,7 @@ function CareerQuestionListItem({
 }) {
   return (
     <div>
-      <div className="bg-gray-50 max-w-5xl py-2 rounded-lg shadow-md mx-auto justify-center">
+      <div className="bg-white max-w-5xl py-2 rounded-lg shadow-md mx-auto justify-center">
         {/* Top container */}
         <div className="flex">
           {/* top left */}

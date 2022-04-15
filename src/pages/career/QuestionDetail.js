@@ -1,8 +1,7 @@
-import { ArrowCircleLeftIcon } from "@heroicons/react/solid";
 import React from "react";
 import CareerSidebar from "../../components/career/CareerSidebar";
 import Navbar from "../../components/Navbar";
-import PersonImage from "../../assets/person.png";
+
 import CareerNavbar from "../../components/career/CareerNavbar";
 import SingleQuestionDetail from "../../components/career/singleQuestionDetail/SingleQuestionDetail";
 

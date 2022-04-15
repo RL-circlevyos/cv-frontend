@@ -1,6 +1,6 @@
 import { LinearProgress } from "@mui/material";
 import React from "react";
-import Scrollbars from "react-custom-scrollbars-2";
+
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import CareerQuestionListItem from "./CareerQuestionListItem";
@@ -19,7 +19,7 @@ function CareerQuestionList() {
           </span>
         </span>
       )}
-      <div className="mx-auto justify-items-center  space-y-3 h-screen  rounded-md pt-6 pb-44 mr-4 xl:mr-40 overflow-y-auto overscroll-none no-scrollbar ">
+      <div className="mx-auto justify-items-center bg-gray-50 w-screen  space-y-3 h-screen  rounded-md pt-6 pb-44 mr-4 xl:mr-40 overflow-y-auto overscroll-none no-scrollbar ">
         {questionLists?.Questions?.map((question) => (
           <>
             <CareerQuestionListItem

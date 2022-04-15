@@ -8,7 +8,7 @@ import Sidebar from "../Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Info from "../Info";
-import { Link } from "react-router-dom";
+
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 

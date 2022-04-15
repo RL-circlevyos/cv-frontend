@@ -1,10 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  AnnotationIcon,
-  DotsHorizontalIcon,
-  LightBulbIcon,
-  XIcon,
-} from "@heroicons/react/solid";
+import React, { useCallback, useState } from "react";
+import { AnnotationIcon, LightBulbIcon, XIcon } from "@heroicons/react/solid";
 import Sound from "../Sound";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -20,7 +15,7 @@ import DelPopup from "./../../../../components/DelPopup";
 import just_saying from "../../../../assets/reading_book.svg";
 import moment from "moment";
 
-import { ShareIcon, EyeIcon } from "@heroicons/react/outline";
+import { EyeIcon } from "@heroicons/react/outline";
 import ShareDialog from "./../../General-Imagines/Imagines/ShareDialog";
 import TextareaDialog from "../../../../components/Feedback/TextareaDialog";
 

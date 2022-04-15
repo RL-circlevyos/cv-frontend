@@ -22,4 +22,4 @@ function SectionHeaders({ router, headerTitle }) {
   );
 }
 
-export default SectionHeaders;
+export default React.memo(SectionHeaders);
