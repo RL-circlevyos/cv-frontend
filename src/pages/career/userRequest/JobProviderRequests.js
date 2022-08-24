@@ -27,7 +27,6 @@ function JobProviderRequests() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(userJobProviderReqAction(formdata, token));
-    navigate("/career-guide/qna");
   };
 
   return (

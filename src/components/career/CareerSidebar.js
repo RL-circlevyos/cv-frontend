@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AcademicCapIcon, ChatAlt2Icon } from "@heroicons/react/outline";
 import CareerSidebarItem from "./CareerSidebarItem";
 import {
@@ -7,10 +7,32 @@ import {
   PuzzleIcon,
   UserIcon,
 } from "@heroicons/react/solid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  AuthState,
+  switchToGenAction,
+  switchToJobProviderAction,
+  switchToMentorAction,
+} from "../../store/apps/auth/auth-action";
 
 function CareerSidebar() {
-  const { userDetails } = useSelector((state) => state.auth);
+  const { userDetails, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  function switchTogenHandler() {
+    dispatch(switchToGenAction(token));
+    window.location.reload();
+  }
+
+  function switchToMentorHandler() {
+    dispatch(switchToMentorAction(token));
+    window.location.reload();
+  }
+
+  function switchToJobProviderHandler() {
+    dispatch(switchToJobProviderAction(token));
+    window.location.reload();
+  }
 
   return (
     <div className="scroll-y px-10 mt-6 w max-w-sm xl:min-w-[300px] overflow-y h-screen space-y-2 ">
@@ -35,7 +57,8 @@ function CareerSidebar() {
         />
         <div className="py-2 border-b-2"></div>
         <div className="font-semibold text-gray-400 text-xl">Dashboards</div>
-        {userDetails?.mentorStatus && userDetails?.jobProviderStatus ? (
+
+        {userDetails?.mentorStatus || userDetails?.jobProviderStatus ? (
           ""
         ) : (
           <CareerSidebarItem
@@ -61,26 +84,75 @@ function CareerSidebar() {
         <div className="py-2 border-b-2"></div>
       </div>
 
-      <div>
-        <div className="font-semibold underline underline-offset-2 pb-3 text-teal-600">
-          Turn your account into{" "}
+      {!userDetails?.mentor && !userDetails?.jobprovider ? (
+        <div>
+          {!userDetails?.jobProviderStatus && !userDetails?.mentorStatus ? (
+            <div className="font-semibold underline underline-offset-2 pb-3 text-teal-600">
+              Turn your account into{" "}
+            </div>
+          ) : (
+            ""
+          )}
+          {!userDetails?.mentorStatus && (
+            <CareerSidebarItem
+              Icon={UserIcon}
+              title="Mentor "
+              route="/career-guide/mentor-request"
+            />
+          )}
+
+          {!userDetails?.jobProviderStatus && (
+            <CareerSidebarItem
+              Icon={PuzzleIcon}
+              title="Job provider"
+              route="/career-guide/jobprovider-request"
+            />
+          )}
+          <div className="py-2 border-b-2"></div>
         </div>
-        <CareerSidebarItem
-          Icon={UserIcon}
-          title="Mentor "
-          route="/career-guide/mentor-request"
-        />
-        <CareerSidebarItem
-          Icon={UserIcon}
-          title="Switch to General"
-          route="*"
-        />
-        <CareerSidebarItem
-          Icon={PuzzleIcon}
-          title="Job provider"
-          route="/career-guide/jobprovider-request"
-        />
+      ) : (
+        ""
+      )}
+
+      <div>
+        {userDetails?.mentorStatus || userDetails?.jobProviderStatus ? (
+          <div onClick={switchTogenHandler} className="cursor-pointer">
+            <p className="text-gray-600 text-lg font-Mulish font-medium hover:-translate-y-1 transition transform mx-auto max-w-full">
+              Switch Account to General
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
+      {userDetails?.mentor || userDetails?.jobprovider ? (
+        <div>
+          {(!userDetails?.mentorStatus || !userDetails?.jobProviderStatus) && (
+            <div className="font-semibold underline underline-offset-2 pb-3 text-teal-600">
+              Switch account to
+            </div>
+          )}
+
+          {!userDetails?.mentorStatus && (
+            <div
+              className="cursor-pointer text-gray-600 text-lg font-Mulish font-medium hover:-translate-y-1 transition transform mx-auto max-w-full"
+              onClick={switchToMentorHandler}
+            >
+              Mentor
+            </div>
+          )}
+          {!userDetails?.jobProviderStatus && (
+            <div
+              className="cursor-pointer text-gray-600 text-lg font-Mulish font-medium hover:-translate-y-1 transition transform mx-auto max-w-full"
+              onClick={switchToJobProviderHandler}
+            >
+              Job provider
+            </div>
+          )}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

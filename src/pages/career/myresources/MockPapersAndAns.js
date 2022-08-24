@@ -16,7 +16,7 @@ function MockPapersAndAns() {
   }, [token, dispatch]);
 
   return (
-    <div>
+    <div className="h-screen w-screen fixed">
       <Navbar />
       <CareerNavbar isMyresources={true} />
       <div className="flex">

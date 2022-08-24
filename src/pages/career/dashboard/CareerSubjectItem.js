@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-function CareerSubjectItem() {
+function CareerSubjectItem({ subject_name }) {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
       <div
         onClick={() => setShowModal(true)}
-        className="bg-white cursor-pointer text-lg shadow-md p-4 rounded-md"
+        className="bg-white cursor-pointer font-semibold text-base font-serif shadow-md p-2 rounded-md"
       >
-        Subject_name
+        {subject_name}
       </div>
       {showModal ? (
         <>
@@ -18,7 +18,7 @@ function CareerSubjectItem() {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Subject name</h3>
+                  <h3 className="text-3xl font-semibold">{subject_name}</h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
@@ -30,9 +30,7 @@ function CareerSubjectItem() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto space-y-2">
-                  Objective and overview, signal and system types and
-                  classifications, step response, impulse response and
-                  convolution integral;
+                  no syllabus available
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

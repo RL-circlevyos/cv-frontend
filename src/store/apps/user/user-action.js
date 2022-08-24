@@ -9,7 +9,6 @@ export const getAllMentorAction = (token) => async (dispatch) => {
         credentials: "include",
         method: "GET",
         mode: "cors",
-
         headers: {
           Authorization: token,
         },

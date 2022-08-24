@@ -10,6 +10,7 @@ function CareerNavbar({
   isWork,
   isCareerDashBoard,
   isMentorDashBoard,
+  isJobProviderDashboard,
 }) {
   const { userDetails } = useSelector((state) => state.auth);
   return (
@@ -120,42 +121,14 @@ function CareerNavbar({
             />
           </div>
         )}
-        {isWork && (
-          <div className="justify-end space-x-3">
-            {userDetails.jobProviderStatus && (
-              <CareerNavbarItem navTitle="All" route="/career-guide/work" />
-            )}
-            {userDetails.jobProviderStatus && (
-              <CareerNavbarItem
-                navTitle="job seekers"
-                route="/career-guide/jobseekers"
-              />
-            )}
-            {userDetails.jobProviderStatus && (
-              <CareerNavbarItem
-                navTitle="My jobs "
-                route="/career-guide/myjobs"
-              />
-            )}
-
-            {userDetails.jobProviderStatus && (
-              <Link to="/career-guide/work/jobpost">
-                <button
-                  id="menu-button"
-                  aria-expanded="true"
-                  aria-haspopup="true"
-                  type="button"
-                  className="bg-purple-600 text-white font-semibold text-base px-5 py-0.5 rounded-3xl hover:bg-purple-700 "
-                >
-                  Post a job
-                </button>
-              </Link>
-            )}
-          </div>
-        )}
+        {isWork && <></>}
         {isCareerDashBoard && (
           <div className="justify-end space-x-3">
             <CareerNavbarItem navTitle="My Career" route="/dashboard/career" />
+            <CareerNavbarItem
+              navTitle="My BioData"
+              route="/dashboard/myjobBiodata"
+            />
 
             <CareerNavbarItem navTitle="Tests & Records" route="*" />
 
@@ -186,8 +159,41 @@ function CareerNavbar({
               route="/dashboard/mentor/papers&ans"
             />
 
-            <CareerNavbarItem navTitle="My Courses" route="*" />
+            <CareerNavbarItem
+              navTitle="My Courses"
+              route="/dashboard/mentor/mycourses"
+            />
             <CareerNavbarItem navTitle="My Bucket List" route="*" />
+          </div>
+        )}
+        {isJobProviderDashboard && (
+          <div className="justify-end space-x-3">
+            {userDetails.jobProviderStatus && (
+              <CareerNavbarItem
+                navTitle="job seekers"
+                route="/career-guide/jobseekers"
+              />
+            )}
+            {userDetails.jobProviderStatus && (
+              <CareerNavbarItem
+                navTitle="My jobs "
+                route="/career-guide/myjobs"
+              />
+            )}
+
+            {userDetails.jobProviderStatus && (
+              <Link to="/career-guide/work/jobpost">
+                <button
+                  id="menu-button"
+                  aria-expanded="true"
+                  aria-haspopup="true"
+                  type="button"
+                  className="bg-purple-600 text-white font-semibold text-base px-5 py-0.5 rounded-3xl hover:bg-purple-700 "
+                >
+                  Post a job
+                </button>
+              </Link>
+            )}
           </div>
         )}
       </div>

@@ -133,7 +133,7 @@ function JobPost() {
         <div className="w-screen">
           <form className="grow bg-gray-50 h-screen px-60 py-5">
             <div className="flex items-center justify-between pb-5">
-              <Link to="/career-guide/work">
+              <Link to="/career-guide/myjobs">
                 <ArrowCircleLeftIcon className="h-10 w-10 text-gray-700 hover:text-gray-500 cursor-pointer" />
               </Link>
 

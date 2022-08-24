@@ -8,7 +8,7 @@ function JobSeekers() {
   return (
     <div className="h-screen w-screen font-Mulish fixed">
       <Navbar />
-      <CareerNavbar isWork={true} />
+      <CareerNavbar isJobProviderDashboard={true} />
       <div className="flex justify-between">
         <CareerSidebar />
         <JobSeekersList />

@@ -8,15 +8,39 @@ const myResourceinitialState = {
   singleMaterial: {},
   allMockPapers: [],
   singleMockPaper: {},
+  userMaterials: [],
+  userMockPapers: [],
+  userCourses: [],
+  courseSections: [],
+  sectionVideos: [],
+  courseVideo: {},
+  courseDetails: {},
+  isCreating: false,
 };
 
 const myResourceSlice = createSlice({
   name: "myresource",
   initialState: myResourceinitialState,
   reducers: {
+    creating(state, action) {
+      state.isCreating = action.payload.isCreating;
+    },
     getAllCourses(state, action) {
       state.allCourses = action.payload.allCourses;
     },
+    getCourseSections(state, action) {
+      state.courseSections = action.payload.courseSections;
+    },
+    getSectionVideos(state, action) {
+      state.sectionVideos = action.payload.sectionVideos;
+    },
+    getCourseVideo(state, action) {
+      state.courseVideo = action.payload.courseVideo;
+    },
+    geSingleCourseDetail(state, action) {
+      state.courseDetails = action.payload.courseDetails;
+    },
+
     getAllExams(state, action) {
       state.allExams = action.payload.allExams;
     },
@@ -34,6 +58,15 @@ const myResourceSlice = createSlice({
     },
     getSingleMockpaper(state, action) {
       state.singleMockPaper = action.payload.singleMockPaper;
+    },
+    getUserMockPapers(state, action) {
+      state.userMockPapers = action.payload.userMockPapers;
+    },
+    getUserCourses(state, action) {
+      state.userCourses = action.payload.userCourses;
+    },
+    getUserMaterials(state, action) {
+      state.userMaterials = action.payload.userMaterials;
     },
   },
 });

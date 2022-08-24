@@ -5,7 +5,7 @@ import MentorListItem from "./MentorListItem";
 function MentorList() {
   const { allMentors } = useSelector((state) => state.user);
   const [mentorId, setmentorId] = useState();
-  console.log(mentorId);
+  console.log(allMentors);
   return (
     <div>
       <div className=" mx-auto  justify-items-center h-screen pt-6 pb-44 mr-4  space-y-3 overflow-y-auto overscroll-none no-scrollbar">

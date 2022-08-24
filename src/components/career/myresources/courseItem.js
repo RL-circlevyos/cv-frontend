@@ -2,10 +2,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PersonImage from "../../../assets/person.png";
 
-function courseItem({ coursename, username, thumbail, userprofile }) {
+function courseItem({
+  coursename,
+  username,
+  thumbail,
+  userprofile,
+  id,
+  isMentorDashBoard,
+}) {
   return (
     <Link
-      to={`/career-guide/myresources/courses/12`}
+      to={
+        isMentorDashBoard
+          ? `/dashboard/mentor/create-course/${id}`
+          : `/career-guide/myresources/courses/${id}`
+      }
       className="cursor-pointer"
     >
       <img
@@ -22,7 +33,7 @@ function courseItem({ coursename, username, thumbail, userprofile }) {
         <div className="flex space-x-2 items-center ">
           <img
             src={userprofile ? userprofile : PersonImage}
-            alt="Avatar"
+            alt={username}
             className="w-7 h-7 rounded-full"
           />
           <div className="text-sm">{username}</div>

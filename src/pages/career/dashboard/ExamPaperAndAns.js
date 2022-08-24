@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CareerNavbar from "../../../components/career/CareerNavbar";
 import CareerSidebar from "../../../components/career/CareerSidebar";
 import Navbar from "../../../components/Navbar";
 import ExamPaperItem from "./ExamPaperItem";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserMockPaperAction } from "../../../store/apps/myresources/myresource-action";
 
 function ExamPaperAndAns() {
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
+  const { userMockPapers } = useSelector((state) => state.myresource);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUserMockPaperAction(token));
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dispatch, token]);
+
+  console.log(userMockPapers);
   return (
     <div className="fixed h-screen w-screen">
       <Navbar />
@@ -31,13 +48,18 @@ function ExamPaperAndAns() {
                 className="grid grid-cols-4 px-5 py-5 gap-6"
                 // id="style-8"
               >
-                <ExamPaperItem />
-                <ExamPaperItem />
-                <ExamPaperItem />
-                <ExamPaperItem />
-                <ExamPaperItem />
-                <ExamPaperItem />
-                <ExamPaperItem />
+                {userMockPapers?.mockPapers?.map((mockPaper) => (
+                  <>
+                    <ExamPaperItem
+                      key={mockPaper?._id}
+                      id={mockPaper?._id}
+                      paperDetails={mockPaper?.details}
+                      papername={mockPaper?.papername}
+                      username={mockPaper?.user?.name}
+                      publishdate={mockPaper?.createdAt}
+                    />
+                  </>
+                ))}
               </div>
             </div>
           </div>

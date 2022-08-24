@@ -4,11 +4,12 @@ import WorkItem from "./WorkItem";
 
 function RecommendedJobs() {
   const { allJobs } = useSelector((state) => state.job);
-  console.log(allJobs);
+  const { userDetails } = useSelector((state) => state.auth);
+
   return (
     <div className=" flex-1 ">
-      <div className="text-2 xl font-bold p-2 bg-gray-50 text-purple-700">
-        Recommended Jobs
+      <div className="text-2xl font-bold p-2 bg-gray-50 text-purple-700">
+        {userDetails.jobProviderStatus ? "All jobs" : "Recommended Jobs"}
       </div>
 
       <div className="h-screen  space-y-2 overflow-y-auto no-scrollbar px-3 py-2 bg-gray-50">
@@ -25,6 +26,7 @@ function RecommendedJobs() {
                   username={job?.user?.name}
                   userprofileimg={job?.user?.photo?.secure_url}
                   key={job?._id}
+                  id={job?._id}
                 />
               </>
             ))}

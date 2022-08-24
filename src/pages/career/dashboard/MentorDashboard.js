@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CareerNavbar from "../../../components/career/CareerNavbar";
 import CareerSidebar from "../../../components/career/CareerSidebar";
 import Navbar from "../../../components/Navbar";
 import StudyMaterialItem from "../../../components/career/myresources/StudyMaterialItem";
 
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserNotesAction } from "../../../store/apps/myresources/myresource-action";
 
 function MentorDashboard() {
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
+  const { userMaterials } = useSelector((state) => state.myresource);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUserNotesAction(token));
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [dispatch, token]);
+
+  console.log(userMaterials);
+
   return (
     <div className="h-screen w-screen fixed">
       <Navbar />
@@ -38,14 +55,17 @@ function MentorDashboard() {
                     className="grid grid-cols-6  px-5 py-5 gap-6"
                     // id="style-8"
                   >
-                    <StudyMaterialItem />
-                    <StudyMaterialItem />
-                    <StudyMaterialItem />
-                    <StudyMaterialItem />
-                    <StudyMaterialItem />
-                    <StudyMaterialItem />
-                    <StudyMaterialItem />
-                    <StudyMaterialItem />
+                    {userMaterials?.studyMaterials?.map((material) => (
+                      <>
+                        <StudyMaterialItem
+                          key={material?._id}
+                          id={material?._id}
+                          name={material?.name}
+                          username={material?.user?.name}
+                          thumbnail={material?.thumbnail?.secure_url}
+                        />
+                      </>
+                    ))}
                   </div>
                 </div>
               </div>

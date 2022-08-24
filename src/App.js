@@ -54,7 +54,7 @@ import MyQnaSingleQDetail from "./components/career/qna/MyQnaSingleQDetail";
 import Counselling from "./pages/career/Counselling";
 import MyJobs from "./pages/career/Work/MyJobs";
 
-import SingleJobDetail from "./components/career/ReadyForWork/SingleJobDetail";
+import SingleJobDetail from "./pages/career/Work/SingleJobDetail";
 import JobPost from "./pages/career/Work/JobPost";
 import JobSeekers from "./pages/career/Work/JobSeekers";
 import CareerDashboard from "./pages/career/dashboard/CareerDashboard";
@@ -67,6 +67,12 @@ import CreateMockPaper from "./pages/career/dashboard/CreateMockPaper";
 import SingleCourse from "./pages/career/myresources/SingleCourse";
 import SingleMockPapersndAns from "./pages/career/myresources/SingleMockPapersndAns";
 import SingleStudyMaterial from "./pages/career/myresources/SingleStudyMaterial";
+import MyCoure from "./pages/career/dashboard/MyCoure";
+import CreateCourse from "./pages/career/dashboard/CreateCourse";
+import SingleSection from "./pages/career/dashboard/SingleSection";
+import JobProfile from "./pages/career/dashboard/JobProfile";
+import SingleMyJob from "./pages/career/Work/SingleMyJob";
+import MyBio from "./pages/career/dashboard/MyBio";
 
 function App() {
   const dispatch = useDispatch();
@@ -172,20 +178,35 @@ function App() {
         <Route path="/career-guide/jobseekers" element={<JobSeekers />} />
         <Route path="/career-guide/work/:id" element={<SingleJobDetail />} />
         <Route path="/career-guide/myjobs" element={<MyJobs />} />
+        <Route path="/career-guide/myjobs/:id" element={<SingleMyJob />} />
 
         {/* Dashboards */}
         <Route path="/dashboard/career" element={<CareerDashboard />} />
+        <Route path="/dashboard/myjobBiodata" element={<MyBio />} />
+        <Route
+          path="/dashboard/career/jobprofile/:id"
+          element={<JobProfile />}
+        />
         <Route path="/dashboard/mentor/mynotes" element={<MentorDashboard />} />
         <Route path="/dashboard/mentor/create-note" element={<CreateNote />} />
         <Route
           path="/dashboard/mentor/create-mockpaper"
           element={<CreateMockPaper />}
         />
+        <Route
+          path="/dashboard/mentor/create-course/:courseid"
+          element={<CreateCourse />}
+        />
+        <Route
+          path="/dashboard/mentor/create-courses/:courseid/sections/:sectionid"
+          element={<SingleSection />}
+        />
         <Route path="/dashboard/job" element={<JobProviderDashboard />} />
         <Route
           path="/dashboard/mentor/papers&ans"
           element={<ExamPaperAndAns />}
         />
+        <Route path="/dashboard/mentor/mycourses" element={<MyCoure />} />
 
         {/*  user requests  */}
         <Route

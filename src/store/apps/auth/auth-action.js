@@ -408,6 +408,83 @@ export const myDetailsAction = (token) => {
   };
 };
 
+// * add job experience
+export const addJobExperienceAction = (token, jobExpBody) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const addJobExperience = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/addjobexp`,
+
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify(jobExpBody),
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+      /**toast.success("successfully updated");*/
+      const responseData = await response.json();
+      return responseData.user;
+    };
+
+    try {
+      await addJobExperience();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// * get job experience
+export const getJobExperiencesAction = (token) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const getJobExperiences = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/getjobexps`,
+        // "http://localhost:3699/api/v1/authstate",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      const responseData = await response.json();
+      return responseData;
+    };
+
+    try {
+      const response = await getJobExperiences();
+      console.log(response);
+      // dispatch(
+      //   authAction.getImagines({
+      //     userImagines: response,
+      //   })
+      // );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const userImaginesAction = (id, token) => {
   return async (dispatch) => {
     // 📈 send data to database
@@ -643,9 +720,132 @@ export const userJobProviderReqAction = (reqQuestionBody, token) => {
     };
 
     try {
-      await jobProviderReq();
+      const res = await jobProviderReq();
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
   };
+};
+
+// * mentor request
+export const mentorReqAction = (reqQuestionBody, token) => {
+  return async (dispatch) => {
+    // 📈 send data to database
+    const mentorReq = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/mentorrequest`,
+
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            Authorization: token,
+          },
+          body: reqQuestionBody,
+        }
+      );
+
+      /**console.log(response);*/
+
+      // checking response status
+      if (!response.ok) {
+        throw Error("authentication failed");
+      }
+
+      return response;
+    };
+
+    try {
+      const res = await mentorReq();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const switchToGenAction = (token) => async (dispatch) => {
+  const switchToGen = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/switchtogen`,
+      {
+        credentials: "include",
+        method: "PATCH",
+        mode: "cors",
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw Error("Error occured in career detail fetch");
+    }
+
+    const data = await response.json();
+
+    return data;
+  };
+
+  try {
+    await switchToGen();
+  } catch (error) {}
+};
+
+// switch to mentor
+export const switchToMentorAction = (token) => async (dispatch) => {
+  const switchToMentor = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/switchtomentor`,
+      {
+        credentials: "include",
+        method: "PATCH",
+        mode: "cors",
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw Error("Error occured in career detail fetch");
+    }
+
+    const data = await response.json();
+
+    return data;
+  };
+
+  try {
+    await switchToMentor();
+  } catch (error) {}
+};
+
+// switch to job provider
+export const switchToJobProviderAction = (token) => async (dispatch) => {
+  const switchToJobProvider = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/switchtojobprovider`,
+      {
+        credentials: "include",
+        method: "PATCH",
+        mode: "cors",
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw Error("Error occured in career detail fetch");
+    }
+
+    const data = await response.json();
+
+    return data;
+  };
+
+  try {
+    await switchToJobProvider();
+  } catch (error) {}
 };

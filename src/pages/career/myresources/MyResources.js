@@ -16,11 +16,14 @@ import {
   getAllNotesAction,
 } from "../../../store/apps/myresources/myresource-action";
 import CareerStatus from "../../../components/career/myresources/CareerStatus";
+import { useParams, useSearchParams } from "react-router-dom";
 
 function MyResources() {
   const { allCourses, allMaterials } = useSelector((state) => state.myresource);
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { userDetails } = useSelector((state) => state.auth);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(getAllCourseAction(auth.token));
@@ -45,7 +48,11 @@ function MyResources() {
           {/* career rources list */}
           <div className="bg-gray-50 px-3 h-screen w-screen overflow-y-auto no-scrollbar ">
             {/* section 1 */}
-            <CareerStatus />
+            {userDetails?.mentorStatus && userDetails?.jobProviderStatus ? (
+              ""
+            ) : (
+              <CareerStatus />
+            )}
 
             {/* section 2 */}
             <div className="py-4">
@@ -62,6 +69,8 @@ function MyResources() {
                 {slicedArrayCourses?.map((course) => (
                   <>
                     <CourseItem
+                      key={course?._id}
+                      id={course?._id}
                       coursename={course?.name}
                       thumbail={course?.thumbnail?.secure_url}
                       username={course?.user?.name}

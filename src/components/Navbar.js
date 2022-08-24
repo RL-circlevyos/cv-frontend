@@ -192,7 +192,7 @@ function Navbar() {
                     }
                   >
                     <span className="flex items-center space-x-2">
-                      <NewspaperIcon className="w-6 h-6 mr-2" /> Imagines
+                      <NewspaperIcon className="w-6 h-6 mr-2" /> news feed
                     </span>
                   </NavLink>
 
@@ -321,7 +321,7 @@ function Navbar() {
                 ) : (
                   <>
                     <b className="sm:hidden block text-center text-base font-bold">
-                      Create Imagines
+                      Create Article
                     </b>
                     <hr />
                     <NavLink
@@ -379,7 +379,7 @@ function Navbar() {
                   }
                 >
                   <HeartIcon className="h-6 w-6 " />
-                  <b className="sm:hidden  block text-xs">imagines</b>
+                  <b className="sm:hidden  block text-xs">newsfeed</b>
                 </NavLink>
                 <hr />
                 {/* <Link
